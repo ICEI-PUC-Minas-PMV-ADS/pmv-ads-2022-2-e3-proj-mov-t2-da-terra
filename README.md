@@ -1,23 +1,26 @@
-# TÍTULO DO PROJETO
+# DaTerra
 
-`CURSO`
+`Análise e Desenvolvimento de Sistemas`
 
-`DISCIPLINA`
+`Desenvolvimento de Aplicação Mobile`
 
-`SEMESTRE`
+`3° Eixo`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+DaTerra tem como objetivo conectar pequenos produtores de orgânicos com pessoas que buscam uma alimentação saudável.
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Ana Paula Buchholz
+* Carlos Hilario Siqueira Camuzzi
+* Ezequiel Silva de Souza Almeida
+* Gabriel Antônio Lopes Costa 
+* Ila Feitosa da Nóbrega 
+* Júlia de Oliveira Sartori 
+
 
 ## Orientador
 
-* Nome completo do professor 1
+* Mateus Curcino de Lima
 
 ## Instruções de utilização
 
