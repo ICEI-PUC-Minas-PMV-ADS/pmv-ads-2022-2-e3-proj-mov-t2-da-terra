@@ -14,7 +14,7 @@ Nome | Idade | Ocupação
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
-Instagram<br> TikTok<br> Twitter<br> Whatsapp | João Guilherme começou a produzir mais conteúdo em suas redes sociais buscando engajamento e assim aumentar sua clientela enquanto nutricionista, pregando um estilo de vida saudável que vai desde a escolha dos seus alimentos levando em conta sua origem até a rotina de exercícios. Nesse contexto, tenta dar dicas de como se alimentar melhor da forma mais prática possível com o intuito de aumentar a adesão de seus pacientes e seguidores desses hábitos.<br><br> Um aplicativo de orgânicos que facilite a compra de alimentos sem aditivos e ainda poupe o tempo de seus clientes de ir até o mercado parece ideal, e até o próprio João Guilherme que tem uma rotina muito corrida entre atendimentos, seus treinos e família. | Dificuldade de encontrar alimentos sem fertilizantes e pesticidas, além de conservantes nos industrializados;<br><br>  Pouco tempo para ir no mercado. | Gosta de participar de campeonatos de CrossFit;<br><br> É nutricionista há 10 anos, casou-se há 5 e tem uma filha de 3 anos de idade.
+Instagram<br><br> TikTok<br><br> Twitter<br><br> Whatsapp | João Guilherme começou a produzir mais conteúdo em suas redes sociais buscando engajamento e assim aumentar sua clientela enquanto nutricionista, pregando um estilo de vida saudável que vai desde a escolha dos seus alimentos levando em conta sua origem até a rotina de exercícios. Nesse contexto, tenta dar dicas de como se alimentar melhor da forma mais prática possível com o intuito de aumentar a adesão de seus pacientes e seguidores desses hábitos.<br><br> Um aplicativo de orgânicos que facilite a compra de alimentos sem aditivos e ainda poupe o tempo de seus clientes de ir até o mercado parece ideal, e até o próprio João Guilherme que tem uma rotina muito corrida entre atendimentos, seus treinos e família. | Dificuldade de encontrar alimentos sem fertilizantes e pesticidas, além de conservantes nos industrializados;<br><br>  Pouco tempo para ir no mercado. | Gosta de participar de campeonatos de CrossFit;<br><br> É nutricionista há 10 anos, casou-se há 5 e tem uma filha de 3 anos de idade.
 
 ________________________________________________________________________________________
 Nome | Idade | Ocupação
@@ -23,7 +23,7 @@ Nome | Idade | Ocupação
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
-Instagram<br> Facebook<br>  Whatsapp |  Sobrevivente de um câncer de mama, Sara foi aconselhada por seus médicos a procurar alimentos sem muitos aditivos/agrotóxicos.<br><br> Entre cuidar da casa, criar suas duas filhas e atender às suas obrigações enquanto professora e orientadora em uma universidade, fica muito cansativo ter que ir até ao mercado, levando em consideração que sua energia e disposição diminuíram depois do câncer e da quimioterapia. | Ter que readaptar seu estilo de vida para diminuir o risco de reincidência da doença.<br><br>  Dificuldade em encontrar boas opções de alimentos orgânicos nos mercados tradicionais | * Ciclismo<br><br> Filha de pais japoneses<br><br> Professora de Sistemas de informações
+Instagram<br><br> Facebook<br><br>  Whatsapp |  Sobrevivente de um câncer de mama, Sara foi aconselhada por seus médicos a procurar alimentos sem muitos aditivos/agrotóxicos.<br><br> Entre cuidar da casa, criar suas duas filhas e atender às suas obrigações enquanto professora e orientadora em uma universidade, fica muito cansativo ter que ir até ao mercado, levando em consideração que sua energia e disposição diminuíram depois do câncer e da quimioterapia. | Ter que readaptar seu estilo de vida para diminuir o risco de reincidência da doença.<br><br>  Dificuldade em encontrar boas opções de alimentos orgânicos nos mercados tradicionais | Ciclismo<br><br> Filha de pais japoneses<br><br> Professora de Sistemas de informações
 
 ________________________________________________________________________________________
 Nome | Idade | Ocupação
@@ -32,7 +32,7 @@ Nome | Idade | Ocupação
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
-Instagram<br> Facebook<br>  Whatsapp | Gustavo toma conta de um pequeno sítio a 30 minutos da cidade mais próxima, herdado de seu pai e vive do que planta lá junto com sua esposa e filhos. Participa de feiras para pequenos produtores que ocorrem mensal e semanalmente para vender seu excedente e tira sua renda disso. Atualmente está investindo em tentar vender seus produtos virtualmente através de um perfil no Instagram, mas organizar os pedidos manualmente e recebê-los por mensagem direta não é tão eficiente.<br><br> Uma plataforma centralizada em que pudesse colocar suas mercadorias e só ter que se preocupar com o delivery semanal sem ter que lidar diretamente com o cliente seria o ideal.  |  Baixa eficiência em vender seus produtos por mensagem direta no Instagram, fora o trabalho em atualizar o perfil com seus produtos semanalmente;<br><br> Muitas feiras das quais participa têm seu público limitado. | Ensinar todos os 3 filhos sobre o cuidado com a horta e plantações e também com os animais do sítio.<br><br> Largou seu trabalho em uma firma de advocacia para se dedicar totalmente a seu sítio, após a morte do pai.
+Instagram<br><br> Facebook<br><br>  Whatsapp | Gustavo toma conta de um pequeno sítio a 30 minutos da cidade mais próxima, herdado de seu pai e vive do que planta lá junto com sua esposa e filhos. Participa de feiras para pequenos produtores que ocorrem mensal e semanalmente para vender seu excedente e tira sua renda disso. Atualmente está investindo em tentar vender seus produtos virtualmente através de um perfil no Instagram, mas organizar os pedidos manualmente e recebê-los por mensagem direta não é tão eficiente.<br><br> Uma plataforma centralizada em que pudesse colocar suas mercadorias e só ter que se preocupar com o delivery semanal sem ter que lidar diretamente com o cliente seria o ideal. | Baixa eficiência em vender seus produtos por mensagem direta no Instagram, fora o trabalho em atualizar o perfil com seus produtos semanalmente;<br><br> Muitas feiras das quais participa têm seu público limitado. | Ensinar todos os 3 filhos sobre o cuidado com a horta e plantações e também com os animais do sítio.<br><br> Largou seu trabalho em uma firma de advocacia para se dedicar totalmente a seu sítio, após a morte do pai.
 
 ________________________________________________________________________________________
 Nome | Idade | Ocupação
@@ -41,16 +41,16 @@ Nome | Idade | Ocupação
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
-Instagram<br> TikTok<br> Twitter<br> Whatsapp | Por trabalhar em uma ONG que atua em prol da proibição e diminuição do uso de agrotóxicos nos seus alimentos e pela reforma agrária, Maria Joana consome apenas produtos orgânicos comprados diretamente de pequenos agricultores.  | Dificuldade em encontrar sempre presencialmente os agricultores no meio da rotina, o que a deixa sem alguns alimentos essenciais vez ou outra pois se recusa a comprar de grandes redes de supermercados. | Gosta de trabalhar com arte e artesanato em seu tempo livre.
+Instagram<br><br> TikTok<br><br> Twitter<br><br> Whatsapp | Por trabalhar em uma ONG que atua em prol da proibição e diminuição do uso de agrotóxicos nos seus alimentos e pela reforma agrária, Maria Joana consome apenas produtos orgânicos comprados diretamente de pequenos agricultores. | Dificuldade em encontrar sempre presencialmente os agricultores no meio da rotina, o que a deixa sem alguns alimentos essenciais vez ou outra pois se recusa a comprar de grandes redes de supermercados. | Gosta de trabalhar com arte e artesanato em seu tempo livre.
 
 ________________________________________________________________________________________
 Nome | Idade | Ocupação
 ---|---|---
-![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**Ana Alice Soares** | 27 anos | Estudante de Enfermagem;<br><br> Mãe solo;<br><br> Também trabalha meio período em uma livraria local pertencente ao avô de uma de suas amigas, com o intuito de conseguir manter seus estudos e ainda colaborar em casa e na criação de seu filho. 
+![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**Ana Alice Soares** | 27 anos | Estudante de Enfermagem;<br><br> Mãe solo;<br><br> trabalha meio período em uma livraria local. 
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
-Instagram<br> TikTok<br> Twitter<br> | Encontrar o equilíbrio entre investir em si mesma para alcançar seu sonho de ser enfermeira, agora que está de volta ao ensino superior, e prover as melhores condições e oportunidades para o crescimento de seu filho de 5 anos, colaborando em suas despesas que são arcadas majoritariamente pelos avós do menino (seus pais).<br><br> Conciliar essa vida corrida com alimentação saudável. | Gosta de gravar conteúdo para a rede social Instagram sobre ser mãe de primeira viagem e solteira, tendo uma base modesta mas sólida de seguidores. Ultimamente tem se interessado por ambientalismo e sustentabilidade;<br><br> Pouco ou nenhum tempo livre e anda se alimentando mau. | Gosta de gravar conteúdo para a rede social Instagram sobre ser mãe de primeira viagem e solteira, tendo uma base modesta mas sólida de seguidores.<br><br> Ultimamente tem se interessado por ambientalismo e sustentabilidade;<br><br> Tornou-se mãe solteira aos 22 anos, quando ainda estava no 3º período de enfermagem. Decidiu dar uma pausa nos estudos por uns anos até que seu filho fosse maior. 
+Instagram<br><br> TikTok<br><br> Twitter | Encontrar o equilíbrio entre investir em si mesma para alcançar seu sonho de ser enfermeira, agora que está de volta ao ensino superior, e prover as melhores condições e oportunidades para o crescimento de seu filho de 5 anos, colaborando em suas despesas que são arcadas majoritariamente pelos avós do menino (seus pais).<br><br> Conciliar essa vida corrida com alimentação saudável. | Gosta de gravar conteúdo para a rede social Instagram sobre ser mãe de primeira viagem e solteira, tendo uma base modesta mas sólida de seguidores. Ultimamente tem se interessado por ambientalismo e sustentabilidade;<br><br> Pouco ou nenhum tempo livre e anda se alimentando mau. | Gosta de gravar conteúdo para a rede social Instagram sobre ser mãe de primeira viagem e solteira, tendo uma base modesta mas sólida de seguidores.<br><br> Ultimamente tem se interessado por ambientalismo e sustentabilidade;<br><br> Tornou-se mãe solteira aos 22 anos, quando ainda estava no 3º período de enfermagem. Decidiu dar uma pausa nos estudos por uns anos até que seu filho fosse maior. 
 
 ## Histórias de Usuários
 
@@ -105,30 +105,31 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| Permitir que o usuário cadastre tarefas | ALTA | 
-|RF-002| Emitir um relatório de tarefas no mês   | MÉDIA |
+|RF-001| O usuário deve se cadastrar no APP, com endereço, nome, data de nascimento, telefone e e-mail  | MÉDIA | 
+|RF-002| O usuário deve ter a opção para de ser cliente ou produtor na tela de cadastro | MÉDIA |
+|RF-003|O usuário deve fazer login no sistema para realizar pedidos ou anunciar produtos  | MÉDIA |
+|RF-004| O produtor deve cadastrar seus produtos com nome, categoria, descrição, foto, preço e informações adicionais  | ALTA |
+|RF-005| O produtor deve anunciar seus produtos no APP  | ALTA |
+|RF-006| O cliente deve ter acesso a filtros para busca por nome e categoria do produto  | MÉDIA |
+|RF-007| O cliente deve ter a opção de realizar buscas em um raio de distância a partir da própria localização  | BAIXA |
+|RF-008| O cliente deve ter a opção de comprar o produto, indicando a quantidade de KG / UN  | ALTA |
+|RF-009| O cliente deve ter a opção de cancelar o pedido  | MÉDIA |
+|RF-010| O cliente precisa receber dados de contato do produtor, como nome, telefone e e-mail ao realizar o pedido  | BAIXA |
+|RF-011| O produtor precisa receber dados de contato do cliente, como nome, telefone e e-mail quando receber o pedido  | BAIXA |
+|RF-012| O cliente deve ter a opção de avaliar o produtor  | BAIXA |
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móvel | MÉDIA | 
-|RNF-002| Deve processar requisições do usuário em no máximo 3s |  BAIXA | 
-
-Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
-
-- [Requisitos Funcionais
- (RF)](https://pt.wikipedia.org/wiki/Requisito_funcional):
- correspondem a uma funcionalidade que deve estar presente na
-  plataforma (ex: cadastro de usuário).
-- [Requisitos Não Funcionais
-  (RNF)](https://pt.wikipedia.org/wiki/Requisito_n%C3%A3o_funcional):
-  correspondem a uma característica técnica, seja de usabilidade,
-  desempenho, confiabilidade, segurança ou outro (ex: suporte a
-  dispositivos iOS e Android).
-Lembre-se que cada requisito deve corresponder à uma e somente uma
-característica alvo da sua solução. Além disso, certifique-se de que
-todos os aspectos capturados nas Histórias de Usuário foram cobertos.
+|RNF-001| O app deve ser desenvolvido em JS com o Framework React Native | ALTA | 
+|RNF-002| O aplicativo deve estar disponível 24 horas 7 dias da semana. |  MÉDIA | 
+|RNF-003| A senha do usuário deve ser criptografada | ALTA | 
+|RNF-004| O aplicativo deve ter funcionalidades deve ser fácil domínio  |  MÉDIA | 
+|RNF-005| O aplicativo deve possuir a UI intuitiva e de fácil entendimento   |  ALTA | 
+|RNF-006| O aplicativo deve ter uma boa eficiência no uso da bateria do aparelho | BAIXA | 
+|RNF-007| A busca por produtos deve retornar os itens desejado em menos de 3 segundos. | BAIXA | 
+|RNF-008| O sistema persistir os dados, de forma que em situações de falha do app ou perda de conexão, informações importantes para o usuário não se percam  | BAIXA | 
 
 ## Restrições
 
@@ -136,27 +137,13 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 
 |ID| Restrição                                             |
 |--|-------------------------------------------------------|
-|01| O projeto deverá ser entregue até o final do semestre |
-|02| Não pode ser desenvolvido um módulo de backend        |
+|01| O projeto deverá ser entregue até a data 07/12/2022	|
 
-Enumere as restrições à sua solução. Lembre-se de que as restrições geralmente limitam a solução candidata.
-
-> **Links Úteis**:
-> - [O que são Requisitos Funcionais e Requisitos Não Funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
-> - [O que são requisitos funcionais e requisitos não funcionais?](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
 
 ## Diagrama de Casos de Uso
 
-O diagrama de casos de uso é o próximo passo após a elicitação de requisitos, que utiliza um modelo gráfico e uma tabela com as descrições sucintas dos casos de uso e dos atores. Ele contempla a fronteira do sistema e o detalhamento dos requisitos funcionais com a indicação dos atores, casos de uso e seus relacionamentos. 
-
-As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de Casos de Uso”.
-
-> **Links Úteis**:
-> - [Criando Casos de Uso](https://www.ibm.com/docs/pt-br/elm/6.0?topic=requirements-creating-use-cases)
-> - [Como Criar Diagrama de Caso de Uso: Tutorial Passo a Passo](https://gitmind.com/pt/fazer-diagrama-de-caso-uso.html/)
-> - [Lucidchart](https://www.lucidchart.com/)
-> - [Astah](https://astah.net/)
-> - [Diagrams](https://app.diagrams.net/)
+O diagrama de casos de uso a seguir demonstra as principais ligações entre casos de usos e atores, permitindo detalhar os requisitos funcionais identificados na etapa de elicitação.
+<br>INSERIR CASO DE USO
 
 # Matriz de Rastreabilidade
 
