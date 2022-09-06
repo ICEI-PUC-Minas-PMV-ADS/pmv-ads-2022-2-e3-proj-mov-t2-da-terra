@@ -10,11 +10,29 @@ PERSONA DE EXEMPLO...
 ________________________________________________________________________________________
 Nome | Idade | Ocupação
 ---|---|---
-![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**João Guilherme Pereira** | 35 anos | Nutricionista;  Influenciador Digital
+![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**João Guilherme Pereira** | 35 anos | Nutricionista e Influenciador Digital
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
-Instagram<br> TikTok<br> Twitter<br> Whatsapp | João Guilherme começou a produzir mais conteúdo em suas redes sociais buscando engajamento e assim aumentar sua clientela enquanto nutricionista, pregando um estilo de vida saudável que vai desde a escolha dos seus alimentos levando em conta sua origem até a rotina de exercícios. Nesse contexto, tenta dar dicas de como se alimentar melhor da forma mais prática possível com o intuito de aumentar a adesão de seus pacientes e seguidores desses hábitos. Um aplicativo de orgânicos que facilite a compra de alimentos sem aditivos e ainda poupe o tempo de seus clientes de ir até o mercado parece ideal, e até o próprio João Guilherme que tem uma rotina muito corrida entre atendimentos, seus treinos e família. | Dificuldade de encontrar alimentos sem fertilizantes e pesticidas, além de conservantes nos industrializados;<br><br>  Pouco tempo para ir no mercado. | Gosta de participar de campeonatos de CrossFit.<br><br> É nutricionista há 10 anos, casou-se há 5 e tem uma filha de 3 anos de idade.  
+Instagram<br> TikTok<br> Twitter<br> Whatsapp | João Guilherme começou a produzir mais conteúdo em suas redes sociais buscando engajamento e assim aumentar sua clientela enquanto nutricionista, pregando um estilo de vida saudável que vai desde a escolha dos seus alimentos levando em conta sua origem até a rotina de exercícios. Nesse contexto, tenta dar dicas de como se alimentar melhor da forma mais prática possível com o intuito de aumentar a adesão de seus pacientes e seguidores desses hábitos.<br> Um aplicativo de orgânicos que facilite a compra de alimentos sem aditivos e ainda poupe o tempo de seus clientes de ir até o mercado parece ideal, e até o próprio João Guilherme que tem uma rotina muito corrida entre atendimentos, seus treinos e família. | Dificuldade de encontrar alimentos sem fertilizantes e pesticidas, além de conservantes nos industrializados;<br><br>  Pouco tempo para ir no mercado. | Gosta de participar de campeonatos de CrossFit.<br><br> É nutricionista há 10 anos, casou-se há 5 e tem uma filha de 3 anos de idade.
+
+________________________________________________________________________________________
+Nome | Idade | Ocupação
+---|---|---
+![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**Sara Watanabe** | 42 anos | Professora Universitária
+
+Aplicativos | Motivações | Frustrações | Hobbies/História
+---|---|---|---
+Instagram<br> Facebook<br>  Whatsapp |     Sobrevivente de um câncer de mama, Sara foi aconselhada por seus médicos a procurar alimentos sem muitos aditivos/agrotóxicos.<br> Entre cuidar da casa, criar suas duas filhas e atender às suas obrigações enquanto professora e orientadora em uma universidade, fica muito cansativo ter que ir até ao mercado, levando em consideração que sua energia e disposição diminuíram depois do câncer e da quimioterapia. | Ter que readaptar seu estilo de vida para diminuir o risco de reincidência da doença.<br>  Dificuldade em encontrar boas opções de alimentos orgânicos nos mercados tradicionais | * Ciclismo * Filha de pais japoneses * Professora de Sistemas de informações
+
+________________________________________________________________________________________
+Nome | Idade | Ocupação
+---|---|---
+![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**João Guilherme Pereira** | 35 anos | Nutricionista e Influenciador Digital
+
+Aplicativos | Motivações | Frustrações | Hobbies/História
+---|---|---|---
+Instagram<br> TikTok<br> Twitter<br> Whatsapp | João Guilherme começou a produzir mais conteúdo em suas redes sociais buscando engajamento e assim aumentar sua clientela enquanto nutricionista, pregando um estilo de vida saudável que vai desde a escolha dos seus alimentos levando em conta sua origem até a rotina de exercícios. Nesse contexto, tenta dar dicas de como se alimentar melhor da forma mais prática possível com o intuito de aumentar a adesão de seus pacientes e seguidores desses hábitos. Um aplicativo de orgânicos que facilite a compra de alimentos sem aditivos e ainda poupe o tempo de seus clientes de ir até o mercado parece ideal, e até o próprio João Guilherme que tem uma rotina muito corrida entre atendimentos, seus treinos e família. | Dificuldade de encontrar alimentos sem fertilizantes e pesticidas, além de conservantes nos industrializados;<br><br>  Pouco tempo para ir no mercado. | Gosta de participar de campeonatos de CrossFit.<br><br> É nutricionista há 10 anos, casou-se há 5 e tem uma filha de 3 anos de idade.    
 
 
 ## Histórias de Usuários
