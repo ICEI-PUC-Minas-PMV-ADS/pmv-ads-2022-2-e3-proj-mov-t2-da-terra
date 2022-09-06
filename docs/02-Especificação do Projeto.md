@@ -5,7 +5,17 @@ A definição do problema e os pontos mais relevantes a serem tratados nesse pro
 ## Personas
 
 As personas levantadas durante o processo, estão representadas abaixo: 
-TERMINAR...
+PERSONA DE EXEMPLO...
+
+________________________________________________________________________________________
+Nome | Idade | Ocupação
+---|---|---
+![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)**Ana Alice Soares** | 27 anos | Estudante de Enfermagem. Mãe solteira, também trabalha meio período em uma livraria local pertencente ao avô de uma de suas amigas, com o intuito de conseguir manter seus estudos e ainda colaborar em casa e na criação de seu filho.
+
+Aplicativos | Motivações | Frustrações | Hobbies/História
+---|---|---|---
+Instagram<br> TikTok<br> Twitter | Encontrar o equilíbrio entre investir em si mesma para alcançar seu sonho de ser enfermeira, agora que está de volta ao ensino superior, e prover as melhores condições e oportunidades para o crescimento de seu filho, agora com 5 anos, colaborando em suas despesas que são arcadas majoritariamente pelos avós do menino (seus pais). | Não sobra dinheiro algum para extras (roupas, cursos, cinema, entre outros);<br><br> Pouco ou nenhum tempo livre. | Gosta de gravar conteúdo para a rede social Instagram sobre ser mãe de primeira viagem e solteira, tendo uma base modesta, mas sólida de seguidores. Ultimamente tem se interessado por ambientalismo e sustentabilidade.<br><br> Tornou-se mãe solteira aos 22 anos, quando ainda estava no 3º período de enfermagem; decidiu dar uma pausa nos estudos por uns anos até que seu filho fosse maior.  
+
 
 ## Histórias de Usuários
 
