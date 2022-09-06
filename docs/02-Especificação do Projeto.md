@@ -10,7 +10,7 @@ PERSONA DE EXEMPLO...
 ________________________________________________________________________________________
 Nome | Idade | Ocupação
 ---|---|---
-![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)**João Guilherme Pereira** | 35 anos | Nutricionista;  Influenciador Digital
+![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**João Guilherme Pereira** | 35 anos | Nutricionista;  Influenciador Digital
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
