@@ -181,6 +181,14 @@ O gerenciamento adequado de tarefas contribuirá para que o projeto alcance alto
 
 ## Gestão de Orçamento
 
+O levantamento em relação a Gestão do Orçamento foi dividida em 2 pontos: Despesas com a equipe e despesas com os equipamentos.
+
+### Despesa da Equipe
+
+|Nome | Cargo  |Salário Base/Hora | Hora Mês | Total | Vale Refeição/Dia | Quantidade Dias | Total | Vale Tranporte/Mês | Total Geral
+|---|---|---|---|---|---|---|---|---|---|
+| Ana | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
+
 O processo de determinar o orçamento do projeto é uma tarefa que depende, além dos produtos (saídas) dos processos anteriores do gerenciamento de custos, também de produtos oferecidos por outros processos de gerenciamento, como o escopo e o tempo.
 
 ![Orçamento](img/02-orcamento.png)
