@@ -181,9 +181,9 @@ O gerenciamento adequado de tarefas contribuirá para que o projeto alcance alto
 
 ## Gestão de Orçamento
 
-O levantamento em relação a Gestão do Orçamento foi dividida em 2 pontos: Despesas com a equipe e despesas com os equipamentos.
+O levantamento em relação a Gestão do Orçamento foi dividida em 2 pontos: Despesas com equipe e despesa com equipamentos.
 
-### Despesa da Equipe
+### Despesa Equipe
 
 |Nome | Cargo  |Salário Base/Hora | Hora Mês | Total | Vale Refeição/Dia | Quantidade Dias | Total | Vale Tranporte/Mês | Total Geral
 |---|---|---|---|---|---|---|---|---|---|
@@ -193,12 +193,19 @@ O levantamento em relação a Gestão do Orçamento foi dividida em 2 pontos: De
 | Gabriel | Desenvolvedor | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
 | Ila | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
 | Júlia | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
-| | | | | | | | | | R$ 35.560,00 |
+| | | | | | | | | **Total Geral** | **R$ 35.560,00** |
 
-
-
-
-
-O processo de determinar o orçamento do projeto é uma tarefa que depende, além dos produtos (saídas) dos processos anteriores do gerenciamento de custos, também de produtos oferecidos por outros processos de gerenciamento, como o escopo e o tempo.
-
-![Orçamento](img/02-orcamento.png)
+### Despesa Equipamentos
+| Nome Equipamento | Quantidade | Valor Unitário | Total |
+|---|---|---|---|
+| Servidor DELL Poweredge T440 Básico (réplica e backup) | 3 |  R$  40.000,00  |  R$  120.000,00  |
+| Switch HP 48p POE | 1 | R$  5.000,00  |  R$  5.000,00  |
+| Rack DELL Servidor Torre | 1 | R$  6.500,00  |  R$  6.500,00 |
+| Patch Panel Cat 6 24 portas Furukawa | 1 | R$  1.000,00  |  R$  1.000,00 |
+| PATCH CORD U/UTP GIGALAN CAT.6 | 48 | R$  60,00  |  R$  2.880,00 |
+| OptiPlex 7000 Micro i7 16gb 256ssd wireless W11P Office | 6 | R$  8.169,00  |  R$  49.014,00 |
+| Monitor 23.8" Dell P2422H | 6 | R$  1.798,00  |  R$  10.788,00 |
+| Endpoint Security for Windows | 9 | R$  120,00  | R$  1.080,00 |
+| IAP Aruba | 1 | R$  1.500,00  |  R$  1.500,00 |
+| Cabo Furukawa Cat6 100mt | 1 | R$  2.000,00  |  R$  2.000,00 |
+| | | **Total Geral** |  **R$  199.762,00** | 
