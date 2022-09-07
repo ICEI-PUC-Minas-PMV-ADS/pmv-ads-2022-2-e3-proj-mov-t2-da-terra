@@ -187,10 +187,10 @@ O levantamento em relação a Gestão do Orçamento foi dividida em 2 pontos: De
 
 |Nome | Cargo  |Salário Base/Hora | Hora Mês | Total | Vale Refeição/Dia | Quantidade Dias | Total | Vale Tranporte/Mês | Total Geral
 |---|---|---|---|---|---|---|---|---|---|
-| Ana | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
-| Carlos | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
-| Ezequiel | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
-| Gabriel | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
+| Ana | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
+| Carlos | Desenvolvedor | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
+| Ezequiel | Desenvolvedor | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
+| Gabriel | Desenvolvedor | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
 | Ila | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
 | Júlia | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
 | | | | | | | | | | R$ 35.560,00 |
