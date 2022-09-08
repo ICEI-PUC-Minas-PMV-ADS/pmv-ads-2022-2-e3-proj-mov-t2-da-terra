@@ -198,7 +198,7 @@ O levantamento em relação a Gestão do Orçamento foi dividida em 2 pontos: De
 | Gabriel | Desenvolvedor | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
 | Ila | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
 | Júlia | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
-| | | | | | | | | **Total Geral** | **R$ 35.560,00** |
+| | | | | | | | | **Total Geral** | **R$ 35.256,00** |
 
 ### Despesa Equipamentos
 | Nome Equipamento | Quantidade | Valor Unitário | Total |
