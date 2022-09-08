@@ -175,7 +175,12 @@ O gráfico de Gantt ou diagrama de Gantt também é uma ferramenta visual utiliz
 
 ## Gerenciamento de Equipe
 
-O gerenciamento adequado de tarefas contribuirá para que o projeto alcance altos níveis de produtividade. Por isso, é fundamental que ocorra a gestão de tarefas e de pessoas, de modo que os times envolvidos no projeto possam ser facilmente gerenciados. 
+Serão realizadas 2 reuniões semanais para acompanhamento do andamento dos Sprints, uma delas com o professor onde deverão ser apresentados os resultados obtidos ao longo da semana e uma reunião entre os integrantes da equipe.
+Os integrantes da equipe deverão utilizar o método Kanban via trello ou semelhante para acompanhamento das etapas de desenvolvimento do projeto e sprints registrando aquilo que está pendente para ser iniciado, aquilo que já está em produção e aquilo já foi concluído.
+O próprio time criou e atribuiu as tarefas para seus membros de forma a atender os propósitos e princípios do Scrum.
+Deverá haver uma cooperação entre todos os membros da equipe de forma que se peça ajuda e se ajudem mutuamente o tempo inteiro.
+
+**INSERIR QUADRO**
 
 ![Simple Project Timeline](img/02-project-timeline.png)
 
