@@ -83,7 +83,10 @@ Podemos avaliar em três pontos principais:
 * Para os clientes: Facilidade de receber seus alimentos orgânicos em casa e a economia de tempo em ir a mercados, muitas vezes com longas filas;
 * Para a sociedade: Estímulo ao comércio local e a um estilo de vida mais sustentável.
 
-Em se tratando de limitações, podemos elencar a venda em atacado, que não poderá ser contemplada com a modalidade apresentada, além de entrega de produtos a longas distâncias, pois se tornaria inviável devido aos custos envolvidos.
+Dentro das limitações da proposta, podemos elencar:
+* A venda em atacado: Não será contemplada para a modalidade da aplicação apresentada, pois o foco é o varejo;
+* Compra de produtos a longas distâncias: Se tornaria inviável devido aos custos envolvidos. Portanto, a aplicação delimitará o escopo geográfico da busca;
+* Transações financeiras: Não está na proposta da aplicação. Dessa forma, fica a cargo dos envolvidos questões relativas a pagamento. A plataforma apenas oferecerá os contatos das partes.
 
 
 ### Processo 1 – NOME DO PROCESSO
