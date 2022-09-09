@@ -75,7 +75,7 @@ Enquanto grandes redes contam com robustos sistemas de distribuição e capital 
 
 ### Descrição Geral da Proposta
 
-Sendo o mundo atual cada vez mais conectado com as facilidades tecnológicas, a proposta do projeto é desenvolver uma aplicação que faça a conexão direta entre produtores e clientes.<br>
+Sendo o mundo atual cada vez mais conectado com as facilidades tecnológicas, a proposta da aplicação é realizar a conexão direta entre produtores e clientes, reunindo em um mesmo ambiente virtual stakeholders que visam a produção e o consumo de alimentos orgânicos.
 
 Podemos avaliar em três pontos principais:
 
