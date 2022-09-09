@@ -70,11 +70,21 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 
 ### Análise da Situação Atual
 
-Apresente aqui os problemas existentes que viabilizam sua proposta. Apresente o modelo do sistema como ele funciona hoje. Caso sua proposta seja inovadora e não existam processos claramente definidos, apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente, mesmo que não se utilize tecnologia computacional. 
+Com a alta procura por alimentos orgânicos, seja por busca de uma melhor qualidade de vida ou por questões de sustentabilidade, o mercado torna-se cada vez mais competitivo. Hoje, podemos encontrar uma gama de produtos orgânicos sendo oferecidos em lojas físicas ou online. <br>
+Enquanto grandes redes contam com robustos sistemas de distribuição e capital para investimento em merchandising, os pequenos produtores ficam, muitas vezes, restritos a feiras livres, não tendo grande visibilidade. 
 
 ### Descrição Geral da Proposta
 
-Apresente aqui uma descrição da sua proposta abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente aqui as oportunidades de melhorias.
+Sendo o mundo atual cada vez mais conectado com as facilidades tecnológicas, a proposta do projeto é desenvolver uma aplicação que faça a conexão direta entre produtores e clientes.<br>
+
+Podemos avaliar em três pontos principais:
+
+* Para o produtor: A aplicação garantirá maior visibilidade, oportunidade de criar uma vitrine virtual e venda produtos diretamente aos clientes;
+* Para os clientes: Facilidade de receber seus alimentos orgânicos em casa e a economia de tempo em ir a mercados, muitas vezes com longas filas;
+* Para a sociedade: Estímulo ao comércio local e a um estilo de vida mais sustentável.
+
+Em se tratando de limitações, podemos elencar a venda em atacado, que não poderá ser contemplada com a modalidade apresentada, além de entrega de produtos a longas distâncias, pois se tornaria inviável devido aos custos envolvidos.
+
 
 ### Processo 1 – NOME DO PROCESSO
 
