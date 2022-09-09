@@ -199,9 +199,9 @@ O gráfico de Gantt ou diagrama de Gantt também é uma ferramenta visual utiliz
 
 ## Gestão de Orçamento
 
-O levantamento em relação a Gestão do Orçamento foi dividida em 2 pontos: Despesas com equipe e despesa com equipamentos.
+O despesas elencadas durante o planejamento do orçamento seguem abaixo: 
 
-### Despesa Equipe
+### Recursos Humanos
 
 |Nome | Cargo  |Salário Base/Hora | Hora Mês | Total | Vale Refeição/Dia | Quantidade Dias | Total | Vale Tranporte/Mês | Total Geral
 |---|---|---|---|---|---|---|---|---|---|
@@ -213,7 +213,7 @@ O levantamento em relação a Gestão do Orçamento foi dividida em 2 pontos: De
 | Júlia | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
 | | | | | | | | | **Total Geral** | **R$ 35.256,00** |
 
-### Despesa Equipamentos
+### Equipamentos e Licenças
 | Nome Equipamento | Quantidade | Valor Unitário | Total |
 |---|---|---|---|
 | Servidor DELL Poweredge T440 Básico (réplica e backup) | 3 |  R$  40.000,00  |  R$  120.000,00  |
@@ -227,3 +227,44 @@ O levantamento em relação a Gestão do Orçamento foi dividida em 2 pontos: De
 | IAP Aruba | 1 | R$  1.500,00  |  R$  1.500,00 |
 | Cabo Furukawa Cat6 100mt | 1 | R$  2.000,00  |  R$  2.000,00 |
 | | | **Total Geral** |  **R$  199.762,00** | 
+
+### Depesas Gerais Mês
+| Nome | Valor| Quantidade | Total |
+|---|---|---|---|
+| Água | R$ 200,00 | 1 | R$ 200,00 |
+| Luz  | R$ 1.000,00 | 1 | R$ 1.000,00 |
+| Link 1 internet | R$ 150,00 | 1 | R$ 150,00  |
+| Link 2 internet | R$ 150,00 | 1 | R$ 150,00 |
+| Pacote pó de café | R$ 20,00 | 20 |  R$ 400,00 |
+| Condomínio | R$ 400,00 | 1 | R$ 400,00 |
+| Advogado | R$ 1.000,00 | 1 | R$ 1.000,00 |
+| Contador | R$ 300,00 | 1 | R$ 300,00 |
+| Padaria | R$ 300,00 | 1 | R$ 300,00 |
+| Aluguel | R$ 4000,00 | 1 | R$ 4000,00 |
+| | | **Total Geral** | **R$ 7.900,00** |
+
+### Móveis e Cozinha
+| Nome | Quantidade | Valor | Total |
+|---|---|---|---|
+| Mesa para Computador | 6 | R$ 400,00 | R$ 2.400,00  |
+| Cadeira Escritório | 6 | R$ 1.400,00 | R$ 8.400,00 |
+| Secador de Talheres | 1 | R$ 250,00 | R$ 250,00 |
+| Jogo Xícara Café 6pcs | 1 | R$ 35,00 | R$  35,00 |
+| Garrafa de Café | 1 | R$ 150,00 | R$ 150,00 |
+| Cocktop Indução 1 boca | 1 | R$ 330,00 | R$ 330,00 | 
+| Suporte Copos Descartáveis | 2 | R$ 60,00 | R$ 120,00 |
+| Suporte Papel de Parede | 3 | R$ 60,00 | R$ 180,00 |
+| Descanso para os pés | 4 | R$ 90,00 | R$ 540,00 |
+| | | **Total Geral** | **R$ 12.405,00** |
+
+
+### Resumo das Despesas
+| Nome Despesa | Total Mensal  | Quantidade Meses | Total | 
+|---|---|---|---|
+| Recursos Humanos | R$  35.256,00 | 4 | R$ 141.024,00 |
+| Equipamentos TI | R$  199762,00 | 1 | R$ 199.762,00 |
+| Despesas Mensais | R$  7900,00 | 4 | R$ 31.600,00 |
+| Móveis e Cozinha | R$  12405,00 | 1 | R$ 12.405,00 |
+| | | **Total Geral** | **R$ 384.791,00** |
+
+
