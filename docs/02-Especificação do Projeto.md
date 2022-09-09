@@ -204,7 +204,7 @@ O despesas elencadas durante o planejamento do orçamento seguem abaixo:
 ### Recursos Humanos
 
 |Nome | Cargo  |Salário Base/Hora | Hora Mês | Total | Vale Refeição/Dia | Quantidade Dias | Total | Vale Tranporte/Mês | Total Geral
-|---|---|---|---|---|---|---|---|---|---|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Ana | Desenvolvedora | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
 | Carlos | Desenvolvedor | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
 | Ezequiel | Desenvolvedor | R$ 30,00 | 160 | R$ 4.800,00 | R$ 33,00 | 22 | R$ 726,00  | R$ 350,00 | R$ 5.876,00 |
@@ -215,7 +215,7 @@ O despesas elencadas durante o planejamento do orçamento seguem abaixo:
 
 ### Equipamentos e Licenças
 | Nome Equipamento | Quantidade | Valor Unitário | Total |
-|---|---|---|---|
+|---|:---:|:---:|:---:|
 | Servidor DELL Poweredge T440 Básico (réplica e backup) | 3 |  R$  40.000,00  |  R$  120.000,00  |
 | Switch HP 48p POE | 1 | R$  5.000,00  |  R$  5.000,00  |
 | Rack DELL Servidor Torre | 1 | R$  6.500,00  |  R$  6.500,00 |
@@ -230,7 +230,7 @@ O despesas elencadas durante o planejamento do orçamento seguem abaixo:
 
 ### Depesas Gerais Mês
 | Nome | Valor| Quantidade | Total |
-|---|---|---|---|
+|---|:---:|:---:|:---:|
 | Água | R$ 200,00 | 1 | R$ 200,00 |
 | Luz  | R$ 1.000,00 | 1 | R$ 1.000,00 |
 | Link 1 internet | R$ 150,00 | 1 | R$ 150,00  |
@@ -245,7 +245,7 @@ O despesas elencadas durante o planejamento do orçamento seguem abaixo:
 
 ### Móveis e Cozinha
 | Nome | Quantidade | Valor | Total |
-|---|---|---|---|
+|---|:---:|:---:|:---:|
 | Mesa para Computador | 6 | R$ 400,00 | R$ 2.400,00  |
 | Cadeira Escritório | 6 | R$ 1.400,00 | R$ 8.400,00 |
 | Secador de Talheres | 1 | R$ 250,00 | R$ 250,00 |
@@ -260,7 +260,7 @@ O despesas elencadas durante o planejamento do orçamento seguem abaixo:
 
 ### Resumo das Despesas
 | Nome Despesa | Total Mensal  | Quantidade Meses | Total | 
-|---|---|---|---|
+|---|:---:|:---:|:---:|
 | Recursos Humanos | R$  35.256,00 | 4 | R$ 141.024,00 |
 | Equipamentos TI | R$  199762,00 | 1 | R$ 199.762,00 |
 | Despesas Mensais | R$  7900,00 | 4 | R$ 31.600,00 |
