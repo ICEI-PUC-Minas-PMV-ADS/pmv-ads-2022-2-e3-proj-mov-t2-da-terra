@@ -10,7 +10,7 @@ PERSONA DE EXEMPLO...
 ________________________________________________________________________________________
 Nome | Idade | Ocupação
 ---|---|---
-![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**João Guilherme Pereira** | 35 anos | Nutricionista e Influenciador Digital
+![JoãoGuilhermePereira](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/personas/Jo%C3%A3oGuilhermePereira.png)<br>**João Guilherme Pereira** | 35 anos | Nutricionista e Influenciador Digital
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
@@ -19,7 +19,7 @@ Instagram<br><br> TikTok<br><br> Twitter<br><br> Whatsapp | João Guilherme come
 ________________________________________________________________________________________
 Nome | Idade | Ocupação
 ---|---|---
-![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**Sara Watanabe** | 42 anos | Professora Universitária
+![SaraWatanabe](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/personas/SaraWatanabe.png)<br>**Sara Watanabe** | 42 anos | Professora Universitária
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
@@ -28,7 +28,7 @@ Instagram<br><br> Facebook<br><br>  Whatsapp |  Sobrevivente de um câncer de ma
 ________________________________________________________________________________________
 Nome | Idade | Ocupação
 ---|---|---
-![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**Gustavo Moreira** | 37 anos | Pequeno agricultor, tendo seu próprio sítio.
+![GustavoMoreira](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/personas/GustavoMoreira.png)<br>**Gustavo Moreira** | 37 anos | Pequeno agricultor, tendo seu próprio sítio.
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
@@ -37,7 +37,7 @@ Instagram<br><br> Facebook<br><br>  Whatsapp | Gustavo toma conta de um pequeno 
 ________________________________________________________________________________________
 Nome | Idade | Ocupação
 ---|---|---
-![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**Maria Joana Grünechen** | 45 anos | Vice-presidente da ONG Minha Planta Limpinha.
+![MariaJoanaGrünechen](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/personas/MariaJoanaGr%C3%BCnechen.png)<br>**Maria Joana Grünechen** | 45 anos | Vice-presidente da ONG Minha Planta Limpinha.
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
@@ -46,7 +46,7 @@ Instagram<br><br> TikTok<br><br> Twitter<br><br> Whatsapp | Por trabalhar em uma
 ________________________________________________________________________________________
 Nome | Idade | Ocupação
 ---|---|---
-![AnaAlice](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-1-e2-proj-int-t2-babybay/blob/0f63a4cfea122d5909331dfd03d480f6153851eb/image-readme/Persona-AnaAlice.png)<br>**Ana Alice Soares** | 27 anos | Estudante de Enfermagem;<br><br> Mãe solo;<br><br> trabalha meio período em uma livraria local. 
+![AnaAliceSoares](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/personas/AnaAliceSoares.png)<br>**Ana Alice Soares** | 27 anos | Estudante de Enfermagem;<br><br> Mãe solo;<br><br> trabalha meio período em uma livraria local. 
 
 Aplicativos | Motivações | Frustrações | Hobbies/História
 ---|---|---|---
