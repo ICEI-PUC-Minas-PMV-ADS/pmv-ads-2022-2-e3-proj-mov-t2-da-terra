@@ -118,31 +118,31 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 |ID    | Versão | Descrição do Requisito  | Prioridade |
 |:------:|:---:|-----------------------------------------|:----:|
-|RF-001| | 1.0.0 | O usuário deve se cadastrar no APP, com endereço, nome, data de nascimento, telefone e e-mail  | MÉDIA | 
-|RF-002| | 1.0.0 | O usuário deve ter a opção para de ser cliente ou produtor na tela de cadastro | MÉDIA |
-|RF-003| | 1.0.0 | O usuário deve fazer login no sistema para realizar pedidos ou anunciar produtos  | MÉDIA |
-|RF-004| | 1.0.0 | O produtor deve cadastrar seus produtos com nome, categoria, descrição, foto, preço e informações adicionais  | ALTA |
-|RF-005| | 1.0.0 | O produtor deve anunciar seus produtos no APP  | ALTA |
-|RF-006| | 1.0.0 | O cliente deve ter acesso a filtros para busca por nome e categoria do produto  | MÉDIA |
-|RF-007| | 1.0.0 | O cliente deve ter a opção de realizar buscas em um raio de distância a partir da própria localização  | BAIXA |
-|RF-008| | 1.0.0 | O cliente deve ter a opção de comprar o produto, indicando a quantidade de KG / UN  | ALTA |
-|RF-009| | 1.0.0 | O cliente deve ter a opção de cancelar o pedido  | MÉDIA |
-|RF-010| | 1.0.0 | O cliente precisa receber dados de contato do produtor, como nome, telefone e e-mail ao realizar o pedido  | BAIXA |
-|RF-011| | 1.0.0 | O produtor precisa receber dados de contato do cliente, como nome, telefone e e-mail quando receber o pedido  | BAIXA |
-|RF-012| | 1.0.0 | O cliente deve ter a opção de avaliar o produtor  | BAIXA |
+|RF-001| 1.0.0 | O usuário deve se cadastrar no APP, com endereço, nome, data de nascimento, telefone e e-mail  | MÉDIA | 
+|RF-002| 1.0.0 | O usuário deve ter a opção para de ser cliente ou produtor na tela de cadastro | MÉDIA |
+|RF-003| 1.0.0 | O usuário deve fazer login no sistema para realizar pedidos ou anunciar produtos  | MÉDIA |
+|RF-004| 1.0.0 | O produtor deve cadastrar seus produtos com nome, categoria, descrição, foto, preço e informações adicionais  | ALTA |
+|RF-005| 1.0.0 | O produtor deve anunciar seus produtos no APP  | ALTA |
+|RF-006| 1.0.0 | O cliente deve ter acesso a filtros para busca por nome e categoria do produto  | MÉDIA |
+|RF-007| 1.0.0 | O cliente deve ter a opção de realizar buscas em um raio de distância a partir da própria localização  | BAIXA |
+|RF-008| 1.0.0 | O cliente deve ter a opção de comprar o produto, indicando a quantidade de KG / UN  | ALTA |
+|RF-009| 1.0.0 | O cliente deve ter a opção de cancelar o pedido  | MÉDIA |
+|RF-010| 1.0.0 | O cliente precisa receber dados de contato do produtor, como nome, telefone e e-mail ao realizar o pedido  | BAIXA |
+|RF-011| 1.0.0 | O produtor precisa receber dados de contato do cliente, como nome, telefone e e-mail quando receber o pedido  | BAIXA |
+|RF-012| 1.0.0 | O cliente deve ter a opção de avaliar o produtor  | BAIXA |
 
 ### Requisitos não Funcionais
 
 |ID    | Versão | Descrição do Requisito  | Prioridade |
 |:------:|:---:|-----------------------------------------|:----:|
-|RNF-001| | 1.0.0 | O app deve ser desenvolvido em JS com o Framework React Native | ALTA | 
-|RNF-002| | 1.0.0 | O aplicativo deve estar disponível 24 horas 7 dias da semana. |  MÉDIA | 
-|RNF-003| | 1.0.0 | A senha do usuário deve ser criptografada | ALTA | 
-|RNF-004| | 1.0.0 | O aplicativo deve ter funcionalidades deve ser fácil domínio  |  MÉDIA | 
-|RNF-005| | 1.0.0 | O aplicativo deve possuir a UI intuitiva e de fácil entendimento   |  ALTA | 
-|RNF-006| | 1.0.0 | O aplicativo deve ter uma boa eficiência no uso da bateria do aparelho | BAIXA | 
-|RNF-007| | 1.0.0 | A busca por produtos deve retornar os itens desejado em menos de 3 segundos. | BAIXA | 
-|RNF-008| | 1.0.0 | O sistema persistir os dados, de forma que em situações de falha do app ou perda de conexão, informações importantes para o usuário não se percam  | BAIXA | 
+|RNF-001| 1.0.0 | O app deve ser desenvolvido em JS com o Framework React Native | ALTA | 
+|RNF-002| 1.0.0 | O aplicativo deve estar disponível 24 horas 7 dias da semana. |  MÉDIA | 
+|RNF-003| 1.0.0 | A senha do usuário deve ser criptografada | ALTA | 
+|RNF-004| 1.0.0 | O aplicativo deve ter funcionalidades deve ser fácil domínio  |  MÉDIA | 
+|RNF-005| 1.0.0 | O aplicativo deve possuir a UI intuitiva e de fácil entendimento   |  ALTA | 
+|RNF-006| 1.0.0 | O aplicativo deve ter uma boa eficiência no uso da bateria do aparelho | BAIXA | 
+|RNF-007| 1.0.0 | A busca por produtos deve retornar os itens desejado em menos de 3 segundos. | BAIXA | 
+|RNF-008| 1.0.0 | O sistema persistir os dados, de forma que em situações de falha do app ou perda de conexão, informações importantes para o usuário não se percam  | BAIXA | 
 
 ## Restrições
 
