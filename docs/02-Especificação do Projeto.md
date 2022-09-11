@@ -97,10 +97,6 @@ Apresente aqui o nome e as oportunidades de melhorias para o processo 1. Em segu
 
 ### Processo 2 – NOME DO PROCESSO
 
-Apresente aqui o nome e as oportunidades de melhorias para o processo 2. Em seguida, apresente o modelo do processo 2, descrito no padrão BPMN.
-
-![Processo 2](img/02-bpmn-proc2.png)
-
 ## Indicadores de Desempenho
 
 Apresente aqui os principais indicadores de desempenho e algumas metas para o processo. Atenção: as informações necessárias para gerar os indicadores devem estar contempladas no diagrama de classe. Colocar no mínimo 5 indicadores. 
@@ -176,6 +172,7 @@ Para gerenciamento do tempo, utilizaremos o Diagrama de Grantt elencando todas a
 
 ![daterra-grant](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-grant.png)
 ![daterra-grant2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-grant2.png)
+![daterra-grant3](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-grant3.png)
 
 ## Gerenciamento de Equipe
 
