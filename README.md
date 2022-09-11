@@ -1,5 +1,7 @@
 # DaTerra
 
+![logo300x300](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/logo/logo-300x300.png)
+
 `Análise e Desenvolvimento de Sistemas`
 
 `Desenvolvimento de Aplicação Mobile`
