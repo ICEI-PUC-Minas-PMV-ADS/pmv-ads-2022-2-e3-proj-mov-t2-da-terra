@@ -162,16 +162,16 @@ Para gerenciamento do tempo, utilizaremos o Diagrama de Grantt elencando todas a
 
 ## Gerenciamento de Equipe
 
-  Serão realizadas 2 reuniões semanais para acompanhamento do andamento dos Sprints, uma delas com o professor onde deverão ser apresentados os resultados obtidos ao longo da semana e uma reunião entre os integrantes da equipe.<br>
-  Os integrantes da equipe deverão utilizar o método Kanban via trello ou semelhante para acompanhamento das etapas de desenvolvimento do projeto e sprints registrando aquilo que está pendente para ser iniciado, aquilo que já está em produção e aquilo já foi concluído.<br>
-  O próprio time criou e atribuiu as tarefas para seus membros de forma a atender os propósitos e princípios do Scrum.<br>
-  Deverá haver uma cooperação entre todos os membros da equipe de forma que se peça ajuda e se ajudem mutuamente o tempo inteiro.
+Serão realizadas 2 reuniões semanais para acompanhamento do andamento dos Sprints, uma delas com o professor onde deverão ser apresentados os resultados obtidos ao longo da semana e uma reunião entre os integrantes da equipe.<br>
+Os integrantes da equipe deverão utilizar o método Kanban via trello ou semelhante para acompanhamento das etapas de desenvolvimento do projeto e sprints registrando aquilo que está pendente para ser iniciado, aquilo que já está em produção e aquilo já foi concluído.<br>
+O próprio time criou e atribuiu as tarefas para seus membros de forma a atender os propósitos e princípios do Scrum.<br>
+Deverá haver uma cooperação entre todos os membros da equipe de forma que se peça ajuda e se ajudem mutuamente o tempo inteiro.
 
 ![daterra-planejamento](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-planejamento.png)
 
 ## Gestão de Orçamento
 
-O despesas elencadas durante o planejamento do orçamento seguem abaixo: 
+As despesas elencadas durante o planejamento do orçamento seguem abaixo: 
 
 ### Recursos Humanos
 
