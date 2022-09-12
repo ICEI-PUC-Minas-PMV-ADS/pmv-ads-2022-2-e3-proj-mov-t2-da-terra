@@ -147,7 +147,7 @@ O diagrama de casos de uso a seguir demonstra as principais ligações entre cas
 
 A partir dos requisitos foi desenvolvida a seguinte matriz: 
 
-![daterra-matriz-rastreabilidade](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-matriz-rastreabilidade.png)
+![daterra-rastreabilidade](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-rastreabilidade.png)
 
 
 # Gerenciamento de Projeto
