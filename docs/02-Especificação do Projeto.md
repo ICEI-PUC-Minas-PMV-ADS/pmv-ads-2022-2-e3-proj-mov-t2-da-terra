@@ -88,23 +88,10 @@ Dentro das limitações da proposta, podemos elencar:
 * Compra de produtos a longas distâncias: Se tornaria inviável devido aos custos envolvidos. Portanto, a aplicação delimitará o escopo geográfico da busca;
 * Transações financeiras: Não está na proposta da aplicação. Dessa forma, fica a cargo dos envolvidos questões relativas a pagamento. A plataforma apenas oferecerá os contatos das partes.
 
-
-### Processo 1 – NOME DO PROCESSO
-
-Apresente aqui o nome e as oportunidades de melhorias para o processo 1. Em seguida, apresente o modelo do processo 1, descrito no padrão BPMN. 
-
-![Processo 1](img/02-bpmn-proc1.png)
-
-### Processo 2 – NOME DO PROCESSO
-
 ## Indicadores de Desempenho
 
-Apresente aqui os principais indicadores de desempenho e algumas metas para o processo. Atenção: as informações necessárias para gerar os indicadores devem estar contempladas no diagrama de classe. Colocar no mínimo 5 indicadores. 
+![daterra-indicador-desempenho](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-indicador-desempenho.png)
 
-Usar o seguinte modelo: 
-
-![Indicadores de Desempenho](img/02-indic-desemp.png)
-Obs.: todas as informações para gerar os indicadores devem estar no diagrama de classe a ser apresentado a posteriori. 
 
 ## Requisitos
 
