@@ -158,10 +158,9 @@ O diagrama de casos de uso a seguir demonstra as principais ligações entre cas
 
 # Matriz de Rastreabilidade
 
-A partir dos stakeholders, requisitos, artefatos, casos de testes e suas relações, foi desenvolvida a seguinte matriz: 
+A partir dos requisitos foi desenvolvida a seguinte matriz: 
 
-**INSERIR MATRIZ**
-**A matriz deve contemplar todos os elementos relevantes que fazem parte do sistema, conforme a figura meramente ilustrativa apresentada a seguir.**
+![daterra-matriz-rastreabilidade](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-matriz-rastreabilidade.png)
 
 
 # Gerenciamento de Projeto
@@ -180,8 +179,6 @@ Para gerenciamento do tempo, utilizaremos o Diagrama de Grantt elencando todas a
   Os integrantes da equipe deverão utilizar o método Kanban via trello ou semelhante para acompanhamento das etapas de desenvolvimento do projeto e sprints registrando aquilo que está pendente para ser iniciado, aquilo que já está em produção e aquilo já foi concluído.<br>
   O próprio time criou e atribuiu as tarefas para seus membros de forma a atender os propósitos e princípios do Scrum.<br>
   Deverá haver uma cooperação entre todos os membros da equipe de forma que se peça ajuda e se ajudem mutuamente o tempo inteiro.
-
-**INSERIR QUADRO**
 
 ![daterra-planejamento](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-planejamento.png)
 
