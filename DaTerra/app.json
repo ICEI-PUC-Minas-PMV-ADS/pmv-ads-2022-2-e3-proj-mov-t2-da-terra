@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "DaTerra",
+    "slug": "DaTerra",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo_da_terra_transparente.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo_da_terra_transparente.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#36393e"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo_da_terra_transparente.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
