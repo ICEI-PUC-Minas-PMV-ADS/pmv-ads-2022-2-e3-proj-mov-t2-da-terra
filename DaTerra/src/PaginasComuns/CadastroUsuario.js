@@ -92,7 +92,7 @@ const CadastroUsuario = ({ navigation }) => {
       </TouchableOpacity> */}
 
       <Input label="Nome" onChangeText={setNome} />
-
+      {/*Será configurado acima */}
       <Input label="Data de Nascimento" onChangeText={setDataNascimento} />
       
       <Input label="CPF" onChangeText={setCpf} />
