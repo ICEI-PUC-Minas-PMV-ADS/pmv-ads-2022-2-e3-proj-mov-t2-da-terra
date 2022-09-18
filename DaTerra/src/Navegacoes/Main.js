@@ -1,5 +1,5 @@
 import React from 'react';
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Loja from "../PaginaVendedor/Loja";
 import MeusPedidos from "../PaginaVendedor/MeusPedidos";
@@ -8,11 +8,13 @@ import HomeVendedor from "../PaginaVendedor/HomeVendedor";
 import HomeCliente from "../PaginasCliente/HomeCliente";
 import MinhaConta from "../PaginasComuns/MinhaConta";
 import Login from "../PaginasComuns/Login";
+import CadastroUsuario from '../PaginasComuns/CadastroUsuario';
 
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
     return (
+        
         <Stack.Navigator initialRouteName="Login">
             <Stack.Screen
                 name="Login"
@@ -34,8 +36,16 @@ const Main = () => {
                 options={{
                     header: () => null,
                 }}
-            />
+            />            
+                <Stack.Screen
+                    name="CadastroUsuario"
+                    component={CadastroUsuario}
+                    options={{
+                        header: () => null,
+                    }}
+                />            
         </Stack.Navigator>
+
     );
 };
 

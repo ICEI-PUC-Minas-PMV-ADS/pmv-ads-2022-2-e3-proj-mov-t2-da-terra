@@ -15,19 +15,20 @@ export const DataBase = {
       tx.executeSql(
         'CREATE TABLE IF NOT EXISTS Usuarios' +
         '(id INTEGER PRIMARY KEY AUTOINCREMENT,' +
-        'nome TEXT, dtNascimento TEXT, cpf TEXT, telefone TEXT)' +
-        'rua TEXT, bairro TEXT, numCasa INT, cep INT, cidade TEXT' +
-        'uf TEXT, complemento TEXT, email TEXT, senha TEXT, confSenha TEXT'+
-        'tipoUsuario INT;');
+        'nome TEXT NOT NULL, dtNascimento TEXT NOT NULL, cpf TEXT NOT NULL,' +
+        'telefone TEXT NOT NULL, rua TEXT NOT NULL, bairro TEXT NOT NULL,' +
+        'numCasa INT NOT NULL, cep INT NOT NULL, cidade TEXT NOT NULL,' +
+        'uf TEXT NOT NULL, complemento TEXT NULL, email TEXT NOT NULL,' +
+        'senha TEXT NOT NULL, tipoUsuario INT NOT NULL;');
     });
 
     const ExecuteQuery = (sql, params = []) => {
-      return new Promise((resolve, reject) => { 
-        db.transaction(tx => {          
+      return new Promise((resolve, reject) => {
+        db.transaction(tx => {
           tx.executeSql(
             sql,
             params,
-            (__, results) => {              
+            (__, results) => {
               resolve(results);
             },
             (error) => {
