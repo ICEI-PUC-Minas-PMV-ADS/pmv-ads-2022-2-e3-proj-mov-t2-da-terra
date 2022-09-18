@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Button, Text } from "react-native";
-import { TextInput, RadioButton } from "react-native-paper";
+import { TextInput, RadioButton, TouchableOpacity } from "react-native-paper";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
@@ -9,13 +9,19 @@ import Body from "../Componentes/Body";
 import Botao from "../Componentes/Botao";
 
 import DataBase from "../DBService/DBService";
+import Input from "../Componentes/Input";
 //import { inserirPessoa } from "../DBService/DBQuery";
 
 const CadastroUsuario = ({ navigation }) => {
-  const [nome, setNome] = useState();
   const [dataNascimento, setDataNascimento] = useState(
     moment(new Date()).format('DD/MM/YYYY')
   );
+  
+  // Configurar DATE
+  //const [show, setShow] = useState(false);
+  //const[ date, setDate] = useState(new Date());
+  
+  const [nome, setNome] = useState();
   const [cpf, setCpf] = useState();
   const [telefone, setTelefone] = useState();
   const [rua, setRua] = useState();
@@ -29,9 +35,7 @@ const CadastroUsuario = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
   const [confirmarSenha, setConfirmarSenha] = useState(); // Tempo de execução
-  const [dataCadastro, setDataCadastro] = useState(
-    moment(new Date()).format('DD/MM/YYYY')
-  );
+  const [dataCadastro, setDataCadastro] = useState();   // Somento DB
 
   useEffect(() => {
     DataBase.getConnection();
@@ -61,95 +65,49 @@ const CadastroUsuario = ({ navigation }) => {
     //navigation.navigate('Lista');
   }
 
-  // SUBSTITUIR INPUTS
   return (
     <Body>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setNome}
-          label='Nome'
+      {/*Configurar Date */}
+      {/* {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={'date'}
+          is24Hour={true}
+          display="default"
+          onTouchCancel={() => setShow(false)}
+          onChange={(event, date) => {
+            setShow(false);
+            setDataNascimento(moment(date).format('DD/MM/YYYY'));
+          }}
         />
-      </View>
-      <View >
-        <TextInput
-          style={styles.input}
-          onChangeText={setDataNascimento}
-          label='Data de Nascimento'
+      )}
+      <TouchableOpacity onPress={() => setShow(true)}>
+        <Input
+          label="Data de Nascimento"
+          value={dataNascimento}
+          left={<TextInput.Icon name="calendar" />}
+          editable={false}
         />
-      </View>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setCpf}
-          label='CPF'
-        />
-      </View>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setTelefone}
-          label='Telefone'
-        />
-      </View>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setEmail}
-          label='Email'
-        />
-      </View>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setRua}
-          label='Rua'
-        />
-      </View>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setBairro}
-          label='Bairro'
-        />
-      </View>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setNumeroCasa}
-          label='Nº'
-        />
-      </View>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setCep}
-          label='CEP'
-        />
-      </View>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setCidade}
-          label='Cidade'
-        />
-      </View>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setUf}
-          label='UF'
-        />
-      </View>
-      <View >
-        <TextInput
-          style={styles.input}
-          onChangeText={setComplemento}
-          label='Complemento'
-        />
-      </View>
+      </TouchableOpacity> */}
+
+      <Input label="Nome" onChangeText={setNome} />
+
+      <Input label="Data de Nascimento" onChangeText={setDataNascimento} />
       
-        <View>
+      <Input label="CPF" onChangeText={setCpf} />
+      <Input label="Telefone" onChangeText={setTelefone} />
+      <Input label="Email" onChangeText={setEmail} />
+      <Input label="Rua" onChangeText={setRua} />
+      <Input label="Bairro" onChangeText={setBairro} />
+      <Input label="Nº" onChangeText={setNumeroCasa} />
+      <Input label="CEP" onChangeText={setCep} />
+      <Input label="Cidade" onChangeText={setCidade} />
+      <Input label="UF" onChangeText={setUf} />
+      <Input label="Complemento" onChangeText={setComplemento} />
+
+      <View style={styles.radioContainer}>
+        <View style={styles.radioItem}>
           <RadioButton
             value="cliente"
             status={tipoUsuario === 'cliente' ? 'checked' : 'unchecked'}
@@ -157,7 +115,7 @@ const CadastroUsuario = ({ navigation }) => {
           />
           <Text>Cliente</Text>
         </View>
-        <View>
+        <View style={styles.radioItem}>
           <RadioButton
             value="produtor"
             status={tipoUsuario === 'produtor' ? 'checked' : 'unchecked'}
@@ -165,22 +123,17 @@ const CadastroUsuario = ({ navigation }) => {
           />
           <Text>Produtor</Text>
         </View>
-      
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setSenha}
-          label='Senha'
-        />
       </View>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={setConfirmarSenha}  // Apenas em tempo de execução
-          label='Confirmar Senha'
-        />
-      </View>
-      <Botao textoBotao='Cadastrar'/>
+
+      <Input label="Email" onChangeText={setEmail} />
+      <Input label="Senha" onChangeText={setSenha} />
+      <Input label="Senha" onChangeText={setConfirmarSenha} />
+
+      <Botao
+        style={styles.textoBotao}
+        textoBotao='Cadastrar'
+        mode='contained'
+      />
     </Body>
   );
 }
@@ -198,6 +151,20 @@ const styles = StyleSheet.create({
     padding: 5,
     marginHorizontal: 10,
     marginTop: 5,
+  },
+  radioContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+  radioItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  textoBotao: {
+    textAlign: "center",
+    fontSize: 20,
+    color: "white"
   },
 });
 

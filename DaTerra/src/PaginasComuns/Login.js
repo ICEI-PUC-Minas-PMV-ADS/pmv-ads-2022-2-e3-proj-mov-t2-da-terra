@@ -62,6 +62,9 @@ const styles = StyleSheet.create({
 		fontStyle: "italic",
 		fontSize: 30
 	},
+	input:{
+		marginTop: 30,
+	},
 	textoBotao: {
 		textAlign: "center",
 		fontSize: 20,

@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native";
 const Botao = ( props ) => {
   return (
     <TouchableOpacity style={styles.botao}>         
-     <Text style={styles.textoBotao}>{props.textoBotao}</Text> 
+     <Text {...props}>{props.textoBotao}</Text> 
     </TouchableOpacity>
   );
 }
@@ -20,11 +20,6 @@ const styles = StyleSheet.create({
 		borderRadius: 7,
 		marginTop: 30,
     backgroundColor: "#3d9d74"
-	},
-  textoBotao: {
-		textAlign: "center",
-		fontSize: 20,
-		color: "white"
 	},
 });
 
