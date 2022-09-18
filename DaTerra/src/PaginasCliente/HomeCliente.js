@@ -31,5 +31,10 @@ const HomeCliente = () => {
         />
     );
 };
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+
+
+
+})
 export default HomeCliente;

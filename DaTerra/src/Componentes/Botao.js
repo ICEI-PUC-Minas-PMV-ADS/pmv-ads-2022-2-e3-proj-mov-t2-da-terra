@@ -14,12 +14,11 @@ const Botao = ( props ) => {
 const styles = StyleSheet.create({
   botao: {
 		height: 40,
-		backgroundColor: "#768AD4",
 		justifyContent: "center",
 		width: 310,
 		borderRadius: 7,
 		marginTop: 30,
-    backgroundColor: "#3d9d74"
+   	 backgroundColor: "#3d9d74"
 	},
 });
 

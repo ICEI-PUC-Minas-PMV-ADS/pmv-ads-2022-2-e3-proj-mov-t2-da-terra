@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     input: {
         //borderWidth: 0.5,
         //borderColor: "#3d9d74",
-        width: 300,
         height: 48,
         fontSize: 15,       
         backgroundColor: "#FFF",
