@@ -61,6 +61,7 @@ const CadastroUsuario = ({ navigation }) => {
     //navigation.navigate('Lista');
   }
 
+  // SUBSTITUIR INPUTS
   return (
     <Body>
       <View>
