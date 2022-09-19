@@ -25,8 +25,8 @@ export default function Login() {
 				<Text style={styles.titulo}>DaTerra</Text>
 				<Image style={styles.icones} source={require('../assets/Logo-da-terra.png')} />
 
-				<Input label={"Email"} right={<TextInput.Icon name="email-outline" />} />
-				<Input label={"Senha"} right={<TextInput.Icon name="lock-outline" />} />
+				<Input label={"Email"}  style={{width:200}} right={<TextInput.Icon name="email-outline" />} />
+				<Input label={"Senha"} style={{width:200}}  right={<TextInput.Icon name="lock-outline" />} />
 
 				<TouchableOpacity style={styles.botao}>
 					<Text style={styles.textoBotao} onPress={login}>Entrar</Text>
