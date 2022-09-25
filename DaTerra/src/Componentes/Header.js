@@ -1,31 +1,24 @@
-//Molde de Header caso precise usar um, passivel de mudancças
+import React, { Children } from "react";
+import { Appbar } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
-import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import React, {useState, useEffect} from 'react';
-import {TextInput, Appbar, Button,} from "react-native-paper";
+const Header = ({ title, goBack, children }) => {
 
-const Header = ()=>{
+  const navigation = useNavigation();
 
-    return(
-        <View >
-            <Appbar.Header style={styles.Header}>
-
-
-
-            </Appbar.Header>
-        </View>
-    )
+  return (
+    <Appbar.Header  >
+      {
+        /* Se houver a função goback (quando tem tela empilhada)
+         então adiciona o componente */
+        goBack &&
+        <Appbar.BackAction
+          onPress={() => navigation.goBack(goBack)} />
+      }
+      <Appbar.Content title={title} />
+      {children}
+    </Appbar.Header>
+  );
 }
+
 export default Header;
-
-const styles= StyleSheet.create({
-    Header: {
-        backgroundColor:"#282828",
-        height: 40,
-    },
-
-
-
-
-
-})

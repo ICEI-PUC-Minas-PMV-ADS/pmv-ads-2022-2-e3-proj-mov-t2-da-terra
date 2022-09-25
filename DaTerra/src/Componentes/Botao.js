@@ -12,14 +12,17 @@ const Botao = ( props ) => {
 }
 
 const styles = StyleSheet.create({
-  botao: {
+	botao: {
+		width: 280,
 		height: 40,
 		justifyContent: "center",
-		width: 310,
-		borderRadius: 7,
+		alignSelf: 'center',		
+		borderRadius: 20,
 		marginTop: 30,
-   	 backgroundColor: "#3d9d74"
-	},
+		backgroundColor: "#3d9d74",
+		fontWeight: 'bold',
+		},
+		
 });
 
 export default Botao;

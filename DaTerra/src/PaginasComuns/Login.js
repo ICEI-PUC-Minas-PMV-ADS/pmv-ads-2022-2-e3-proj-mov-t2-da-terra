@@ -1,10 +1,16 @@
-import { Text, View, StyleSheet, TouchableOpacity, Image, } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import Input from '../Componentes/Input';
+import { Text, View, StyleSheet, TouchableOpacity, Image, } from 'react-native';
 import { TextInput } from 'react-native-paper'
+
+import { useNavigation } from "@react-navigation/native";
+
+import Input from '../Componentes/Input';
+import Container from '../Componentes/Container';
+import Body from '../Componentes/Body';
+import Botao from '../Componentes/Botao';
 import HomeVendedor from "../PaginaVendedor/HomeVendedor";
 import HomeCliente from "../PaginasCliente/HomeCliente";
-import { useNavigation } from "@react-navigation/native";
+
 export default function Login() {
 	const navigation = useNavigation();
 
@@ -20,37 +26,42 @@ export default function Login() {
 	}
 
 	return (
-		<>
-			<View style={styles.container}>
-				<Text style={styles.titulo}>DaTerra</Text>
-				<Image style={styles.icones} source={require('../assets/Logo-da-terra.png')} />
+		<Container>
+			<Body>
+				{/* <Text style={styles.titulo}>DaTerra</Text> */}
+				<Image
+					style={styles.icones}
+					source={require('../assets/Logo-da-terra.png')}
+				/>
+				<Input
+					label={"Email"}
+					right={<TextInput.Icon name="email-outline" />} />
+				<Input
+					label={"Senha"}
+					right={<TextInput.Icon name="lock-outline" />} />
 
-				<Input label={"Email"}  style={{width:200}} right={<TextInput.Icon name="email-outline" />} />
-				<Input label={"Senha"} style={{width:200}}  right={<TextInput.Icon name="lock-outline" />} />
+				<Botao
+					style={styles.textoBotao}
+					textoBotao='Entrar'
+					mode='contained'
+				/>
 
-				<TouchableOpacity style={styles.botao}>
-					<Text style={styles.textoBotao} onPress={login}>Entrar</Text>
-				</TouchableOpacity>
-
-				<Text style={{ marginTop: 10, color: "white", fontSize: 20 }}>Ou</Text>
-				<TouchableOpacity
+					<Text style={styles.textoCadastro}>
+						Não tem uma conta?
+					</Text>
+			
+				<Botao
+					style={styles.textoBotao}
+					textoBotao='Cadastrar'
+					mode='contained'
 					onPress={() => navigation.navigate('CadastroUsuario')}
-				>
-					<Text style={{ marginTop: 10, color: "black", fontWeight: "bold", fontSize: 18, }}>Não tem uma conta?
-						Cadastra-se</Text>
-				</TouchableOpacity>
-			</View>
-		</>
+				/>
+			</Body>
+		</Container>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#C0D56A",
-		justifyContent: "center",
-		alignItems: "center",
-	},
 	titulo: {
 		fontSize: 30,
 		fontWeight: "bold",
@@ -58,25 +69,17 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		color: "white",
 	},
-	textoDestacado: {
-		fontStyle: "italic",
-		fontSize: 30
-	},
-	input:{
-		marginTop: 30,
-	},
 	textoBotao: {
 		textAlign: "center",
 		fontSize: 20,
 		color: "white"
 	},
-	botao: {
-		height: 40,
-		backgroundColor: "#768AD4",
-		justifyContent: "center",
-		width: 310,
-		borderRadius: 7,
-		marginTop: 30,
+	textoCadastro: {
+		marginTop: 45,
+		color: "black",
+		fontWeight: "bold",
+		fontSize: 18,
+		textAlign: 'center'
 	},
 	containerEsqsenha: {
 		width: 300,

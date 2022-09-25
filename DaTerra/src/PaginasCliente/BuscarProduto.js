@@ -4,7 +4,7 @@ import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Input from "../Componentes/Input";
 import {TextInput, List} from "react-native-paper";
-rn
+
 const BuscarProdutos = () => {
 //Abaixo seria no caso aonde pegaria os dados da busca no banco
 
