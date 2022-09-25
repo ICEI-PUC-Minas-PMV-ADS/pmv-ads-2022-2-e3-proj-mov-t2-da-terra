@@ -49,15 +49,14 @@ export default function Login() {
 				<Text style={styles.textoCadastro}>
 					Não tem uma conta?
 				</Text>
+				
+				<Botao
+					style={styles.textoBotao}
+					textoBotao='Cadastrar'
+					mode='contained'
+					onPress={() => navigation.navigate('CadastroUsuario')}
+				/>
 
-				<TouchableOpacity
-					onPress={() => navigation.navigate('CadastroUsuario')}>
-					<Botao
-						style={styles.textoBotao}
-						textoBotao='Cadastrar'
-						mode='contained'
-					/>
-				</TouchableOpacity>
 			</Body>
 		</Container>
 	);

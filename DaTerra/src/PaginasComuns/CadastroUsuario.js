@@ -101,7 +101,11 @@ const CadastroUsuario = ({ navigation, route }) => {
           </View>
 
           <Input label="Nome" onChangeText={setNome} />      
-          <Input label="CPF" onChangeText={setCpf} />
+          <Input
+            label="CPF"
+            onChangeText={setCpf}
+            keyboardType='decimal-pad'
+          />
 
           { // Início Configuração DATE
             show && (
@@ -128,18 +132,30 @@ const CadastroUsuario = ({ navigation, route }) => {
           </TouchableOpacity>
           {/* Fim configuração DATE*/}      
 
-          <Input label="Telefone" onChangeText={setTelefone} />          
-          <Input label="CEP" onChangeText={setCep} />
+          <Input
+            label="Telefone"
+            keyboardType='decimal-pad'
+            onChangeText={setTelefone}
+          />          
+          <Input
+            label="CEP"
+            keyboardType='decimal-pad'
+            onChangeText={setCep}
+          />
           <Input label="Rua" onChangeText={setRua} />
           <Input label="Bairro" onChangeText={setBairro} />
-          <Input label="Nº" onChangeText={setNumeroCasa} />          
+          <Input
+            label="Nº"
+            keyboardType='decimal-pad'
+            onChangeText={setNumeroCasa}
+          />          
           <Input label="Cidade" onChangeText={setCidade} />
           <Input label="UF" onChangeText={setUf} />
           <Input label="Complemento" onChangeText={setComplemento} />
 
           <Input label="Email" onChangeText={setEmail} />
           <Input label="Senha" onChangeText={setSenha} />
-          <Input label="Senha" onChangeText={setConfirmarSenha} />
+          <Input label="Confirmar Senha" onChangeText={setConfirmarSenha} />
 
           <Botao
             style={styles.textoBotao}
