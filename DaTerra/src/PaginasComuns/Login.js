@@ -46,16 +46,18 @@ export default function Login() {
 					mode='contained'
 				/>
 
-					<Text style={styles.textoCadastro}>
-						Não tem uma conta?
-					</Text>
-			
-				<Botao
-					style={styles.textoBotao}
-					textoBotao='Cadastrar'
-					mode='contained'
-					onPress={() => navigation.navigate('CadastroUsuario')}
-				/>
+				<Text style={styles.textoCadastro}>
+					Não tem uma conta?
+				</Text>
+
+				<TouchableOpacity
+					onPress={() => navigation.navigate('CadastroUsuario')}>
+					<Botao
+						style={styles.textoBotao}
+						textoBotao='Cadastrar'
+						mode='contained'
+					/>
+				</TouchableOpacity>
 			</Body>
 		</Container>
 	);
@@ -94,6 +96,8 @@ const styles = StyleSheet.create({
 		resizeMode: 'stretch',
 		alignItems: 'center',
 		padding: 10,
+		marginBottom: 30,
+		alignSelf: 'center'
 	},
 })
 
