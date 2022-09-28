@@ -101,7 +101,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           </View>
 
           <Input label="Nome" onChangeText={setNome} />      
-          <Input
+          <Input      
             label="CPF"
             onChangeText={setCpf}
             keyboardType='decimal-pad'
@@ -124,7 +124,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             )}
           <TouchableOpacity onPress={() => setShow(true)}>
             <Input
-              label='Data'
+              label='Data Nascimento'
               value={data}
               left={<TextInput.Icon icon='calendar' />}
               editable={false}
@@ -160,7 +160,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           <Botao
             style={styles.textoBotao}
             textoBotao='Cadastrar'
-            mode='contained'
+            mode='outlined'
           />
         </ScrollView>
       </Body>
@@ -196,6 +196,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "white"
   },
+  inputCpf: {
+   
+  }
 });
 
 

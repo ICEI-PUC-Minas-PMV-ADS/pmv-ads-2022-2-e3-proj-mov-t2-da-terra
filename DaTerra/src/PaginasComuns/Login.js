@@ -17,7 +17,7 @@ export default function Login() {
 	const [email, setEmail] = useState("")
 	const [senha, setSenha] = useState("Digite sua senha")
 
-	const login = () => {
+	const validarLogin = () => {
 		//Aqui vai a parte para realizar o login
 		//Faz a validação se for vendedor
 		navigation.navigate("HomeCliente")
@@ -28,35 +28,40 @@ export default function Login() {
 	return (
 		<Container>
 			<Body>
-				{/* <Text style={styles.titulo}>DaTerra</Text> */}
 				<Image
 					style={styles.icones}
 					source={require('../assets/Logo-da-terra.png')}
 				/>
 				<Input
 					label={"Email"}
-					right={<TextInput.Icon name="email-outline" />} />
+					right={<TextInput.Icon icon="email-outline" />} />
 				<Input
 					label={"Senha"}
-					right={<TextInput.Icon name="lock-outline" />} />
-
-				<Botao
-					style={styles.textoBotao}
-					textoBotao='Entrar'
-					mode='contained'
-				/>
-
-				<Text style={styles.textoCadastro}>
-					Não tem uma conta?
-				</Text>
+					right={<TextInput.Icon icon="lock-outline" />} />
 				
-				<Botao
-					style={styles.textoBotao}
-					textoBotao='Cadastrar'
-					mode='contained'
-					onPress={() => navigation.navigate('CadastroUsuario')}
-				/>
-
+					<View style={styles.viewBotao}>
+						<TouchableOpacity onPress={() => validarLogin()}>
+							<Botao
+								style={styles.textoBotao}
+								buttonColor={'#3d9d74'}
+								textoBotao='Entrar'
+								mode='contained'
+							/>
+						</TouchableOpacity>
+					</View>
+					<View style={styles.viewBotao}>
+						<TouchableOpacity
+							onPress={() => navigation.navigate('CadastroUsuario')}
+						>
+							<Botao
+								style={styles.textoBotao}
+								textColor={'#3d9d74'}
+								textoBotao='Cadastre-se'
+								mode='outlined'
+							/>
+						</TouchableOpacity>
+					</View>
+			
 			</Body>
 		</Container>
 	);
@@ -70,10 +75,14 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		color: "white",
 	},
+	viewBotao: {
+		marginTop: 30,
+		marginBottom: 45,
+	},
 	textoBotao: {
 		textAlign: "center",
-		fontSize: 20,
-		color: "white"
+		fontSize: 18,
+		//color: "white"
 	},
 	textoCadastro: {
 		marginTop: 45,
@@ -100,3 +109,8 @@ const styles = StyleSheet.create({
 	},
 })
 
+// '#6cc438'
+// '#d3e4a5'
+// '#3d9d74'
+// '#50ac5d'
+// '#9fd09d' - verde claro

@@ -1,28 +1,31 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
 
-import { TouchableOpacity } from "react-native";
+import { Button } from "react-native-paper";
 
-const Botao = ( props ) => {
-  return (
-    <TouchableOpacity style={styles.botao}>         
-     <Text {...props}>{props.textoBotao}</Text> 
-    </TouchableOpacity>
-  );
+const Botao = (props) => {
+	
+	return (
+		<Button {...props} style={styles.botao} >
+			<Text {...props}>{props.textoBotao}</Text> 
+		</Button>
+		// <TouchableOpacity style={styles.botao}>         
+		//  <Text {...props}>{props.textoBotao}</Text>
+		// </TouchableOpacity>
+		
+	);
 }
 
 const styles = StyleSheet.create({
 	botao: {
 		width: 280,
 		height: 40,
-		justifyContent: "center",
-		alignSelf: 'center',		
+		alignSelf: 'center',
 		borderRadius: 20,
-		marginTop: 30,
-		backgroundColor: "#3d9d74",
-		fontWeight: 'bold',
-		},
-		
+		//marginTop: 30,
+	},
 });
+
+//const style2 = StyleSheet.compose(styles.botao, {...props});
 
 export default Botao;
