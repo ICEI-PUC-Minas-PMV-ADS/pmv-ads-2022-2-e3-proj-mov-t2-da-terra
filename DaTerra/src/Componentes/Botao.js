@@ -8,11 +8,7 @@ const Botao = (props) => {
 	return (
 		<Button {...props} style={styles.botao} >
 			<Text {...props}>{props.textoBotao}</Text> 
-		</Button>
-		// <TouchableOpacity style={styles.botao}>         
-		//  <Text {...props}>{props.textoBotao}</Text>
-		// </TouchableOpacity>
-		
+		</Button>		
 	);
 }
 
@@ -22,10 +18,7 @@ const styles = StyleSheet.create({
 		height: 40,
 		alignSelf: 'center',
 		borderRadius: 20,
-		//marginTop: 30,
 	},
 });
-
-//const style2 = StyleSheet.compose(styles.botao, {...props});
 
 export default Botao;

@@ -3,30 +3,23 @@ import { TextInput } from 'react-native-paper'
 import { StyleSheet } from "react-native";
 
 const Input = (props) => {
-    return (
-        <TextInput
-            style={styles.input}
-            mode="outlined"
-            {...props}
-        />
-    )
+  return (
+    <TextInput
+      style={styles.input}
+      mode="outlined"
+      {...props}
+    />
+  )
 }
 
-
 const styles = StyleSheet.create({
-    input: {
-        //borderWidth: 0.5,
-        //borderColor: "#3d9d74",
-        height: 48,
-        fontSize: 15,
-        backgroundColor: "#FFF",
-        color: "white",
-        // fontWeight: "bold",
-        // marginTop: 30,
-        //  padding: 2,
-
-
-    }
+  input: {
+    height: 48,
+    fontSize: 15,
+    backgroundColor: "#FFF",
+    color: "white",
+    margin: 3,
+  }
 })
 
 export default Input;

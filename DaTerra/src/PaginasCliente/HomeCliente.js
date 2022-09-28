@@ -10,9 +10,9 @@ const HomeCliente = () => {
     const [index, setIndex] = useState(0);
 
     const [routes] = useState([
-        {key: 'buscar', title: 'Buscar produtos', icon: 'shopping-search'},
-        {key: 'meusPedidos', title: 'Meus pedidos', icon: 'truck-fast'},
-        {key: 'minhaConta', title: 'Minha Conta', icon: 'account-supervisor-circle'},
+        {key: 'buscar', title: 'Buscar produtos', focusedIcon: 'shopping-search'},
+        {key: 'meusPedidos', title: 'Meus pedidos', focusedIcon: 'truck-fast'},
+        {key: 'minhaConta', title: 'Minha Conta', focusedIcon: 'account'},
 
     ]);
 

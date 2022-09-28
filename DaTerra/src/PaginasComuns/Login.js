@@ -20,17 +20,16 @@ export default function Login() {
 	const validarLogin = () => {
 		//Aqui vai a parte para realizar o login
 		//Faz a validação se for vendedor
-		navigation.navigate("HomeCliente")
-		// ou se for cliente
-		// navigation.navigate("HomeCliente")
+		console.log("VALIDAR LOGIN")
+		navigation.navigate("HomeCliente")	
 	}
 
 	return (
 		<Container>
 			<Body>
 				<Image
-					style={styles.icones}
-					source={require('../assets/Logo-da-terra.png')}
+					style={styles.logo}
+					source={require('../assets/DATERRA-COMPLETO-800X1050.png')}
 				/>
 				<Input
 					label={"Email"}
@@ -60,8 +59,7 @@ export default function Login() {
 								mode='outlined'
 							/>
 						</TouchableOpacity>
-					</View>
-			
+					</View>			
 			</Body>
 		</Container>
 	);
@@ -76,13 +74,12 @@ const styles = StyleSheet.create({
 		color: "white",
 	},
 	viewBotao: {
-		marginTop: 30,
+		marginTop: 35,
 		marginBottom: 45,
 	},
 	textoBotao: {
 		textAlign: "center",
 		fontSize: 18,
-		//color: "white"
 	},
 	textoCadastro: {
 		marginTop: 45,
@@ -98,12 +95,10 @@ const styles = StyleSheet.create({
 	textoEsqsenha: {
 		color: '#72E6FF'
 	},
-	icones: {
-		height: 125,
-		width: 125,
-		resizeMode: 'stretch',
-		alignItems: 'center',
-		padding: 10,
+	logo: {
+		height: 190,
+		width: 145,		
+		padding: 10,		
 		marginBottom: 30,
 		alignSelf: 'center'
 	},

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Button, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Button, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { RadioButton, Appbar, TextInput } from "react-native-paper";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -80,7 +80,10 @@ const CadastroUsuario = ({ navigation, route }) => {
       </Header>
       <Body>
         <ScrollView>
-
+        <Image
+					style={styles.logo}
+					source={require('../assets/DATERRA-COMPLETO-800X1050.png')}
+				/>
           <View style={styles.radioContainer}>
             <View style={styles.radioItem}>
               <RadioButton
@@ -104,6 +107,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           <Input      
             label="CPF"
             onChangeText={setCpf}
+            
             keyboardType='decimal-pad'
           />
 
@@ -136,7 +140,11 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="Telefone"
             keyboardType='decimal-pad'
             onChangeText={setTelefone}
-          />          
+          />    
+          <Input
+            label="Email"
+            onChangeText={setEmail}
+          />
           <Input
             label="CEP"
             keyboardType='decimal-pad'
@@ -152,8 +160,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           <Input label="Cidade" onChangeText={setCidade} />
           <Input label="UF" onChangeText={setUf} />
           <Input label="Complemento" onChangeText={setComplemento} />
-
-          <Input label="Email" onChangeText={setEmail} />
+          
           <Input label="Senha" onChangeText={setSenha} />
           <Input label="Confirmar Senha" onChangeText={setConfirmarSenha} />
 
@@ -196,9 +203,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "white"
   },
-  inputCpf: {
-   
-  }
+  logo: {
+		height: 190,
+		width: 145,		
+		padding: 10,		
+		marginBottom: 30,
+		alignSelf: 'center'
+	},
 });
 
 
