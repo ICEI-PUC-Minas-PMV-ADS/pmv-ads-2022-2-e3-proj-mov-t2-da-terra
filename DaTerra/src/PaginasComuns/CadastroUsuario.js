@@ -80,10 +80,10 @@ const CadastroUsuario = ({ navigation, route }) => {
       </Header>
       <Body>
         <ScrollView>
-        <Image
-					style={styles.logo}
-					source={require('../assets/DATERRA-COMPLETO-800X1050.png')}
-				/>
+          <Image
+            style={styles.logo}
+            source={require('../assets/DATERRA-COMPLETO-800X1050.png')}
+          />
           <View style={styles.radioContainer}>
             <View style={styles.radioItem}>
               <RadioButton
@@ -103,44 +103,53 @@ const CadastroUsuario = ({ navigation, route }) => {
             </View>
           </View>
 
-          <Input label="Nome" onChangeText={setNome} />      
-          <Input      
-            label="CPF"
-            onChangeText={setCpf}
-            
-            keyboardType='decimal-pad'
-          />
-
-          { // Início Configuração DATE
-            show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode={'date'}
-                is24Hour={true}
-                display='default'
-                onTouchCancel={() => setShow(false)} // Para fechar
-                onChange={(event, date) => {
-                  setShow(false);
-                  setData(moment(date).format('DD/MM/YYYY'));
-                }}
-              />
-            )}
-          <TouchableOpacity onPress={() => setShow(true)}>
+          <Input label="Nome" onChangeText={setNome} />
+          
+          <View style={
+            {              
+             // flexDirection: 'row',
+             // alignSelf: 'stretch',
+              //flexGrow: 1,              
+             // backgroundColor: "#000"
+            }
+          }>
             <Input
-              label='Data Nascimento'
-              value={data}
-              left={<TextInput.Icon icon='calendar' />}
-              editable={false}
+              //style={{ flexBasis: 10, flexGrow: 1}}
+              label="CPF"
+              onChangeText={setCpf}
+              keyboardType='decimal-pad'
             />
-          </TouchableOpacity>
-          {/* Fim configuração DATE*/}      
 
+            { // Início Configuração DATE
+              show && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  mode={'date'}
+                  is24Hour={true}
+                  display='default'
+                  onTouchCancel={() => setShow(false)} // Para fechar
+                  onChange={(event, date) => {
+                    setShow(false);
+                    setData(moment(date).format('DD/MM/YYYY'));
+                  }}
+                />
+              )}
+            <TouchableOpacity onPress={() => setShow(true)}>
+              <Input
+                label='Data Nascimento'
+                value={data}
+                left={<TextInput.Icon icon='calendar' />}
+                editable={false}
+              />
+            </TouchableOpacity>
+            {/* Fim configuração DATE*/}
+          </View>
           <Input
             label="Telefone"
             keyboardType='decimal-pad'
             onChangeText={setTelefone}
-          />    
+          />
           <Input
             label="Email"
             onChangeText={setEmail}
@@ -156,11 +165,11 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="Nº"
             keyboardType='decimal-pad'
             onChangeText={setNumeroCasa}
-          />          
+          />
           <Input label="Cidade" onChangeText={setCidade} />
           <Input label="UF" onChangeText={setUf} />
           <Input label="Complemento" onChangeText={setComplemento} />
-          
+
           <Input label="Senha" onChangeText={setSenha} />
           <Input label="Confirmar Senha" onChangeText={setConfirmarSenha} />
 
@@ -204,12 +213,12 @@ const styles = StyleSheet.create({
     color: "white"
   },
   logo: {
-		height: 190,
-		width: 145,		
-		padding: 10,		
-		marginBottom: 30,
-		alignSelf: 'center'
-	},
+    height: 190,
+    width: 145,
+    padding: 10,
+    marginBottom: 30,
+    alignSelf: 'center'
+  },
 });
 
 

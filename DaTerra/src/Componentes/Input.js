@@ -3,9 +3,14 @@ import { TextInput } from 'react-native-paper'
 import { StyleSheet } from "react-native";
 
 const Input = (props) => {
+
+  //const styleCompose = StyleSheet.compose(styles.input, props.style)
+
   return (
     <TextInput
+      //style={[styles.input && props.style]}
       style={styles.input}
+      //  style={styleCompose}
       mode="outlined"
       {...props}
     />
@@ -16,7 +21,7 @@ const styles = StyleSheet.create({
   input: {
     height: 48,
     fontSize: 15,
-    backgroundColor: "#FFF",
+    backgroundColor: "#FFFAFA",
     color: "white",
     margin: 3,
   }
