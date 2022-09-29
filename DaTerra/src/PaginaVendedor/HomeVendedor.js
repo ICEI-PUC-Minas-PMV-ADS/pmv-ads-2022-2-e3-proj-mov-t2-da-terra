@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import {BottomNavigation,} from 'react-native-paper';
 import {StyleSheet} from "react-native";
 
 import Loja from './Loja'
 import MeusPedidos from "./MeusPedidos";
 import MinhaConta from "../PaginasComuns/MinhaConta"
-
+import { AuthContext } from '../contexts/autenticacao';
 
 const HomeVendedor = () => {
+    
+    const {} = useContext(AuthContext);
     const [index, setIndex] = useState(0);
 
     const [routes] = useState([

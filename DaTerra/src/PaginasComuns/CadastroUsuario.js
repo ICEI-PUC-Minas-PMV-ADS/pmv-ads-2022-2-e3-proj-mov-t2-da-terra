@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Button, Text, ScrollView, TouchableOpacity, Image } from "react-native";
+import { View, StyleSheet, Button, Text, ScrollView, TouchableOpacity, Image,Dimensions } from "react-native";
+
+import {fetch} from "react-native/Libraries/Network/fetch";
 import { RadioButton, Appbar, TextInput } from "react-native-paper";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -13,6 +15,9 @@ import Input from "../Componentes/Input";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 //import { inserirPessoa } from "../DBService/DBQuery";
+
+
+const larguraTela = Dimensions.get('screen').width
 
 const CadastroUsuario = ({ navigation, route }) => {
 
@@ -69,7 +74,42 @@ const CadastroUsuario = ({ navigation, route }) => {
 
     //navigation.navigate('Lista');
   }
+    useEffect(() => {
 
+              buscarEndereco()
+        },
+        [cep])
+
+    const buscarEndereco =   () => {
+
+        const Cep = (e => {
+            if(String(cep).length==8){
+                const meuCep = String(cep);
+
+                const value = meuCep.replace(/[^0-9]+/, meuCep);
+                const url = `https://viacep.com.br/ws/${value}/json/`;
+
+
+                  fetch(url)
+                    .then(response => response.json())
+                    .then(json => {
+
+                        if (json.logradouro) {
+
+                            setBairro(json.bairro)
+                            setCidade(json.localidade)
+                            setRua((json.logradouro))
+                        }
+                    });
+            }
+
+
+
+        });
+
+        Cep();
+
+    }
   return (
     <Container>
       <Header
@@ -158,25 +198,27 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="CEP"
             keyboardType='decimal-pad'
             onChangeText={setCep}
+            value={cep}
           />
-          <Input label="Rua" onChangeText={setRua} />
-          <Input label="Bairro" onChangeText={setBairro} />
+          <Input label="Rua" onChangeText={setRua} value={rua} />
+          <Input label="Bairro" onChangeText={setBairro}  value={bairro}/>
           <Input
             label="Nº"
             keyboardType='decimal-pad'
             onChangeText={setNumeroCasa}
           />
-          <Input label="Cidade" onChangeText={setCidade} />
+          <Input label="Cidade" onChangeText={setCidade} value={cidade} />
           <Input label="UF" onChangeText={setUf} />
           <Input label="Complemento" onChangeText={setComplemento} />
-
+      
           <Input label="Senha" onChangeText={setSenha} />
           <Input label="Confirmar Senha" onChangeText={setConfirmarSenha} />
-
+        
           <Botao
             style={styles.textoBotao}
             textoBotao='Cadastrar'
             mode='outlined'
+            
           />
         </ScrollView>
       </Body>

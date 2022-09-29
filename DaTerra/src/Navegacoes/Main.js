@@ -9,13 +9,14 @@ import HomeCliente from "../PaginasCliente/HomeCliente";
 import MinhaConta from "../PaginasComuns/MinhaConta";
 import Login from "../PaginasComuns/Login";
 import CadastroUsuario from '../PaginasComuns/CadastroUsuario';
-
+import { AuthProvider } from '../contexts/autenticacao';
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
     return (
         
         <Stack.Navigator initialRouteName="Login">
+            <AuthProvider>
             <Stack.Screen
                 name="Login"
                 component={Login}
@@ -43,7 +44,10 @@ const Main = () => {
                     options={{
                         header: () => null,
                     }}
-                />            
+                /> 
+            </AuthProvider>
+            
+                      
         </Stack.Navigator>
 
     );
