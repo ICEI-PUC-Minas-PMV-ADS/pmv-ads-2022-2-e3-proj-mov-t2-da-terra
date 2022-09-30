@@ -20,6 +20,8 @@ import Header from "../Componentes/Header";
 const larguraTela = Dimensions.get('screen').width
 
 const CadastroUsuario = ({ navigation, route }) => {
+const [escondeSenha,setEscondeSenha] = useState(true)
+const [escondeConfirmarSenha,setEscondeConfirmarSenha] = useState(true)
 
   // Configurar DATE
   const [data, setData] = useState(moment(new Date()).format('DD/MM/YYYY'));
@@ -54,7 +56,7 @@ const CadastroUsuario = ({ navigation, route }) => {
   const cadastrarUsuario = async () => {
     const pessoa = {
       nome: nome,
-      // dataNascimento: dataNascimento,
+       dataNascimento: dataNascimento,
       cpf: cpf,
       telefone: telefone,
       rua: rua,
@@ -69,7 +71,7 @@ const CadastroUsuario = ({ navigation, route }) => {
       senha: senha,
       dataCadastro: dataCadastro,
     };
-    console.log("Cadastro: " + pessoa);  // TESTE OBJETO OK
+    alert("Cadastro: " + pessoa.senha);  // TESTE OBJETO OK
     await inserirPessoa(pessoa).then().catch();
 
     //navigation.navigate('Lista');
@@ -129,7 +131,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               <RadioButton
                 value="cliente"
                 status={tipoUsuario === 'cliente' ? 'checked' : 'unchecked'}
-                onPress={() => setTipoUsuario('cliente')}
+                onPress={() => setTipoUsuario('Cliente')}
               />
               <Text>Cliente</Text>
             </View>
@@ -137,7 +139,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               <RadioButton
                 value="produtor"
                 status={tipoUsuario === 'produtor' ? 'checked' : 'unchecked'}
-                onPress={() => setTipoUsuario('produtor')}
+                onPress={() => setTipoUsuario('Produtor')}
               />
               <Text>Produtor</Text>
             </View>
@@ -211,13 +213,15 @@ const CadastroUsuario = ({ navigation, route }) => {
           <Input label="UF" onChangeText={setUf} />
           <Input label="Complemento" onChangeText={setComplemento} />
       
-          <Input label="Senha" onChangeText={setSenha} />
-          <Input label="Confirmar Senha" onChangeText={setConfirmarSenha} />
+          <Input label="Senha" secureTextEntry={escondeSenha} right={<TextInput.Icon onPress={()=>escondeSenha?setEscondeSenha(false):setEscondeSenha(true)} icon="eye" />}   onChangeText={setSenha} />
+          
+          <Input label="Confirmar Senha"  secureTextEntry={true} right={<TextInput.Icon onPress={()=>escondeConfirmarSenha?setEscondeConfirmarSenha(false):setEscondeConfirmarSenha(true)} icon="eye" />}  onChangeText={setConfirmarSenha} />
         
           <Botao
             style={styles.textoBotao}
             textoBotao='Cadastrar'
             mode='outlined'
+            onPress={cadastrarUsuario}
             
           />
         </ScrollView>
