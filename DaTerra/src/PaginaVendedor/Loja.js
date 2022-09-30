@@ -3,10 +3,10 @@ import {Text} from "react-native";
 import Body from "../Componentes/Body";
 import { AuthContext } from '../contexts/autenticacao';
 const Loja = () => {
-const {} = useContext(AuthContext);
+const { nome } = useContext(AuthContext);
     return (
 <Body>
-    <Text>Olá aqui é a loja</Text>
+    <Text>Olá aqui é a loja </Text>
 
 </Body>
     )

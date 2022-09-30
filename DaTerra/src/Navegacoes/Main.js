@@ -16,7 +16,6 @@ const Main = () => {
     return (
         
         <Stack.Navigator initialRouteName="Login">
-            <AuthProvider>
             <Stack.Screen
                 name="Login"
                 component={Login}
@@ -45,7 +44,6 @@ const Main = () => {
                         header: () => null,
                     }}
                 /> 
-            </AuthProvider>
             
                       
         </Stack.Navigator>
