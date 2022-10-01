@@ -5,7 +5,7 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   return (
-    <AuthContext.Provider value={{ nome: "Barry allen",email:"flash@gmail.com",cidade:"Central city" }}>
+    <AuthContext.Provider value={{ nome: "Barry allen",email:"flash@gmail.com",cidade:"Central city",bairro:"Tal x",numeroCasa:"120" }}>
       {children}
     </AuthContext.Provider>
   );
