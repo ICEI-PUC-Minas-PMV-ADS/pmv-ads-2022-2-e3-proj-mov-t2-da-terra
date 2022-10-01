@@ -9,7 +9,7 @@ const ProdutoProvider = ({ children }) => {
     if (!nome || !preco || !estoque || !descricao || !categoria) {
       Alert.alert("Você precisa preencher todos os dados");
     } else {
-      console.log("Chamar Insert DB"); // BANCO DE DADOS
+      Alert.alert(nome); // BANCO DE DADOS
     }
   }
 

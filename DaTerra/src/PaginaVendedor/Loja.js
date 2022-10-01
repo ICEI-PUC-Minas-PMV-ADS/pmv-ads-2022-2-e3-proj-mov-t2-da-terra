@@ -156,6 +156,7 @@ const Loja = () => {
                   textoBotao='Cadastrar'
                   mode='contained'
                   buttonColor='#3d9d74'
+                  onPress={cadastrarProduto}
                 />
               </TouchableOpacity>
             </View>
