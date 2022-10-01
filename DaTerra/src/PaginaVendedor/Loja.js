@@ -104,11 +104,11 @@ const Loja = () => {
                       /><Text>Frutas</Text>
                     </View>
                     <View style={styles.radioItem}>
-                      <RadioButton
+                      <RadioButton            
                         value="Hortaliças"
                         status={categoria === 'Hortaliças' ? 'checked' : 'unchecked'}
                         onPress={() => setCategoria('Hortaliças')}
-                      /><Text>Hortaliças</Text>
+                      /><Text >Hortaliças</Text>
                     </View>
                     <View style={styles.radioItem}>
                       <RadioButton
