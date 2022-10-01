@@ -22,7 +22,7 @@ export default function Login() {
     //Aqui vai a parte para realizar o login
     //Faz a validação se for vendedor
     console.log("VALIDAR LOGIN");
-    navigation.navigate("HomeVendedor");
+    navigation.navigate("HomeCliente");
   };
 
   return (

@@ -5,10 +5,10 @@ import { AuthContext } from '../contexts/autenticacao';
 
 const MinhaConta = () => {
 
-    const {} = useContext(AuthContext)//Irá receber as credencias de login nesse contexto na hora de renderizar a página Minha conta com as informações 
+    const {nome,email,cidade} = useContext(AuthContext)//Irá receber as credencias de login nesse contexto na hora de renderizar a página Minha conta com as informações 
     return (
         <Body>
-            <Text>Olá aqui é a Página minha conta</Text>
+            <Text>Olá aqui</Text>
 
         </Body>
     )
