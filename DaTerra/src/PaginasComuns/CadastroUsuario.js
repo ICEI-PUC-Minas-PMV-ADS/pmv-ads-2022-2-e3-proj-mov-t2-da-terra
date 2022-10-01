@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Button, Text, ScrollView, TouchableOpacity, Image,Dimensions } from "react-native";
+import { View, StyleSheet, Button, Text, ScrollView, TouchableOpacity, Image, Dimensions } from "react-native";
 
-import {fetch} from "react-native/Libraries/Network/fetch";
+import { fetch } from "react-native/Libraries/Network/fetch";
 import { RadioButton, Appbar, TextInput } from "react-native-paper";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -20,8 +20,8 @@ import Header from "../Componentes/Header";
 const larguraTela = Dimensions.get('screen').width
 
 const CadastroUsuario = ({ navigation, route }) => {
-const [escondeSenha,setEscondeSenha] = useState(true)
-const [escondeConfirmarSenha,setEscondeConfirmarSenha] = useState(true)
+  const [escondeSenha, setEscondeSenha] = useState(true)
+  const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true)
 
   // Configurar DATE
   const [data, setData] = useState(moment(new Date()).format('DD/MM/YYYY'));
@@ -56,7 +56,7 @@ const [escondeConfirmarSenha,setEscondeConfirmarSenha] = useState(true)
   const cadastrarUsuario = async () => {
     const pessoa = {
       nome: nome,
-       dataNascimento: dataNascimento,
+      dataNascimento: dataNascimento,
       cpf: cpf,
       telefone: telefone,
       rua: rua,
@@ -76,42 +76,34 @@ const [escondeConfirmarSenha,setEscondeConfirmarSenha] = useState(true)
 
     //navigation.navigate('Lista');
   }
-    useEffect(() => {
+  useEffect(() => {
+    buscarEndereco()
+  },
+    [cep])
 
-              buscarEndereco()
-        },
-        [cep])
+  const buscarEndereco = () => {
+    const Cep = (e => {
+      if (String(cep).length == 8) {
+        const meuCep = String(cep);
 
-    const buscarEndereco =   () => {
+        const value = meuCep.replace(/[^0-9]+/, meuCep);
+        const url = `https://viacep.com.br/ws/${value}/json/`;
 
-        const Cep = (e => {
-            if(String(cep).length==8){
-                const meuCep = String(cep);
+        fetch(url)
+          .then(response => response.json())
+          .then(json => {
 
-                const value = meuCep.replace(/[^0-9]+/, meuCep);
-                const url = `https://viacep.com.br/ws/${value}/json/`;
-
-
-                  fetch(url)
-                    .then(response => response.json())
-                    .then(json => {
-
-                        if (json.logradouro) {
-
-                            setBairro(json.bairro)
-                            setCidade(json.localidade)
-                            setRua((json.logradouro))
-                        }
-                    });
+            if (json.logradouro) {
+              setBairro(json.bairro)
+              setCidade(json.localidade)
+              setRua((json.logradouro))
             }
+          });
+      }
+    });
+    Cep();
+  }
 
-
-
-        });
-
-        Cep();
-
-    }
   return (
     <Container>
       <Header
@@ -146,13 +138,13 @@ const [escondeConfirmarSenha,setEscondeConfirmarSenha] = useState(true)
           </View>
 
           <Input label="Nome" onChangeText={setNome} />
-          
+
           <View style={
-            {              
-             // flexDirection: 'row',
-             // alignSelf: 'stretch',
-              //flexGrow: 1,              
-             // backgroundColor: "#000"
+            {
+              // flexDirection: 'row',
+              // alignSelf: 'stretch',
+              // flexGrow: 1,              
+              // backgroundColor: "#000"
             }
           }>
             <Input
@@ -203,7 +195,7 @@ const [escondeConfirmarSenha,setEscondeConfirmarSenha] = useState(true)
             value={cep}
           />
           <Input label="Rua" onChangeText={setRua} value={rua} />
-          <Input label="Bairro" onChangeText={setBairro}  value={bairro}/>
+          <Input label="Bairro" onChangeText={setBairro} value={bairro} />
           <Input
             label="Nº"
             keyboardType='decimal-pad'
@@ -212,17 +204,23 @@ const [escondeConfirmarSenha,setEscondeConfirmarSenha] = useState(true)
           <Input label="Cidade" onChangeText={setCidade} value={cidade} />
           <Input label="UF" onChangeText={setUf} />
           <Input label="Complemento" onChangeText={setComplemento} />
-      
-          <Input label="Senha" secureTextEntry={escondeSenha} right={<TextInput.Icon onPress={()=>escondeSenha?setEscondeSenha(false):setEscondeSenha(true)} icon="eye" />}   onChangeText={setSenha} />
-          
-          <Input label="Confirmar Senha"  secureTextEntry={true} right={<TextInput.Icon onPress={()=>escondeConfirmarSenha?setEscondeConfirmarSenha(false):setEscondeConfirmarSenha(true)} icon="eye" />}  onChangeText={setConfirmarSenha} />
-        
+
+          <Input label="Senha" secureTextEntry={escondeSenha}
+            right={<TextInput.Icon onPress={() =>
+              escondeSenha ?
+                setEscondeSenha(false) : setEscondeSenha(true)} 
+                icon="eye" />} onChangeText={setSenha} />
+
+          <Input label="Confirmar Senha" secureTextEntry={true} right={<TextInput.Icon onPress={() =>
+            escondeConfirmarSenha ?
+              setEscondeConfirmarSenha(false) : setEscondeConfirmarSenha(true)} icon="eye" />} onChangeText={setConfirmarSenha} />
+
           <Botao
             style={styles.textoBotao}
             textoBotao='Cadastrar'
             mode='outlined'
             onPress={cadastrarUsuario}
-            
+
           />
         </ScrollView>
       </Body>

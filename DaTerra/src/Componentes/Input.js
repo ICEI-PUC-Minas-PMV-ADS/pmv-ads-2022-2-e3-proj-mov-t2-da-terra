@@ -4,11 +4,11 @@ import { StyleSheet } from "react-native";
 
 const Input = (props) => {
 
-  //const styleCompose = StyleSheet.compose(styles.input, props.style)
+ // const styleCompose = StyleSheet.compose(styles.input, props.style)
 
   return (
     <TextInput
-      //style={[styles.input && props.style]}
+     // style={[styles.input && props.style]}
       style={styles.input}
       //  style={styleCompose}
       mode="outlined"
@@ -20,10 +20,10 @@ const Input = (props) => {
 const styles = StyleSheet.create({
   input: {
     height: 48,
-    fontSize: 15,
+    fontSize: 16,
     backgroundColor: "#FFFAFA",
-    color: "white",
-    margin: 3,
+    //color: "white",
+    margin: 3,    
   }
 })
 
