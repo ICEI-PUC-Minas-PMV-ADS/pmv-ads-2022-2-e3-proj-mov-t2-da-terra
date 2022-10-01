@@ -32,6 +32,7 @@ const Loja = () => {
 
   // Categoria: verduras, hortalicas, frutas, folhagens, bebidas, outros    
   const [categoria, setCategoria] = useState('Verduras');
+  const[unidade,setUnidade] = useState("Kg")
   const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
 
   const handleCadastro = () => {
@@ -66,6 +67,7 @@ const Loja = () => {
               onChangeText={(text) => setPreco(text)}
               left={<TextInput.Icon icon='currency-brl' />}
             />
+         
             <Input
               label='Quantidade em Estoque'
               keyboardType='decimal-pad'
