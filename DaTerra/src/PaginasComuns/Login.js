@@ -1,4 +1,4 @@
-import React, { useState, useEffect,Dimensions } from "react";
+import React, { useState, useEffect, Dimensions } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { TextInput } from "react-native-paper";
 
@@ -13,7 +13,7 @@ import HomeCliente from "../PaginasCliente/HomeCliente";
 
 export default function Login() {
   const navigation = useNavigation();
-  const [escondeSenha,setEscondeSenha] = useState(true)
+  const [escondeSenha, setEscondeSenha] = useState(true)
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("Digite sua senha");
@@ -36,7 +36,13 @@ export default function Login() {
           label={"Email"}
           right={<TextInput.Icon icon="email-outline" />}
         />
-        <Input label={"Senha"} style={{marginTop:15}} secureTextEntry={escondeSenha} right={<TextInput.Icon onPress={()=>escondeSenha?setEscondeSenha(false):setEscondeSenha(true)} icon="eye" />}/>
+        <Input
+          label={"Senha"}
+          style={{ marginTop: 8 }}
+          secureTextEntry={escondeSenha}
+          right={<TextInput.Icon onPress={() =>
+            escondeSenha ? setEscondeSenha(false) :
+              setEscondeSenha(true)} icon="eye" />} />
 
         <View style={styles.viewBotao}>
           <TouchableOpacity onPress={() => validarLogin()}>
@@ -48,10 +54,10 @@ export default function Login() {
             />
           </TouchableOpacity>
         </View>
-		<View style={styles.viewTexto}>
-			<Text style={styles.textoCadastro}>Não é cadastrado?</Text>
-		</View>
-		
+        <View style={styles.viewTexto}>
+          <Text style={styles.textoCadastro}>Não é cadastrado?</Text>
+        </View>
+
         <View style={styles.viewBotao}>
           <TouchableOpacity
             onPress={() => navigation.navigate("CadastroUsuario")}
@@ -82,9 +88,9 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   viewTexto: {
-	width:350,
-	justifyContent:"center",
-	alignItems:"center",
+    width: 350,
+    justifyContent: "center",
+    alignItems: "center",
   },
   textoBotao: {
     textAlign: "center",

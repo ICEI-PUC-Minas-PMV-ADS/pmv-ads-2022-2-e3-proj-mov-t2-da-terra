@@ -22,3 +22,10 @@ const styles = StyleSheet.create({
 });
 
 export default Botao;
+
+
+// '#6cc438'
+// '#d3e4a5'
+// '#3d9d74' - verde escuro
+// '#50ac5d'
+// '#9fd09d' - verde claro

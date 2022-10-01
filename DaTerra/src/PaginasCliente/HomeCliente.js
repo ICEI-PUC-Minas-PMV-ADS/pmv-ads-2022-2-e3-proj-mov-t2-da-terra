@@ -1,20 +1,22 @@
 import React, {useState,useContext} from 'react';
-import {BottomNavigation,} from 'react-native-paper';
+import {BottomNavigation} from 'react-native-paper';
 import {StyleSheet} from "react-native";
 
 import MeusPedidos from './MeusPedidos';
 import BuscarProdutos from "./BuscarProduto";
 import MinhaConta from "../PaginasComuns/MinhaConta";
+
 import { AuthContext } from '../contexts/autenticacao';
+
 const HomeCliente = () => {
     
     const {} = useContext(AuthContext);
     const [index, setIndex] = useState(0);
 
     const [routes] = useState([
-        {key: 'buscar', title: 'Buscar produtos', Icon: 'shopping-search'},
-        {key: 'meusPedidos', title: 'Meus pedidos', FocusedIcon: 'truck-fast'},
-        {key: 'minhaConta', title: 'Minha Conta', FocusedIcon: 'account'},
+        {key: 'buscar', title: 'Buscar produtos', focusedIcon: 'shopping-search'},
+        {key: 'meusPedidos', title: 'Meus pedidos', focusedIcon: 'truck-fast'},
+        {key: 'minhaConta', title: 'Minha Conta', focusedIcon: 'account'},
 
     ]);
 
