@@ -24,7 +24,7 @@ export const DataBase = {
       tx.executeSql(
         "CREATE TABLE IF NOT EXISTS Produtos"+
         "(id INTEGER PRIMARY KEY AUTOINCREMENT,"+
-        "nomeProduto TEXT NOT NULL,preco INTEGER NOT NULL"+
+        "nomeProduto TEXT NOT NULL,preco INTEGER NOT NULL"+"unidadeProduto TEXT NOT NULL"+
         "quantidadeEstoque INTEGER NOT NULL"+"categoriaProduto TEXT NOT NULL"+
         "descricao TEXT NOT NULL);"
 
