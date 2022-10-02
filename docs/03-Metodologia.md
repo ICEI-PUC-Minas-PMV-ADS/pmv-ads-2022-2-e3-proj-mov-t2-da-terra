@@ -10,9 +10,6 @@ Os artefatos do projeto serão desenvolvidos a partir de diversas plataformas e 
 AMBIENTE | PLATAFORMA |
 |:---:|:---:|
 | Repositório de Código Fonte | GitHub |
-| Programação de Funcionalidades | Visual Studio Code |
-| Testes Funcionalidades | Emulador Andoid Studio |
-| Wireframes | Figma |
 | Gerenciamento de Projeto | Trello |
 | Diagrama de Classes | Lucidchart |
 | Diagrama de Fluxo | Drawio |
@@ -21,8 +18,7 @@ AMBIENTE | PLATAFORMA |
 
 ## Controle de Versão
 
-A ferramenta de controle de versão adotada no projeto foi o
-GIT sendo que o Github foi utilizado para hospedagem do repositório.
+A ferramenta de controle de versão adotada no projeto foi o GIT sendo que o Github foi utilizado para hospedagem do repositório.
 
 O projeto segue a seguinte convenção para o nome de branches:
 
@@ -44,66 +40,76 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 ## Gerenciamento de Projeto
 
 ### Divisão de Papéis
+
 Assim está dividida a equipe DaTerra: 
  
-*Scrum Master: 
-
+* Scrum Master:
 Carlos Hilario Siqueira Camuzzi  
 
-
-*Product Owner:  		 
-
+* Product Owner: 
 Gabriel Antônio Lopes Costa 
 
-
-*Equipe de Desenvolvimento:  
-
+* Equipe de Desenvolvimento:
 Ana Paula Buchholz		 
-
 Carlos Hilario Siqueira Camuzzi 
-
-Ezequiel Silva de Souza Almeida	 
-
-Gabriel Antônio Lopes Costa	 
-
+Ezequiel Silva de Souza Almeida	
+Gabriel Antônio Lopes Costa
 Ila Feitosa de Nóbrega 
-
 Julia de Oliviera Sartori 
-
  
-*Equipe de Design:  
-
-Ana Paula Buchholz 
-
-Ila Feitosa da Nóbrega 
-
+* Equipe de Design:
+Ana Paula Buchholz
+Ila Feitosa da Nóbrega
 Júlia de Oliveira Sartori 
-
 
 ### Processo
 
-Coloque  informações sobre detalhes da implementação do Scrum seguido pelo grupo. O grupo deverá fazer uso do recurso de gerenciamento de projeto oferecido pelo GitHub, que permite acompanhar o andamento do projeto, a execução das tarefas e o status de desenvolvimento da solução.
+Para organização e distribuição das tarefas do projeto, a equipe está utilizando a ferramenta Trello, estruturado com as seguintes listas:  
  
-> **Links Úteis**:
-> - [Planejamento e Gestáo Ágil de Projetos](https://pucminas.instructure.com/courses/87878/pages/unidade-2-tema-2-utilizacao-de-ferramentas-para-controle-de-versoes-de-software)
-> - [Sobre quadros de projeto](https://docs.github.com/pt/issues/organizing-your-work-with-project-boards/managing-project-boards/about-project-boards)
-> - [Project management, made simple](https://github.com/features/project-management/)
-> - [Sobre quadros de projeto](https://docs.github.com/pt/github/managing-your-work-on-github/about-project-boards)
-> - [Como criar Backlogs no Github](https://www.youtube.com/watch?v=RXEy6CFu9Hk)
-> - [Tutorial Slack](https://slack.com/intl/en-br/)
+* Backlog 
+Define os artefatos a serem entregues.
+ 
+* Plano 	de Sprint 
+Inicialmente recebem os cards que serão movidos, e possuem a devida identificação de qual sprint pertencem por meio de etiquetas; 
+ 
+* Design 
+Esta lista apresentam as atividades designadas a equipe de Design do projeto; 
+ 
+* A Fazer 
+Recebe as atividades ainda a serem realizadas pela equipe; 
+
+* Em andamento 
+Tarefas sendo executadas no presente momento pelo time; 
+
+* Teste 
+Checagem de Qualidade.   
+ 
+* Concluído 
+Nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontas para serem entregues ao usuário. Não há mais edições ou revisões necessárias. 
+
+IMAGEM TRELLO
 
 ### Ferramentas
 
 As ferramentas empregadas no projeto são:
 
-- Editor de código.
-- Ferramentas de comunicação
-- Ferramentas de desenho de tela (_wireframing_)
+|Ferramentas|
+|:---:|:---:|
+| Editor de Código | Visual Studio Code |
+| Testes Software | Emulador Andoid Studio |
+| Testes Usabilidade | Smartphone - Plataforma EXPO |
+| Wireframes | Figma |
+| Ferramentas de Comunicação | Teams e WhatsApp |
 
-O editor de código foi escolhido porque ele possui uma integração com o sistema de versão. As ferramentas de comunicação utilizadas possuem integração semelhante e por isso foram selecionadas. Por fim, para criar diagramas utilizamos essa ferramenta por melhor captar as necessidades da nossa solução.
+* O editor de código foi escolhido devido a sua versatilidade e fácil integração com a ferramenta de versionamento GIT.
 
-Liste quais ferramentas foram empregadas no desenvolvimento do projeto, justificando a escolha delas, sempre que possível.
- 
-> **Possíveis Ferramentas que auxiliarão no gerenciamento**: 
-> - [Slack](https://slack.com/)
-> - [Github](https://github.com/)
+* Para os testes de software durante o desenvolvimento, foi escolhido o Android Studio, utilizando o ambiente EXPO.
+
+* Para os tetes de usabilidade, foi escolhido a utilização do próprio Smartphone, utilizando a plataforma EXPO.
+
+* O desenvolvimento dos Wireframes foi feito no Figma.
+
+* A comunicação dos membros da equipe é feita através do Microsoft Teams e WhatsApp.
+
+Liste quais ferramentas foram empregadas no desenvolvimento do projeto, justificando a escolha delas, sempre que possível. 
+
