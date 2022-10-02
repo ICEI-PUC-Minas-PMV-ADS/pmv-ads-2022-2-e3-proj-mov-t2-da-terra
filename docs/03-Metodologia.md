@@ -13,6 +13,7 @@ AMBIENTE | PLATAFORMA |
 | Gerenciamento de Projeto | Trello |
 
 ## Controle de Versão
+TERMINAR - ATUALIZAR
 
 A ferramenta de controle de versão adotada no projeto foi o GIT sendo que o Github foi utilizado para hospedagem do repositório.
 
@@ -32,6 +33,9 @@ etiquetas:
 - `feature`: uma nova funcionalidade precisa ser introduzida
 
 Discuta como a configuração do projeto foi feita na ferramenta de versionamento escolhida. Exponha como a gerência de tags, merges, commits e branchs é realizada. Discuta como a gerência de issues foi realizada.
+
+![print-git-flow.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/print-git-flow.png)
+
 
 ## Gerenciamento de Projeto
 
@@ -83,7 +87,7 @@ Checagem de Qualidade.
 * Concluído <br>
 Nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontas para serem entregues ao usuário. Não há mais edições ou revisões necessárias. 
 
-IMAGEM TRELLO
+![print-trello.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/print-trello.png)
 
 ### Ferramentas
 
