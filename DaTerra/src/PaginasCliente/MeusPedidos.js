@@ -1,7 +1,7 @@
 import React ,{useContext} from 'react';
 import {Text} from "react-native";
 import Body from "../Componentes/Body";
-import { AuthContext } from '../contexts/autenticacao';
+import { AuthContext } from '../contexts/AuthProvider';
 
 const MeusPedidos = () => {
 const {} = useContext(AuthContext)

@@ -3,19 +3,18 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Loja from "../PaginaVendedor/Loja";
 import MeusPedidos from "../PaginaVendedor/MeusPedidos";
-import BuscarProdutos from "../PaginasCliente/BuscarProduto";
+// import BuscarProdutos from "../PaginasCliente/BuscarProdutos";
 import HomeVendedor from "../PaginaVendedor/HomeVendedor";
 import HomeCliente from "../PaginasCliente/HomeCliente";
 import MinhaConta from "../PaginasComuns/MinhaConta";
 import Login from "../PaginasComuns/Login";
 import CadastroUsuario from '../PaginasComuns/CadastroUsuario';
-import { AuthProvider } from '../contexts/autenticacao';
+import { AuthProvider } from '../contexts/AuthProvider';
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
-    return (
-        
-        <Stack.Navigator initialRouteName="HomeVendedor">
+    return (        
+        <Stack.Navigator initialRouteName="Login">
             <Stack.Screen
                 name="Login"
                 component={Login}

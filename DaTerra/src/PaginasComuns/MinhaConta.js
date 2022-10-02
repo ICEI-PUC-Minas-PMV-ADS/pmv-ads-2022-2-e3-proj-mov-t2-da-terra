@@ -2,7 +2,7 @@ import React,{useContext} from 'react';
 import {Text} from "react-native";
 import Body from "../Componentes/Body";
 import Container from '../Componentes/Container';
-import { AuthContext } from '../contexts/autenticacao';
+import { AuthContext } from '../contexts/AuthProvider';
 
 const MinhaConta = () => {
 

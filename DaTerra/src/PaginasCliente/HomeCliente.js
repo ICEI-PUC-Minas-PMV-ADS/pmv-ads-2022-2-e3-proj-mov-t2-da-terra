@@ -1,27 +1,27 @@
-import React, {useState,useContext} from 'react';
+import React, { useState, useContext} from 'react';
 import {BottomNavigation} from 'react-native-paper';
 import {StyleSheet} from "react-native";
 
 import MeusPedidos from './MeusPedidos';
-import BuscarProdutos from "./BuscarProduto";
+import BuscarProdutos from './BuscarProdutos';
 import MinhaConta from "../PaginasComuns/MinhaConta";
 
-import { AuthContext } from '../contexts/autenticacao';
+import { AuthContext } from '../contexts/AuthProvider';
 
 const HomeCliente = () => {
     
-    const {} = useContext(AuthContext);
+  //  const {} = useContext(AuthContext);
     const [index, setIndex] = useState(0);
 
     const [routes] = useState([
-        {key: 'buscar', title: 'Buscar produtos', focusedIcon: 'shopping-search'},
+        {key: 'buscarProdutos', title: 'Buscar produtos', focusedIcon: 'magnify'},
         {key: 'meusPedidos', title: 'Meus pedidos', focusedIcon: 'truck-fast'},
         {key: 'minhaConta', title: 'Minha Conta', focusedIcon: 'account'},
 
     ]);
 
     const renderScene = BottomNavigation.SceneMap({
-        buscar: BuscarProdutos,
+        buscarProdutos: BuscarProdutos,
         meusPedidos: MeusPedidos,
         minhaConta: MinhaConta,
     });
@@ -37,8 +37,6 @@ const HomeCliente = () => {
 };
 const styles = StyleSheet.create({
 
-
-
-
 })
+
 export default HomeCliente;
