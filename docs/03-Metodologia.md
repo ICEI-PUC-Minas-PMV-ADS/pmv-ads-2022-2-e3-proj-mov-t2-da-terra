@@ -5,16 +5,12 @@ Para o gerenciamento de projeto de aplicativo mobile DaTerra, serão aplicados o
 
 ## Relação de Ambientes de Trabalho
 
-Os artefatos do projeto serão desenvolvidos a partir de diversas plataformas e a relação dos ambientes com seus respectivos propósitos é apresentada na tabela que se segue.   
+Os artefatos do projeto serão desenvolvidos a partir de diversas plataformas e a relação dos ambientes com seus respectivos propósitos é apresentada na tabela que se segue. Demais plataformas estão listadas abaixo, na seção "Ferramentas".
 
 AMBIENTE | PLATAFORMA |
 |:---:|:---:|
 | Repositório de Código Fonte | GitHub |
 | Gerenciamento de Projeto | Trello |
-| Diagrama de Classes | Lucidchart |
-| Diagrama de Fluxo | Drawio |
-| Modelo ER | Drawio |
-| Esquema Relacional | Drawio |
 
 ## Controle de Versão
 
@@ -92,7 +88,7 @@ IMAGEM TRELLO
 ### Ferramentas
 
 As ferramentas empregadas no projeto são:
-
+|  | PLATAFORMA |
 |:---:|:---:|
 | Editor de Código | Visual Studio Code |
 | Testes Software | Emulador Andoid Studio |
