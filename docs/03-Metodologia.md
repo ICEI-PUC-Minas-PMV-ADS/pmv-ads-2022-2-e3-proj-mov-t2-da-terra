@@ -44,48 +44,41 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 Assim está dividida a equipe DaTerra: 
  
 * **Scrum Master:** <br>
- - Carlos Hilario Siqueira Camuzzi <br>
+Carlos Hilario Siqueira Camuzzi <br>
 
 * **Product Owner:** <br>
- - Gabriel Antônio Lopes Costa <br>
+Gabriel Antônio Lopes Costa <br>
 
 * **Equipe de Desenvolvimento:** <br> 
- - Ana Paula Buchholz	<br>
- - Carlos Hilario Siqueira Camuzzi <br>
- - Ezequiel Silva de Souza Almeida	<br>
- - Gabriel Antônio Lopes Costa <br>
- - Ila Feitosa de Nóbrega <br>
- - Julia de Oliviera Sartori <br>
+Ana Paula Buchholz	<br>
+Carlos Hilario Siqueira Camuzzi <br>
+Ezequiel Silva de Souza Almeida	<br>
+Gabriel Antônio Lopes Costa <br>
+Ila Feitosa de Nóbrega <br>
+Julia de Oliviera Sartori <br>
  
 * **Equipe de Design:** <br>
- - Ana Paula Buchholz <br>
- - Ila Feitosa da Nóbrega <br>
- - Júlia de Oliveira Sartori <br>
+Ana Paula Buchholz <br>
+Ila Feitosa da Nóbrega <br>
+Júlia de Oliveira Sartori <br>
 
 ### Processo
 
 Para organização e distribuição das tarefas do projeto, a equipe está utilizando a ferramenta Trello, estruturado com as seguintes listas:  
  
-* **Backlog** <br>
-- Define os artefatos a serem entregues.
+* **Backlog:** Define os artefatos a serem entregues.
  
-* **Plano de Sprint** <br>
-- Inicialmente recebem os cards que serão movidos, e possuem a devida identificação de qual sprint pertencem por meio de etiquetas; 
+* **Plano de Sprint:** Inicialmente recebem os cards que serão movidos, e possuem a devida identificação de qual sprint pertencem por meio de etiquetas; 
  
-* **Design** <br>
- - Esta lista apresentam as atividades designadas a equipe de Design do projeto; 
+* **Design:** Esta lista apresentam as atividades designadas a equipe de Design do projeto; 
  
-* **A Fazer** <br>
- - Recebe as atividades ainda a serem realizadas pela equipe; 
+* **A Fazer:** Recebe as atividades ainda a serem realizadas pela equipe; 
 
-* **Em andamento** <br>
- - Tarefas sendo executadas no presente momento pelo time; 
+* **Em andamento:** Tarefas sendo executadas no presente momento pelo time; 
 
-* **Teste** <br>
- - Checagem de Qualidade.   
+* **Teste:** Checagem de Qualidade.   
  
-* **Concluído** <br>
- - Nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontas para serem entregues ao usuário. Não há mais edições ou revisões necessárias. 
+* **Concluído:** Nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontas para serem entregues ao usuário. Não há mais edições ou revisões necessárias. 
 
 ![print-trello.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/print-trello.png)
 
@@ -104,8 +97,6 @@ As ferramentas empregadas no projeto são:<br>
 | Esquema Relacional | Drawio |
 | Diagrama de Fluxo | Drawio |
 
-<br>
-
 * O editor de código foi escolhido devido a sua versatilidade e fácil integração com a ferramenta de versionamento GIT.
 
 * Para os testes de software durante o desenvolvimento, foi escolhido o Android Studio, utilizando o ambiente EXPO.
@@ -117,5 +108,3 @@ As ferramentas empregadas no projeto são:<br>
 * A comunicação dos membros da equipe é feita através do Microsoft Teams e WhatsApp.
 
 * Para os diagramas e modelagem, foram utilizadas as ferramentas Drawio e Lucidchart, devido a gratuidade das dessas ferramentas.
-
-
