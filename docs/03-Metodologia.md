@@ -43,49 +43,49 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 Assim está dividida a equipe DaTerra: 
  
-* Scrum Master: <br>
-Carlos Hilario Siqueira Camuzzi <br>
+* **Scrum Master:** <br>
+ - Carlos Hilario Siqueira Camuzzi <br>
 
-* Product Owner: <br>
-Gabriel Antônio Lopes Costa <br>
+* **Product Owner:** <br>
+ - Gabriel Antônio Lopes Costa <br>
 
-* Equipe de Desenvolvimento: <br> 
-Ana Paula Buchholz	<br>
-Carlos Hilario Siqueira Camuzzi <br>
-Ezequiel Silva de Souza Almeida	<br>
-Gabriel Antônio Lopes Costa <br>
-Ila Feitosa de Nóbrega <br>
-Julia de Oliviera Sartori <br>
+* **Equipe de Desenvolvimento:** <br> 
+ - Ana Paula Buchholz	<br>
+ - Carlos Hilario Siqueira Camuzzi <br>
+ - Ezequiel Silva de Souza Almeida	<br>
+ - Gabriel Antônio Lopes Costa <br>
+ - Ila Feitosa de Nóbrega <br>
+ - Julia de Oliviera Sartori <br>
  
-* Equipe de Design: <br>
-Ana Paula Buchholz <br>
-Ila Feitosa da Nóbrega <br>
-Júlia de Oliveira Sartori <br>
+* **Equipe de Design:** <br>
+ - Ana Paula Buchholz <br>
+ - Ila Feitosa da Nóbrega <br>
+ - Júlia de Oliveira Sartori <br>
 
 ### Processo
 
 Para organização e distribuição das tarefas do projeto, a equipe está utilizando a ferramenta Trello, estruturado com as seguintes listas:  
  
-* Backlog <br>
-Define os artefatos a serem entregues.
+* **Backlog** <br>
+- Define os artefatos a serem entregues.
  
-* Plano 	de Sprint <br>
-Inicialmente recebem os cards que serão movidos, e possuem a devida identificação de qual sprint pertencem por meio de etiquetas; 
+* **Plano de Sprint** <br>
+- Inicialmente recebem os cards que serão movidos, e possuem a devida identificação de qual sprint pertencem por meio de etiquetas; 
  
-* Design <br>
-Esta lista apresentam as atividades designadas a equipe de Design do projeto; 
+* **Design** <br>
+ - Esta lista apresentam as atividades designadas a equipe de Design do projeto; 
  
-* A Fazer <br>
-Recebe as atividades ainda a serem realizadas pela equipe; 
+* **A Fazer** <br>
+ - Recebe as atividades ainda a serem realizadas pela equipe; 
 
-* Em andamento <br>
-Tarefas sendo executadas no presente momento pelo time; 
+* **Em andamento** <br>
+ - Tarefas sendo executadas no presente momento pelo time; 
 
-* Teste <br>
-Checagem de Qualidade.   
+* **Teste** <br>
+ - Checagem de Qualidade.   
  
-* Concluído <br>
-Nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontas para serem entregues ao usuário. Não há mais edições ou revisões necessárias. 
+* **Concluído** <br>
+ - Nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontas para serem entregues ao usuário. Não há mais edições ou revisões necessárias. 
 
 ![print-trello.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/print-trello.png)
 
