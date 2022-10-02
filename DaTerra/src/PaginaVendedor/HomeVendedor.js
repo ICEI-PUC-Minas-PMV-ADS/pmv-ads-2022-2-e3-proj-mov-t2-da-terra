@@ -13,7 +13,7 @@ const HomeVendedor = () => {
     const [index, setIndex] = useState(0);
 
     const [routes] = useState([
-        {key: 'loja', title: 'Loja', icon: 'store'},
+        {key: 'loja', title: 'Loja', FocusedIcon: 'store'},
         {key: 'pedidos', title: 'Meus pedidos', icon: 'truck-fast'},
         {key: 'minhaConta', title: 'Minha Conta', icon: 'account-multiple'},
     ]);

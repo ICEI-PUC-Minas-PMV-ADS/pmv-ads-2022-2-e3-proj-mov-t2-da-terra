@@ -18,7 +18,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("Digite sua senha");
 
-  const validarLogin = () => {
+  const validarLogin = ( email,senha) => {
     //Aqui vai a parte para realizar o login
     //Faz a validação se for vendedor
     console.log("VALIDAR LOGIN");
