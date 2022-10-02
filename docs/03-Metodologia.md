@@ -88,13 +88,17 @@ IMAGEM TRELLO
 ### Ferramentas
 
 As ferramentas empregadas no projeto são:
-|  | PLATAFORMA |
+| TÓPICOS | FERRAMENTAS |
 |:---:|:---:|
 | Editor de Código | Visual Studio Code |
 | Testes Software | Emulador Andoid Studio |
 | Testes Usabilidade | Smartphone - Plataforma EXPO |
+| Comunicação | Teams e WhatsApp |
 | Wireframes | Figma |
-| Ferramentas de Comunicação | Teams e WhatsApp |
+| Diagrama de Classes | Lucidchart |
+| Modelo ER | Drawio |
+| Esquema Relacional | Drawio |
+| Diagrama de Fluxo | Drawio |
 
 * O editor de código foi escolhido devido a sua versatilidade e fácil integração com a ferramenta de versionamento GIT.
 
@@ -105,5 +109,7 @@ As ferramentas empregadas no projeto são:
 * O desenvolvimento dos Wireframes foi feito no Figma.
 
 * A comunicação dos membros da equipe é feita através do Microsoft Teams e WhatsApp.
+
+* Para os diagramas e modelagem, foram utilizadas as ferramentas Drawio e Lucidchart, devido a gratuidade das dessas ferramentas.
 
 Liste quais ferramentas foram empregadas no desenvolvimento do projeto, justificando a escolha delas, sempre que possível. 
