@@ -20,10 +20,15 @@ import { ProdutoContext } from "../contexts/ProdutoProvider";
 const Loja = () => {
   const { cadastrarProduto } = useContext(ProdutoContext);
 
-  // Categoria - Portal
-  const [visible, setVisible] = React.useState(false);
+  // Categoria Portal
+  const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
+
+  // Embalagem Portal
+  const [visibleEmbalagem, setVisibleEmbalagem] = useState(false);
+  const showDialogEmbalagem = () => setVisibleEmbalagem(true);
+  const hideDialogEmbalagem = () => setVisibleEmbalagem(false);
 
   const [nome, setNome] = useState();
   const [preco, setPreco] = useState();
@@ -32,7 +37,7 @@ const Loja = () => {
 
   // Categoria: verduras, hortalicas, frutas, folhagens, bebidas, outros    
   const [categoria, setCategoria] = useState('Verduras');
-  const[unidade,setUnidade] = useState("Kg")
+  const [embalagem, setEmbalagem] = useState("KG")
   const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
 
   const handleCadastro = () => {
@@ -67,7 +72,43 @@ const Loja = () => {
               onChangeText={(text) => setPreco(text)}
               left={<TextInput.Icon icon='currency-brl' />}
             />
-         
+
+            {/*Tipo de Embalagem Portal*/}
+            <TouchableOpacity onPress={showDialogEmbalagem}>
+              <Input
+                label='Tipo Embalagem'
+                editable={false}
+                value={embalagem}
+                onChangeText={(text) => setEmbalagem(text)}
+                left={<TextInput.Icon icon='archive-outline' />}
+              />
+            </TouchableOpacity>
+            <Portal>
+              <Dialog style={styles.dialog} visible={visibleEmbalagem} onDismiss={hideDialogEmbalagem}>
+                <Dialog.Title>Selecione a Embalagem</Dialog.Title>
+                <Dialog.Content>
+                  <View style={styles.radioItem}>
+                    <RadioButton
+                      value="KG"
+                      status={embalagem === 'KG' ? 'checked' : 'unchecked'}
+                      onPress={() => setEmbalagem('KG')}
+                    /><Text>KG</Text>
+                  </View>
+                  <View style={styles.radioItem}>
+                    <RadioButton
+                      value="UN"
+                      status={embalagem === 'UN' ? 'checked' : 'unchecked'}
+                      onPress={() => setEmbalagem('UN')}
+                    /><Text >UN</Text>
+                  </View>
+                </Dialog.Content>
+                <Dialog.Actions>
+                  <Button onPress={hideDialogEmbalagem}>OK</Button>
+                </Dialog.Actions>
+              </Dialog>
+            </Portal>
+            {/* Fim Tipo de Embalagem Portal*/}
+
             <Input
               label='Quantidade em Estoque'
               keyboardType='decimal-pad'
@@ -76,7 +117,7 @@ const Loja = () => {
               left={<TextInput.Icon icon='archive-outline' />}
             />
 
-            {/*Categoria - Portal*/}
+            {/*Categoria Portal*/}
             <TouchableOpacity onPress={showDialog}>
               <Input
                 label='Categoria'
@@ -106,7 +147,7 @@ const Loja = () => {
                       /><Text>Frutas</Text>
                     </View>
                     <View style={styles.radioItem}>
-                      <RadioButton            
+                      <RadioButton
                         value="Hortaliças"
                         status={categoria === 'Hortaliças' ? 'checked' : 'unchecked'}
                         onPress={() => setCategoria('Hortaliças')}
@@ -140,7 +181,7 @@ const Loja = () => {
                 </Dialog>
               </Portal>
             </View>
-            {/*Fim Categoria - Portal*/}
+            {/*Fim Categoria Portal*/}
 
             <TextInput
               label='Descrição'
