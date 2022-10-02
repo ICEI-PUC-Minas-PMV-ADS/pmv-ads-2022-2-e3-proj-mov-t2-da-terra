@@ -43,48 +43,48 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 Assim está dividida a equipe DaTerra: 
  
-* Scrum Master:
-Carlos Hilario Siqueira Camuzzi  
+* Scrum Master: <br>
+Carlos Hilario Siqueira Camuzzi <br>
 
-* Product Owner: 
-Gabriel Antônio Lopes Costa 
+* Product Owner: <br>
+Gabriel Antônio Lopes Costa <br>
 
-* Equipe de Desenvolvimento:
-Ana Paula Buchholz		 
-Carlos Hilario Siqueira Camuzzi 
-Ezequiel Silva de Souza Almeida	
-Gabriel Antônio Lopes Costa
-Ila Feitosa de Nóbrega 
-Julia de Oliviera Sartori 
+* Equipe de Desenvolvimento: <br> 
+Ana Paula Buchholz	<br>
+Carlos Hilario Siqueira Camuzzi <br>
+Ezequiel Silva de Souza Almeida	<br>
+Gabriel Antônio Lopes Costa <br>
+Ila Feitosa de Nóbrega <br>
+Julia de Oliviera Sartori <br>
  
-* Equipe de Design:
-Ana Paula Buchholz
-Ila Feitosa da Nóbrega
-Júlia de Oliveira Sartori 
+* Equipe de Design: <br>
+Ana Paula Buchholz <br>
+Ila Feitosa da Nóbrega <br>
+Júlia de Oliveira Sartori <br>
 
 ### Processo
 
 Para organização e distribuição das tarefas do projeto, a equipe está utilizando a ferramenta Trello, estruturado com as seguintes listas:  
  
-* Backlog 
+* Backlog <br>
 Define os artefatos a serem entregues.
  
-* Plano 	de Sprint 
+* Plano 	de Sprint <br>
 Inicialmente recebem os cards que serão movidos, e possuem a devida identificação de qual sprint pertencem por meio de etiquetas; 
  
-* Design 
+* Design <br>
 Esta lista apresentam as atividades designadas a equipe de Design do projeto; 
  
-* A Fazer 
+* A Fazer <br>
 Recebe as atividades ainda a serem realizadas pela equipe; 
 
-* Em andamento 
+* Em andamento <br>
 Tarefas sendo executadas no presente momento pelo time; 
 
-* Teste 
+* Teste <br>
 Checagem de Qualidade.   
  
-* Concluído 
+* Concluído <br>
 Nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontas para serem entregues ao usuário. Não há mais edições ou revisões necessárias. 
 
 IMAGEM TRELLO
@@ -93,7 +93,6 @@ IMAGEM TRELLO
 
 As ferramentas empregadas no projeto são:
 
-|Ferramentas|
 |:---:|:---:|
 | Editor de Código | Visual Studio Code |
 | Testes Software | Emulador Andoid Studio |
@@ -112,4 +111,3 @@ As ferramentas empregadas no projeto são:
 * A comunicação dos membros da equipe é feita através do Microsoft Teams e WhatsApp.
 
 Liste quais ferramentas foram empregadas no desenvolvimento do projeto, justificando a escolha delas, sempre que possível. 
-
