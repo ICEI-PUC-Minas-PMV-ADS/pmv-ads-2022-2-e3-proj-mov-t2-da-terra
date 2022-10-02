@@ -87,7 +87,7 @@ IMAGEM TRELLO
 
 ### Ferramentas
 
-As ferramentas empregadas no projeto são:
+As ferramentas empregadas no projeto são:<br>
 | TÓPICOS | FERRAMENTAS |
 |:---:|:---:|
 | Editor de Código | Visual Studio Code |
@@ -99,6 +99,8 @@ As ferramentas empregadas no projeto são:
 | Modelo ER | Drawio |
 | Esquema Relacional | Drawio |
 | Diagrama de Fluxo | Drawio |
+
+<br>
 
 * O editor de código foi escolhido devido a sua versatilidade e fácil integração com a ferramenta de versionamento GIT.
 
@@ -112,4 +114,4 @@ As ferramentas empregadas no projeto são:
 
 * Para os diagramas e modelagem, foram utilizadas as ferramentas Drawio e Lucidchart, devido a gratuidade das dessas ferramentas.
 
-Liste quais ferramentas foram empregadas no desenvolvimento do projeto, justificando a escolha delas, sempre que possível. 
+
