@@ -76,6 +76,8 @@ Para organização e distribuição das tarefas do projeto, a equipe está utili
 
 * **Em andamento:** Tarefas sendo executadas no presente momento pelo time; 
 
+* **Revisão:** Etapa para uma última verificação antes dos testes.
+
 * **Teste:** Checagem de Qualidade.   
  
 * **Concluído:** Nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontas para serem entregues ao usuário. Não há mais edições ou revisões necessárias. 
@@ -99,12 +101,12 @@ As ferramentas empregadas no projeto são:<br>
 
 * O editor de código foi escolhido devido a sua versatilidade e fácil integração com a ferramenta de versionamento GIT.
 
-* Para os testes de software durante o desenvolvimento, foi escolhido o Android Studio, utilizando o ambiente EXPO.
+* Para os testes de software durante o desenvolvimento foi escolhido o Android Studio (utilizando o ambiente EXPO).
 
-* Para os tetes de usabilidade, foi escolhido a utilização do próprio Smartphone, utilizando a plataforma EXPO.
+* Para os testes de usabilidade foi escolhido a utilização de Smartphone (utilizando o ambiente EXPO).
 
 * O desenvolvimento dos Wireframes foi feito no Figma.
 
-* A comunicação dos membros da equipe é feita através do Microsoft Teams e WhatsApp.
+* A comunicação entre os membros da equipe é feita através do Microsoft Teams e WhatsApp.
 
-* Para os diagramas e modelagem, foram utilizadas as ferramentas Drawio e Lucidchart, devido a gratuidade das dessas ferramentas.
+* As ferramentas utilizadas para desenvolver o diagrama de classes, diagrama de fluxo, modelo ER e esquema relacional foram escolhidos devido a parcial e total gratuidade das mesmas.
