@@ -92,6 +92,7 @@ As ferramentas empregadas no projeto são:<br>
 | Comunicação | Teams e WhatsApp |
 | Gerenciamento de Projeto | Excel |
 | Matriz de Rastreabildiade | Excel |
+| Diagrama BPMN | Comunda |
 | Editor de Código | Visual Studio Code |
 | Versionamento de Código | GIT |
 | Testes Software | Emulador Andoid Studio |
@@ -104,6 +105,7 @@ As ferramentas empregadas no projeto são:<br>
 
 * A comunicação entre os membros da equipe é feita através do Microsoft Teams e WhatsApp.
 * Para gerenciamento de projeto e matriz de rastreabilidade foi utilizado o Excel, devido a familiaridade da equipe com o software.
+* O diagrama BPMN foi criado no Comunda, devido sugestão do professor. 
 * O editor de código foi escolhido devido a sua versatilidade e fácil integração com a ferramenta de versionamento GIT.
 * Para os testes de software durante o desenvolvimento foi escolhido o Android Studio (utilizando o ambiente EXPO).
 * Para os testes de usabilidade foi escolhido a utilização de Smartphone (utilizando o ambiente EXPO).
