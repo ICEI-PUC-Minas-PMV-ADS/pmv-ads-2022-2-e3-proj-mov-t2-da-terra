@@ -93,6 +93,7 @@ As ferramentas empregadas no projeto são:<br>
 | Gerenciamento de Projeto | Excel |
 | Matriz de Rastreabildiade | Excel |
 | Editor de Código | Visual Studio Code |
+| Versionamento de Código | GIT |
 | Testes Software | Emulador Andoid Studio |
 | Testes Usabilidade | Smartphone - Plataforma EXPO |
 | Wireframes | Figma |
