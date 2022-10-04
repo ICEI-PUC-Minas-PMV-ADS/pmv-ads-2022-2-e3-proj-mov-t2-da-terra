@@ -54,42 +54,42 @@ Baseando-se nas características e sub-caractertísticas descritas na norma téc
 A escolha foi feita devido a relevância de determinadas sub-características para o projeto me questão. 
  
 
-**1. Funcionalidade**
+1. **Funcionalidade**
 
 * **Adequação:** Será analisado se o software atende a demanda para qual foi proposto. Foi escolhida essa sub-característica devido ao fato de a proposta estar focada em atender pequenos produtores que podem, em alguns casos, não ter familiaridade com o uso desse tipo de aplicativo em seu dia-a-dia. 
  
 * **Segurança:** Manter os dados protegidos é uma das principais preocupações quando se fala em aplicação web ou mobile. Esse tópico irá avaliar a criptografia de senhas e acesso aos dados pessoais. 
 
  
-**2. Confiabilidade:**
+2. **Confiabilidade:**
 
 * **Tolerância a falhas:** Em se tratando de uma aplicação que exige conexão com a internet, pode-se estar sujeita a falhas como queda do sinal e afins. A tolerância deve ser avaliada de modo que o usuário não perca informações essenciais nesses casos. 
 
 * **Recuperabilidade:** Relacionado ao tópico anterior, será avaliado a recuperação de dados em eventos de falhas. 
   
 
-**3. Usabilidade **
+3. **Usabilidade **
 
 * **Inteligibilidade:** Um software é voltado para o usuário e de nada vale um software que cumpre suas funcionalidades, possuindo um visual confuso. Pensando nisso, avaliaremos a capacidade da interface transmitir o propósito da aplicação para o usuário. 
  
 * **Apreensibilidade:** Nesse tópico será avaliada a dificuldade para realização de determinadas tarefas dentro do aplicativo. 
 
   
-**4. Eficiência **
+4. **Eficiência **
 
 * **Comportamento em relação ao tempo:** Em um aplicativo mobile é evidente que o usuário espera agilidade nas suas buscas e outros procedimentos. Nesse tópico, avaliaremos a espera entre requisição e reposta do software. 
 
 * **Conformidade:** Com relação com o tópico anterior, será analisada a entrega de dados para garantir um tempo aceitável, conforme definido. 
  
 
-**5. Manutenabilidade**
+5. **Manutenabilidade**
 
 * **Analisabilidade:** Pensando numa maior facilidade para a equipe de desenvolvimento, será analisado o código e averiguado a dificuldade ou facilidade na identificação de problemas que precisam ser resolvidos. 
 
 * **Modificabilidade:** Analisar a documentação e a identação de códigos, assim como aspectos da legibilidade como um todo. 
 
  
-**6. Portabilidade:**	 
+6. **Portabilidade:**	 
 
 * **Capacidade de instalação:** Nesse tópico será feito a avaliação das possíveis dificuldades enfrentadas para a instalação do aplicativo. 
 
