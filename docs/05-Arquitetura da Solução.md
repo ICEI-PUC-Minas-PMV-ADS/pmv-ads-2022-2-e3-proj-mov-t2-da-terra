@@ -68,14 +68,14 @@ A escolha foi feita devido a relevância de determinadas sub-características pa
 * **Recuperabilidade:** Relacionado ao tópico anterior, será avaliado a recuperação de dados em eventos de falhas. 
   
 
-3. **Usabilidade **
+3. **Usabilidade**
 
 * **Inteligibilidade:** Um software é voltado para o usuário e de nada vale um software que cumpre suas funcionalidades, possuindo um visual confuso. Pensando nisso, avaliaremos a capacidade da interface transmitir o propósito da aplicação para o usuário. 
  
 * **Apreensibilidade:** Nesse tópico será avaliada a dificuldade para realização de determinadas tarefas dentro do aplicativo. 
 
   
-4. **Eficiência **
+4. **Eficiência**
 
 * **Comportamento em relação ao tempo:** Em um aplicativo mobile é evidente que o usuário espera agilidade nas suas buscas e outros procedimentos. Nesse tópico, avaliaremos a espera entre requisição e reposta do software. 
 
