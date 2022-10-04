@@ -89,24 +89,22 @@ Para organização e distribuição das tarefas do projeto, a equipe está utili
 As ferramentas empregadas no projeto são:<br>
 | TÓPICOS | FERRAMENTAS |
 |:---:|:---:|
+| Comunicação | Teams e WhatsApp |
+| Gerenciamento de Projeto | Excel |
+| Matriz de Rastreabildiade | Excel |
 | Editor de Código | Visual Studio Code |
 | Testes Software | Emulador Andoid Studio |
 | Testes Usabilidade | Smartphone - Plataforma EXPO |
-| Comunicação | Teams e WhatsApp |
 | Wireframes | Figma |
 | Diagrama de Classes | Lucidchart |
 | Modelo ER | Drawio |
 | Esquema Relacional | Drawio |
 | Diagrama de Fluxo | Drawio |
 
-* O editor de código foi escolhido devido a sua versatilidade e fácil integração com a ferramenta de versionamento GIT.
-
-* Para os testes de software durante o desenvolvimento foi escolhido o Android Studio (utilizando o ambiente EXPO).
-
-* Para os testes de usabilidade foi escolhido a utilização de Smartphone (utilizando o ambiente EXPO).
-
-* O desenvolvimento dos Wireframes foi feito no Figma.
-
 * A comunicação entre os membros da equipe é feita através do Microsoft Teams e WhatsApp.
-
+* Para gerenciamento de projeto e matriz de rastreabilidade foi utilizado o Excel, devido a familiaridade da equipe com o software.
+* O editor de código foi escolhido devido a sua versatilidade e fácil integração com a ferramenta de versionamento GIT.
+* Para os testes de software durante o desenvolvimento foi escolhido o Android Studio (utilizando o ambiente EXPO).
+* Para os testes de usabilidade foi escolhido a utilização de Smartphone (utilizando o ambiente EXPO).
+* O desenvolvimento dos Wireframes foi feito no Figma.
 * As ferramentas utilizadas para desenvolver o diagrama de classes, diagrama de fluxo, modelo ER e esquema relacional foram escolhidos devido a parcial e total gratuidade das mesmas.
