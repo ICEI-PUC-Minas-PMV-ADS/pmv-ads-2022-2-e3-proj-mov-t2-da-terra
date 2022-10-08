@@ -41,6 +41,8 @@ const Loja = () => {
               source={require("../assets/maracuja.jpg")}
             />
             <Text style={styles.textoProduto}>Maracujá</Text>
+            <Text style={styles.textoProduto}>Estoque: 5kgs</Text>
+
 
           </TouchableOpacity>
             
@@ -55,6 +57,8 @@ const Loja = () => {
               source={require("../assets/img-banana.jpg")}
             />
             <Text style={styles.textoProduto}>Banana</Text>
+            <Text style={styles.textoProduto}>Estoque: 3kgs</Text>
+
             </TouchableOpacity>
             
           </View>
@@ -66,6 +70,8 @@ const Loja = () => {
               source={require("../assets/img-maça.jpg")}
             />
             <Text style={styles.textoProduto}>Maça</Text>
+            <Text style={styles.textoProduto}>Estoque: 2kgs</Text>
+
             </TouchableOpacity>
           </View>
          
@@ -79,6 +85,8 @@ const Loja = () => {
               source={require("../assets/img-laranja.png")}
             />
             <Text style={styles.textoProduto}>Laranja</Text>
+            <Text style={styles.textoProduto}>Estoque: 7kgs</Text>
+
 
             </TouchableOpacity>
           </View>
@@ -89,7 +97,9 @@ const Loja = () => {
               style={styles.img}
               source={require("../assets/img-alface.jpg")}
             />
-            <Text style={styles.textoProduto}>Laranja</Text>
+            <Text style={styles.textoProduto}>Alface</Text>
+            <Text style={styles.textoProduto}>Estoque: 2,5kgs</Text>
+
              </TouchableOpacity>
           </View>
           <View style={styles.containerProdutos}>
@@ -100,6 +110,8 @@ const Loja = () => {
               source={require("../assets/img-brocolis.jpg")}
             />
             <Text style={styles.textoProduto}>Brócolis</Text>
+            <Text style={styles.textoProduto}>Estoque: 2kgs</Text>
+
           </TouchableOpacity>
 
           </View>
@@ -130,9 +142,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textoProduto: {
-    padding: 7,
+    padding: 5,
     lineHeight: 23,
-    letterSpacing: 2.7,
+    letterSpacing: 2.2,
     fontStyle: "italic",
     fontWeight: "bold",
   },
