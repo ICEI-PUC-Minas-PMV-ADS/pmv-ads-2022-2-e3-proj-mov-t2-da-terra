@@ -31,22 +31,11 @@ O diagrama que define o fluxo do sistema é representado a seguir:
 ## Wireframes
 
 **Tela Inicial**
-![TelaInicial.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/TelaInicial.png)
 
-**Tela Tipo de Usuário**
-![EscolherCategoriaUsuario.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/EscolherCategoriaUsuario.png)
+<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/TelaInicial.png" width="816" height="372" />
 
-**Tela Cadastros Usuário**
-![TelaCadastro.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/TelaCadastro.png)
+)
 
-**Tela Cadastro Loja**
-![CadastroLoja.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/CadastroLoja.png)
-
-**Tela Cadastro Produto**
-![CadastroNovoProduto.png)](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/CadastroNovoProduto.png)
-
-**Tela Editar Produto**
-![EditarProdutoExistente.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/EditarProdutoExistente.png)
 
 
 
