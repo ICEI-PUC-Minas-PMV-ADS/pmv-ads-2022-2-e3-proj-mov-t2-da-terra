@@ -148,22 +148,22 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 ## Mapeamento dos Requisitos
 | REQUISITOS FUNCIONAIS | PROCESSOS | RAIA DO BPMN |
 |:---:|:---:|:---:|
-| RF-004: O produtor deve cadastrar seus produtos com nome, categoria, descrição, foto, preço e informações adicionais. | * Define forma de pagamento;<br> * Define horários de retirada;<br> * Adiciona produto; Define quantidade.<br> | Vendedor |
-| RF-005: O produtor deve anunciar seus produtos no APP. | * Adiciona produto; * Define quantidade. | Vendedor |
-| RF-007: O cliente deve ter a opção de realizar buscas em um raio de distância a partir da própria localização. | * Filtra Localização. | Cliente |
-| RF-008: O cliente deve ter a opção de comprar o produto, indicando a quantidade de KG / UN. | * Seleciona vendedor; * Seleciona produto; * Selecionar quantidade; * Adicionar ao carrinho; * Selecionar hora de retirada; * Selecionar forma de pagamento; * Enviar solicitação de reserva. | Cliente |
-| RF-008: O cliente deve ter a opção de comprar o produto, indicando a quantidade de KG / UN. | * Recebe solicitação de reserva. | Vendedor |
-| RF-010: O cliente precisa receber dados de contato do produtor, como nome, telefone e e-mail ao realizar o pedido. | * Reserva Confirmada | Cliente |
-| RF-011: O produtor precisa receber dados de contato do cliente, como nome, telefone e e-mail quando receber o pedido. | * Reserva Efetuada | Vendedor |
+| RF-004: O produtor deve cadastrar seus produtos com nome, categoria, descrição, foto, preço e informações adicionais. | Define forma de pagamento;<br> Define horários de retirada;<br> Adiciona produto;<br> Define quantidade. | Vendedor |
+| RF-005: O produtor deve anunciar seus produtos no APP. | Adiciona produto;<br> Define quantidade. | Vendedor |
+| RF-007: O cliente deve ter a opção de realizar buscas em um raio de distância a partir da própria localização. | Filtra Localização. | Cliente |
+| RF-008: O cliente deve ter a opção de comprar o produto, indicando a quantidade de KG / UN. | Seleciona vendedor;<br> Seleciona produto;<br> Selecionar quantidade;<br> Adicionar ao carrinho;<br> Selecionar hora de retirada;<br> Selecionar forma de pagamento;<br> Enviar solicitação de reserva. | Cliente |
+| RF-008: O cliente deve ter a opção de comprar o produto, indicando a quantidade de KG / UN. | Recebe solicitação de reserva. | Vendedor |
+| RF-010: O cliente precisa receber dados de contato do produtor, como nome, telefone e e-mail ao realizar o pedido. | Reserva Confirmada | Cliente |
+| RF-011: O produtor precisa receber dados de contato do cliente, como nome, telefone e e-mail quando receber o pedido. | Reserva Efetuada | Vendedor |
 
 | REQUISITOS NÃO-FUNCIONAIS | PROCESSOS | RAIA DO BPMN |
 |:---:|:---:|:---:|
-| RNF-001: O app deve ser desenvolvido em JS com o Framework React Native. | * Todos | Ambas |
-| RNF-002: O aplicativo deve estar disponível 24 horas 7 dias da semana.  | * Todos | Ambas |
-| RNF-004: O aplicativo deve ter funcionalidades deve ser fácil domínio. | * Todos | Ambas |
+| RNF-001: O app deve ser desenvolvido em JS com o Framework React Native. | Todos | Ambas |
+| RNF-002: O aplicativo deve estar disponível 24 horas 7 dias da semana.  | Todos | Ambas |
+| RNF-004: O aplicativo deve ter funcionalidades deve ser fácil domínio. | Todos | Ambas |
 | RNF-005: O aplicativo deve possuir a UI intuitiva e de fácil entendimento | Todos | Ambas |
 | RNF-006: O aplicativo deve ter uma boa eficiência no uso da bateria do aparelho. | Todos | Ambas |
-| RNF-007: A busca por produtos deve retornar os itens desejado em menos de 3 segundos. | * Seleciona Vendedor; * Seleciona Produto; | Cliente |
+| RNF-007: A busca por produtos deve retornar os itens desejado em menos de 3 segundos. | Seleciona Vendedor;<br> Seleciona Produto; | Cliente |
 | RNF-008: O sistema persistir os dados, de forma que em situações de falha do app ou perda de conexão, informações importantes para o usuário não se percam  | Todos | Ambas |
 
 ## Diagrama de Casos de Uso
