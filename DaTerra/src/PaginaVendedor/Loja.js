@@ -26,9 +26,9 @@ const Loja = () => {
   return (
     <>
       <View style={styles.apresentacao}>
-        <Text style={{ fontSize: 20 }}>Sua Loja {usuario.nome}</Text>
+        <Text style={{ fontSize: 25 }}>Loja de {usuario.nome}</Text>
         <Text style={{ fontSize: 20 }}>
-          Veja abaixo o estoque de {usuario.nomeLoja}
+          {usuario.nomeLoja}
         </Text>
       </View>
       <ScrollView>
@@ -41,7 +41,8 @@ const Loja = () => {
               source={require("../assets/maracuja.jpg")}
             />
             <Text style={styles.textoProduto}>Maracujá</Text>
-            <Text style={styles.textoProduto}>Estoque: 5kgs</Text>
+            <Text style={styles.textoProduto}>Fruta</Text>
+            <Text style={styles.textoEstoque}>5kg</Text>
 
 
           </TouchableOpacity>
@@ -57,7 +58,9 @@ const Loja = () => {
               source={require("../assets/img-banana.jpg")}
             />
             <Text style={styles.textoProduto}>Banana</Text>
-            <Text style={styles.textoProduto}>Estoque: 3kgs</Text>
+            <Text style={styles.textoCategoria}>Fruta</Text>
+
+            <Text style={styles.textoEstoque}>3kg</Text>
 
             </TouchableOpacity>
             
@@ -70,7 +73,11 @@ const Loja = () => {
               source={require("../assets/img-maça.jpg")}
             />
             <Text style={styles.textoProduto}>Maça</Text>
-            <Text style={styles.textoProduto}>Estoque: 2kgs</Text>
+            <Text style={styles.textoCategoria}>Fruta</Text>
+           
+            <Text style={styles.textoEstoque}>2kg</Text>
+
+            
 
             </TouchableOpacity>
           </View>
@@ -82,10 +89,12 @@ const Loja = () => {
 
             <Image
               style={styles.img}
-              source={require("../assets/img-laranja.png")}
+              source={require("../assets/img-laranja.jpg")}
             />
             <Text style={styles.textoProduto}>Laranja</Text>
-            <Text style={styles.textoProduto}>Estoque: 7kgs</Text>
+            <Text style={styles.textoCategoria}>Fruta</Text>
+
+            <Text style={styles.textoEstoque}>7kg</Text>
 
 
             </TouchableOpacity>
@@ -98,7 +107,9 @@ const Loja = () => {
               source={require("../assets/img-alface.jpg")}
             />
             <Text style={styles.textoProduto}>Alface</Text>
-            <Text style={styles.textoProduto}>Estoque: 2,5kgs</Text>
+            <Text style={styles.textoCategoria}>Hortaliça</Text>
+
+            <Text style={styles.textoEstoque}>2,5kg</Text>
 
              </TouchableOpacity>
           </View>
@@ -110,7 +121,9 @@ const Loja = () => {
               source={require("../assets/img-brocolis.jpg")}
             />
             <Text style={styles.textoProduto}>Brócolis</Text>
-            <Text style={styles.textoProduto}>Estoque: 2kgs</Text>
+            <Text style={styles.textoCategoria}>Vegetal</Text>
+
+            <Text style={styles.textoEstoque}>2kg</Text>
 
           </TouchableOpacity>
 
@@ -142,11 +155,25 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textoProduto: {
-    padding: 5,
-    lineHeight: 23,
+    padding: 3,
     letterSpacing: 2.2,
     fontStyle: "italic",
     fontWeight: "bold",
+  },
+  textoEstoque: {
+    padding: 2,
+    letterSpacing: 2.2,
+    fontStyle: "italic",
+    fontWeight: "bold",
+    marginLeft:85,
+    
+  },
+  textoCategoria: {
+    padding: 3,
+    letterSpacing: 2.2,
+    fontStyle: "italic",
+    fontWeight: "bold",
+    
   },
 
   principaisFuncionalidades: {
@@ -160,24 +187,24 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-
-    Height: 197,
-
     borderRadius: 9,
-    padding: 20,
+    padding: 15,
     alignitems: "center",
-    color: "#FFF",
     fontWeight: "bold",
     fontSize: 1.4,
-    marginTop: 25,
+    marginTop: 15,
   },
 
   img: {
     /*Aqui é configuração do tamanho das imagens que vão dentro das caixas*/
-    width: 120,
-    height: 110,
+    width: 127,
+    height: 100,
     padding: 10,
-    borderRadius: 6,
+    borderTopRightRadius: 6,
+    borderTopLeftRadius: 6,
+    borderWidth:0.8,
+   
+    
   },
 
   fab: {
