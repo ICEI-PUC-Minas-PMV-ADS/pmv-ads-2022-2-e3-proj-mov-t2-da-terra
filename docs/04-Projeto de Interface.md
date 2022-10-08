@@ -43,6 +43,4 @@ O diagrama que define o fluxo do sistema é representado a seguir:
 
 | Carrinho | Pedido Confirmado | Histórico Pedidos |
 |:---:|:---:|:---:|
-|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/Carrinho.png" alt="Carrinho" width="180" height="400" />|
-<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/PedidoConfirmado.png" alt="PedidoConfirmado" width="180" height="400" />|
-<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/HistoricoPedidos.png" alt="HistoricoPedidos" width="180" height="400" />
+|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/Carrinho.png" alt="Carrinho" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/PedidoConfirmado.png" alt="PedidoConfirmado" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/HistoricoPedidos.png" alt="HistoricoPedidos" width="180" height="400" />
