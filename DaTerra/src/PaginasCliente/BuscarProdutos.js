@@ -1,13 +1,16 @@
-import React, { Context, useContext } from "react";
-import { Text, FlatList, Image, StyleSheet } from "react-native";
+import React, { useContext, useState } from "react";
+import { FlatList, Image, StyleSheet, } from "react-native";
+import { List, Searchbar } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
-import Input from "../Componentes/Input";
-import { TextInput, List } from "react-native-paper";
+
 import ProdutoProvider from "../contexts/ProdutoProvider";
+
 const BuscarProdutos = () => {
   //Abaixo seria no caso aonde pegaria os dados da busca no banco
-  const {} = useContext(ProdutoProvider);
+  //const {} = useContext(ProdutoProvider);
   const DATA = [
     {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
@@ -28,6 +31,9 @@ const BuscarProdutos = () => {
       unidade: "(Kg)",
     },
   ];
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const onChangeSearch = query => setSearchQuery(query);
 
   const renderItem = ({ item }) => (
     <List.Item
@@ -50,23 +56,30 @@ const BuscarProdutos = () => {
 
   return (
     <Container>
-      <Input
-        label={"Buscar produtos"}
-        style={{ width: 320, marginTop: 10 }}
-        right={<TextInput.Icon name="magnify" />}
-      />
-
-      <FlatList
-        style={styles.listas}
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+      <SafeAreaView>
+        <Searchbar
+          placeholder="Buscar Produto"
+          onChangeText={onChangeSearch}
+          value={searchQuery}
+        />
+      </SafeAreaView>
+      <Body>
+        <FlatList
+          style={styles.lista}
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </Body>
     </Container>
   );
 };
+
 const styles = StyleSheet.create({
-  lista: {
+  searchBar: {
+    // Estilizar
+  },
+  lista: {   
     padding: 20,
   },
 });

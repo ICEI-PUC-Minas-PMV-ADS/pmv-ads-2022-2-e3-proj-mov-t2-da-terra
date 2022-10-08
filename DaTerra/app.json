@@ -4,10 +4,10 @@
     "slug": "DaTerra",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo_da_terra_transparente.png",
+    "icon": "",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/logo_da_terra_transparente.png",
+      "image": "",
       "resizeMode": "contain",
       "backgroundColor": "#36393e"
     },
@@ -22,7 +22,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo_da_terra_transparente.png",
+        "foregroundImage": "",
         "backgroundColor": "#FFFFFF"
       }
     },

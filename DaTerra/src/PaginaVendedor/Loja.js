@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity, Image ,ScrollView} from "react-native";
 import {
   TextInput,
   Portal,
   Dialog,
   Button,
   Provider,
-  RadioButton
+  RadioButton,
+  FAB,
 } from "react-native-paper";
 
 import Body from "../Componentes/Body";
@@ -15,192 +16,163 @@ import Container from "../Componentes/Container";
 import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
 
-import { ProdutoContext } from "../contexts/ProdutoProvider";
+import { AuthContext } from "../contexts/AuthProvider";
+import { useNavigation } from "@react-navigation/native";
 
 const Loja = () => {
-  const { cadastrarProduto } = useContext(ProdutoContext);
-
-  // Categoria - Portal
-  const [visible, setVisible] = React.useState(false);
-  const showDialog = () => setVisible(true);
-  const hideDialog = () => setVisible(false);
-
-  const [nome, setNome] = useState();
-  const [preco, setPreco] = useState();
-  const [estoque, setEstoque] = useState();
-  const [descricao, setDescricao] = useState();
-
-  // Categoria: verduras, hortalicas, frutas, folhagens, bebidas, outros    
-  const [categoria, setCategoria] = useState('Verduras');
-  const[unidade,setUnidade] = useState("Kg")
-  const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
-
-  const handleCadastro = () => {
-    // Testes OK
-    console.log('nome: ' + nome)
-    console.log('preco: ' + preco)
-    console.log('estoque: ' + estoque)
-    console.log('decricao: ' + descricao)
-    console.log('categoria: ' + categoria)
-
-    // Context 
-    cadastrarProduto(nome, preco, estoque, descricao, categoria);
-  }
+  const navigation = useNavigation();
+  const { usuario } = useContext(AuthContext);
 
   return (
-    <Provider>
-      <Container>
-        <Header title={'Cadastro de Produto'} />
-        <Body>
-          {/* <Text style={styles.titulo}>Cadastro de Produto</Text> */}
-          <View style={styles.container}>
-            <Input
-              label='Nome'
-              value={nome}
-              onChangeText={(text) => setNome(text)}
-              left={<TextInput.Icon icon='sort-variant' />}
+    <>
+      <View style={styles.apresentacao}>
+        <Text style={{ fontSize: 20 }}>Sua Loja {usuario.nome}</Text>
+        <Text style={{ fontSize: 20 }}>
+          Veja abaixo o estoque de {usuario.nomeLoja}
+        </Text>
+      </View>
+      <ScrollView>
+      <View style={styles.containerPrincipal}>
+        <View style={styles.principaisFuncionalidades}>
+          <View style={styles.containerProdutos}>
+          <TouchableOpacity>
+          <Image
+              style={styles.img}
+              source={require("../assets/maracuja.jpg")}
             />
-            <Input
-              label='Preço'
-              keyboardType='decimal-pad'
-              value={preco}
-              onChangeText={(text) => setPreco(text)}
-              left={<TextInput.Icon icon='currency-brl' />}
-            />
-         
-            <Input
-              label='Quantidade em Estoque'
-              keyboardType='decimal-pad'
-              value={estoque}
-              onChangeText={(text) => setEstoque(text)}
-              left={<TextInput.Icon icon='archive-outline' />}
-            />
+            <Text style={styles.textoProduto}>Maracujá</Text>
 
-            {/*Categoria - Portal*/}
-            <TouchableOpacity onPress={showDialog}>
-              <Input
-                label='Categoria'
-                editable={false}
-                value={categoria}
-                onChangeText={(text) => setCategoria(text)}
-                left={<TextInput.Icon icon='segment' />}
-              />
-            </TouchableOpacity>
-            <View>
-              <Portal>
-                <Dialog style={styles.dialog} visible={visible} onDismiss={hideDialog}>
-                  <Dialog.Title>Selecione a Categoria</Dialog.Title>
-                  <Dialog.Content>
-                    <View style={styles.radioItem}>
-                      <RadioButton
-                        value="Verduras"
-                        status={categoria === 'Verduras' ? 'checked' : 'unchecked'}
-                        onPress={() => setCategoria('Verduras')}
-                      /><Text>Verduras</Text>
-                    </View>
-                    <View style={styles.radioItem}>
-                      <RadioButton
-                        value="Frutas"
-                        status={categoria === 'Frutas' ? 'checked' : 'unchecked'}
-                        onPress={() => setCategoria('Frutas')}
-                      /><Text>Frutas</Text>
-                    </View>
-                    <View style={styles.radioItem}>
-                      <RadioButton            
-                        value="Hortaliças"
-                        status={categoria === 'Hortaliças' ? 'checked' : 'unchecked'}
-                        onPress={() => setCategoria('Hortaliças')}
-                      /><Text >Hortaliças</Text>
-                    </View>
-                    <View style={styles.radioItem}>
-                      <RadioButton
-                        value="Folhagens"
-                        status={categoria === 'Folhagens' ? 'checked' : 'unchecked'}
-                        onPress={() => setCategoria('Folhagens')}
-                      /><Text>Folhagens</Text>
-                    </View>
-                    <View style={styles.radioItem}>
-                      <RadioButton
-                        value="Bebidas"
-                        status={categoria === 'Bebidas' ? 'checked' : 'unchecked'}
-                        onPress={() => setCategoria('Bebidas')}
-                      /><Text>Bebidas</Text>
-                    </View>
-                    <View style={styles.radioItem}>
-                      <RadioButton
-                        value="Outros"
-                        status={categoria === 'Outros' ? 'checked' : 'unchecked'}
-                        onPress={() => setCategoria('Outros')}
-                      /><Text>Outros</Text>
-                    </View>
-                  </Dialog.Content>
-                  <Dialog.Actions>
-                    <Button onPress={hideDialog}>OK</Button>
-                  </Dialog.Actions>
-                </Dialog>
-              </Portal>
-            </View>
-            {/*Fim Categoria - Portal*/}
-
-            <TextInput
-              label='Descrição'
-              mode="outlined"
-              multiline={true}
-              numberOfLines={5}
-              style={styles.inputDescricao}
-              onChangeText={(text) => setDescricao(text)}
-              left={<TextInput.Icon icon='card-text-outline' />}
-            />
-            <View style={styles.viewBotao}>
-              <TouchableOpacity onPress={() => handleCadastro()}>
-                <Botao
-                  style={styles.textoBotao}
-                  textoBotao='Cadastrar'
-                  mode='contained'
-                  buttonColor='#3d9d74'
-                  onPress={cadastrarProduto}
-                />
-              </TouchableOpacity>
-            </View>
+          </TouchableOpacity>
+            
+            
           </View>
-        </Body>
-      </Container>
-    </Provider>
+
+          <View style={styles.containerProdutos}>
+            <TouchableOpacity>
+
+            <Image
+              style={styles.img}
+              source={require("../assets/img-banana.jpg")}
+            />
+            <Text style={styles.textoProduto}>Banana</Text>
+            </TouchableOpacity>
+            
+          </View>
+          <View style={styles.containerProdutos}>
+          <TouchableOpacity>
+
+          <Image
+              style={styles.img}
+              source={require("../assets/img-maça.jpg")}
+            />
+            <Text style={styles.textoProduto}>Maça</Text>
+            </TouchableOpacity>
+          </View>
+         
+           
+           
+          <View style={styles.containerProdutos}>
+            <TouchableOpacity>
+
+            <Image
+              style={styles.img}
+              source={require("../assets/img-laranja.png")}
+            />
+            <Text style={styles.textoProduto}>Laranja</Text>
+
+            </TouchableOpacity>
+          </View>
+          <View style={styles.containerProdutos}>
+             <TouchableOpacity>
+
+            <Image
+              style={styles.img}
+              source={require("../assets/img-alface.jpg")}
+            />
+            <Text style={styles.textoProduto}>Laranja</Text>
+             </TouchableOpacity>
+          </View>
+          <View style={styles.containerProdutos}>
+          <TouchableOpacity>
+
+            <Image
+              style={styles.img}
+              source={require("../assets/img-brocolis.jpg")}
+            />
+            <Text style={styles.textoProduto}>Brócolis</Text>
+          </TouchableOpacity>
+
+          </View>
+        </View>
+      </View>
+
+      <FAB
+        style={styles.fab}
+        small
+        label="Cadastrar Produto"
+        onPress={() => navigation.navigate("CadastrarProduto")}
+      />
+      </ScrollView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 3,
+  apresentacao: {
+    marginTop: 50,
+    padding: 10,
   },
-  titulo: {
-    alignSelf: 'center',
-    fontSize: 24,
-    lineHeight: 28,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  containerPrincipal: {
+    maxWidth: 350,
+    height: "auto",
+
+    margin: "auto",
+    justifyContent: "center",
   },
-  textoBotao: {
-    textAlign: "center",
-    fontSize: 18,
+  textoProduto: {
+    padding: 7,
+    lineHeight: 23,
+    letterSpacing: 2.7,
+    fontStyle: "italic",
+    fontWeight: "bold",
   },
-  viewBotao: {
-    marginTop: 30,
-    marginBottom: 25,
+
+  principaisFuncionalidades: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
   },
-  inputDescricao: {
-    fontSize: 15,
-    backgroundColor: "#FFFAFA",
-    color: "white",
-    margin: 3,
-    textAlignVertical: 'top'
+
+  containerProdutos: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+
+    Height: 197,
+
+    borderRadius: 9,
+    padding: 20,
+    alignitems: "center",
+    color: "#FFF",
+    fontWeight: "bold",
+    fontSize: 1.4,
+    marginTop: 25,
   },
-  dialog: {
-    backgroundColor: '#FFFAFA',
+
+  img: {
+    /*Aqui é configuração do tamanho das imagens que vão dentro das caixas*/
+    width: 120,
+    height: 110,
+    padding: 10,
+    borderRadius: 6,
   },
-  radioItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+
+  fab: {
+    position: "absolute",
+    margin: 12,
+    right: 0,
+    bottom: 0,
   },
 });
 

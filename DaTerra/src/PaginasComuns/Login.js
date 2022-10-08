@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Dimensions } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { TextInput } from "react-native-paper";
 
@@ -8,21 +8,28 @@ import Input from "../Componentes/Input";
 import Container from "../Componentes/Container";
 import Body from "../Componentes/Body";
 import Botao from "../Componentes/Botao";
+
 import HomeVendedor from "../PaginaVendedor/HomeVendedor";
 import HomeCliente from "../PaginasCliente/HomeCliente";
 
+import { AuthContext } from "../contexts/AuthProvider";
+
 export default function Login() {
   const navigation = useNavigation();
+  const { login } = useContext(AuthContext);
+
   const [escondeSenha, setEscondeSenha] = useState(true)
 
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("Digite sua senha");
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
 
-  const validarLogin = ( email,senha) => {
-    //Aqui vai a parte para realizar o login
-    //Faz a validação se for vendedor
-    console.log("VALIDAR LOGIN");
-    navigation.navigate("HomeCliente");
+
+  const validarLogin = () => {
+    // Teste ok
+    //console.log(email);
+    //console.log(senha);
+    // login(email, senha);
+    navigation.navigate("HomeVendedor");
   };
 
   return (
@@ -34,15 +41,17 @@ export default function Login() {
         />
         <Input
           label={"Email"}
+          onChangeText={(text) => setEmail(text)}
           right={<TextInput.Icon icon="email-outline" />}
         />
         <Input
           label={"Senha"}
-          style={{ marginTop: 8 }}
+          onChangeText={(text) => setSenha(text)}
           secureTextEntry={escondeSenha}
           right={<TextInput.Icon onPress={() =>
             escondeSenha ? setEscondeSenha(false) :
-              setEscondeSenha(true)} icon="eye" />} />
+              setEscondeSenha(true)} icon="eye" />}
+        />
 
         <View style={styles.viewBotao}>
           <TouchableOpacity onPress={() => validarLogin()}>
@@ -54,14 +63,14 @@ export default function Login() {
             />
           </TouchableOpacity>
         </View>
+
         <View style={styles.viewTexto}>
           <Text style={styles.textoCadastro}>Não é cadastrado?</Text>
         </View>
 
         <View style={styles.viewBotao}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("CadastroUsuario")}
-          >
+            onPress={() => navigation.navigate("CadastroUsuario")}>
             <Botao
               style={styles.textoBotao}
               textColor={"#3d9d74"}

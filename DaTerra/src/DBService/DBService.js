@@ -4,12 +4,6 @@ export const DataBase = {
   getConnection: () => {
     const db = SQLite.openDatabase("cadastros.db");
 
-    // nome, data nascimentom, cpf, telefone
-    // email, senha, confirmar senha, tipousuario
-    // endereco(rua, bairro, numero, cep, cidade, uf, complemento)
-    // data cadastro
-
-    // Cadastro Usuário
     db.transaction((tx) => {
       tx.executeSql(
         "CREATE TABLE IF NOT EXISTS Usuarios" +
@@ -22,13 +16,14 @@ export const DataBase = {
           
       );
       tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS Produtos"+
-        "(id INTEGER PRIMARY KEY AUTOINCREMENT,"+
-        "nomeProduto TEXT NOT NULL,preco INTEGER NOT NULL"+"unidadeProduto TEXT NOT NULL"+
-        "quantidadeEstoque INTEGER NOT NULL"+"categoriaProduto TEXT NOT NULL"+
+        "CREATE TABLE IF NOT EXISTS Produtos" +
+        "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
+        "nomeProduto TEXT NOT NULL,preco INTEGER NOT NULL" +
+        "tipoEmbalagem TEXT NOT NULL" +
+        "quantidadeEstoque INTEGER NOT NULL" +
+        "categoriaProduto TEXT NOT NULL" +
         "descricao TEXT NOT NULL);"
-
-      )
+      );
     });
 
     const ExecuteQuery = (sql, params = []) => {
