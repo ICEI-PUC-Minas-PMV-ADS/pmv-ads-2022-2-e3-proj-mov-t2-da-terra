@@ -88,7 +88,17 @@ Dentro das limitações da proposta, podemos elencar:
 * Compra de produtos a longas distâncias: Se tornaria inviável devido aos custos envolvidos. Portanto, a aplicação delimitará o escopo geográfico da busca;
 * Transações financeiras: Não está na proposta da aplicação. Dessa forma, fica a cargo dos envolvidos questões relativas a pagamento. A plataforma apenas oferecerá os contatos das partes.
 
+## Diagrama BPMN
+
+Para este projeto, o diagrama de BPMN pode ser dividido em duas raias: cliente e vendedor. A comunicação entre as duas partes se dá da seguinte forma:
+* O usuário produtor pode cadastrar seus produtos;
+* O usuário cliente, a partir da disponibilidade destes produtos no sistema, pode solicitar sua reserva;
+* Ao receber a solicitação de reserva, o usuário produtor pode confirmar ou recusar esta solicitação, ação que será notificada ao usuário cliente e assim encerra-se o processo de negócio proposto pelo aplicativo.  
+
+DIAGRAMA AQUI
+
 ## Indicadores de Desempenho
+ATUALIZAR
 
 ![daterra-indicador-desempenho](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-indicador-desempenho.png)
 
@@ -135,6 +145,26 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 |--|-------------------------------------------------------|
 |01| O projeto deverá ser entregue até a data 07/12/2022	|
 
+## Mapeamento dos Requisitos
+| REQUISITOS FUNCIONAIS | PROCESSOS | RAIA DO BPMN |
+|:---:|:---:|:---:|
+| RF-004: O produtor deve cadastrar seus produtos com nome, categoria, descrição, foto, preço e informações adicionais. | * Define forma de pagamento;<br> * Define horários de retirada;<br> * Adiciona produto; Define quantidade.<br> | Vendedor |
+| RF-005: O produtor deve anunciar seus produtos no APP. | * Adiciona produto; * Define quantidade. | Vendedor |
+| RF-007: O cliente deve ter a opção de realizar buscas em um raio de distância a partir da própria localização. | * Filtra Localização. | Cliente |
+| RF-008: O cliente deve ter a opção de comprar o produto, indicando a quantidade de KG / UN. | * Seleciona vendedor; * Seleciona produto; * Selecionar quantidade; * Adicionar ao carrinho; * Selecionar hora de retirada; * Selecionar forma de pagamento; * Enviar solicitação de reserva. | Cliente |
+| RF-008: O cliente deve ter a opção de comprar o produto, indicando a quantidade de KG / UN. | * Recebe solicitação de reserva. | Vendedor |
+| RF-010: O cliente precisa receber dados de contato do produtor, como nome, telefone e e-mail ao realizar o pedido. | * Reserva Confirmada | Cliente |
+| RF-011: O produtor precisa receber dados de contato do cliente, como nome, telefone e e-mail quando receber o pedido. | * Reserva Efetuada | Vendedor |
+
+| REQUISITOS NÃO-FUNCIONAIS | PROCESSOS | RAIA DO BPMN |
+|:---:|:---:|:---:|
+| RNF-001: O app deve ser desenvolvido em JS com o Framework React Native. | * Todos | Ambas |
+| RNF-002: O aplicativo deve estar disponível 24 horas 7 dias da semana.  | * Todos | Ambas |
+| RNF-004: O aplicativo deve ter funcionalidades deve ser fácil domínio. | * Todos | Ambas |
+| RNF-005: O aplicativo deve possuir a UI intuitiva e de fácil entendimento | Todos | Ambas |
+| RNF-006: O aplicativo deve ter uma boa eficiência no uso da bateria do aparelho. | Todos | Ambas |
+| RNF-007: A busca por produtos deve retornar os itens desejado em menos de 3 segundos. | * Seleciona Vendedor; * Seleciona Produto; | Cliente |
+| RNF-008: O sistema persistir os dados, de forma que em situações de falha do app ou perda de conexão, informações importantes para o usuário não se percam  | Todos | Ambas |
 
 ## Diagrama de Casos de Uso
 
