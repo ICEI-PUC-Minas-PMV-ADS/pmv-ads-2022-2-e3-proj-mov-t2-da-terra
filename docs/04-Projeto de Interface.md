@@ -29,12 +29,18 @@ O diagrama que define o fluxo do sistema é representado a seguir:
 ![7-daterra-diagrama-fluxo-avaliar-compra.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagrama-fluxo/7-daterra-diagrama-fluxo-avaliar-compra.png)
 
 ## Wireframes
+| Tela Inicial | Tipo de Usuário  |Cadastros Usuário | 
+|:---:|:---:|:---:|
+|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/TelaInicial.png" alt="TelaInicial" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/EscolherCategoriaUsuario.png" alt="EscolherCategoriaUsuario" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/TelaCadastro.png" alt="CadastroUsuario" width="180" height="400" />|
 
-**Tela Inicial**
-<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/TelaInicial.png" alt="TelaInicial" width="180" height="400" />
+| Cadastro Loja | Inicio Produtor | Cadastro Produto | Editar Produto | Histórico Vendas |
+|:---:|:---:|:---:|:---:|:---:|
+|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/CadastroLoja.png" alt="CadastroLoja" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/PaginaInicialProdutor.png" alt="PaginaInicialProdutor" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/CadastroNovoProduto.png" alt="CadastroNovoProduto" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/EditarProdutoExistente.png" alt="EditarProduto" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/HistoricoVendas.png" alt="HistoricoVendas" width="180" height="400" />
 
+| Localizar Produtores | Mapa Produtores | Compras | Escolher Produto |
+|:---:|:---:|:---:|:---:|
+|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/LocalizarProdutoresProximos.png" alt="LocalizarProdutoresProximos" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/MapaDeProdutoresProximos.png" alt="MapaDeProdutoresProximos" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/PaginaDeCompras.png" alt="PaginaDeCompras" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/SelecaoDeProdutoCompra.png" alt="SelecaoDeProdutoCompra" width="180" height="400" />
 
-
-
-
-
+| Carrinho | Pedido Confirmado | Histórico Pedidos |
+|:---:|:---:|:---:|:---:|
+|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/Carrinho.png" alt="Carrinho" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/PedidoConfirmado.png" alt="PedidoConfirmado" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/HistoricoPedidos.png" alt="HistoricoPedidos" width="180" height="400" />
