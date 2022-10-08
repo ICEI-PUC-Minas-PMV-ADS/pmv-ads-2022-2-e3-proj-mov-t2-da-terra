@@ -32,7 +32,7 @@ O diagrama que define o fluxo do sistema é representado a seguir:
 
 **Tela Inicial**
 
-<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/TelaInicial.png" width="816" height="372" />
+<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/TelaInicial.png" width="372" height="816" />
 
 )
 
