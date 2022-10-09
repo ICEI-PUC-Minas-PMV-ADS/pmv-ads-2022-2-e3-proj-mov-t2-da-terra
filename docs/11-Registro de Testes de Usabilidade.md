@@ -6,7 +6,7 @@ https://docs.google.com/spreadsheets/d/1wc5FMfB2hP8mWHJbdH1SNwiVjon0DX2gStuB47wu
 Para exemplificar, seguem abaixo um prints da planilha.
 
 * Para os testes de Usabilidade teremos campos específicos, que seguem exemplicados abaixo.<br>
-![/daterra-teste-uso.PNG](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/daterra-teste-uso.PNG) 
+![daterra-teste-uso.PNG](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/daterra-teste-uso.PNG) 
 <br>
 
 * Acompanhamento da realização dos testes pelos membros da equipe:<br>
