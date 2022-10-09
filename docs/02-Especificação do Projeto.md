@@ -95,7 +95,7 @@ Para este projeto, o diagrama de BPMN pode ser dividido em duas raias: cliente e
 * O usuário cliente, a partir da disponibilidade destes produtos no sistema, pode solicitar sua reserva;
 * Ao receber a solicitação de reserva, o usuário produtor pode confirmar ou recusar esta solicitação, ação que será notificada ao usuário cliente e assim encerra-se o processo de negócio proposto pelo aplicativo.  
 
-DIAGRAMA AQUI
+<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/new-bpmn-diagram.png" alt="DiagramaBPMN" width="700" height="359">
 
 ## Indicadores de Desempenho
 ATUALIZAR
