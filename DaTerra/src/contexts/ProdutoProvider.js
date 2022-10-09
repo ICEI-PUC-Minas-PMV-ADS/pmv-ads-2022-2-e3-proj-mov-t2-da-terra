@@ -13,6 +13,10 @@ const ProdutoProvider = ({ children }) => {
     }
   }
 
+  
+  const editarProduto = (id,nomeLoja) => {
+    //Editar produto
+  }
   return (
     <ProdutoContext.Provider value={{cadastrarProduto}}>
       {children}

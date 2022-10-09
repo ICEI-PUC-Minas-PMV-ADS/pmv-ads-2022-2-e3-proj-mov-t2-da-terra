@@ -11,6 +11,7 @@ import Login from "../PaginasComuns/Login";
 import CadastroUsuario from '../PaginasComuns/CadastroUsuario';
 import CadastrarProduto from '../PaginaVendedor/CadastrarProduto'
 import { AuthProvider } from '../contexts/AuthProvider';
+import EditarProduto from '../PaginaVendedor/EditarProduto';
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
@@ -47,6 +48,14 @@ const Main = () => {
                  <Stack.Screen
                     name="CadastrarProduto"
                     component={CadastrarProduto}
+                    
+                /> 
+                <Stack.Screen
+                    name="EditarProduto"
+                    component={EditarProduto}
+                    options={{
+                        header: () => null,
+                    }}
                     
                 /> 
                       

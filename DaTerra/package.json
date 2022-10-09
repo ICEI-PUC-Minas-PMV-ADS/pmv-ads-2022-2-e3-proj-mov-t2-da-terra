@@ -24,9 +24,7 @@
     "react-native-vector-icons": "^9.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "json-server": "^0.17.0",
-    "json-server-auth": "^2.1.0"
+    "@babel/core": "^7.12.9"
   },
   "private": true
 }

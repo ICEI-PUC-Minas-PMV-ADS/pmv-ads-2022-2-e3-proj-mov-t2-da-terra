@@ -35,7 +35,7 @@ const Loja = () => {
       <View style={styles.containerPrincipal}>
         <View style={styles.principaisFuncionalidades}>
           <View style={styles.containerProdutos}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")} >
           <Image
               style={styles.img}
               source={require("../assets/maracuja.jpg")}
@@ -51,7 +51,7 @@ const Loja = () => {
           </View>
 
           <View style={styles.containerProdutos}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")}>
 
             <Image
               style={styles.img}
@@ -66,7 +66,7 @@ const Loja = () => {
             
           </View>
           <View style={styles.containerProdutos}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")}>
 
           <Image
               style={styles.img}
@@ -85,7 +85,7 @@ const Loja = () => {
            
            
           <View style={styles.containerProdutos}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")}>
 
             <Image
               style={styles.img}
@@ -100,7 +100,7 @@ const Loja = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.containerProdutos}>
-             <TouchableOpacity>
+             <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")}>
 
             <Image
               style={styles.img}
@@ -114,7 +114,7 @@ const Loja = () => {
              </TouchableOpacity>
           </View>
           <View style={styles.containerProdutos}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")}>
 
             <Image
               style={styles.img}
