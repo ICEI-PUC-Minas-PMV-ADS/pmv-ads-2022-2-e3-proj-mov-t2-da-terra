@@ -95,13 +95,18 @@ Para este projeto, o diagrama de BPMN pode ser dividido em duas raias: cliente e
 * O usuário cliente, a partir da disponibilidade destes produtos no sistema, pode solicitar sua reserva;
 * Ao receber a solicitação de reserva, o usuário produtor pode confirmar ou recusar esta solicitação, ação que será notificada ao usuário cliente e assim encerra-se o processo de negócio proposto pelo aplicativo.  
 
-<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/new-bpmn-diagram.png" alt="DiagramaBPMN" width="700" height="359">
+<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/new-bpmn-diagram.png" alt="DiagramaBPMN" width="850" height="436">
 
 ## Indicadores de Desempenho
-ATUALIZAR
 
-![daterra-indicador-desempenho](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-indicador-desempenho.png)
-
+| INDICADOR | OBJETIVO | FONTE DADOS | PERSPECTIVA |
+|:---:|:---:|:---:|:---:|
+| Tempo | Controlar os prazos para que as entregas sejam feitas de acordo com o planejamentos | Planilha de Gerencimento da Equipe | Melhoria de Processos de Entrega |
+| Entreda de Artefatos  | Avaliar se os artefatos estão sendo entregues de acordo com o definido na sprint | Revisão dos artefatos gerados na reunião do final da sprint | Melhoria de Processos de Entrega |
+| Atualização de Requisitos | Acompanhar alterações de requisitos para avaliar custos de projeto e planejamento | Reunião com stakeholders e registro de solicitações | Cliente |
+| Fluxo de Caixa | Controlar custos com equipamentos e despesas recorrentes | Planilha de gestão de orçamento | Processos Internos |
+| Protótipo | Obter feedbacks do cliente | Esboço | Entrega por parte do Time de 
+desenvolvimento |
 
 ## Requisitos
 
@@ -146,6 +151,10 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 |01| O projeto deverá ser entregue até a data 07/12/2022	|
 
 ## Mapeamento dos Requisitos
+
+Com o mapeamento dos processos organizacionais demonstrado anteriormente no Diagrama BPMN, podem ser feitas as seguintes relações quanto aos requisitos funcionais e não-funcionais elicitados e os processos mapeados: 
+
+
 | REQUISITOS FUNCIONAIS | PROCESSOS | RAIA DO BPMN |
 |---|:---:|:---:|
 | RF-004: O produtor deve cadastrar seus produtos com nome, categoria, descrição, foto, preço e informações adicionais. | - Define forma de pagamento;<br> - Define horários de retirada;<br> - Adiciona produto;<br> - Define quantidade. | Vendedor |
