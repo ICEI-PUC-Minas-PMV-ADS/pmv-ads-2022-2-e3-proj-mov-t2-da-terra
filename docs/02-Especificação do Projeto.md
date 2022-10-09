@@ -105,8 +105,7 @@ Para este projeto, o diagrama de BPMN pode ser dividido em duas raias: cliente e
 | Entreda de Artefatos  | Avaliar se os artefatos estão sendo entregues de acordo com o definido na sprint | Revisão dos artefatos gerados na reunião do final da sprint | Melhoria de Processos de Entrega |
 | Atualização de Requisitos | Acompanhar alterações de requisitos para avaliar custos de projeto e planejamento | Reunião com stakeholders e registro de solicitações | Cliente |
 | Fluxo de Caixa | Controlar custos com equipamentos e despesas recorrentes | Planilha de gestão de orçamento | Processos Internos |
-| Protótipo | Obter feedbacks do cliente | Esboço | Entrega por parte do Time de 
-desenvolvimento |
+| Protótipo | Obter feedbacks do cliente | Esboço | Entrega por parte do Time de desenvolvimento |
 
 ## Requisitos
 
