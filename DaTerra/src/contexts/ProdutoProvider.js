@@ -17,8 +17,12 @@ const ProdutoProvider = ({ children }) => {
   const editarProduto = (id,nomeLoja) => {
     //Editar produto
   }
+   
+  const excluirProduto = (id) => {
+    //Editar produto
+  }
   return (
-    <ProdutoContext.Provider value={{cadastrarProduto}}>
+    <ProdutoContext.Provider value={{cadastrarProduto,editarProduto,excluirProduto}}>
       {children}
     </ProdutoContext.Provider>
   );

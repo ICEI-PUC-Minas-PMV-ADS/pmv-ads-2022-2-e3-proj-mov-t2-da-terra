@@ -11,7 +11,7 @@ import Header from "../Componentes/Header";
 const EditarProduto = () => {
   
   const{usuario} = useContext(AuthContext);
-  const {editarProduto}=useContext(ProdutoContext);
+  const {editarProduto,deletarProduto}=useContext(ProdutoContext);
   
     return (
     <Body >
