@@ -29,6 +29,8 @@ O diagrama que define o fluxo do sistema é representado a seguir:
 ![7-daterra-diagrama-fluxo-avaliar-compra.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagrama-fluxo/7-daterra-diagrama-fluxo-avaliar-compra.png)
 
 ## Wireframes
+Conforme fluxo de telas do projeto, apresentado no item anterior, as telas do sistema são apresentadas em detalhes nos itens que se seguem:  
+
 | Tela Inicial | Tipo de Usuário  |Cadastros Usuário | 
 |:---:|:---:|:---:|
 |<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/TelaInicial.png" alt="TelaInicial" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/EscolherCategoriaUsuario.png" alt="EscolherCategoriaUsuario" width="180" height="400" />|<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/wireframes/TelaCadastro.png" alt="CadastroUsuario" width="180" height="400" />|
