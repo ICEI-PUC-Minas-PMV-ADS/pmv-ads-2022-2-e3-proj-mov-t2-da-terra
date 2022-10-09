@@ -109,8 +109,6 @@ Para este projeto, o diagrama de BPMN pode ser dividido em duas raias: cliente e
 | Download | Obter número de downloads do APP | Contador de downloads | Cliente |
 | Contas Criadas | Obter número de contas criadas | Contagem via Banco de Dados | Cliente |
 
-indicador de sucesso... aí pode usar quantas contas criadas/downloads na app store
-
 ## Requisitos
 
 As tabelas que se seguem apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto. Para determinar a prioridade de requisitos, aplicar uma técnica de priorização de requisitos e detalhar como a técnica foi aplicada.
