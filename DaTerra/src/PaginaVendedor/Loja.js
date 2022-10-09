@@ -144,8 +144,9 @@ const Loja = () => {
 
 const styles = StyleSheet.create({
   apresentacao: {
-    marginTop: 50,
+    marginTop: 40,
     padding: 10,
+    alignItems:"center"
   },
   containerPrincipal: {
     maxWidth: 350,
