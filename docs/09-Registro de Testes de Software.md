@@ -1,12 +1,20 @@
 # Registro de Testes de Software
 
-<span style="color:red">Pré-requisitos: <a href="3-Projeto de Interface.md"> Projeto de Interface</a></span>, <a href="8-Plano de Testes de Software.md"> Plano de Testes de Software</a>
+Para registro de testes, será utilizado uma planilha, que se encontra no link:
+https://docs.google.com/spreadsheets/d/1wc5FMfB2hP8mWHJbdH1SNwiVjon0DX2gStuB47wufsg/edit
 
-Relatório com as evidências dos testes de software realizados no sistema pela equipe, baseado em um plano de testes pré-definido.
+Para exemplificar, seguem abaixo um prints da planilha.
 
-## Avaliação
+![daterra-testes-1.PNG](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/daterra-testes-1.PNG)
 
-Discorra sobre os resultados do teste. Ressaltando pontos fortes e fracos identificados na solução. Comente como o grupo pretende atacar esses pontos nas próximas iterações. Apresente as falhas detectadas e as melhorias geradas a partir dos resultados obtidos nos testes.
+![daterra-testes-2.PNG](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/daterra-testes-2.PNG)
 
-> **Links Úteis**:
-> - [Ferramentas de Test para Java Script](https://geekflare.com/javascript-unit-testing/)
+![daterra-testes-3.PNG)](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/daterra-testes-3.PNG)
+
+![daterra-testes-4.PNG)](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/daterra-testes-4.PNG)
+
+![daterra-testes-5.PNG)](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/daterra-testes-5.PNG)
+
+Teremos também o acompanhamento da realização dos testes pelos membros da equipe:
+![daterra-testes-equipe.PNG](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/daterra-testes-equipe.PNG)
+
