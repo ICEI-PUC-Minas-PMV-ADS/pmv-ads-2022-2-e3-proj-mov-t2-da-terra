@@ -106,6 +106,10 @@ Para este projeto, o diagrama de BPMN pode ser dividido em duas raias: cliente e
 | Atualização de Requisitos | Acompanhar alterações de requisitos para avaliar custos de projeto e planejamento | Reunião com stakeholders e registro de solicitações | Cliente |
 | Fluxo de Caixa | Controlar custos com equipamentos e despesas recorrentes | Planilha de gestão de orçamento | Processos Internos |
 | Protótipo | Obter feedbacks do cliente | Esboço | Entrega por parte do Time de desenvolvimento |
+| Download | Obter número de downloads do APP | Contador de downloads | Cliente |
+| Contas Criadas | Obter número de contas criadas | Contagem via Banco de Dados | Cliente |
+
+indicador de sucesso... aí pode usar quantas contas criadas/downloads na app store
 
 ## Requisitos
 
