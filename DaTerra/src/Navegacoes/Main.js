@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 
 const Main = () => {
     return (
-        <Stack.Navigator initialRouteName="HomeVendedor">
+        <Stack.Navigator initialRouteName="CadastrarProduto">
             <Stack.Screen
                 name="Login"
                 component={Login}
@@ -48,9 +48,9 @@ const Main = () => {
             <Stack.Screen
                 name="CadastrarProduto"
                 component={CadastrarProduto}
-                // options={{
-                //     header: () => null,
-                // }}
+                options={{
+                    header: () => null,
+                }}
             />
             <Stack.Screen
                 name="EditarProduto"

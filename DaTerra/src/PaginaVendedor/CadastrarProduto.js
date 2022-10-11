@@ -55,7 +55,7 @@ const Loja = () => {
   return (
     <Provider>
       <Container>
-        {/* Acertar esse HEADER  <Header title={'Cadastro de Produto'} /> */}
+        <Header title={'Cadastro de Produto'} />
         <Body>
           {/* <Text style={styles.titulo}>Cadastro de Produto</Text> */}
           <View style={styles.container}>
@@ -65,14 +65,22 @@ const Loja = () => {
               onChangeText={(text) => setNome(text)}
               left={<TextInput.Icon icon='sort-variant' />}
             />
-            <Input
-              label='Preço'
-              keyboardType='decimal-pad'
-              value={preco}
-              onChangeText={(text) => setPreco(text)}
-              left={<TextInput.Icon icon='currency-brl' />}
+            <TextInput
+              label='Descrição'
+              mode="outlined"
+              multiline={true}
+              numberOfLines={5}
+              style={styles.inputDescricao}
+              onChangeText={(text) => setDescricao(text)}
+              left={<TextInput.Icon icon='card-text-outline' />}
             />
-
+            <Input
+              label='Quantidade em Estoque'
+              keyboardType='decimal-pad'
+              value={estoque}
+              onChangeText={(text) => setEstoque(text)}
+              left={<TextInput.Icon icon='archive-outline' />}
+            />
             {/*Tipo de Embalagem Portal*/}
             <TouchableOpacity onPress={showDialogEmbalagem}>
               <Input
@@ -110,15 +118,24 @@ const Loja = () => {
               </Dialog>
             </Portal>
             {/* Fim Tipo de Embalagem Portal*/}
-
-            <Input
-              label='Quantidade em Estoque'
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between',}}>
+              <Text style={{textAlignVertical: 'center', marginLeft: 6, fontSize: 18, fontWeight: 'bold'}}>Preço</Text>
+              <TextInput
+                style={styles.inputPrecoTipoEmbalagem}
+                label='Preço'
+                keyboardType='decimal-pad'
+                value={preco}
+                onChangeText={(text) => setPreco(text)}
+                left={<TextInput.Icon icon='currency-brl' />}
+              ></TextInput>
+            </View>
+            {/* <Input
+              label='Preço'
               keyboardType='decimal-pad'
-              value={estoque}
-              onChangeText={(text) => setEstoque(text)}
-              left={<TextInput.Icon icon='archive-outline' />}
-            />
-
+              value={preco}
+              onChangeText={(text) => setPreco(text)}
+              left={<TextInput.Icon icon='currency-brl' />}
+            /> */}
             {/*Categoria Portal*/}
             <TouchableOpacity onPress={showDialog}>
               <Input
@@ -187,15 +204,7 @@ const Loja = () => {
             </View>
             {/*Fim Categoria Portal*/}
 
-            <TextInput
-              label='Descrição'
-              mode="outlined"
-              multiline={true}
-              numberOfLines={5}
-              style={styles.inputDescricao}
-              onChangeText={(text) => setDescricao(text)}
-              left={<TextInput.Icon icon='card-text-outline' />}
-            />
+
             <View style={styles.viewBotao}>
               <TouchableOpacity onPress={() => handleCadastro()}>
                 <Botao
@@ -247,6 +256,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  inputPrecoTipoEmbalagem: {
+    height: 48,
+    fontSize: 16,
+    backgroundColor: "#FFFAFA",
+    //color: "white",
+    margin: 3,
+  }
 });
 
 export default Loja;
