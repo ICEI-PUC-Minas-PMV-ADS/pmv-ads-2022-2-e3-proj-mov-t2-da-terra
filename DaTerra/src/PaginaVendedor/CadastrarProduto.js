@@ -82,15 +82,26 @@ const Loja = () => {
               left={<TextInput.Icon icon='archive-outline' />}
             />
             {/*Tipo de Embalagem Portal*/}
-            <TouchableOpacity onPress={showDialogEmbalagem}>
-              <Input
+            <View style={styles.viewPrecoEmbalagem}>
+              <Text style={styles.textPrecoEmbalagem}>Embalagem</Text>
+            <TouchableOpacity onPress={showDialogEmbalagem}>            
+              <TextInput
+                style={styles.inputPrecoEmbalagem}                
+                keyboardType='decimal-pad'
+                editable={false}
+                value={embalagem}
+                onChangeText={(text) => setEmbalagem(text)}
+                left={<TextInput.Icon icon='archive-outline' />}
+              ></TextInput>           
+              {/* <Input
                 label='Tipo Embalagem'
                 editable={false}
                 value={embalagem}
                 onChangeText={(text) => setEmbalagem(text)}
                 left={<TextInput.Icon icon='archive-outline' />}
-              />
-            </TouchableOpacity>
+              /> */}
+              </TouchableOpacity>
+              </View>
             <Portal>
               <Dialog style={styles.dialog}
                 visible={visibleEmbalagem}
@@ -118,11 +129,10 @@ const Loja = () => {
               </Dialog>
             </Portal>
             {/* Fim Tipo de Embalagem Portal*/}
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between',}}>
-              <Text style={{textAlignVertical: 'center', marginLeft: 6, fontSize: 18, fontWeight: 'bold'}}>Preço</Text>
+            <View style={styles.viewPrecoEmbalagem}>
+              <Text style={styles.textPrecoEmbalagem}>Preço</Text>
               <TextInput
-                style={styles.inputPrecoTipoEmbalagem}
-                label='Preço'
+                style={styles.inputPrecoEmbalagem}                
                 keyboardType='decimal-pad'
                 value={preco}
                 onChangeText={(text) => setPreco(text)}
@@ -256,12 +266,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  inputPrecoTipoEmbalagem: {
+  
+  // View/TextInput/Text de preço e embalagem
+  viewPrecoEmbalagem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }, 
+  inputPrecoEmbalagem: {
     height: 48,
+    width: 160,
     fontSize: 16,
     backgroundColor: "#FFFAFA",
-    //color: "white",
-    margin: 3,
+    margin: 3,    
+    marginRight: 11
+  },
+  textPrecoEmbalagem: {
+    textAlignVertical: 'center',
+    marginLeft: 14,
+    fontSize: 20,
+    fontWeight: 'bold'
   }
 });
 
