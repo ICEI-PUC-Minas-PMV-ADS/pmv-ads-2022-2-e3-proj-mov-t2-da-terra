@@ -57,16 +57,15 @@ const Loja = () => {
       <Container>
         <Header title={'Cadastro de Produto'} />
         <Body>
-          {/* <Text style={styles.titulo}>Cadastro de Produto</Text> */}
           <View style={styles.container}>
+            <Text style={styles.textTitulos}>Nome</Text>
             <Input
-              label='Nome'
               value={nome}
               onChangeText={(text) => setNome(text)}
               left={<TextInput.Icon icon='sort-variant' />}
             />
+            <Text style={styles.textTitulos}>Descrição</Text>
             <TextInput
-              label='Descrição'
               mode="outlined"
               multiline={true}
               numberOfLines={5}
@@ -74,26 +73,31 @@ const Loja = () => {
               onChangeText={(text) => setDescricao(text)}
               left={<TextInput.Icon icon='card-text-outline' />}
             />
-            <Input
-              label='Quantidade em Estoque'
-              keyboardType='decimal-pad'
-              value={estoque}
-              onChangeText={(text) => setEstoque(text)}
-              left={<TextInput.Icon icon='archive-outline' />}
-            />
+            
+            <View style={styles.viewPrecoEmbalagem}>
+              <Text style={styles.textTitulos}>Estoque</Text>
+              <TextInput
+                style={styles.inputEspecial}
+                keyboardType='decimal-pad'
+                value={estoque}
+                onChangeText={(text) => setEstoque(text)}
+                left={<TextInput.Icon icon='archive-outline' />}
+              ></TextInput>
+            </View>
+
             {/*Tipo de Embalagem Portal*/}
             <View style={styles.viewPrecoEmbalagem}>
-              <Text style={styles.textPrecoEmbalagem}>Embalagem</Text>
-            <TouchableOpacity onPress={showDialogEmbalagem}>            
-              <TextInput
-                style={styles.inputPrecoEmbalagem}                
-                keyboardType='decimal-pad'
-                editable={false}
-                value={embalagem}
-                onChangeText={(text) => setEmbalagem(text)}
-                left={<TextInput.Icon icon='archive-outline' />}
-              ></TextInput>           
-              {/* <Input
+              <Text style={styles.textTitulos}>Embalagem</Text>
+              <TouchableOpacity onPress={showDialogEmbalagem}>
+                <TextInput
+                  style={styles.inputEspecial}
+                  keyboardType='decimal-pad'
+                  editable={false}
+                  value={embalagem}
+                  onChangeText={(text) => setEmbalagem(text)}
+                  left={<TextInput.Icon icon='archive-outline' />}
+                ></TextInput>
+                {/* <Input
                 label='Tipo Embalagem'
                 editable={false}
                 value={embalagem}
@@ -101,7 +105,7 @@ const Loja = () => {
                 left={<TextInput.Icon icon='archive-outline' />}
               /> */}
               </TouchableOpacity>
-              </View>
+            </View>
             <Portal>
               <Dialog style={styles.dialog}
                 visible={visibleEmbalagem}
@@ -129,33 +133,20 @@ const Loja = () => {
               </Dialog>
             </Portal>
             {/* Fim Tipo de Embalagem Portal*/}
-            <View style={styles.viewPrecoEmbalagem}>
-              <Text style={styles.textPrecoEmbalagem}>Preço</Text>
-              <TextInput
-                style={styles.inputPrecoEmbalagem}                
-                keyboardType='decimal-pad'
-                value={preco}
-                onChangeText={(text) => setPreco(text)}
-                left={<TextInput.Icon icon='currency-brl' />}
-              ></TextInput>
-            </View>
-            {/* <Input
-              label='Preço'
-              keyboardType='decimal-pad'
-              value={preco}
-              onChangeText={(text) => setPreco(text)}
-              left={<TextInput.Icon icon='currency-brl' />}
-            /> */}
+
             {/*Categoria Portal*/}
-            <TouchableOpacity onPress={showDialog}>
-              <Input
-                label='Categoria'
-                editable={false}
-                value={categoria}
-                onChangeText={(text) => setCategoria(text)}
-                left={<TextInput.Icon icon='segment' />}
-              />
-            </TouchableOpacity>
+            <View style={styles.viewPrecoEmbalagem}>
+              <Text style={styles.textTitulos}>Categoria</Text>
+              <TouchableOpacity onPress={showDialog}>
+                <TextInput
+                  style={styles.inputEspecial}
+                  editable={false}
+                  value={categoria}
+                  onChangeText={(text) => setCategoria(text)}
+                  left={<TextInput.Icon icon='segment' />}
+                />
+              </TouchableOpacity>
+            </View>
             <View>
               <Portal>
                 <Dialog style={styles.dialog}
@@ -214,6 +205,16 @@ const Loja = () => {
             </View>
             {/*Fim Categoria Portal*/}
 
+            <View style={styles.viewPrecoEmbalagem}>
+              <Text style={styles.textTitulos}>Preço</Text>
+              <TextInput
+                style={styles.inputEspecial}
+                keyboardType='decimal-pad'
+                value={preco}
+                onChangeText={(text) => setPreco(text)}
+                left={<TextInput.Icon icon='currency-brl' />}
+              ></TextInput>
+            </View>
 
             <View style={styles.viewBotao}>
               <TouchableOpacity onPress={() => handleCadastro()}>
@@ -266,21 +267,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  
+
   // View/TextInput/Text de preço e embalagem
   viewPrecoEmbalagem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  }, 
-  inputPrecoEmbalagem: {
+  },
+  inputEspecial: {
     height: 48,
     width: 160,
     fontSize: 16,
     backgroundColor: "#FFFAFA",
-    margin: 3,    
+    margin: 3,
     marginRight: 11
   },
-  textPrecoEmbalagem: {
+  textTitulos: {
     textAlignVertical: 'center',
     marginLeft: 14,
     fontSize: 20,
