@@ -55,7 +55,7 @@ const Loja = () => {
   return (
     <Provider>
       <Container>
-        <Header title={'Cadastro de Produto'} />
+        {/* Acertar esse HEADER  <Header title={'Cadastro de Produto'} /> */}
         <Body>
           {/* <Text style={styles.titulo}>Cadastro de Produto</Text> */}
           <View style={styles.container}>
@@ -84,7 +84,9 @@ const Loja = () => {
               />
             </TouchableOpacity>
             <Portal>
-              <Dialog style={styles.dialog} visible={visibleEmbalagem} onDismiss={hideDialogEmbalagem}>
+              <Dialog style={styles.dialog}
+                visible={visibleEmbalagem}
+                onDismiss={hideDialogEmbalagem}>
                 <Dialog.Title>Selecione a Embalagem</Dialog.Title>
                 <Dialog.Content>
                   <View style={styles.radioItem}>
@@ -129,7 +131,9 @@ const Loja = () => {
             </TouchableOpacity>
             <View>
               <Portal>
-                <Dialog style={styles.dialog} visible={visible} onDismiss={hideDialog}>
+                <Dialog style={styles.dialog}
+                  visible={visible}
+                  onDismiss={hideDialog}>
                   <Dialog.Title>Selecione a Categoria</Dialog.Title>
                   <Dialog.Content>
                     <View style={styles.radioItem}>

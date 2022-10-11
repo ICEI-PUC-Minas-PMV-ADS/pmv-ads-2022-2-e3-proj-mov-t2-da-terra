@@ -15,7 +15,7 @@ import EditarProduto from '../PaginaVendedor/EditarProduto';
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
-    return (        
+    return (
         <Stack.Navigator initialRouteName="HomeVendedor">
             <Stack.Screen
                 name="Login"
@@ -37,28 +37,30 @@ const Main = () => {
                 options={{
                     header: () => null,
                 }}
-            />            
-                <Stack.Screen
-                    name="CadastroUsuario"
-                    component={CadastroUsuario}
-                    options={{
-                        header: () => null,
-                    }}
-                /> 
-                 <Stack.Screen
-                    name="CadastrarProduto"
-                    component={CadastrarProduto}
-                    
-                /> 
-                <Stack.Screen
-                    name="EditarProduto"
-                    component={EditarProduto}
-                    options={{
-                        header: () => null,
-                    }}
-                    
-                /> 
-                      
+            />
+            <Stack.Screen
+                name="CadastroUsuario"
+                component={CadastroUsuario}
+                options={{
+                    header: () => null,
+                }}
+            />
+            <Stack.Screen
+                name="CadastrarProduto"
+                component={CadastrarProduto}
+                // options={{
+                //     header: () => null,
+                // }}
+            />
+            <Stack.Screen
+                name="EditarProduto"
+                component={EditarProduto}
+                options={{
+                    header: () => null,
+                }}
+
+            />
+
         </Stack.Navigator>
 
     );
