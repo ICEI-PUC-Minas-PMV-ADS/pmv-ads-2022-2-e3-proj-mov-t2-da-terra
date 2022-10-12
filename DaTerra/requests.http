@@ -1,0 +1,34 @@
+### GASTOS
+GET http://localhost:3000/Produto
+
+
+### CREATE
+POST http://localhost:3000/gastos
+content-type: application/json
+
+{
+  "tipo": 0,
+  "data": "15/01/2022",
+  "preco": 7.77,
+  "valor": 150.00,
+  "odometro": 35000
+}
+
+### UPDATE
+PUT http://localhost:3000/gastos/3
+content-type: application/json
+
+{
+  "tipo": 1,
+  "data": "10/01/2022",
+  "preco": 7.5,
+  "valor": 130.00,
+  "odometro": 34000
+}
+
+
+### GET GASTO
+GET http://localhost:3000/gastos/3
+
+### DELETE GASTO
+DELETE http://localhost:3000/gastos/3
