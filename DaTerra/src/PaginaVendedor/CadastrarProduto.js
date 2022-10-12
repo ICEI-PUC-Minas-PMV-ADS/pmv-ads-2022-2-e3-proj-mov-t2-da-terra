@@ -14,7 +14,7 @@ import Botao from "../Componentes/Botao";
 import Container from "../Componentes/Container";
 import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
-
+import { cadastrarProduto } from "../DBService/DBProduto";
 import { useNavigation } from "@react-navigation/native";
   
 import { ProdutoContext } from "../contexts/ProdutoProvider";
@@ -22,8 +22,7 @@ import { ProdutoContext } from "../contexts/ProdutoProvider";
 const Loja = () => {
 
   const navigation = useNavigation();
-  const { cadastrarProduto } = useContext(ProdutoContext);
-
+  
   // Categoria Portal
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
@@ -46,14 +45,26 @@ const Loja = () => {
 
   const handleCadastro = () => {
     // Testes OK
-    console.log('nome: ' + nome)
-    console.log('preco: ' + preco)
-    console.log('estoque: ' + estoque)
-    console.log('decricao: ' + descricao)
-    console.log('categoria: ' + categoria)
     
-    // Context
-    cadastrarProduto(nome, descricao, estoque, embalagem, categoria, preco);
+    
+   // Metodo quem vem do provider produto,e do provider vem de fato o método de cadastrar do BD
+   if(!nome||!preco||!embalagem||!estoque||!categoria||!descricao)
+   cadastrarProduto({
+      nomeProduto:nome,
+      preco:preco,
+      tipoEmbalagem:embalagem,
+      quantidadeEstoque:estoque,
+      categoriaProduto:categoria,
+      descricao:descricao,
+      
+
+    }
+    
+   ).then()
+      
+      
+      
+       
     navigation.goBack();
   }
 
@@ -69,8 +80,10 @@ const Loja = () => {
             <Text style={styles.textTitulos}>Nome</Text>
             <Input
               value={nome}
+              activeOutlineColor={"#3d9d74"}
               onChangeText={(text) => setNome(text)}
-              left={<TextInput.Icon icon='sort-variant' />}
+              left={<TextInput.Icon icon='sort-variant'
+         />}
             />
 
             <Text style={styles.textTitulos}>Descrição</Text>
@@ -78,7 +91,8 @@ const Loja = () => {
               style={styles.inputDescricao}
               mode="outlined"
               multiline={true}
-              numberOfLines={5}              
+              numberOfLines={5}
+              activeOutlineColor={"#3d9d74"}             
               onChangeText={(text) => setDescricao(text)}
               left={<TextInput.Icon icon='card-text-outline' />}
             />
@@ -89,6 +103,8 @@ const Loja = () => {
                 style={styles.inputEspecial}
                 keyboardType='decimal-pad'
                 value={estoque}
+                activeUnderlineColor={"#3d9d74"}
+
                 onChangeText={(text) => setEstoque(text)}
                 left={<TextInput.Icon icon='archive-outline' />}
               ></TextInput>
@@ -213,6 +229,8 @@ const Loja = () => {
                 style={styles.inputEspecial}
                 keyboardType='decimal-pad'
                 value={preco}
+                activeUnderlineColor={"#3d9d74"}
+                
                 onChangeText={(text) => setPreco(text)}
                 left={<TextInput.Icon icon='currency-brl' />}
               ></TextInput>

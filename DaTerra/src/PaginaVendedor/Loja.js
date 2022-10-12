@@ -1,5 +1,14 @@
-import React, { useContext, useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, Image ,ScrollView} from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  Alert,
+  FlatList
+} from "react-native";
 import {
   TextInput,
   Portal,
@@ -17,73 +26,78 @@ import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
 
 import { AuthContext } from "../contexts/AuthProvider";
-import { useNavigation } from "@react-navigation/native";
-
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { getProdutosUsuario } from "../DBService/DBProduto";
 const Loja = () => {
   const navigation = useNavigation();
+  const { produtos, setProdutos } = useState([]);
   const { usuario } = useContext(AuthContext);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    getProdutosUsuario().then((produtos)=>{
+      setProdutos(produtos);
+
+    })
+
+
+  }, [isFocused]);
 
   return (
     <>
+    
+       
       <View style={styles.apresentacao}>
         <Text style={{ fontSize: 25 }}>Loja de {usuario.nome}</Text>
-        <Text style={{ fontSize: 20 }}>
-          {usuario.nomeLoja}
-        </Text>
+        <Text style={{ fontSize: 20 }}>{usuario.nomeLoja}</Text>
       </View>
       <ScrollView>
-      <View style={styles.containerPrincipal}>
-        <View style={styles.principaisFuncionalidades}>
-          <View style={styles.containerProdutos}>
-          <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")} >
-          <Image
-              style={styles.img}
-              source={require("../assets/maracuja.jpg")}
-            />
-            <Text style={styles.textoProduto}>Maracujá</Text>
-            <Text style={styles.textoProduto}>Fruta</Text>
-            <Text style={styles.textoEstoque}>5kg</Text>
+        <View style={styles.containerPrincipal}>
+          <View style={styles.principaisFuncionalidades}>
+            <View style={styles.containerProdutos}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("EditarProduto")}
+              >
+                <Image
+                  style={styles.img}
+                  source={require("../assets/maracuja.jpg")}
+                />
+                <Text style={styles.textoProduto}>Maracujá</Text>
+                <Text style={styles.textoProduto}>Fruta</Text>
+                <Text style={styles.textoEstoque}>5kg</Text>
+              </TouchableOpacity>
+            </View>
 
+            <View style={styles.containerProdutos}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("EditarProduto")}
+              >
+                <Image
+                  style={styles.img}
+                  source={require("../assets/img-banana.jpg")}
+                />
+                <Text style={styles.textoProduto}>Banana</Text>
+                <Text style={styles.textoCategoria}>Fruta</Text>
 
-          </TouchableOpacity>
-            
-            
-          </View>
+                <Text style={styles.textoEstoque}>3kg</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.containerProdutos}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("EditarProduto")}
+              >
+                <Image
+                  style={styles.img}
+                  source={require("../assets/img-maça.jpg")}
+                />
+                <Text style={styles.textoProduto}>Maça</Text>
+                <Text style={styles.textoCategoria}>Fruta</Text>
 
-          <View style={styles.containerProdutos}>
-            <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")}>
+                <Text style={styles.textoEstoque}>2kg</Text>
+              </TouchableOpacity>
+            </View>
 
-            <Image
-              style={styles.img}
-              source={require("../assets/img-banana.jpg")}
-            />
-            <Text style={styles.textoProduto}>Banana</Text>
-            <Text style={styles.textoCategoria}>Fruta</Text>
-
-            <Text style={styles.textoEstoque}>3kg</Text>
-
-            </TouchableOpacity>
-            
-          </View>
-          <View style={styles.containerProdutos}>
-          <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")}>
-
-          <Image
-              style={styles.img}
-              source={require("../assets/img-maça.jpg")}
-            />
-            <Text style={styles.textoProduto}>Maça</Text>
-            <Text style={styles.textoCategoria}>Fruta</Text>
-           
-            <Text style={styles.textoEstoque}>2kg</Text>
-
-            
-
-            </TouchableOpacity>
-          </View>
-         
-           
-           
+                     
           <View style={styles.containerProdutos}>
             <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")}>
 
@@ -128,16 +142,17 @@ const Loja = () => {
           </TouchableOpacity>
 
           </View>
+          </View>
         </View>
-      </View>
 
-      <FAB
-        style={styles.fab}
-        small
-        label="Cadastrar Produto"
-        onPress={() => navigation.navigate("CadastrarProduto")}
-      />
+        
       </ScrollView>
+      <FAB
+          style={styles.fab}
+          small
+          icon ="plus"
+          onPress={() => navigation.navigate("CadastrarProduto")}
+        /> 
     </>
   );
 };
@@ -146,7 +161,7 @@ const styles = StyleSheet.create({
   apresentacao: {
     marginTop: 40,
     padding: 10,
-    alignItems:"center"
+    alignItems: "center",
   },
   containerPrincipal: {
     maxWidth: 350,
@@ -166,15 +181,13 @@ const styles = StyleSheet.create({
     letterSpacing: 2.2,
     fontStyle: "italic",
     fontWeight: "bold",
-    marginLeft:85,
-    
+    marginLeft: 85,
   },
   textoCategoria: {
     padding: 3,
     letterSpacing: 2.2,
     fontStyle: "italic",
     fontWeight: "bold",
-    
   },
 
   principaisFuncionalidades: {
@@ -203,9 +216,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderTopRightRadius: 6,
     borderTopLeftRadius: 6,
-    borderWidth:0.8,
-   
-    
+    borderWidth: 0.8,
   },
 
   fab: {
@@ -213,6 +224,7 @@ const styles = StyleSheet.create({
     margin: 12,
     right: 0,
     bottom: 0,
+    
   },
 });
 

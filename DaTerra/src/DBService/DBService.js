@@ -1,6 +1,6 @@
 import * as SQLite from "expo-sqlite";
 
-export const DataBase = {
+ const Database = {
   getConnection: () => {
     const db = SQLite.openDatabase("DaTerra.db");
 
@@ -46,4 +46,4 @@ export const DataBase = {
   }, // getConnection
 };
 
-export default DataBase;
+export default Database;
