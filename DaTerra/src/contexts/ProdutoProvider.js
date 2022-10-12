@@ -3,26 +3,26 @@ import { Alert } from "react-native";
 
 export const ProdutoContext = createContext();
 
-const ProdutoProvider = ({ children }) => {  
+const ProdutoProvider = ({ children }) => {
 
-  const cadastrarProduto = (nome, preco, estoque, descricao, categoria) => {
-    if (!nome || !preco || !estoque || !descricao || !categoria) {
+  const cadastrarProduto = (nome, descricao, estoque, embalagem, categoria, preco) => {
+    if (!nome || !descricao || !estoque || !embalagem || !categoria || !preco) {
       Alert.alert("Você precisa preencher todos os dados");
     } else {
       Alert.alert(nome); // BANCO DE DADOS
     }
   }
 
-  
-  const editarProduto = (id,nomeLoja) => {
+
+  const editarProduto = (id, nomeLoja) => {
     //Editar produto
   }
-   
+
   const excluirProduto = (id) => {
     //Editar produto
   }
   return (
-    <ProdutoContext.Provider value={{cadastrarProduto,editarProduto,excluirProduto}}>
+    <ProdutoContext.Provider value={{ cadastrarProduto, editarProduto, excluirProduto }}>
       {children}
     </ProdutoContext.Provider>
   );

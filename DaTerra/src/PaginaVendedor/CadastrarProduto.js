@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity, ScrollView } from "react-native";
 import {
   TextInput,
   Portal,
@@ -15,9 +15,13 @@ import Container from "../Componentes/Container";
 import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
 
+import { useNavigation } from "@react-navigation/native";
+  
 import { ProdutoContext } from "../contexts/ProdutoProvider";
 
 const Loja = () => {
+
+  const navigation = useNavigation();
   const { cadastrarProduto } = useContext(ProdutoContext);
 
   // Categoria Portal
@@ -47,33 +51,38 @@ const Loja = () => {
     console.log('estoque: ' + estoque)
     console.log('decricao: ' + descricao)
     console.log('categoria: ' + categoria)
-
-    // Context 
-    cadastrarProduto(nome, preco, estoque, descricao, categoria);
+    
+    // Context
+    cadastrarProduto(nome, descricao, estoque, embalagem, categoria, preco);
+    navigation.goBack();
   }
 
   return (
     <Provider>
       <Container>
-        <Header title={'Cadastro de Produto'} />
+        <Header
+          title={'Cadastro de Produto'}
+          goBack={() => navigation.goBack()} // Só se houver tela empilhada        
+        />
         <Body>
-          <View style={styles.container}>
+          <ScrollView>
             <Text style={styles.textTitulos}>Nome</Text>
             <Input
               value={nome}
               onChangeText={(text) => setNome(text)}
               left={<TextInput.Icon icon='sort-variant' />}
             />
+
             <Text style={styles.textTitulos}>Descrição</Text>
             <TextInput
+              style={styles.inputDescricao}
               mode="outlined"
               multiline={true}
-              numberOfLines={5}
-              style={styles.inputDescricao}
+              numberOfLines={5}              
               onChangeText={(text) => setDescricao(text)}
               left={<TextInput.Icon icon='card-text-outline' />}
             />
-            
+
             <View style={styles.viewPrecoEmbalagem}>
               <Text style={styles.textTitulos}>Estoque</Text>
               <TextInput
@@ -97,13 +106,6 @@ const Loja = () => {
                   onChangeText={(text) => setEmbalagem(text)}
                   left={<TextInput.Icon icon='archive-outline' />}
                 ></TextInput>
-                {/* <Input
-                label='Tipo Embalagem'
-                editable={false}
-                value={embalagem}
-                onChangeText={(text) => setEmbalagem(text)}
-                left={<TextInput.Icon icon='archive-outline' />}
-              /> */}
               </TouchableOpacity>
             </View>
             <Portal>
@@ -222,12 +224,11 @@ const Loja = () => {
                   style={styles.textoBotao}
                   textoBotao='Cadastrar'
                   mode='contained'
-                  buttonColor='#3d9d74'
-                  onPress={cadastrarProduto}
+                  buttonColor='#3d9d74'                 
                 />
               </TouchableOpacity>
             </View>
-          </View>
+          </ScrollView>
         </Body>
       </Container>
     </Provider>
@@ -282,6 +283,7 @@ const styles = StyleSheet.create({
     marginRight: 11
   },
   textTitulos: {
+    marginTop: 14,
     textAlignVertical: 'center',
     marginLeft: 14,
     fontSize: 20,
