@@ -1,3 +1,11 @@
 {
-  "users": []
+  "Produto": [
+{
+  "Nome":"Maracujá",
+  "quantidadeEstoque":"20kg",
+  "id":2
+
+}
+
+  ]
 }

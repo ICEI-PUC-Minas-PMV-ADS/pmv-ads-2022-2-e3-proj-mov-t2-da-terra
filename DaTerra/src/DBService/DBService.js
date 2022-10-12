@@ -2,7 +2,7 @@ import * as SQLite from "expo-sqlite";
 
 export const DataBase = {
   getConnection: () => {
-    const db = SQLite.openDatabase("cadastros.db");
+    const db = SQLite.openDatabase("DaTerra.db");
 
     db.transaction((tx) => {
       tx.executeSql(
