@@ -46,11 +46,14 @@ const Loja = () => {
     }).catch(error => console.log(error))
   }, [isFocused]);
 
-  // NÃO CONSEGUI RENDERIZAR ITENS UM DO LADO DO OUTRO
-  const renderItem = ({ item }) => (
-    <View style={{ margin: 8, backgroundColor: '#ccc' }}>
-      <TouchableOpacity onPress={() => navigation.navigate("EditarProduto")}>
+   
 
+  // NÃO CONSEGUI RENDERIZAR ITENS UM DO LADO DO OUTRO
+  // Estudar Solução
+  // https://oieduardorabelo.medium.com/react-native-criando-grids-com-flatlist-b4eb64e7dcd5
+  const renderItem = ({ item }) => (
+     <View style={{ marginVertical: 4, backgroundColor: '#ccc', flexDirection: 'row' }}>
+      <TouchableOpacity onPress={() => navigation.navigate("EditarProduto")}>
         <Image
           style={styles.img}
           source={require("../assets/maracuja.jpg")}
@@ -59,9 +62,8 @@ const Loja = () => {
           title={item.nome + ' ' + item.embalagem}
           description={'R$ ' + item.preco}
         />
-
       </TouchableOpacity >
-    </View>
+     </View>
   );
 
   // RETURN PARA TESTES
@@ -75,6 +77,8 @@ const Loja = () => {
             data={produto}
             renderItem={renderItem}
             keyExtractor={item => item.id}
+            //contentContainerStyle={{ flexDirection: 'row'}}
+            //horizontal
           //numColumns={2}
             
           />
@@ -206,8 +210,8 @@ const Loja = () => {
 
 const styles = StyleSheet.create({
   viewRenderList: {
-    margin: 8,
-    flexDirection: 'row'
+     //argin: 8,
+    //flexDirection: 'row'
     //   alignSelf: 'flex-end'
   },
   apresentacao: {
@@ -264,10 +268,11 @@ const styles = StyleSheet.create({
     /*Aqui é configuração do tamanho das imagens que vão dentro das caixas*/
     width: 127,
     height: 100,
-    padding: 10,
-    borderTopRightRadius: 6,
-    borderTopLeftRadius: 6,
-    borderWidth: 0.8,
+   // padding: 10,
+    //borderTopRightRadius: 10,
+   // borderTopLeftRadius: 10,
+    //borderWidth: 0.8,
+    borderRadius: 10,
   },
 
   fab: {
