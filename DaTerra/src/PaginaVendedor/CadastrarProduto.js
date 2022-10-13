@@ -91,7 +91,7 @@ const Loja = () => {
                 value={estoque}
                 onChangeText={(text) => setEstoque(text)}
                 left={<TextInput.Icon icon='archive-outline' />}
-              ></TextInput>
+              />
             </View>
 
             {/*Tipo de Embalagem Portal*/}
@@ -105,7 +105,7 @@ const Loja = () => {
                   value={embalagem}
                   onChangeText={(text) => setEmbalagem(text)}
                   left={<TextInput.Icon icon='archive-outline' />}
-                ></TextInput>
+                />
               </TouchableOpacity>
             </View>
             <Portal>
