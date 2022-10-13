@@ -27,134 +27,139 @@ import Header from "../Componentes/Header";
 
 import { AuthContext } from "../contexts/AuthProvider";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-import { getProdutosUsuario } from "../DBService/DBProduto";
+import { getProdutos } from "../DBService/DBProduto";
 const Loja = () => {
   const navigation = useNavigation();
-  const { produtos, setProdutos } = useState([]);
+  //const { produtos, setProdutos } = useState([]);
   const { usuario } = useContext(AuthContext);
   const isFocused = useIsFocused();
 
+  // ALTERADO PARA TESTES - falta setar
   useEffect(() => {
-    getProdutosUsuario().then((produtos)=>{
-      setProdutos(produtos);
-
-    })
-
-
+    getProdutos().then(produtos => {
+      console.log(produtos);
+    }).catch(error => console.log(error))
   }, [isFocused]);
 
+  // RETURN PARA TESTES
+  // EXIBIR TELA
   return (
     <>
-    
-       
-      <View style={styles.apresentacao}>
-        <Text style={{ fontSize: 25 }}>Loja de {usuario.nome}</Text>
-        <Text style={{ fontSize: 20 }}>{usuario.nomeLoja}</Text>
-      </View>
-      <ScrollView>
-        <View style={styles.containerPrincipal}>
-          <View style={styles.principaisFuncionalidades}>
-            <View style={styles.containerProdutos}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("EditarProduto")}
-              >
-                <Image
-                  style={styles.img}
-                  source={require("../assets/maracuja.jpg")}
-                />
-                <Text style={styles.textoProduto}>Maracujá</Text>
-                <Text style={styles.textoProduto}>Fruta</Text>
-                <Text style={styles.textoEstoque}>5kg</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.containerProdutos}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("EditarProduto")}
-              >
-                <Image
-                  style={styles.img}
-                  source={require("../assets/img-banana.jpg")}
-                />
-                <Text style={styles.textoProduto}>Banana</Text>
-                <Text style={styles.textoCategoria}>Fruta</Text>
-
-                <Text style={styles.textoEstoque}>3kg</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.containerProdutos}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("EditarProduto")}
-              >
-                <Image
-                  style={styles.img}
-                  source={require("../assets/img-maça.jpg")}
-                />
-                <Text style={styles.textoProduto}>Maça</Text>
-                <Text style={styles.textoCategoria}>Fruta</Text>
-
-                <Text style={styles.textoEstoque}>2kg</Text>
-              </TouchableOpacity>
-            </View>
-
-                     
-          <View style={styles.containerProdutos}>
-            <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")}>
-
-            <Image
-              style={styles.img}
-              source={require("../assets/img-laranja.jpg")}
-            />
-            <Text style={styles.textoProduto}>Laranja</Text>
-            <Text style={styles.textoCategoria}>Fruta</Text>
-
-            <Text style={styles.textoEstoque}>7kg</Text>
-
-
-            </TouchableOpacity>
-          </View>
-          <View style={styles.containerProdutos}>
-             <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")}>
-
-            <Image
-              style={styles.img}
-              source={require("../assets/img-alface.jpg")}
-            />
-            <Text style={styles.textoProduto}>Alface</Text>
-            <Text style={styles.textoCategoria}>Hortaliça</Text>
-
-            <Text style={styles.textoEstoque}>2,5kg</Text>
-
-             </TouchableOpacity>
-          </View>
-          <View style={styles.containerProdutos}>
-          <TouchableOpacity onPress={()=> navigation.navigate("EditarProduto")}>
-
-            <Image
-              style={styles.img}
-              source={require("../assets/img-brocolis.jpg")}
-            />
-            <Text style={styles.textoProduto}>Brócolis</Text>
-            <Text style={styles.textoCategoria}>Vegetal</Text>
-
-            <Text style={styles.textoEstoque}>2kg</Text>
-
-          </TouchableOpacity>
-
-          </View>
-          </View>
-        </View>
-
-        
-      </ScrollView>
-      <FAB
-          style={styles.fab}
-          small
-          icon ="plus"
-          onPress={() => navigation.navigate("CadastrarProduto")}
-        /> 
+      {/* <Text>{produtos}</Text>       */}
     </>
   );
+
+  // RETURN ORIGINAL - COMENTADO PARA TESTES
+  // return (
+  //   <>
+  //     <View style={styles.apresentacao}>
+  //       <Text style={{ fontSize: 25 }}>Loja de {usuario.nome}</Text>
+  //       <Text style={{ fontSize: 20 }}>{usuario.nomeLoja}</Text>
+  //     </View>
+  //     <ScrollView>
+  //       <View style={styles.containerPrincipal}>
+  //         <View style={styles.principaisFuncionalidades}>
+  //           <View style={styles.containerProdutos}>
+  //             <TouchableOpacity
+  //               onPress={() => navigation.navigate("EditarProduto")}
+  //             >
+  //               <Image
+  //                 style={styles.img}
+  //                 source={require("../assets/maracuja.jpg")}
+  //               />
+  //               <Text style={styles.textoProduto}>Maracujá</Text>
+  //               <Text style={styles.textoProduto}>Fruta</Text>
+  //               <Text style={styles.textoEstoque}>5kg</Text>
+  //             </TouchableOpacity>
+  //           </View>
+
+  //           <View style={styles.containerProdutos}>
+  //             <TouchableOpacity
+  //               onPress={() => navigation.navigate("EditarProduto")}
+  //             >
+  //               <Image
+  //                 style={styles.img}
+  //                 source={require("../assets/img-banana.jpg")}
+  //               />
+  //               <Text style={styles.textoProduto}>Banana</Text>
+  //               <Text style={styles.textoCategoria}>Fruta</Text>
+
+  //               <Text style={styles.textoEstoque}>3kg</Text>
+  //             </TouchableOpacity>
+  //           </View>
+  //           <View style={styles.containerProdutos}>
+  //             <TouchableOpacity
+  //               onPress={() => navigation.navigate("EditarProduto")}
+  //             >
+  //               <Image
+  //                 style={styles.img}
+  //                 source={require("../assets/img-maça.jpg")}
+  //               />
+  //               <Text style={styles.textoProduto}>Maça</Text>
+  //               <Text style={styles.textoCategoria}>Fruta</Text>
+
+  //               <Text style={styles.textoEstoque}>2kg</Text>
+  //             </TouchableOpacity>
+  //           </View>
+
+
+  //           <View style={styles.containerProdutos}>
+  //             <TouchableOpacity onPress={() => navigation.navigate("EditarProduto")}>
+
+  //               <Image
+  //                 style={styles.img}
+  //                 source={require("../assets/img-laranja.jpg")}
+  //               />
+  //               <Text style={styles.textoProduto}>Laranja</Text>
+  //               <Text style={styles.textoCategoria}>Fruta</Text>
+
+  //               <Text style={styles.textoEstoque}>7kg</Text>
+
+
+  //             </TouchableOpacity>
+  //           </View>
+  //           <View style={styles.containerProdutos}>
+  //             <TouchableOpacity onPress={() => navigation.navigate("EditarProduto")}>
+
+  //               <Image
+  //                 style={styles.img}
+  //                 source={require("../assets/img-alface.jpg")}
+  //               />
+  //               <Text style={styles.textoProduto}>Alface</Text>
+  //               <Text style={styles.textoCategoria}>Hortaliça</Text>
+
+  //               <Text style={styles.textoEstoque}>2,5kg</Text>
+
+  //             </TouchableOpacity>
+  //           </View>
+  //           <View style={styles.containerProdutos}>
+  //             <TouchableOpacity onPress={() => navigation.navigate("EditarProduto")}>
+
+  //               <Image
+  //                 style={styles.img}
+  //                 source={require("../assets/img-brocolis.jpg")}
+  //               />
+  //               <Text style={styles.textoProduto}>Brócolis</Text>
+  //               <Text style={styles.textoCategoria}>Vegetal</Text>
+
+  //               <Text style={styles.textoEstoque}>2kg</Text>
+
+  //             </TouchableOpacity>
+
+  //           </View>
+  //         </View>
+  //       </View>
+
+
+  //     </ScrollView>
+  //     <FAB
+  //       style={styles.fab}
+  //       small
+  //       icon="plus"
+  //       onPress={() => navigation.navigate("CadastrarProduto")}
+  //     />
+  //   </>
+  // );
 };
 
 const styles = StyleSheet.create({
@@ -224,7 +229,7 @@ const styles = StyleSheet.create({
     margin: 12,
     right: 0,
     bottom: 0,
-    
+
   },
 });
 

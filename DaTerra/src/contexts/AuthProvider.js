@@ -8,15 +8,11 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const usuario = {
     email: "flash@gmail.com",
-        senha: "hateReversFlash",
-        nome: "Barry allen",
-        nomeLoja:"Shop Flash", 
+    senha: "hateReversFlash",
+    nome: "Barry allen",
+    nomeLoja: "Shop Flash",
+ }
 
-
-  }
-  
-  
-  
   const navigation = useNavigation();
   // const [usuario, setUsuario] = useState();
 
@@ -26,10 +22,8 @@ export const AuthProvider = ({ children }) => {
   //   }
   //   else {
   //     setUsuario({
-               
-  //      cidade: "Central city",
-  //       bairro: "Tal x",
-  //       numeroCasa: "120"
+  //       email: email,
+  //       senha: senha
   //     });
   //     // Criar a Lógica se é vendedor ou cliente com um CadastroUsuarioProvider
   //     console.log("Chamar BD"); // Chamar banco

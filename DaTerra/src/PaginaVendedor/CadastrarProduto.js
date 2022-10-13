@@ -14,15 +14,15 @@ import Botao from "../Componentes/Botao";
 import Container from "../Componentes/Container";
 import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
-import { cadastrarProduto } from "../DBService/DBProduto";
+import { insertProduto } from "../DBService/DBProduto";
 import { useNavigation } from "@react-navigation/native";
-  
+
 import { ProdutoContext } from "../contexts/ProdutoProvider";
 
 const Loja = () => {
 
   const navigation = useNavigation();
-  
+
   // Categoria Portal
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
@@ -33,10 +33,10 @@ const Loja = () => {
   const showDialogEmbalagem = () => setVisibleEmbalagem(true);
   const hideDialogEmbalagem = () => setVisibleEmbalagem(false);
 
-  const [nome, setNome] = useState();
-  const [preco, setPreco] = useState();
-  const [estoque, setEstoque] = useState();
-  const [descricao, setDescricao] = useState();
+  const [nome, setNome] = useState("Pera");
+  const [preco, setPreco] = useState(2.77);
+  const [estoque, setEstoque] = useState(25);
+  const [descricao, setDescricao] = useState("Bonitona");
 
   // Categoria: verduras, hortalicas, frutas, folhagens, bebidas, outros    
   const [categoria, setCategoria] = useState('Verduras');
@@ -44,27 +44,20 @@ const Loja = () => {
   const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
 
   const handleCadastro = () => {
-    // Testes OK
-    
-    
-   // Metodo quem vem do provider produto,e do provider vem de fato o método de cadastrar do BD
-   if(!nome||!preco||!embalagem||!estoque||!categoria||!descricao)
-   cadastrarProduto({
-      nomeProduto:nome,
-      preco:preco,
-      tipoEmbalagem:embalagem,
-      quantidadeEstoque:estoque,
-      categoriaProduto:categoria,
-      descricao:descricao,
-      
+    // Metodo quem vem do provider produto,e do provider vem de fato o método de cadastrar do BD
 
-    }
-    
-   ).then()
-      
-      
-      
-       
+    // TESTeS
+    console.log(nome, preco, embalagem, estoque, categoria, descricao);
+
+    insertProduto({
+      nome: nome,
+      preco: preco,
+      embalagem: embalagem,
+      estoque: estoque,
+      categoria: categoria,
+      descricao: descricao,
+    }).then().catch(console.log('error catch insertProduto'));
+
     navigation.goBack();
   }
 
@@ -81,9 +74,9 @@ const Loja = () => {
             <Input
               value={nome}
               activeOutlineColor={"#3d9d74"}
-              onChangeText={(text) => setNome(text)}
+              onChangeText={(text) => setNome(nome)}
               left={<TextInput.Icon icon='sort-variant'
-         />}
+              />}
             />
 
             <Text style={styles.textTitulos}>Descrição</Text>
@@ -92,8 +85,9 @@ const Loja = () => {
               mode="outlined"
               multiline={true}
               numberOfLines={5}
-              activeOutlineColor={"#3d9d74"}             
-              onChangeText={(text) => setDescricao(text)}
+              activeOutlineColor={"#3d9d74"}
+              value = {descricao} 
+              onChangeText={(text) => setDescricao(descricao)}
               left={<TextInput.Icon icon='card-text-outline' />}
             />
 
@@ -104,7 +98,6 @@ const Loja = () => {
                 keyboardType='decimal-pad'
                 value={estoque}
                 activeUnderlineColor={"#3d9d74"}
-
                 onChangeText={(text) => setEstoque(text)}
                 left={<TextInput.Icon icon='archive-outline' />}
               />
@@ -230,7 +223,6 @@ const Loja = () => {
                 keyboardType='decimal-pad'
                 value={preco}
                 activeUnderlineColor={"#3d9d74"}
-                
                 onChangeText={(text) => setPreco(text)}
                 left={<TextInput.Icon icon='currency-brl' />}
               ></TextInput>
@@ -242,7 +234,7 @@ const Loja = () => {
                   style={styles.textoBotao}
                   textoBotao='Cadastrar'
                   mode='contained'
-                  buttonColor='#3d9d74'                 
+                  buttonColor='#3d9d74'
                 />
               </TouchableOpacity>
             </View>

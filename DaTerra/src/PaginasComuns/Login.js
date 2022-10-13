@@ -28,6 +28,7 @@ export default function Login() {
     // Teste ok
     //console.log(email);
     //console.log(senha);
+    // Função login() vem de AuthProvider
     // login(email, senha);
     navigation.navigate("HomeVendedor");
   };
