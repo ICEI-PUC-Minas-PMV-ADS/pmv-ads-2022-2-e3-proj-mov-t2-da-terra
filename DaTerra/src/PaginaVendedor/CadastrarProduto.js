@@ -56,7 +56,7 @@ const Loja = () => {
       estoque: estoque,
       categoria: categoria,
       descricao: descricao,
-    }).then().catch(console.log('error catch insertProduto'));
+    }).then().catch(error => console.log(error));
 
     navigation.goBack();
   }

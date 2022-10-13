@@ -7,7 +7,8 @@ import {
   Image,
   ScrollView,
   Alert,
-  FlatList
+  FlatList,
+
 } from "react-native";
 import {
   TextInput,
@@ -17,6 +18,7 @@ import {
   Provider,
   RadioButton,
   FAB,
+  List
 } from "react-native-paper";
 
 import Body from "../Componentes/Body";
@@ -28,25 +30,59 @@ import Header from "../Componentes/Header";
 import { AuthContext } from "../contexts/AuthProvider";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { getProdutos } from "../DBService/DBProduto";
+import { SafeAreaView } from "react-native-safe-area-context";
 const Loja = () => {
   const navigation = useNavigation();
   //const { produtos, setProdutos } = useState([]);
   const { usuario } = useContext(AuthContext);
   const isFocused = useIsFocused();
+  const [produto, setProduto] = useState([]);
 
   // ALTERADO PARA TESTES - falta setar
   useEffect(() => {
-    getProdutos().then(produtos => {
-      console.log(produtos);
+    getProdutos().then(dados => {
+      console.log(dados);
+      setProduto(dados);
     }).catch(error => console.log(error))
   }, [isFocused]);
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity onPress={() => navigation.navigate("EditarProduto")}>
+      <Image
+        style={styles.img}
+        source={require("../assets/maracuja.jpg")}
+      />
+      <List.Item
+        title={item.nome + ' ' + item.embalagem}
+        description={'R$ ' + item.preco}
+      />
+    </TouchableOpacity>
+  );
 
   // RETURN PARA TESTES
   // EXIBIR TELA
   return (
-    <>
-      {/* <Text>{produtos}</Text>       */}
-    </>
+    <Container>
+      <Body>
+        <SafeAreaView>
+          <View style={styles.viewFlat}>
+            <FlatList
+              data={produto}
+              renderItem={renderItem}
+              keyExtractor={item => item.id}
+              numColumns={2}
+            />
+          </View>
+          <FAB
+            style={styles.fab}
+            small
+            icon="plus"
+            onPress={() => navigation.navigate("CadastrarProduto")}
+          />
+        </SafeAreaView>
+      </Body>
+    </Container>
+
   );
 
   // RETURN ORIGINAL - COMENTADO PARA TESTES
@@ -163,6 +199,9 @@ const Loja = () => {
 };
 
 const styles = StyleSheet.create({
+  viewFlat: {
+
+  },
   apresentacao: {
     marginTop: 40,
     padding: 10,
@@ -171,7 +210,6 @@ const styles = StyleSheet.create({
   containerPrincipal: {
     maxWidth: 350,
     height: "auto",
-
     margin: "auto",
     justifyContent: "center",
   },
