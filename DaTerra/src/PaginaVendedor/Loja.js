@@ -46,17 +46,22 @@ const Loja = () => {
     }).catch(error => console.log(error))
   }, [isFocused]);
 
+  // NÃO CONSEGUI RENDERIZAR ITENS UM DO LADO DO OUTRO
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate("EditarProduto")}>
-      <Image
-        style={styles.img}
-        source={require("../assets/maracuja.jpg")}
-      />
-      <List.Item
-        title={item.nome + ' ' + item.embalagem}
-        description={'R$ ' + item.preco}
-      />
-    </TouchableOpacity>
+    <View style={{ margin: 8, backgroundColor: '#ccc' }}>
+      <TouchableOpacity onPress={() => navigation.navigate("EditarProduto")}>
+
+        <Image
+          style={styles.img}
+          source={require("../assets/maracuja.jpg")}
+        />
+        <List.Item
+          title={item.nome + ' ' + item.embalagem}
+          description={'R$ ' + item.preco}
+        />
+
+      </TouchableOpacity >
+    </View>
   );
 
   // RETURN PARA TESTES
@@ -64,22 +69,23 @@ const Loja = () => {
   return (
     <Container>
       <Body>
-        <SafeAreaView>
-          <View style={styles.viewFlat}>
-            <FlatList
-              data={produto}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-              numColumns={2}
-            />
-          </View>
-          <FAB
-            style={styles.fab}
-            small
-            icon="plus"
-            onPress={() => navigation.navigate("CadastrarProduto")}
+        {/* <SafeAreaView> */}
+        <View style={styles.viewRenderList}>
+          <FlatList            
+            data={produto}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          //numColumns={2}
+            
           />
-        </SafeAreaView>
+        </View>
+        <FAB
+          style={styles.fab}
+          small
+          icon="plus"
+          onPress={() => navigation.navigate("CadastrarProduto")}
+        />
+        {/* </SafeAreaView> */}
       </Body>
     </Container>
 
@@ -199,8 +205,10 @@ const Loja = () => {
 };
 
 const styles = StyleSheet.create({
-  viewFlat: {
-
+  viewRenderList: {
+    margin: 8,
+    flexDirection: 'row'
+    //   alignSelf: 'flex-end'
   },
   apresentacao: {
     marginTop: 40,
