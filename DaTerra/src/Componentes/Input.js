@@ -13,6 +13,7 @@ const Input = (props) => {
       //  style={styleCompose}
       mode="outlined"
       {...props}
+      
     />
   )
 }

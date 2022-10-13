@@ -1,17 +1,11 @@
 import React, { createContext } from "react";
 import { Alert } from "react-native";
-
+import { cadastrarProduto } from "../DBService/DBProduto";
 export const ProdutoContext = createContext();
 
 const ProdutoProvider = ({ children }) => {
 
-  const cadastrarProduto = (nome, descricao, estoque, embalagem, categoria, preco) => {
-    if (!nome || !descricao || !estoque || !embalagem || !categoria || !preco) {
-      Alert.alert("Você precisa preencher todos os dados");
-    } else {
-      Alert.alert(nome); // BANCO DE DADOS
-    }
-  }
+  
 
 
   const editarProduto = (id, nomeLoja) => {
