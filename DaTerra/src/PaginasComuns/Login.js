@@ -11,7 +11,8 @@ import Botao from "../Componentes/Botao";
 
 import HomeVendedor from "../PaginaVendedor/HomeVendedor";
 import HomeCliente from "../PaginasCliente/HomeCliente";
-
+import { getUsuario } from "../DBService/DBUsuario";
+import { getLogin } from "../DBService/DBUsuario";
 import { AuthContext } from "../contexts/AuthProvider";
 
 export default function Login() {
@@ -22,15 +23,33 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-
+  const [user, setUser] = useState([]);
+  const [missInfo,setMissInfo]=useState(false)
 
   const validarLogin = () => {
-    // Teste ok
-    //console.log(email);
-    //console.log(senha);
-    // Função login() vem de AuthProvider
-    // login(email, senha);
-    navigation.navigate("HomeVendedor");
+    if(!email || !senha){
+      setMissInfo(true)//Faz com que mostre um aviso que tem informação incorreta
+    }
+    else{
+      getLogin(email,senha).then((usuario)=>{
+        console.log(usuario[0])//Aqui realiza a busca corretamente,contudo só é validado pelo email,caso coloque qualquer senha ele busca o usuário mesmo assim
+
+        setUser(usuario[0])//Pega o primeiro retorno de array indice 0 ,invariávelmente, da query e seta na variável user para facil manipulação
+        
+        
+        //Validação tipo usuário OK,ver depois se deixa aqui ou deixa no AuthProvider
+      if(usuario.tipoUsuario=="produtor") navigation.navigate("HomeVendedor");
+
+        else navigation.navigate("HomeCliente");
+
+        
+  
+      })
+      
+  
+    }
+   
+
   };
 
   return (
@@ -43,17 +62,21 @@ export default function Login() {
         <Input
           label={"Email"}
           onChangeText={(text) => setEmail(text)}
+          activeOutlineColor={"#3d9d74"}
+
           right={<TextInput.Icon icon="email-outline" />}
         />
         <Input
           label={"Senha"}
           onChangeText={(text) => setSenha(text)}
           secureTextEntry={escondeSenha}
+          activeOutlineColor={"#3d9d74"}
+
           right={<TextInput.Icon onPress={() =>
             escondeSenha ? setEscondeSenha(false) :
               setEscondeSenha(true)} icon="eye" />}
         />
-
+          {missInfo && <Text style={styles.aviso}>Email ou senha incorretos</Text>}
         <View style={styles.viewBotao}>
           <TouchableOpacity onPress={() => validarLogin()}>
             <Botao
@@ -66,7 +89,7 @@ export default function Login() {
         </View>
 
         <View style={styles.viewTexto}>
-          <Text style={styles.textoCadastro}>Não é cadastrado?</Text>
+          <Text style={styles.textoCadastro}>Não tem um conta?</Text>
         </View>
 
         <View style={styles.viewBotao}>
@@ -94,13 +117,14 @@ const styles = StyleSheet.create({
     color: "white",
   },
   viewBotao: {
-    marginTop: 35,
+    marginTop: 20,
     marginBottom: 25,
   },
   viewTexto: {
     width: 350,
     justifyContent: "center",
     alignItems: "center",
+    marginTop:-11
   },
   textoBotao: {
     textAlign: "center",
@@ -118,6 +142,13 @@ const styles = StyleSheet.create({
   },
   textoEsqsenha: {
     color: "#72E6FF",
+  },
+  aviso: {
+    marginTop:10,
+    marginLeft:10,
+    color: "red",
+    fontStyle: "italic",
+    fontWeight:"bold",
   },
   logo: {
     height: 190,

@@ -16,8 +16,7 @@ import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
 import { insertProduto } from "../DBService/DBProduto";
 import { useNavigation } from "@react-navigation/native";
-
-import { ProdutoContext } from "../contexts/ProdutoProvider";
+import { cadastrarUsuario } from "../DBService/DBUsuario";
 
 const Loja = () => {
 
