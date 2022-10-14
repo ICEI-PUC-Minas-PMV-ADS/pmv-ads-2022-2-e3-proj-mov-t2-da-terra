@@ -15,6 +15,7 @@ import Header from "../Componentes/Header";
 import { AuthContext } from "../contexts/AuthProvider";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { getProdutos } from "../DBService/DBProduto";
+import { getUsuario } from "../DBService/DBUsuario";
 
 const Loja = () => {
 
@@ -22,12 +23,20 @@ const Loja = () => {
   const { usuario } = useContext(AuthContext);
   const [produto, setProduto] = useState([]);
   const isFocused = useIsFocused();
-
+  //const [user,setUser]=useState([])//Array que recebe os dados do usuario do banco
+  //const [loja, setLoja] = useState([])
+  
   useEffect(() => {
     getProdutos().then(dados => {
       // console.log(dados);
+     // setLoja[produtos[0]]
       setProduto(dados);
     }).catch(error => console.log(error))
+
+    // ERRO DE PROMISSE
+    // getUsuario(3).then((usuario)=>{
+    //   setUser(usuario[0])//Aqui seta para o user o array encontrado de acordo com o id passado,
+    //  console.log(user.email)//teste da variável user OK
   }, [isFocused]);
 
   const renderItem = ({ item }) => (
