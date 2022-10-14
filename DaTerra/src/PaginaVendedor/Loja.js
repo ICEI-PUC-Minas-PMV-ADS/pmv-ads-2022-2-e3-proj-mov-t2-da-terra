@@ -28,24 +28,47 @@ import Header from "../Componentes/Header";
 import { AuthContext } from "../contexts/AuthProvider";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { getProdutos } from "../DBService/DBProduto";
+import { getUsuario } from "../DBService/DBUsuario";
+
 const Loja = () => {
   const navigation = useNavigation();
   //const { produtos, setProdutos } = useState([]);
   const { usuario } = useContext(AuthContext);
+  
   const isFocused = useIsFocused();
-
+  const [user,setUser]=useState([])//Array que recebe os dados do usuario do banco
+  const[loja,setLoja]=useState([])
   // ALTERADO PARA TESTES - falta setar
   useEffect(() => {
     getProdutos().then(produtos => {
+      setLoja[produtos[0]]
       console.log(produtos);
+
     }).catch(error => console.log(error))
+    
+    
+    getUsuario(3).then((usuario)=>{
+        setUser(usuario[0])//Aqui seta para o user o array encontrado de acordo com o id passado,
+
+       console.log(user.email)//teste da variável user OK
+    });
+    
+
+
   }, [isFocused]);
 
   // RETURN PARA TESTES
   // EXIBIR TELA
   return (
     <>
-      {/* <Text>{produtos}</Text>       */}
+
+<Text>{user.nome}</Text>
+ <FAB
+        style={styles.fab}
+        small
+        icon="plus"
+        onPress={() => navigation.navigate("CadastrarProduto")}
+      />
     </>
   );
 
