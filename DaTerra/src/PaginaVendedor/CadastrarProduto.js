@@ -48,7 +48,7 @@ const Loja = () => {
 
     // TESTeS
     console.log(nome, preco, embalagem, estoque, categoria, descricao);
-
+   
     insertProduto({
       nome: nome,
       preco: preco,
