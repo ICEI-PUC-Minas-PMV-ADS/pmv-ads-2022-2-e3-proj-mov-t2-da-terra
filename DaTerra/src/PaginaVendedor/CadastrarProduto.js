@@ -94,10 +94,10 @@ const Loja = ({ route }) => {
   return (
     <Provider>
       <Container>
-        <Header        
+        <Header
           title={item ? 'Editar Produto' : 'Cadastrar Produto'}
           goBack={() => navigation.goBack()} // Só se houver tela empilhada        
-        />        
+        />
         <Body>
           <ScrollView>
             <Text style={styles.textTitulos}>Nome</Text>
@@ -262,22 +262,24 @@ const Loja = ({ route }) => {
               <TouchableOpacity onPress={() => handleCadastro()}>
                 <Botao
                   style={styles.textoBotao}
-                  textoBotao={item ? 'Salvar' : 'Cadastar' }
+                  textoBotao={item ? 'Salvar' : 'Cadastar'}
                   mode='contained'
                   buttonColor='#3d9d74'
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleExcluir()}>
-                { // Só renderiza se houver item (na rota)
-                  item &&
-                  <Botao
-                    style={styles.textoBotao}
-                    textoBotao='Excluir'
-                    mode='outlined'     
-                    textColor='#EC7063'
-                  />
-                }
-              </TouchableOpacity>
+              <View style={{marginTop: 10}}>
+                <TouchableOpacity onPress={() => handleExcluir()}>
+                  { // Só renderiza se houver item (na rota)
+                    item &&
+                    <Botao
+                      style={styles.textoBotao}
+                      textoBotao='Excluir'
+                      mode='outlined'
+                      textColor='#EC7063'
+                    />
+                  }
+                </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
         </Body>
@@ -300,10 +302,11 @@ const styles = StyleSheet.create({
   textoBotao: {
     textAlign: "center",
     fontSize: 18,
-  }, 
+    fontWeight: 'bold'
+  },
   viewBotao: {
     marginTop: 30,
-    marginBottom: 25,    
+    marginBottom: 25,
   },
   inputDescricao: {
     fontSize: 15,
