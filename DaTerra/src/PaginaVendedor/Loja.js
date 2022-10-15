@@ -5,7 +5,9 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
+  Text,
 } from "react-native";
+
 import { FAB, List } from "react-native-paper";
 
 import Body from "../Componentes/Body";
@@ -44,13 +46,16 @@ const Loja = () => {
     <View style={styles.containerProdutos}>
       <TouchableOpacity
         onPress={() => navigation.navigate("CadastrarProduto", { item })}>
-        <Image
-          style={styles.img}
-          source={require("../assets/maracuja.jpg")}
-        />
-        <List.Item          
+        <List.Item
           title={`${item.nome}`}
-          description={`R$ ${item.preco}\nEstoque: ${item.estoque} ${item.embalagem}`}
+          left={() =>
+            <Image
+              style={styles.img}
+              source={require("../assets/maracuja.jpg")} />}
+          right={() =>
+            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco}</Text>
+          }
+          description={`Estoque: ${item.estoque} ${item.embalagem}`}
         />
       </TouchableOpacity >
     </View>
@@ -64,7 +69,7 @@ const Loja = () => {
           data={produto}
           renderItem={renderItem}
           keyExtractor={item => item.id}
-          numColumns={2}
+        //numColumns={2}
         />
         <FAB
           style={styles.fab}
@@ -81,8 +86,8 @@ const styles = StyleSheet.create({
   containerProdutos: {
     justifyContent: "center",
     borderRadius: 10,
-    padding: 25,
-    margin: 4,
+    padding: 10,
+    margin: 5,
     backgroundColor: '#fff',
     elevation: 5,
   },
@@ -90,6 +95,7 @@ const styles = StyleSheet.create({
     width: 127,
     height: 100,
     borderRadius: 10,
+    marginRight: 10,
   },
   fab: {
     position: "absolute",
