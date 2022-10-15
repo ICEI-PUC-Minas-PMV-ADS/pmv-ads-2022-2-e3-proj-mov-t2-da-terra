@@ -29,7 +29,7 @@ const HomeVendedor = () => {
 
     return (
         <BottomNavigation
-            barStyle={{backgroundColor: '#C0D56A'}}
+            barStyle={{backgroundColor: '#9fd09d'}}
             navigationState={{index, routes}}
             onIndexChange={setIndex}
             renderScene={renderScene}

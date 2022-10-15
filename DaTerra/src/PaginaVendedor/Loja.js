@@ -64,7 +64,7 @@ const Loja = () => {
   return (
     <Container>
       <Body>
-        {<Header title={user.nomeLoja}></Header>}
+        <Header title={user.nomeLoja}></Header>
         <FlatList
           data={produto}
           renderItem={renderItem}
