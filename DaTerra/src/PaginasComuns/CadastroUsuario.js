@@ -24,14 +24,13 @@ import Input from "../Componentes/Input";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 //import { inserirPessoa } from "../DBService/DBQuery";
-import { insertUsuario } from "../DBService/DBUsuario";
-
-const larguraTela = Dimensions.get("screen").width;
+import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
 
 const CadastroUsuario = ({ navigation, route }) => {
   const [escondeSenha, setEscondeSenha] = useState(true);
+  const [user, setUser] = useState([]);
   const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true);
-  const [trySignIn,setTrySignIn]=useState(false);
+  const [trySignIn, setTrySignIn] = useState(false);
   // Configurar DATE
   const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
   const [show, setShow] = useState(false);
@@ -56,20 +55,13 @@ const CadastroUsuario = ({ navigation, route }) => {
   }, []);
 
   const handleCadastrar = () => {
-   setTrySignIn(true);
-   
-  
-    // if (nome == "") 
-    //  else if (data == "") set 
-    //  else if (cpf == "") 
-    //  else if (telefone == "") 
-    //  else if (rua == "") {
-    //  else if (bairro == "") 
-    //  else if (numCasa == "") 
-    //  else if (cep == "" || cep.length < 8) 
-    //  else if (cidade == "") 
-    //  else if (uf == "") 
-    //  else if(complemento=="")
+    getCadastrado(email).then((usuario) => {
+      setUser(usuario[0]);
+      console.log("oiiii");
+      console.log(typeof user);
+    });
+
+    if (typeof user == "undefined") {
       insertUsuario({
         nome: nome,
         dtNascimento: data,
@@ -88,9 +80,22 @@ const CadastroUsuario = ({ navigation, route }) => {
       })
         .then()
         .catch();
+    } else setTrySignIn(true);
 
-      // navigation.navigate("Login");
-    }
+    // if (nome == "")
+    //  else if (data == "") set
+    //  else if (cpf == "")
+    //  else if (telefone == "")
+    //  else if (rua == "") {
+    //  else if (bairro == "")
+    //  else if (numCasa == "")
+    //  else if (cep == "" || cep.length < 8)
+    //  else if (cidade == "")
+    //  else if (uf == "")
+    //  else if(complemento=="")
+
+    // navigation.navigate("Login");
+  };
 
   useEffect(() => {
     buscarEndereco();
@@ -152,7 +157,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           </View>
 
           <Input label="Nome" onChangeText={setNome} value={nome} />
-          
+
           <View
             style={
               {
@@ -202,9 +207,9 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="Telefone"
             keyboardType="decimal-pad"
             onChangeText={setTelefone}
-            value= {telefone}
+            value={telefone}
           />
-          <Input label="Email" onChangeText={setEmail}value={email} />
+          <Input label="Email" onChangeText={setEmail} value={email} />
           <Input
             label="CEP"
             keyboardType="decimal-pad"
@@ -220,7 +225,11 @@ const CadastroUsuario = ({ navigation, route }) => {
           />
           <Input label="Cidade" onChangeText={setCidade} value={cidade} />
           <Input label="UF" onChangeText={setUf} />
-          <Input label="Complemento" onChangeText={setComplemento} value={complemento}/>
+          <Input
+            label="Complemento"
+            onChangeText={setComplemento}
+            value={complemento}
+          />
 
           <Input
             label="Senha"
@@ -253,8 +262,8 @@ const CadastroUsuario = ({ navigation, route }) => {
             }
             onChangeText={setConfirmarSenha}
           />
-          
-        
+          {trySignIn && <Text style={styles.aviso}>Usuario já cadastrado</Text>}
+
           <Botao
             style={styles.textoBotao}
             textoBotao="Cadastrar"
@@ -266,7 +275,6 @@ const CadastroUsuario = ({ navigation, route }) => {
     </Container>
   );
 };
- 
 
 const styles = StyleSheet.create({
   container: {
