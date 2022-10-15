@@ -44,13 +44,13 @@ const Loja = ({ route }) => {
 
   // Verificando se tem dados na rota
   const { item } = route.params ? route.params : {};
-   console.log('ITEM ' + item + 'itemID: ' + item.id);
+
   // Para exibir dados quando clica no card do produto
   useEffect(() => {
     if (item) { // Se vier dados da rota
       setNome(item.nome);
-      setPreco(item.preco);
-      setEstoque(item.estoque);
+      setPreco(item.preco.toFixed(2));
+      setEstoque(item.estoque.toFixed(0));
       setDescricao(item.descricao);
       setCategoria(item.categoria);
       setEmbalagem(item.embalagem);
@@ -70,9 +70,9 @@ const Loja = ({ route }) => {
         categoria: categoria,
         descricao: descricao,
       }).then()
-        .catch(console.log("ERRO CATCH UPDATE"));
+        .catch(console.log("ERRO CATCH INSERT"));
     } else {
-      updateProduto({ // PROBLEMA UPDATE
+      updateProduto({ // TESTE OK
         nome: nome,
         preco: preco,
         embalagem: embalagem,
@@ -87,17 +87,17 @@ const Loja = ({ route }) => {
   }
 
   const handleExcluir = () => { // TESTE OK
-    deleteProduto(item.id).then().catch(console.log("ERRO CATCH DELETE"));
+    deleteProduto(item.id).then().catch();
     navigation.goBack();
   }
 
   return (
     <Provider>
       <Container>
-        <Header
-          title={'Cadastro de Produto'}
+        <Header        
+          title={item ? 'Editar Produto' : 'Cadastrar Produto'}
           goBack={() => navigation.goBack()} // Só se houver tela empilhada        
-        />
+        />        
         <Body>
           <ScrollView>
             <Text style={styles.textTitulos}>Nome</Text>
@@ -262,7 +262,7 @@ const Loja = ({ route }) => {
               <TouchableOpacity onPress={() => handleCadastro()}>
                 <Botao
                   style={styles.textoBotao}
-                  textoBotao='Salvar'
+                  textoBotao={item ? 'Salvar' : 'Cadastar' }
                   mode='contained'
                   buttonColor='#3d9d74'
                 />
@@ -273,8 +273,8 @@ const Loja = ({ route }) => {
                   <Botao
                     style={styles.textoBotao}
                     textoBotao='Excluir'
-                    mode='contained'
-                    buttonColor='red'
+                    mode='outlined'     
+                    textColor='#EC7063'
                   />
                 }
               </TouchableOpacity>
@@ -300,10 +300,10 @@ const styles = StyleSheet.create({
   textoBotao: {
     textAlign: "center",
     fontSize: 18,
-  },
+  }, 
   viewBotao: {
     marginTop: 30,
-    marginBottom: 25,
+    marginBottom: 25,    
   },
   inputDescricao: {
     fontSize: 15,

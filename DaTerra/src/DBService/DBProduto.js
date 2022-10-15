@@ -29,12 +29,12 @@ export const insertProduto = async (produto) => {
   return results.rowsAffected;
 };
 
-// TESTE UPDATE: ERRO PROMISSE
+// TESTE UPDATE OK
 export const updateProduto = async (produto) => {
   let results = await DB_EXEC(
-    'UPDATE Produtos SET' +
-    'nome=?, preco=?, embalagem=?,' +
-    'estoque=?, categoria=?, descricao=?' +
+    'UPDATE Produtos SET ' +
+    'nome=?, preco=?, embalagem=?, ' +
+    'estoque=?, categoria=?, descricao=? ' +
     'WHERE id=?;',
     [
       produto.nome,

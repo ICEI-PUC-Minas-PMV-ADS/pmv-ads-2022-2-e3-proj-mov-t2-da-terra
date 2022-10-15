@@ -48,9 +48,9 @@ const Loja = () => {
           style={styles.img}
           source={require("../assets/maracuja.jpg")}
         />
-        <List.Item
-          title={`${item.nome} R$ ${item.preco}\n`}
-          description={`Estoque: ${item.estoque} ${item.embalagem}`}
+        <List.Item          
+          title={`${item.nome}`}
+          description={`R$ ${item.preco}\nEstoque: ${item.estoque} ${item.embalagem}`}
         />
       </TouchableOpacity >
     </View>
