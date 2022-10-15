@@ -19,13 +19,12 @@ import { getUsuario } from "../DBService/DBUsuario";
 
 const Loja = () => {
 
-  const navigation = useNavigation();
-  const { usuario } = useContext(AuthContext);
+  const navigation = useNavigation();  
+  const { user, setUser } = useContext(AuthContext)//Provider com as informações do usuário logado  
   const [produto, setProduto] = useState([]);
   const isFocused = useIsFocused();
-  //const [user,setUser]=useState([])//Array que recebe os dados do usuario do banco
-  //const [loja, setLoja] = useState([])
-  
+  const[loja,setLoja]=useState([])
+  // ALTERADO PARA TESTES - falta setar
   useEffect(() => {
     getProdutos().then(dados => {
       // console.log(dados);

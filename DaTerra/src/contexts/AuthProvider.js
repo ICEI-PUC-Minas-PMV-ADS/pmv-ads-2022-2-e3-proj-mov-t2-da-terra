@@ -1,38 +1,20 @@
 import React, { createContext, useState } from "react";
 import { Alert } from "react-native";
-
+import { getLogin } from "../DBService/DBUsuario";
 import { useNavigation } from "@react-navigation/native";
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const usuario = {
-    email: "flash@gmail.com",
-    senha: "hateReversFlash",
-    nome: "Barry allen",
-    nomeLoja: "Shop Flash",
- }
+  const [user, setUser] = useState([]);
 
   const navigation = useNavigation();
   // const [usuario, setUsuario] = useState();
 
-  // const login = (email, senha) => {
-  //   if (!email || !senha) {
-  //     Alert.alert("Favor inserir seu email e senha");
-  //   }
-  //   else {
-  //     setUsuario({
-  //       email: email,
-  //       senha: senha
-  //     });
-  //     // Criar a Lógica se é vendedor ou cliente com um CadastroUsuarioProvider
-  //     console.log("Chamar BD"); // Chamar banco
-  //     navigation.navigate('HomeVendedor');
-  //   }
-  // }
+ 
 
   return (
-    <AuthContext.Provider value={{ usuario, /*login */ }}>
+    <AuthContext.Provider value={{user,setUser}}>
       {children}
     </AuthContext.Provider>
   );
