@@ -10,7 +10,8 @@ import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
 const EditarProduto = () => {
   
-  const{usuario} = useContext(AuthContext);
+
+  const {user,setUser} = useContext(AuthContext)//Provider com as informações do usuário logado
   const {editarProduto,deletarProduto}=useContext(ProdutoContext);
   
     return (

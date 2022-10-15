@@ -32,7 +32,17 @@ export const getUsuario = async (id) => {
   return result.rows._array;
 };
 export const getLogin = async (email,senha) => {
-  let result = await DB_EXEC('SELECT * FROM Usuarios WHERE email=?; AND senha=?;',[email],[senha]);
+  let resultEmail = await DB_EXEC('SELECT * FROM Usuarios WHERE email=?;',[email]);
+  let resultPassword = await DB_EXEC('SELECT email FROM Usuarios WHERE senha=?;',[senha]);
 
-  return result.rows._array;
+
+   if(resultEmail.rows._array[0]!=undefined && resultPassword.rows._array[0] == undefined){
+    console.log("Deu errado parceiro")
+   }
+   else{
+
+    return resultEmail.rows._array;
+
+   }
+   
 };

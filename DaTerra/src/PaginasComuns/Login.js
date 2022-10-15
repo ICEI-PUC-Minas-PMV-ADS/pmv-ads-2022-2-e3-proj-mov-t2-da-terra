@@ -13,43 +13,37 @@ import HomeVendedor from "../PaginaVendedor/HomeVendedor";
 import HomeCliente from "../PaginasCliente/HomeCliente";
 import { getUsuario } from "../DBService/DBUsuario";
 import { getLogin } from "../DBService/DBUsuario";
+
 import { AuthContext } from "../contexts/AuthProvider";
 
 export default function Login() {
   const navigation = useNavigation();
-  const { login } = useContext(AuthContext);
-
-  const [escondeSenha, setEscondeSenha] = useState(true)
-
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [user, setUser] = useState([]);
-  const [missInfo,setMissInfo]=useState(false)
+  const { user, setUser } = useContext(AuthContext);
+  const [escondeSenha, setEscondeSenha] = useState(true);
+  const [missInfo, setMissInfo] = useState(false);
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
   const validarLogin = () => {
-    if(!email || !senha){
-      setMissInfo(true)//Faz com que mostre um aviso que tem informação incorreta
+    getLogin(email, senha).then((usuario) => {
+      // console.log(usuario[0]);
+
+      setUser(usuario[0]);
+      console.log(user.tipoUsuario)
+    });
+
+    if (!email || !senha) {
+      setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando
+    } else if (user == undefined) {
+      setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando
+    } 
+    else {
+      console.log(user.tipoUsuario)
+
+      if (user.tipoUsuario == "produtor" && user.tipoUsuario != undefined)
+        navigation.navigate("HomeVendedor");
+      else if(user.tipoUsuario == "cliente" && user.tipoUsuario != undefined) navigation.navigate("HomeCliente");
     }
-    else{
-      getLogin(email,senha).then((usuario)=>{
-        console.log(usuario[0])//Aqui realiza a busca corretamente,contudo só é validado pelo email,caso coloque qualquer senha ele busca o usuário mesmo assim
-
-        setUser(usuario[0])//Pega o primeiro retorno de array indice 0 ,invariávelmente, da query e seta na variável user para facil manipulação
-        
-        
-        //Validação tipo usuário OK,ver depois se deixa aqui ou deixa no AuthProvider
-      if(usuario.tipoUsuario=="produtor") navigation.navigate("HomeVendedor");
-
-        else navigation.navigate("HomeCliente");
-
-        
-  
-      })
-      
-  
-    }
-   
-
   };
 
   return (
@@ -63,7 +57,6 @@ export default function Login() {
           label={"Email"}
           onChangeText={(text) => setEmail(text)}
           activeOutlineColor={"#3d9d74"}
-
           right={<TextInput.Icon icon="email-outline" />}
         />
         <Input
@@ -71,12 +64,18 @@ export default function Login() {
           onChangeText={(text) => setSenha(text)}
           secureTextEntry={escondeSenha}
           activeOutlineColor={"#3d9d74"}
-
-          right={<TextInput.Icon onPress={() =>
-            escondeSenha ? setEscondeSenha(false) :
-              setEscondeSenha(true)} icon="eye" />}
+          right={
+            <TextInput.Icon
+              onPress={() =>
+                escondeSenha ? setEscondeSenha(false) : setEscondeSenha(true)
+              }
+              icon="eye"
+            />
+          }
         />
-          {missInfo && <Text style={styles.aviso}>Email ou senha incorretos</Text>}
+        {missInfo && (
+          <Text style={styles.aviso}>Email ou senha incorretos</Text>
+        )}
         <View style={styles.viewBotao}>
           <TouchableOpacity onPress={() => validarLogin()}>
             <Botao
@@ -94,7 +93,8 @@ export default function Login() {
 
         <View style={styles.viewBotao}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("CadastroUsuario")}>
+            onPress={() => navigation.navigate("CadastroUsuario")}
+          >
             <Botao
               style={styles.textoBotao}
               textColor={"#3d9d74"}
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     width: 350,
     justifyContent: "center",
     alignItems: "center",
-    marginTop:-11
+    marginTop: -11,
   },
   textoBotao: {
     textAlign: "center",
@@ -144,11 +144,11 @@ const styles = StyleSheet.create({
     color: "#72E6FF",
   },
   aviso: {
-    marginTop:10,
-    marginLeft:10,
+    marginTop: 10,
+    marginLeft: 10,
     color: "red",
     fontStyle: "italic",
-    fontWeight:"bold",
+    fontWeight: "bold",
   },
   logo: {
     height: 190,
