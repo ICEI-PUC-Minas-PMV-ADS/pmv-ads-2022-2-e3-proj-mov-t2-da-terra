@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, StyleSheet, View, TouchableOpacity, ScrollView } from "react-native";
 import {
   TextInput,
@@ -14,11 +14,11 @@ import Botao from "../Componentes/Botao";
 import Container from "../Componentes/Container";
 import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
-import { insertProduto } from "../DBService/DBProduto";
+import { insertProduto, updateProduto, deleteProduto } from "../DBService/DBProduto";
 import { useNavigation } from "@react-navigation/native";
 import { cadastrarUsuario } from "../DBService/DBUsuario";
 
-const Loja = () => {
+const Loja = ({ route }) => {
 
   const navigation = useNavigation();
 
@@ -32,31 +32,62 @@ const Loja = () => {
   const showDialogEmbalagem = () => setVisibleEmbalagem(true);
   const hideDialogEmbalagem = () => setVisibleEmbalagem(false);
 
-  const [nome, setNome] = useState("Pera");
-  const [preco, setPreco] = useState(2.77);
-  const [estoque, setEstoque] = useState(25);
-  const [descricao, setDescricao] = useState("Bonitona");
+  const [nome, setNome] = useState();
+  const [preco, setPreco] = useState();
+  const [estoque, setEstoque] = useState();
+  const [descricao, setDescricao] = useState();
 
   // Categoria: verduras, hortalicas, frutas, folhagens, bebidas, outros    
   const [categoria, setCategoria] = useState('Verduras');
   const [embalagem, setEmbalagem] = useState("KG")
   const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
 
+  // Verificando se tem dados na rota
+  const { item } = route.params ? route.params : {};
+   console.log('ITEM ' + item + 'itemID: ' + item.id);
+  // Para exibir dados quando clica no card do produto
+  useEffect(() => {
+    if (item) { // Se vier dados da rota
+      setNome(item.nome);
+      setPreco(item.preco);
+      setEstoque(item.estoque);
+      setDescricao(item.descricao);
+      setCategoria(item.categoria);
+      setEmbalagem(item.embalagem);
+      // inserir foto
+    }
+  }, [item]);
+
   const handleCadastro = () => {
-    // Metodo quem vem do provider produto,e do provider vem de fato o método de cadastrar do BD
+    // Metodo quem vem do provider produto,e do provider vem de fato o método de cadastrar do BD    
+    //console.log(nome, preco, embalagem, estoque, categoria, descricao);
+    if (!item) {
+      insertProduto({ // TESTE OK
+        nome: nome,
+        preco: preco,
+        embalagem: embalagem,
+        estoque: estoque,
+        categoria: categoria,
+        descricao: descricao,
+      }).then()
+        .catch(console.log("ERRO CATCH UPDATE"));
+    } else {
+      updateProduto({ // PROBLEMA UPDATE
+        nome: nome,
+        preco: preco,
+        embalagem: embalagem,
+        estoque: estoque,
+        categoria: categoria,
+        descricao: descricao,
+        id: item.id,
+      }).then()
+        .catch(console.log("ERRO CATCH UPDATE"));
+    }
+    navigation.goBack();
+  }
 
-    // TESTeS
-    console.log(nome, preco, embalagem, estoque, categoria, descricao);
-   
-    insertProduto({
-      nome: nome,
-      preco: preco,
-      embalagem: embalagem,
-      estoque: estoque,
-      categoria: categoria,
-      descricao: descricao,
-    }).then().catch(error => console.log(error));
-
+  const handleExcluir = () => { // TESTE OK
+    deleteProduto(item.id).then().catch(console.log("ERRO CATCH DELETE"));
     navigation.goBack();
   }
 
@@ -73,7 +104,7 @@ const Loja = () => {
             <Input
               value={nome}
               activeOutlineColor={"#3d9d74"}
-              onChangeText={(text) => setNome(nome)}
+              onChangeText={(text) => setNome(text)}
               left={<TextInput.Icon icon='sort-variant'
               />}
             />
@@ -85,8 +116,8 @@ const Loja = () => {
               multiline={true}
               numberOfLines={5}
               activeOutlineColor={"#3d9d74"}
-              value = {descricao} 
-              onChangeText={(text) => setDescricao(descricao)}
+              value={descricao}
+              onChangeText={(text) => setDescricao(text)}
               left={<TextInput.Icon icon='card-text-outline' />}
             />
 
@@ -231,10 +262,21 @@ const Loja = () => {
               <TouchableOpacity onPress={() => handleCadastro()}>
                 <Botao
                   style={styles.textoBotao}
-                  textoBotao='Cadastrar'
+                  textoBotao='Salvar'
                   mode='contained'
                   buttonColor='#3d9d74'
                 />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleExcluir()}>
+                { // Só renderiza se houver item (na rota)
+                  item &&
+                  <Botao
+                    style={styles.textoBotao}
+                    textoBotao='Excluir'
+                    mode='contained'
+                    buttonColor='red'
+                  />
+                }
               </TouchableOpacity>
             </View>
           </ScrollView>

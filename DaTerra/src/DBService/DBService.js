@@ -39,12 +39,14 @@ const Database = {
         db.transaction((tx) => {
           tx.executeSql(
             sql,
-            params,
+            params,        
             (__, results) => {
               resolve(results);
+              console.log('RESOLVE: ' + sql, params)  
             },
             (error) => {
               reject(error);
+              console.log('REJECT: ' + sql, params)
             }
           ); // tx.executeSql        
         }); //db.transactiom

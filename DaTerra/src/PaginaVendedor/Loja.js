@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { 
+import {
   StyleSheet,
   View,
   TouchableOpacity,
@@ -19,16 +19,18 @@ import { getUsuario } from "../DBService/DBUsuario";
 
 const Loja = () => {
 
-  const navigation = useNavigation();  
-  const { user, setUser } = useContext(AuthContext)//Provider com as informações do usuário logado  
+  const navigation = useNavigation();
+  //Provider com as informações do usuário logado  
+  const { user, setUser } = useContext(AuthContext)
   const [produto, setProduto] = useState([]);
   const isFocused = useIsFocused();
-  const[loja,setLoja]=useState([])
+  //const[loja,setLoja]=useState([])
+
   // ALTERADO PARA TESTES - falta setar
   useEffect(() => {
     getProdutos().then(dados => {
       // console.log(dados);
-     // setLoja[produtos[0]]
+      // setLoja[produtos[0]]
       setProduto(dados);
     }).catch(error => console.log(error))
 
@@ -40,7 +42,8 @@ const Loja = () => {
 
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
-      <TouchableOpacity onPress={() => navigation.navigate("EditarProduto")}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("CadastrarProduto", { item })}>
         <Image
           style={styles.img}
           source={require("../assets/maracuja.jpg")}
@@ -56,7 +59,7 @@ const Loja = () => {
   return (
     <Container>
       <Body>
-        <Header title={usuario.nomeLoja}></Header>
+        {<Header title={user.nomeLoja}></Header>}
         <FlatList
           data={produto}
           renderItem={renderItem}
@@ -74,7 +77,7 @@ const Loja = () => {
   );
 };
 
-const styles = StyleSheet.create({  
+const styles = StyleSheet.create({
   containerProdutos: {
     justifyContent: "center",
     borderRadius: 10,
