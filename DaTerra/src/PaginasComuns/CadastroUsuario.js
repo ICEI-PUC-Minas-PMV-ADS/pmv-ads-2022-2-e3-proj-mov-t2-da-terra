@@ -31,6 +31,7 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [user, setUser] = useState([]);
   const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true);
   const [missInfo, setMissInfo] = useState(false);
+  const [userAlredyRegister, setUserAlredyRegister] = useState(false);
   // Configurar DATE
   const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
   const [show, setShow] = useState(false);
@@ -43,107 +44,120 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [avisoCpf, setAvisoCpf] = useState("CPF Incompleto");
 
   const [telefone, setTelefone] = useState("");
-  const [avisoTelefone, setAvisoTelefone] = useState("Digite o nome do seu telefone");
+  const [avisoTelefone, setAvisoTelefone] = useState(
+    "Digite o nome do seu telefone"
+  );
 
   const [rua, setRua] = useState("");
-  const [avisoRua,setAvisoRua] = useState("Digite o nome da sua rua");
+  const [avisoRua, setAvisoRua] = useState("Digite o nome da sua rua");
 
   const [bairro, setBairro] = useState("");
-  const [avisoBairro, setAvisoBairro] = useState("Informe o nome do seu bairro");
+  const [avisoBairro, setAvisoBairro] = useState(
+    "Informe o nome do seu bairro"
+  );
 
-  const [numeroCasa, setNumeroCasa] = useState("Informe o numero da sua casa");
-  const [avisoNumeroCasa, setAvisoNumeroCasa] = useState("");
+  const [numeroCasa, setNumeroCasa] = useState("");
+  const [avisoNumeroCasa, setAvisoNumeroCasa] = useState("Informe o numero da sua casa");
 
   const [cep, setCep] = useState("");
   const [avisoCep, setAvisoCep] = useState("CEP inválido");
 
   const [cidade, setCidade] = useState("");
-  const [avisoCidade, setAvisoCidade] = useState("Você precisa informar o nome da sua cidade");
+  const [avisoCidade, setAvisoCidade] = useState(
+    "Você precisa informar o nome da sua cidade"
+  );
 
   const [uf, setUf] = useState("");
   const [avisoUf, setAvisoUf] = useState("Informe a sua unidade federativa");
 
   const [complemento, setComplemento] = useState("");
-  const [avisoComplemento, setAvisoComplemento] = useState("Digite um complemento para o seu endereço");
+  const [avisoComplemento, setAvisoComplemento] = useState(
+    "Digite um complemento para o seu endereço"
+  );
 
   const [tipoUsuario, setTipoUsuario] = useState("cliente"); // Cliente Default
   const [email, setEmail] = useState("");
-  const [avisoEmail, setAvisoEmail] = useState("Você precisa informar seu email");
+  const [avisoEmail, setAvisoEmail] = useState(
+    "Você precisa informar seu email"
+  );
 
   const [senha, setSenha] = useState("");
-  const [avisoSenha, setAvisoSenha] = useState("Você precisa informar um senha válida");
+  const [avisoSenha, setAvisoSenha] = useState(
+    "Você precisa informar um senha válida"
+  );
 
-  const [confirmarSenha, setConfirmarSenha] = useState("")
-  const [avisoConfirmarSenha, setAvisoConfirmarSenha] = useState("Senha incorreta ou diferente");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [avisoConfirmarSenha, setAvisoConfirmarSenha] = useState(
+    "As senhas estão diferentes,por favor verifique"
+  );
   const [dataCadastro, setDataCadastro] = useState(); // Somento DB
   useEffect(() => {
     DataBase.getConnection();
   }, []);
 
   const handleCadastrar = () => {
-      
-    setMissInfo(true)
-    
-    if (nome == "") setAvisoNome("Digite seu nome completo")
-    //  else if (cpf == "" ||cpf.length<11) setAvisoCpf("Cpf incompleto")
-    //  else if (email == "") setAvisoEmail("Você deve inserir seu email")
-    //  else if (telefone == "")setAvisoTelefone("Digite seu numero de telefone")
-    //  else if (rua == "") setAvisoRua("Digite o nome da sua rua")
-    //  else if (bairro == "")setAvisoBairro("Você precisa inserir o nome do seu bairro")
-    //  else if (numCasa == "")setAvisoNumeroCasa("Digite o numero da sua casa")
-    //  else if (cep == "" || cep.length < 8)setAvisoCep("CEP inválido")
-    //  else if (senha == "")setAvisoSenha("Você precisa inserir uma senha")
-    //  else if (confirmarSenha == "" || confirmarSenha!= senha)setAvisoConfirmarSenha("Senhas diferentes")
-
-    //  else if (cidade == "")setAvisoCidade("Digite o nome da sua cidade")
-    //  else if (uf == "")setAvisoUf("Digite a sua unidade federativa")
-    //  else if(complemento=="")setComplemento("Digite complemento do seu endereço")
-    
-    
-    
-    
-    
-    else {
+    //Verifica se alguma informação esta incompleta ou errada,se sim seta na variável missInfo para poder mostrar nos campos qual informação esta faltando
+    if (
+      nome == "" ||
+      cpf == "" ||
+      cpf.length < 11 ||
+      email == "" ||
+      telefone == "" ||
+      rua == "" ||
+      bairro == "" ||
+      numCasa == "" ||
+      cep == "" ||
+      cep.length < 8 ||
+      senha == "" ||
+      confirmarSenha == "" ||
+      confirmarSenha != senha ||
+      cidade == "" ||
+      uf == "" ||
+      complemento == ""
+    ) {
+      setMissInfo(true);//Tem informação errada/faltando
+    } else {
+      //Vai chamar o metodo do banco para verificar se o usuário já esta cadastrado
       getCadastrado(email).then((usuario) => {
         setUser(usuario[0]);
         console.log("oiiii");
-        console.log(typeof(user));
+        console.log(typeof user);
+
+        //Caso o valor retornado do banco seja do tipo undefined significa que não possui nenhum usuario com o email digitado,assim prosseguira com o cadastro do usuário
+        if (typeof usuario[0] == "undefined") {
+          insertUsuario({
+            nome: nome,
+            dtNascimento: data,
+            cpf: cpf,
+            telefone: telefone,
+            rua: rua,
+            bairro: bairro,
+            numCasa: numeroCasa,
+            cep: cep,
+            cidade: cidade,
+            uf: uf,
+            complemento: complemento,
+            email: email,
+            senha: senha,
+            tipoUsuario: tipoUsuario,
+          })
+            .then()
+            .catch();
+          navigation.navigate("Login");
+        } 
+        //Se o valor retornado do banco não for undefined significa que o o email já e cadastrado,assim seta a variável abaixo para
+        else {
+          setUserAlredyRegister(true);
+        }
       });
-  
-      if (typeof user == "undefined") {
-        insertUsuario({
-          nome: nome,
-          dtNascimento: data,
-          cpf: cpf,
-          telefone: telefone,
-          rua: rua,
-          bairro: bairro,
-          numCasa: numeroCasa,
-          cep: cep,
-          cidade: cidade,
-          uf: uf,
-          complemento: complemento,
-          email: email,
-          senha: senha,
-          tipoUsuario: tipoUsuario,
-        })
-          .then()
-          .catch();
-      } 
-  
-   
-  
-      //  navigation.navigate("Login");
     }
-    
-    
   };
 
   useEffect(() => {
     buscarEndereco();
   }, [cep]);
 
-  const buscarEndereco = () => {
+   const buscarEndereco = () => {
     const Cep = (e) => {
       if (String(cep).length == 8) {
         const meuCep = String(cep);
@@ -199,7 +213,9 @@ const CadastroUsuario = ({ navigation, route }) => {
           </View>
 
           <Input label="Nome" onChangeText={setNome} value={nome} />
-          {nome==""&& missInfo && (<Text style={styles.aviso}>{avisoNome}</Text>)}
+          {nome == "" && missInfo && (
+            <Text style={styles.aviso}>{avisoNome}</Text>
+          )}
 
           <View
             style={
@@ -218,7 +234,10 @@ const CadastroUsuario = ({ navigation, route }) => {
               keyboardType="decimal-pad"
               value={cpf}
             />
-            {cpf==""||cpf.length<11 && missInfo && (<Text style={styles.aviso}>{avisoCpf}</Text>)}
+            {(cpf == "" ||
+              cpf.length < 11) && missInfo && (
+                <Text style={styles.aviso}>{avisoCpf}</Text>
+              )}
 
             {
               // Início Configuração DATE
@@ -253,42 +272,60 @@ const CadastroUsuario = ({ navigation, route }) => {
             onChangeText={setTelefone}
             value={telefone}
           />
-          {telefone=="" && missInfo && (<Text style={styles.aviso}>{avisoTelefone}</Text>)}
-
+          {telefone == "" && missInfo && (
+            <Text style={styles.aviso}>{avisoTelefone}</Text>
+          )}
 
           <Input label="Email" onChangeText={setEmail} value={email} />
-          
-          {email==""&& missInfo && (<Text style={styles.aviso}>{avisoEmail}</Text>)}
-        
+
+          {email == "" && missInfo && (
+            <Text style={styles.aviso}>{avisoEmail}</Text>
+          )}
+
           <Input
             label="CEP"
             keyboardType="decimal-pad"
             onChangeText={setCep}
             value={cep}
           />
-          {cep==""||cep.length < 8 && missInfo && (<Text style={styles.aviso}>{avisoCep}</Text>)}
+          {(cep == "" ||
+            cep.length < 8) && missInfo && (
+              <Text style={styles.aviso}>{avisoCep}</Text>
+            )}
           <Input label="Rua" onChangeText={setRua} value={rua} />
-          {rua==""&& missInfo && (<Text style={styles.aviso}>{avisoRua}</Text>)}
+          {rua == "" && missInfo && (
+            <Text style={styles.aviso}>{avisoRua}</Text>
+          )}
           <Input label="Bairro" onChangeText={setBairro} value={bairro} />
-          {bairro==""&& missInfo && (<Text style={styles.aviso}>{avisoBairro}</Text>)}
+          {bairro == "" && missInfo && (
+            <Text style={styles.aviso}>{avisoBairro}</Text>
+          )}
+
           <Input
             label="Nº"
             keyboardType="decimal-pad"
             onChangeText={setNumeroCasa}
           />
-          {numeroCasa==""&& missInfo && (<Text style={styles.aviso}>{avisoNumeroCasa}</Text>)}
+          {numeroCasa == "" && missInfo && (
+            <Text style={styles.aviso}>{avisoNumeroCasa}</Text>
+          )}
 
           <Input label="Cidade" onChangeText={setCidade} value={cidade} />
-          {cidade==""&& missInfo && (<Text style={styles.aviso}>{avisoCidade}</Text>)}
+          {cidade == "" && missInfo && (
+            <Text style={styles.aviso}>{avisoCidade}</Text>
+          )}
+
           <Input label="UF" onChangeText={setUf} />
-          {uf==""&& missInfo && (<Text style={styles.aviso}>{avisoUf}</Text>)}
-         
+          {uf == "" && missInfo && <Text style={styles.aviso}>{avisoUf}</Text>}
+
           <Input
             label="Complemento"
             onChangeText={setComplemento}
             value={complemento}
           />
-{complemento==""&& missInfo && (<Text style={styles.aviso}>{avisoComplemento}</Text>)}
+          {complemento == "" && missInfo && (
+            <Text style={styles.aviso}>{avisoComplemento}</Text>
+          )}
           <Input
             label="Senha"
             value={senha}
@@ -303,12 +340,14 @@ const CadastroUsuario = ({ navigation, route }) => {
             }
             onChangeText={setSenha}
           />
-          {senha==""&& missInfo && (<Text style={styles.aviso}>{avisoSenha}</Text>)}
+          {senha == "" && missInfo && (
+            <Text style={styles.aviso}>{avisoSenha}</Text>
+          )}
 
           <Input
             label="Confirmar Senha"
             value={confirmarSenha}
-            secureTextEntry={true}
+            secureTextEntry={escondeConfirmarSenha}
             right={
               <TextInput.Icon
                 onPress={() =>
@@ -321,15 +360,25 @@ const CadastroUsuario = ({ navigation, route }) => {
             }
             onChangeText={setConfirmarSenha}
           />
-          {confirmarSenha==""||confirmarSenha!=senha && missInfo && (<Text style={styles.aviso}>{avisoConfirmarSenha}</Text>)}
+          {(confirmarSenha == "" ||
+            confirmarSenha != senha) && missInfo && (
+              <Text style={styles.aviso}>{avisoConfirmarSenha}</Text>
+            )}
           {/* {trySignIn && <Text style={styles.aviso}>Usuario já cadastrado</Text>} */}
-
+          {userAlredyRegister && (
+            <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>
+          )}
           <Botao
             style={styles.textoBotao}
             textoBotao="Cadastrar"
             mode="outlined"
             onPress={handleCadastrar}
           />
+          <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
+
+          <Text>Voltar</Text>
+
+          </TouchableOpacity>
         </ScrollView>
       </Body>
     </Container>
@@ -367,7 +416,14 @@ const styles = StyleSheet.create({
   aviso: {
     marginTop: 5,
     marginLeft: 8,
-    marginBottom:10,
+    marginBottom: 10,
+    color: "red",
+    fontWeight: "bold",
+  },
+  avisoUserAlredyRegister: {
+    marginTop: 12,
+    marginLeft: 8,
+    marginBottom: 10,
     color: "red",
     fontStyle: "italic",
     fontWeight: "bold",

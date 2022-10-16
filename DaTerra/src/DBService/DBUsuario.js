@@ -54,10 +54,10 @@ export const getCadastrado = async (email) => {
  
 
 
-   if(resultEmail.rows._array[0]==undefined){
+   if(typeof(resultEmail.rows._array[0])!="undefined"){
     console.log(typeof(resultEmail))
     console.log("Incontrável")
-    return 0;
+    return resultEmail.rows._array;
    }
  
    
