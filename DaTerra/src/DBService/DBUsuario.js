@@ -36,8 +36,12 @@ export const getLogin = async (email,senha) => {
   let resultPassword = await DB_EXEC('SELECT email FROM Usuarios WHERE senha=?;',[senha]);
 
 
-   if(resultEmail.rows._array[0]!=undefined && resultPassword.rows._array[0] == undefined){
+    if(typeof(resultEmail.rows._array[0])=="undefined"|| typeof(resultPassword.rows._array[0]) == "undefined"){
+     console.log(typeof(resultEmail.rows._array[0]))
+    console.log(typeof(resultPassword.rows._array[0]))
     console.log("Deu errado parceiro")
+    return 0;
+
    }
    else{
 

@@ -58,7 +58,7 @@ const CadastroUsuario = ({ navigation, route }) => {
     getCadastrado(email).then((usuario) => {
       setUser(usuario[0]);
       console.log("oiiii");
-      console.log(typeof user);
+      console.log(typeof(user));
     });
 
     if (typeof user == "undefined") {
@@ -94,7 +94,7 @@ const CadastroUsuario = ({ navigation, route }) => {
     //  else if (uf == "")
     //  else if(complemento=="")
 
-    // navigation.navigate("Login");
+     navigation.navigate("Login");
   };
 
   useEffect(() => {

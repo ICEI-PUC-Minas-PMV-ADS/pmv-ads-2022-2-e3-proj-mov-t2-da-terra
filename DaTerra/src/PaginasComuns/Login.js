@@ -20,30 +20,42 @@ export default function Login() {
   const navigation = useNavigation();
   const { user, setUser } = useContext(AuthContext);
   const [escondeSenha, setEscondeSenha] = useState(true);
+  const [aviso,setAviso]= useState("");
   const [missInfo, setMissInfo] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
   const validarLogin = () => {
-    getLogin(email, senha).then((usuario) => {
-      // console.log(usuario[0]);
-
-      setUser(usuario[0]);
-      console.log(user.tipoUsuario)
-    });
-
-    if (!email || !senha) {
+    if (email=="" ||senha=="") {
       setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando
-    } else if (user == undefined) {
-      setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando
-    } 
-    else {
-      console.log(user.tipoUsuario)
+      setAviso("Por favor insira o email e a sua senha")
+      }
+      else{
+        getLogin(email,senha).then((usuario) => {
+          // console.log(usuario[0]);
+          
+          setUser(usuario[0]);
+          console.log("aquii")
+          console.log(typeof(usuario[0]));
+          setUser(usuario[0])
+          console.log(usuario[0]);
+         
+         
+           if (typeof(usuario[0]) == "undefined") {
+            setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando
+            setAviso("Email ou senha incorretos")
+          } else {
+            if (usuario[0].tipoUsuario == "produtor" && usuario[0].tipoUsuario != "undefined")
+              navigation.navigate("HomeVendedor");
+            else if (usuario[0].tipoUsuario == "cliente" && usuario[0].tipoUsuario != "undefined")
+            navigation.navigate("HomeCliente");
+          }
+        });
+      }
+    
+      
 
-      if (user.tipoUsuario == "produtor" && user.tipoUsuario != undefined)
-        navigation.navigate("HomeVendedor");
-      else if(user.tipoUsuario == "cliente" && user.tipoUsuario != undefined) navigation.navigate("HomeCliente");
-    }
+    
   };
 
   return (
@@ -74,7 +86,7 @@ export default function Login() {
           }
         />
         {missInfo && (
-          <Text style={styles.aviso}>Email ou senha incorretos</Text>
+          <Text style={styles.aviso}>{aviso}</Text>
         )}
         <View style={styles.viewBotao}>
           <TouchableOpacity onPress={() => validarLogin()}>
