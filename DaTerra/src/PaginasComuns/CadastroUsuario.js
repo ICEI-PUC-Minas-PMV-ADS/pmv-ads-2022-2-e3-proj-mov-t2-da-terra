@@ -7,11 +7,11 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Dimensions,
+  Dimensions,BackHandler
 } from "react-native";
 
 import { fetch } from "react-native/Libraries/Network/fetch";
-import { RadioButton, Appbar, TextInput } from "react-native-paper";
+import { RadioButton, Appbar, TextInput, } from "react-native-paper";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
@@ -105,7 +105,7 @@ const CadastroUsuario = ({ navigation, route }) => {
       telefone == "" ||
       rua == "" ||
       bairro == "" ||
-      numCasa == "" ||
+      numeroCasa == "" ||
       cep == "" ||
       cep.length < 8 ||
       senha == "" ||
@@ -117,14 +117,14 @@ const CadastroUsuario = ({ navigation, route }) => {
     ) {
       setMissInfo(true);//Tem informação errada/faltando
     } else {
-      //Vai chamar o metodo do banco para verificar se o usuário já esta cadastrado
+      // Vai chamar o metodo do banco para verificar se o usuário já esta cadastrado
+      setMissInfo(false);//Seta a varíavel que indica que esta faltando informação para false para,caso anteriormente tenha faltando info,o não impedir posteriormente de o usuário cadastrar com todas as informações corretamente
       getCadastrado(email).then((usuario) => {
         setUser(usuario[0]);
-        console.log("oiiii");
-        console.log(typeof user);
+        
 
         //Caso o valor retornado do banco seja do tipo undefined significa que não possui nenhum usuario com o email digitado,assim prosseguira com o cadastro do usuário
-        if (typeof usuario[0] == "undefined") {
+        if (typeof(usuario[0]) == "undefined") {
           insertUsuario({
             nome: nome,
             dtNascimento: data,
@@ -150,7 +150,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           setUserAlredyRegister(true);
         }
       });
-    }
+     }
   };
 
   useEffect(() => {
@@ -368,15 +368,17 @@ const CadastroUsuario = ({ navigation, route }) => {
           {userAlredyRegister && (
             <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>
           )}
-          <Botao
-            style={styles.textoBotao}
-            textoBotao="Cadastrar"
-            mode="outlined"
-            onPress={handleCadastrar}
-          />
+          <View style={{marginTop:20}}>
+            <Botao
+              style={styles.textoBotao}
+              textoBotao="Cadastrar"
+              mode="outlined"
+              onPress={handleCadastrar}
+            />
+          </View>
           <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
 
-          <Text>Voltar</Text>
+          <Text style={styles.textoVoltar}>Voltar</Text>
 
           </TouchableOpacity>
         </ScrollView>
@@ -412,6 +414,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     color: "white",
+
   },
   aviso: {
     marginTop: 5,
@@ -427,6 +430,12 @@ const styles = StyleSheet.create({
     color: "red",
     fontStyle: "italic",
     fontWeight: "bold",
+    
+  },
+  textoVoltar:{
+    textAlign:"center",
+    marginTop:8,
+    fontSize:18
   },
   logo: {
     height: 190,

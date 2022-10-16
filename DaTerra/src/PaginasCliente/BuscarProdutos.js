@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
-import { FlatList, Image, StyleSheet, View, TouchableOpacity, Text } from "react-native";
-import { List, Searchbar } from "react-native-paper";
+import React, { useContext, useState,useEffect, } from "react";
+import { FlatList, Image, StyleSheet, View, TouchableOpacity, Text,BackHandler,Alert,} from "react-native";
+import { List, Searchbar,FAB } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation,useRoute} from "@react-navigation/native";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -32,6 +33,31 @@ const data = [
 const BuscarProdutos = () => {
   //Abaixo seria no caso aonde pegaria os dados da busca no banco
   //const {} = useContext(ProdutoProvider);
+const navigation = useNavigation();
+const route = useRoute();
+ 
+
+// useEffect(() => {
+  //   if(route.name=="HomeCliente"){
+  //   const backAction = () => {
+  //     Alert.alert("Hold on!", "Are you sure you want to go back?", [
+  //       {
+  //         text: "Cancel",
+  //         onPress: () => null,
+  //         style: "cancel"
+  //       },
+  //       { text: "YES", onPress: () => BackHandler.exitApp() }
+  //     ]);
+  //     return true;
+  //   };
+  
+  //   const backHandler = BackHandler.addEventListener(
+  //     "hardwareBackPress",
+  //     backAction
+  //   );
+    
+  //   return () => backHandler.remove();}
+  // }, []);
 
   // Estudar search bar
   const [searchQuery, setSearchQuery] = useState('');
@@ -61,6 +87,7 @@ const BuscarProdutos = () => {
           description={`Estoque: ${item.estoque} ${item.embalagem}`}
         />
       </TouchableOpacity >
+      
     </View>
   );
 
