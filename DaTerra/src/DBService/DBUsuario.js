@@ -39,7 +39,6 @@ export const getLogin = async (email,senha) => {
     if(typeof(resultEmail.rows._array[0])=="undefined"|| typeof(resultPassword.rows._array[0]) == "undefined"){
      console.log(typeof(resultEmail.rows._array[0]))
     console.log(typeof(resultPassword.rows._array[0]))
-    console.log("Deu errado parceiro")
     return 0;
 
    }
