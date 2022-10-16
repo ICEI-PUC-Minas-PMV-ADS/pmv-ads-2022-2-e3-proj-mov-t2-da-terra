@@ -15,7 +15,7 @@ import Container from "../Componentes/Container";
 import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
 import { insertProduto, updateProduto, deleteProduto } from "../DBService/DBProduto";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation,useRoute} from "@react-navigation/native";
 import { cadastrarUsuario } from "../DBService/DBUsuario";
 
 const Loja = ({ route }) => {
@@ -41,12 +41,15 @@ const Loja = ({ route }) => {
   const [categoria, setCategoria] = useState('Verduras');
   const [embalagem, setEmbalagem] = useState("KG")
   const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
+  const routeA = useRoute();
 
   // Verificando se tem dados na rota
   const { item } = route.params ? route.params : {};
 
   // Para exibir dados quando clica no card do produto
   useEffect(() => {
+  
+   
     if (item) { // Se vier dados da rota
       setNome(item.nome);
       setPreco(item.preco.toFixed(2));
