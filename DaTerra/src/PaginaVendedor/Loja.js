@@ -63,13 +63,13 @@ const Loja = () => {
 
   return (
     <Container>
+      <Header title={user.nomeLoja}></Header>
       <Body>
-        <Header title={user.nomeLoja}></Header>
         <FlatList
           data={produto}
           renderItem={renderItem}
           keyExtractor={item => item.id}
-          // numColumns={2}
+        // numColumns={2}
         />
         <FAB
           style={styles.fab}

@@ -33,7 +33,6 @@ const BuscarProdutos = () => {
   //Abaixo seria no caso aonde pegaria os dados da busca no banco
   //const {} = useContext(ProdutoProvider);
 
-
   // Estudar search bar
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = (query) => {
@@ -44,7 +43,6 @@ const BuscarProdutos = () => {
       }
     }
   };
-
 
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>

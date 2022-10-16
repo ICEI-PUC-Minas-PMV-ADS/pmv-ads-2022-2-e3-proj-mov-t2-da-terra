@@ -1,0 +1,17 @@
+// Verde médio  'vivo'
+// '#6cc438'
+
+// Verde claro - amarelado
+// '#d3e4a5'
+
+// Verde escuro - azulado
+// '#3d9d74'
+
+// Verde médio 
+// '#50ac5d'
+
+// Verde Claro
+// '#9fd09d'
+
+// Vermelho para alertas, avisos de exclusão e erros
+// '#B00020'

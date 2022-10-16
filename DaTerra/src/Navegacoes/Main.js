@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 
 const Main = () => {
     return (
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="HomeVendedor">
             <Stack.Screen
                 name="Login"
                 component={Login}
@@ -59,7 +59,8 @@ const Main = () => {
                     header: () => null,
                 }}
 
-            />
+            />         
+
 
         </Stack.Navigator>
 

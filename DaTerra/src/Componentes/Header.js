@@ -7,7 +7,7 @@ const Header = ({ title, goBack, children }) => {
   const navigation = useNavigation();
 
   return (
-    <Appbar.Header  >
+    <Appbar.Header style={{backgroundColor: '#9fd09d'}}>
       {
         /* Se houver a função goback (quando tem tela empilhada)
          então adiciona o componente */

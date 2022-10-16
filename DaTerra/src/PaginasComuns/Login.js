@@ -20,42 +20,38 @@ export default function Login() {
   const navigation = useNavigation();
   const { user, setUser } = useContext(AuthContext);
   const [escondeSenha, setEscondeSenha] = useState(true);
-  const [aviso,setAviso]= useState("");
+  const [aviso, setAviso] = useState("");
   const [missInfo, setMissInfo] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
   const validarLogin = () => {
-    if (email=="" ||senha=="") {
+    if (email == "" || senha == "") {
       setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando
       setAviso("Por favor insira o email e a sua senha")
-      }
-      else{
-        getLogin(email,senha).then((usuario) => {
-          // console.log(usuario[0]);
-          
-          setUser(usuario[0]);
-          console.log("aquii")
-          console.log(typeof(usuario[0]));
-          setUser(usuario[0])
-          console.log(usuario[0]);
-         
-         
-           if (typeof(usuario[0]) == "undefined") {
-            setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando
-            setAviso("Email ou senha incorretos")
-          } else {
-            if (usuario[0].tipoUsuario == "produtor" && usuario[0].tipoUsuario != "undefined")
-              navigation.navigate("HomeVendedor");
-            else if (usuario[0].tipoUsuario == "cliente" && usuario[0].tipoUsuario != "undefined")
-            navigation.navigate("HomeCliente");
-          }
-        });
-      }
-    
-      
+    }
+    else {
+      getLogin(email, senha).then((usuario) => {
+        // console.log(usuario[0]);
 
-    
+        setUser(usuario[0]);
+        console.log("aquii")
+        console.log(typeof (usuario[0]));
+        setUser(usuario[0])
+        console.log(usuario[0]);
+
+
+        if (typeof (usuario[0]) == "undefined") {
+          setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando
+          setAviso("Email ou senha incorretos")
+        } else {
+          if (usuario[0].tipoUsuario == "produtor" && usuario[0].tipoUsuario != "undefined")
+            navigation.navigate("HomeVendedor");
+          else if (usuario[0].tipoUsuario == "cliente" && usuario[0].tipoUsuario != "undefined")
+            navigation.navigate("HomeCliente");
+        }
+      });
+    }
   };
 
   return (
@@ -158,7 +154,7 @@ const styles = StyleSheet.create({
   aviso: {
     marginTop: 10,
     marginLeft: 10,
-    color: "red",
+    color: "#B00020",
     fontStyle: "italic",
     fontWeight: "bold",
   },
