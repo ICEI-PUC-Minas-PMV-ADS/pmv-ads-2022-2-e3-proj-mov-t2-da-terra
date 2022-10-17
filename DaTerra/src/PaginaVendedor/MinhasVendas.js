@@ -127,7 +127,7 @@ const MinhasVendas = () => {
               <Text style={styles.textoBotao}>Aceitar</Text>
             </Button>
           </View>
-          <Divider style={{ borderWidth: 0.2, marginBottom: 5 }} />
+          <Divider style={{ borderWidth: 0.35, marginBottom: 5 }} />
         </View>);
     } else if (value == 1) {
       return (
@@ -153,8 +153,9 @@ const MinhasVendas = () => {
           mode='elevated'
           onPress={() => { setValue(0) }}
           buttonColor={value == 0 ? '#c8e5cc' : '#fff'}
+          //icon={'account-question-outline'}
         >
-          <Text style={styles.textoBotaoSegmented}>Solicitado</Text>
+           <Text style={styles.textoBotaoSegmented}>Solicitado</Text> 
         </Button>
 
         <Button
@@ -162,7 +163,9 @@ const MinhasVendas = () => {
           mode='elevated'
           onPress={() => { setValue(1) }}
           buttonColor={value == 1 ? '#c8e5cc' : '#fff'}
-        ><Text style={styles.textoBotaoSegmented}>Andamento</Text>
+         // icon={'progress-question'}
+        >
+           <Text style={styles.textoBotaoSegmented}>Andamento</Text> 
         </Button>
 
         <Button
@@ -170,7 +173,9 @@ const MinhasVendas = () => {
           mode='elevated'
           onPress={() => { setValue(2) }}
           buttonColor={value == 2 ? '#c8e5cc' : '#fff'}
-        ><Text style={styles.textoBotaoSegmented}>Finalizado</Text>
+         // icon={'check-bold'}          
+        >
+           <Text style={styles.textoBotaoSegmented}>Finalizado</Text> 
         </Button>
       </View>
       <Body>
@@ -212,7 +217,7 @@ const styles = StyleSheet.create({
   botao: {
     width: 140,
     marginTop: 8,
-    marginBottom: 12,
+    marginBottom: 18,
   },
   textoBotao: {
     textAlign: "center",
@@ -224,11 +229,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   botaoSegmented: {
-    backGroundColor: '#ccc',
-    //  borderColor: '#000',
-    borderRadius: -50,
     flexGrow: 1,
     flexShrink: 1,
+    backGroundColor: '#ccc',    
+    borderRadius: -50,    
     borderTopWidth: 0,
     borderBottomWidth: 0,
     borderLeftWidth: 0,
@@ -238,7 +242,7 @@ const styles = StyleSheet.create({
   },
   textoBotaoSegmented: {
     textAlign: "center",
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#000',
   },
