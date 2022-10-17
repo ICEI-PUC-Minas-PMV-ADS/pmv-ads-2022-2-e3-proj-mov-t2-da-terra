@@ -172,8 +172,10 @@ const CadastroUsuario = ({ navigation, route }) => {
               setBairro(json.bairro);
               setCidade(json.localidade);
               setRua(json.logradouro);
+              setUf(json.uf)
             }
           });
+        console.log(uf)
       }
     };
     Cep();
@@ -351,7 +353,7 @@ const CadastroUsuario = ({ navigation, route }) => {
 
           <View style={{ flexDirection: 'row' }}>
             <TextInput
-              style={styles.textInput}
+              style={styleCompose}
               mode='outlined'
               label={'Cidade'}
               onChangeText={setCidade} value={cidade} />
@@ -359,7 +361,12 @@ const CadastroUsuario = ({ navigation, route }) => {
               <Text style={styles.aviso}>{avisoCidade}</Text>
             )}
 
-            <Input label="UF" onChangeText={setUf} />
+            <TextInput
+              style={styles.textInput}
+              mode='outlined'
+              label="UF"
+              value={uf}
+              onChangeText={setUf} />
             {uf == "" && missInfo && <Text style={styles.aviso}>{avisoUf}</Text>}
           </View>
 
