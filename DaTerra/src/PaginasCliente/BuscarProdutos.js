@@ -3,44 +3,25 @@ import { FlatList, Image, StyleSheet, View, TouchableOpacity, Text,BackHandler,A
 import { List, Searchbar,FAB } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation,useRoute} from "@react-navigation/native";
-
+import { getProdutos,getSearchProduto } from "../DBService/DBProduto";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 
 import ProdutoProvider from "../contexts/ProdutoProvider";
-
-const data = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "alface",
-    tipo: "Item de salada",
-    unidade: "(Kg)",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "tomate",
-    tipo: "Item de salada",
-    unidade: "(Kg)",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "maca",
-    tipo: "Fruta",
-    unidade: "(Kg)",
-  },
-];
 
 const BuscarProdutos = () => {
   //Abaixo seria no caso aonde pegaria os dados da busca no banco
   //const {} = useContext(ProdutoProvider);
 const navigation = useNavigation();
 const route = useRoute();
+const [searchQuery, setSearchQuery] = useState('');
+const [resultados, setResultados] = useState([]);
  
 
 // useEffect(() => {
   //   if(route.name=="HomeCliente"){
   //   const backAction = () => {
-  //     Alert.alert("Hold on!", "Are you sure you want to go back?", [
+  //     Alert.alert("Espere!", "Você tem certeza que deseja sair do aplicativo?", [
   //       {
   //         text: "Cancel",
   //         onPress: () => null,
@@ -60,20 +41,46 @@ const route = useRoute();
   // }, []);
 
   // Estudar search bar
-  const [searchQuery, setSearchQuery] = useState('');
+  
+  
+  
+  
+  useEffect(()=>{
+    getSearchProduto(searchQuery).then((prod)=>{
+   
+        setResultados(prod)
+
+      
+     
+
+
+
+    })
+
+
+
+
+  },[searchQuery])
+  
   const onChangeSearch = (query) => {
     setSearchQuery(query);  
-    for (let i = 0; i < data.length; i++) {      
-      if (data[i].title == query) {
-        console.log(data[i].title);        
+    for (let i = 0; i < searchQuery.length; i++) {      
+      if (searchQuery[i].title == query) {
+        // console.log(data[i].title);        
       }
     }
   };
 
+
+
+
+
+
+
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
-      // onPress={() => navigation.navigate("CadastrarProduto", { item })}
+       onPress={() => navigation.navigate("CadastrarProduto", { item })}
       >
         <List.Item
           title={`${item.nome}`}
@@ -102,7 +109,7 @@ const route = useRoute();
       </SafeAreaView>
       <Body>
         <FlatList
-          data={data}
+          data={resultados}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
