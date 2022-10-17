@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { StyleSheet, Text, FlatList, View,TouchableOpacity } from "react-native";
+import { StyleSheet, Text, FlatList, View, TouchableOpacity } from "react-native";
 import { Button, List, Divider } from 'react-native-paper';
 
 import Body from "../Componentes/Body";
@@ -13,124 +13,124 @@ const DATA = [
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     title: 'Pedido #1',
     usuario: 'Carlos',
-    produtos: 
-      {
+    produtos:
+    {
       prod1: 'abobora',
       valor1: '4,98',
       prod2: 'tomate',
       valor2: '14,98',
       prod3: 'abacate',
       valor3: '9,98',
-      },
-      valor: "29,94"
+    },
+    valor: "29,94"
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
     title: 'Pedido #2',
     usuario: 'Joana',
-    produtos: {      
+    produtos: {
       prod1: 'cenoura',
       valor1: '4,98',
       prod2: 'beterraba',
       valor2: '14,98',
       prod3: 'maçã',
       valor3: '9,98',
-      },    
-      valor: "29,94"
+    },
+    valor: "29,94"
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     title: 'Pedido #3',
     usuario: 'Maria',
-    produtos: 
-      {
+    produtos:
+    {
       prod1: 'espinafre',
       valor1: '4,98',
       prod2: 'pêra',
       valor2: '14,98',
       prod3: 'melão',
       valor3: '9,98',
-      },
+    },
     valor: "29,94"
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d74',
     title: 'Pedido #4',
     usuario: 'João',
-    produtos: 
-      {
+    produtos:
+    {
       prod1: 'espinafre',
       valor1: '4,98',
       prod2: 'pêra',
       valor2: '14,98',
       prod3: 'melão',
       valor3: '9,98',
-      },
+    },
     valor: "29,94"
   },
 ];
 
 const MinhasVendas = () => {
 
-  const [value, setValue] = useState(0);  
+  const [value, setValue] = useState(0);
 
-  const renderItem = ({ item }) => {    
+  const renderItem = ({ item }) => {
     if (value == 0) {
       return (
-         <View>
-        <List.Item
-          title={`${item.title}`}
-          titleStyle={{
-          fontSize: 20,
-          fontWeight: 'bold',
-          lineHeight: 22,
-          marginBottom: 8
-        }}        
-          right={() =>
-            <Text
-              style={{ textAlignVertical: 'center'}}>
-              R$ {item.valor}
-            </Text>
-          }                     
-          description={
-            <View style={{flexDirection:'row', alignItems: 'center'}}>
-              <List.Icon icon="account"/>
-              <Text>{item.usuario}</Text>
+        <View>
+          <List.Item
+            title={`${item.title}`}
+            titleStyle={{
+              fontSize: 20,
+              fontWeight: 'bold',
+              lineHeight: 22,
+              marginBottom: 8
+            }}
+            right={() =>
+              <Text
+                style={{ textAlignVertical: 'center' }}>
+                R$ {item.valor}
+              </Text>
+            }
+            description={
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <List.Icon icon="account" />
+                <Text>{item.usuario}</Text>
+              </View>
+            }
+          />
+          <List.Accordion
+            style={{ height: 70, marginTop: -25, textAlignVertical: 'center' }}
+            title="Itens"
+            left={() => <List.Icon icon="fruit-cherries" />}>
+            <View>
+              <List.Item title={item.produtos.prod1 + `     R$ ${item.produtos.valor1}`} />
+              <List.Item title={item.produtos.prod2 + `     R$ ${item.produtos.valor1}`} />
+              <List.Item title={item.produtos.prod3 + `     R$ ${item.produtos.valor1}`} />
             </View>
-          }                    
-        />       
-        <List.Accordion
-          style={{height:70, marginTop: -25, textAlignVertical:'center'}}
-          title="Itens"
-          left={() => <List.Icon icon="fruit-cherries" />}>
-          <View>
-            <List.Item title={item.produtos.prod1 + `     R$ ${item.produtos.valor1}`} />           
-            <List.Item title={item.produtos.prod2 + `     R$ ${item.produtos.valor1}`} />           
-            <List.Item title={item.produtos.prod3 + `     R$ ${item.produtos.valor1}`} /> 
+          </List.Accordion>
+
+          <View style={styles.viewBotao}>
+            <Button
+              style={styles.botao}
+              mode="contained"
+              buttonColor={'#D32F2F'}
+              onPress={() => console.log('Pressed')}>
+              <Text style={styles.textoBotao}>Recusar</Text>
+            </Button>
+            <Button
+              style={styles.botao}
+              mode="contained"
+              buttonColor={'#3d9d74'}
+              onPress={() => console.log('Pressed')}>
+              <Text style={styles.textoBotao}>Aceitar</Text>
+            </Button>
           </View>
-        </List.Accordion>
-  
-        <View style={styles.viewBotao}>    
-        <Button
-         style={styles.botao}   
-            mode="contained"
-            buttonColor={'#D32F2F'}
-            onPress={() => console.log('Pressed')}>          
-            <Text style={styles.textoBotao}>Recusar</Text>
-        </Button> 
-          <Button
-         style={styles.botao}   
-            mode="contained"
-            buttonColor={'#3d9d74'}
-            onPress={() => console.log('Pressed')}>          
-            <Text style={styles.textoBotao}>Aceitar</Text>
-        </Button>           
-        </View>
-        <Divider style={{ borderWidth: 0.2, marginBottom: 5 }} />
-      </View>    );
-    } else if (value == 1){
-      return (         
-          <Text>EM ANDAMENTO</Text>        
+          <Divider style={{ borderWidth: 0.2, marginBottom: 5 }} />
+        </View>);
+    } else if (value == 1) {
+      return (
+        <Text>EM ANDAMENTO</Text>
       );
     } else {
       return (
@@ -139,40 +139,40 @@ const MinhasVendas = () => {
         </>
       );
     }
-  }             
-        
+  }
+
   return (
     <Container>
       <Header
         title={'Minhas Vendas'}
       />
       <View style={styles.viewBotaoSegmented}>
-        <Button          
-            style={styles.botaoSegmented}
-            mode='elevated'
-            onPress={() => { setValue(0) }}
-            buttonColor={value == 0 ? '#c8e5cc' : '#fff'}
+        <Button
+          style={styles.botaoSegmented}
+          mode='elevated'
+          onPress={() => { setValue(0) }}
+          buttonColor={value == 0 ? '#c8e5cc' : '#fff'}
         >
-          <Text style={styles.textoBotaoSegmented}>Solicitações</Text>
-          </Button>
+          <Text style={styles.textoBotaoSegmented}>Solicitado</Text>
+        </Button>
 
-          <Button
-            style={styles.botaoSegmented}
-            mode='elevated'
-            onPress={() => { setValue(1) }}
-            buttonColor={value == 1 ? '#c8e5cc' : '#fff'}
-        ><Text style={styles.textoBotaoSegmented}>Aprovado</Text>
-          </Button>
+        <Button
+          style={styles.botaoSegmented}
+          mode='elevated'
+          onPress={() => { setValue(1) }}
+          buttonColor={value == 1 ? '#c8e5cc' : '#fff'}
+        ><Text style={styles.textoBotaoSegmented}>Andamento</Text>
+        </Button>
 
-          <Button
-            style={styles.botaoSegmented}
-            mode='elevated'
-            onPress={() => { setValue(2) }}
-            buttonColor={value == 2 ? '#c8e5cc' : '#fff'}
-          ><Text style={styles.textoBotaoSegmented}>Finalizado</Text>
-          </Button>
-        </View>
-      <Body>    
+        <Button
+          style={styles.botaoSegmented}
+          mode='elevated'
+          onPress={() => { setValue(2) }}
+          buttonColor={value == 2 ? '#c8e5cc' : '#fff'}
+        ><Text style={styles.textoBotaoSegmented}>Finalizado</Text>
+        </Button>
+      </View>
+      <Body>
         {/* <Text style={styles.textTitulos}>Solicitações</Text> */}
         <View style={styles.viewFlatList}>
           <FlatList
@@ -180,23 +180,23 @@ const MinhasVendas = () => {
             renderItem={renderItem}
             keyExtractor={item => item.id}
           />
-          </View>       
-       
-        </Body>
+        </View>
+
+      </Body>
     </Container>
   )
 }
 
 const styles = StyleSheet.create({
   group: {
-    padding: 8,    
+    padding: 8,
     alignSelf: 'center'
   },
   viewFlatList: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     padding: 5,
   },
-  textTitulos: {    
+  textTitulos: {
     marginTop: 25,
     textAlignVertical: 'center',
     marginLeft: 14,
@@ -216,28 +216,29 @@ const styles = StyleSheet.create({
   textoBotao: {
     textAlign: "center",
     fontSize: 18,
-    fontWeight: 'bold',    
+    fontWeight: 'bold',
   },
   viewBotaoSegmented: {
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  botaoSegmented: {
+  botaoSegmented: { 
     backGroundColor: '#ccc',
     //  borderColor: '#000',
     borderRadius: -50,
     flexGrow: 1,
+    flexShrink: 1,
     borderTopWidth: 0,
     borderBottomWidth: 0,
     borderLeftWidth: 0,
-    borderColor: '#ccc',    
+    borderColor: '#ccc',
     borderBottomRightRadius: 25,
     borderBottomLeftRadius: 25
   },
   textoBotaoSegmented: {
     textAlign: "center",
-    fontSize: 18,
-    fontWeight: 'bold',  
+    fontSize: 17,
+    fontWeight: 'bold',
     color: '#000',
   },
 });
