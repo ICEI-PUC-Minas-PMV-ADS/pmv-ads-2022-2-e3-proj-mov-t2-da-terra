@@ -5,7 +5,7 @@ const DB_EXEC = Database.getConnection();
 // Renderiza todos produtos cadastrados do produtor (Tela Loja) 
 // TESTE GET OK
 export const getProdutos = async () => {
-  let results = await DB_EXEC("SELECT * FROM Produtos");
+  let results = await DB_EXEC("SELECT * FROM Produtos ORDER BY nome ASC");
 
   return results.rows._array;
 };
