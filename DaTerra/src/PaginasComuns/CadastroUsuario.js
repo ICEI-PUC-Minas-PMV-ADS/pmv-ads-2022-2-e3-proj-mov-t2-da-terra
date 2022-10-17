@@ -7,11 +7,10 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Dimensions, BackHandler
 } from "react-native";
 
 import { fetch } from "react-native/Libraries/Network/fetch";
-import { RadioButton, Appbar, TextInput, } from "react-native-paper";
+import { RadioButton, Appbar, TextInput,  } from "react-native-paper";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
@@ -203,7 +202,7 @@ const CadastroUsuario = ({ navigation, route }) => {
                 status={tipoUsuario === "cliente" ? "checked" : "unchecked"}
                 onPress={() => setTipoUsuario("cliente")}
               />
-              <Text>Cliente</Text>
+              <Text style={{fontSize:18}}>Cliente</Text>
             </View>
             <View style={styles.radioItem}>
               <RadioButton
@@ -212,11 +211,14 @@ const CadastroUsuario = ({ navigation, route }) => {
                 status={tipoUsuario === "produtor" ? "checked" : "unchecked"}
                 onPress={() => setTipoUsuario("produtor")}
               />
-              <Text>Produtor</Text>
+              <Text style={{fontSize:18}}>Produtor</Text>
             </View>
           </View>
 
-          <Input label="Nome" onChangeText={setNome} value={nome} />
+          <Input
+            label="Nome"
+            onChangeText={setNome}
+            value={nome} />
           {nome == "" && missInfo && (
             <Text style={styles.aviso}>{avisoNome}</Text>
           )}
@@ -242,7 +244,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               />
               {(cpf == "" ||
                 cpf.length < 11) && missInfo && (
-                  <View style={{ flexDirection: 'column' }}>
+                  <View>
                     <Text style={styles.aviso}>{avisoCpf}</Text>
                   </View>
                 )}
@@ -295,7 +297,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             {telefone == "" && missInfo && (
               <Text style={styles.aviso}>{avisoTelefone}</Text>
             )}
-
+  
             <TextInput
               style={styles.textInput}
               mode='outlined'
@@ -395,7 +397,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             value={confirmarSenha}
             secureTextEntry={escondeConfirmarSenha}
             right={
-              <TextInput.Icon                
+              <TextInput.Icon
                 onPress={() =>
                   escondeConfirmarSenha
                     ? setEscondeConfirmarSenha(false)

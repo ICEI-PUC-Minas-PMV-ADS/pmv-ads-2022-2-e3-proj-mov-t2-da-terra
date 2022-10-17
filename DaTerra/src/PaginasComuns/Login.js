@@ -77,7 +77,7 @@ export default function Login() {
               onPress={() =>
                 escondeSenha ? setEscondeSenha(false) : setEscondeSenha(true)
               }
-              icon="eye"
+              icon={escondeSenha ? 'eye-off' : 'eye'}
             />
           }
         />
