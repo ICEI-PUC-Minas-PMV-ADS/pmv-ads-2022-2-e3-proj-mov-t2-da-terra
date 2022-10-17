@@ -377,9 +377,11 @@ const CadastroUsuario = ({ navigation, route }) => {
             right={
               <TextInput.Icon
                 onPress={() =>
-                  escondeSenha ? setEscondeSenha(false) : setEscondeSenha(true)
+                  escondeSenha
+                    ? setEscondeSenha(false)
+                    : setEscondeSenha(true)
                 }
-                icon="eye"
+                icon={escondeSenha ? 'eye-off' : 'eye'}
               />
             }
             onChangeText={setSenha}
@@ -393,13 +395,13 @@ const CadastroUsuario = ({ navigation, route }) => {
             value={confirmarSenha}
             secureTextEntry={escondeConfirmarSenha}
             right={
-              <TextInput.Icon
+              <TextInput.Icon                
                 onPress={() =>
                   escondeConfirmarSenha
                     ? setEscondeConfirmarSenha(false)
                     : setEscondeConfirmarSenha(true)
                 }
-                icon="eye"
+                icon={escondeConfirmarSenha ? 'eye-off' : 'eye'}
               />
             }
             onChangeText={setConfirmarSenha}
