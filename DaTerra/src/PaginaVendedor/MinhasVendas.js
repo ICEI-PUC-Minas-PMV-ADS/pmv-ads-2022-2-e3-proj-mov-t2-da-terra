@@ -88,20 +88,21 @@ const MinhasVendas = () => {
             }}
             right={() =>
               <Text
-                style={{ textAlignVertical: 'center' }}>
+                style={{ textAlignVertical: 'center', fontWeight:'bold', marginRight: 10, fontSize: 18}}>
                 R$ {item.valor}
               </Text>
             }
             description={
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <List.Icon icon="account" />
-                <Text>{item.usuario}</Text>
+                <Text style={{fontSize: 16}}>{item.usuario}</Text>
               </View>
             }
           />
           <List.Accordion
             style={{ height: 70, marginTop: -25, textAlignVertical: 'center' }}
             title="Itens"
+            titleStyle={{fontSize: 16}}
             left={() => <List.Icon icon="fruit-cherries" />}>
             <View>
               <List.Item title={item.produtos.prod1 + `     R$ ${item.produtos.valor1}`} />
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  botaoSegmented: { 
+  botaoSegmented: {
     backGroundColor: '#ccc',
     //  borderColor: '#000',
     borderRadius: -50,
