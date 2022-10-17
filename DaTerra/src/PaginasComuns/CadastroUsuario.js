@@ -27,70 +27,70 @@ import Header from "../Componentes/Header";
 import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
 
 const CadastroUsuario = ({ navigation, route }) => {
+
+  // Esconde Senha e Avisos
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [user, setUser] = useState([]);
   const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true);
   const [missInfo, setMissInfo] = useState(false);
   const [userAlredyRegister, setUserAlredyRegister] = useState(false);
+
   // Configurar DATE
   const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date());
 
+  // Dados Pessoais dos Usuário
   const [nome, setNome] = useState("");
   const [avisoNome, setAvisoNome] = useState("Digite seu nome completo");
-
   const [cpf, setCpf] = useState("");
   const [avisoCpf, setAvisoCpf] = useState("CPF Incompleto");
-
   const [telefone, setTelefone] = useState("");
   const [avisoTelefone, setAvisoTelefone] = useState(
     "Digite o nome do seu telefone"
   );
 
+  // Endereço do Usuário
   const [rua, setRua] = useState("");
   const [avisoRua, setAvisoRua] = useState("Digite o nome da sua rua");
-
   const [bairro, setBairro] = useState("");
   const [avisoBairro, setAvisoBairro] = useState(
     "Informe o nome do seu bairro"
   );
-
   const [numeroCasa, setNumeroCasa] = useState("");
   const [avisoNumeroCasa, setAvisoNumeroCasa] = useState("Informe o numero da sua casa");
-
   const [cep, setCep] = useState("");
   const [avisoCep, setAvisoCep] = useState("CEP inválido");
-
   const [cidade, setCidade] = useState("");
   const [avisoCidade, setAvisoCidade] = useState(
     "Você precisa informar o nome da sua cidade"
   );
-
   const [uf, setUf] = useState("");
   const [avisoUf, setAvisoUf] = useState("Informe a sua unidade federativa");
-
   const [complemento, setComplemento] = useState("");
   const [avisoComplemento, setAvisoComplemento] = useState(
     "Digite um complemento para o seu endereço"
   );
 
+  // Tipo de Usuário
   const [tipoUsuario, setTipoUsuario] = useState("cliente"); // Cliente Default
   const [email, setEmail] = useState("");
   const [avisoEmail, setAvisoEmail] = useState(
     "Você precisa informar seu email"
   );
 
+  // Senha
   const [senha, setSenha] = useState("");
   const [avisoSenha, setAvisoSenha] = useState(
     "Você precisa informar um senha válida"
   );
-
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [avisoConfirmarSenha, setAvisoConfirmarSenha] = useState(
     "As senhas estão diferentes,por favor verifique"
   );
+
   const [dataCadastro, setDataCadastro] = useState(); // Somento DB
+
   useEffect(() => {
     DataBase.getConnection();
   }, []);
@@ -185,7 +185,7 @@ const CadastroUsuario = ({ navigation, route }) => {
         title={"Cadastro"}
         goBack={() => navigation.goBack()} // Só se houver tela empilhada
       >
-        <Appbar.Action icon="check" onPress={() => handleSalvar()} />
+        <Appbar.Action icon="check" onPress={() => handleCadastrar()} />
       </Header>
       <Body>
         <ScrollView>
@@ -196,17 +196,19 @@ const CadastroUsuario = ({ navigation, route }) => {
           <View style={styles.radioContainer}>
             <View style={styles.radioItem}>
               <RadioButton
+                color={'#3d9d74'}
                 value="cliente"
                 status={tipoUsuario === "cliente" ? "checked" : "unchecked"}
-                onPress={() => setTipoUsuario("Cliente")}
+                onPress={() => setTipoUsuario("cliente")}
               />
               <Text>Cliente</Text>
             </View>
             <View style={styles.radioItem}>
               <RadioButton
+                color={'#3d9d74'}
                 value="produtor"
                 status={tipoUsuario === "produtor" ? "checked" : "unchecked"}
-                onPress={() => setTipoUsuario("Produtor")}
+                onPress={() => setTipoUsuario("produtor")}
               />
               <Text>Produtor</Text>
             </View>
@@ -238,7 +240,9 @@ const CadastroUsuario = ({ navigation, route }) => {
               />
               {(cpf == "" ||
                 cpf.length < 11) && missInfo && (
-                  <Text style={styles.aviso}>{avisoCpf}</Text>
+                  <View style={{ flexDirection: 'column' }}>
+                    <Text style={styles.aviso}>{avisoCpf}</Text>
+                  </View>
                 )}
 
               {
@@ -449,7 +453,7 @@ const styles = StyleSheet.create({
   },
   radioItem: {
     flexDirection: "row",
-    alignItems: "center",    
+    alignItems: "center",
   },
   textoBotao: {
     textAlign: "center",
