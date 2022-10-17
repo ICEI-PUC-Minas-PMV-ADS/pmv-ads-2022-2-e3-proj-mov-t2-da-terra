@@ -88,21 +88,21 @@ const MinhasVendas = () => {
             }}
             right={() =>
               <Text
-                style={{ textAlignVertical: 'center', fontWeight:'bold', marginRight: 10, fontSize: 18}}>
+                style={{ textAlignVertical: 'center', fontWeight: 'bold', marginRight: 10, fontSize: 18 }}>
                 R$ {item.valor}
               </Text>
             }
             description={
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <List.Icon icon="account" />
-                <Text style={{fontSize: 16}}>{item.usuario}</Text>
+                <Text style={{ fontSize: 16 }}>{item.usuario}</Text>
               </View>
             }
           />
           <List.Accordion
             style={{ height: 70, marginTop: -25, textAlignVertical: 'center' }}
             title="Itens"
-            titleStyle={{fontSize: 16}}
+            titleStyle={{ fontSize: 16 }}
             left={() => <List.Icon icon="fruit-cherries" />}>
             <View>
               <List.Item title={item.produtos.prod1 + `     R$ ${item.produtos.valor1}`} />
@@ -128,7 +128,8 @@ const MinhasVendas = () => {
             </Button>
           </View>
           <Divider style={{ borderWidth: 0.35, marginBottom: 5 }} />
-        </View>);
+        </View>
+      );
     } else if (value == 1) {
       return (
         <Text>EM ANDAMENTO</Text>
@@ -153,9 +154,9 @@ const MinhasVendas = () => {
           mode='elevated'
           onPress={() => { setValue(0) }}
           buttonColor={value == 0 ? '#c8e5cc' : '#fff'}
-          //icon={'account-question-outline'}
+        //icon={'account-question-outline'}
         >
-           <Text style={styles.textoBotaoSegmented}>Solicitado</Text> 
+          <Text style={styles.textoBotaoSegmented}>Solicitado</Text>
         </Button>
 
         <Button
@@ -163,9 +164,9 @@ const MinhasVendas = () => {
           mode='elevated'
           onPress={() => { setValue(1) }}
           buttonColor={value == 1 ? '#c8e5cc' : '#fff'}
-         // icon={'progress-question'}
+        // icon={'progress-question'}
         >
-           <Text style={styles.textoBotaoSegmented}>Andamento</Text> 
+          <Text style={styles.textoBotaoSegmented}>Andamento</Text>
         </Button>
 
         <Button
@@ -173,9 +174,9 @@ const MinhasVendas = () => {
           mode='elevated'
           onPress={() => { setValue(2) }}
           buttonColor={value == 2 ? '#c8e5cc' : '#fff'}
-         // icon={'check-bold'}          
+        // icon={'check-bold'}          
         >
-           <Text style={styles.textoBotaoSegmented}>Finalizado</Text> 
+          <Text style={styles.textoBotaoSegmented}>Finalizado</Text>
         </Button>
       </View>
       <Body>
@@ -231,8 +232,8 @@ const styles = StyleSheet.create({
   botaoSegmented: {
     flexGrow: 1,
     flexShrink: 1,
-    backGroundColor: '#ccc',    
-    borderRadius: -50,    
+    backGroundColor: '#ccc',
+    borderRadius: -50,
     borderTopWidth: 0,
     borderBottomWidth: 0,
     borderLeftWidth: 0,
