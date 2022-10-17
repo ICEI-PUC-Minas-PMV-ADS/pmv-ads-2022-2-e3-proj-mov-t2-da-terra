@@ -74,7 +74,7 @@ const Loja = () => {
         <FAB
           style={styles.fab}
           small
-          icon="plus"
+          icon="plus"          
           onPress={() => navigation.navigate("CadastrarProduto")}
         />
       </Body>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     margin: 12,
     right: 0,
     bottom: 0,
-    backgroundColor: '#9fd09d'
+    backgroundColor: '#cf96c7'
   },
 });
 

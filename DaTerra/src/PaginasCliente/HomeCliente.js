@@ -26,7 +26,7 @@ const HomeCliente = () => {
 
   return (
     <BottomNavigation
-      barStyle={{ backgroundColor: '#9fd09d' }}
+      barStyle={{ backgroundColor: '#50ac5d' }}
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
