@@ -66,7 +66,7 @@ const Loja = ({ route }) => {
     //console.log(nome, preco, embalagem, estoque, categoria, descricao);
     if (!item) {
       insertProduto({ // TESTE OK
-        nome: nome,
+        nome: nome.trim(),
         preco: preco,
         embalagem: embalagem,
         estoque: estoque,
