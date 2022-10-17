@@ -7,14 +7,21 @@
 // Verde escuro - azulado
 // '#3d9d74'
 
-// Verde médio 
+// Verde médio (Header e Bottom Navigation)
 // '#50ac5d'
 
 // Verde Claro
 // '#9fd09d'
 
-// Magenta = complementar
+// Verde bem claro (utilizando na guia na page minhas vendas do vendedor)
+// '#c8e5cc'
+
+// Verde Analogo - botões
+// '#5f9846'
+
+// Magenta = complementar (utilizadno no '+' para incluir novo produto)
 // '#cf96c7'
+
 
 // Vermelho para alertas, avisos de exclusão e erros
 // '#D32F2F'

@@ -121,7 +121,7 @@ const MinhasVendas = () => {
           <Button
          style={styles.botao}   
             mode="contained"
-            buttonColor={'#479d53'}
+            buttonColor={'#3d9d74'}
             onPress={() => console.log('Pressed')}>          
             <Text style={styles.textoBotao}>Aceitar</Text>
         </Button>           
@@ -130,8 +130,7 @@ const MinhasVendas = () => {
       </View>    );
     } else if (value == 1){
       return (         
-          <Text>EM ANDAMENTO</Text>
-        
+          <Text>EM ANDAMENTO</Text>        
       );
     } else {
       return (
@@ -140,8 +139,7 @@ const MinhasVendas = () => {
         </>
       );
     }
-  }               
-   
+  }             
         
   return (
     <Container>
