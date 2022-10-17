@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Loja from "../PaginaVendedor/Loja";
-import MeusPedidos from "../PaginaVendedor/MeusPedidos";
+import MeusPedidos from "../PaginaVendedor/MinhasVendas";
 // import BuscarProdutos from "../PaginasCliente/BuscarProdutos";
 import HomeVendedor from "../PaginaVendedor/HomeVendedor";
 import HomeCliente from "../PaginasCliente/HomeCliente";

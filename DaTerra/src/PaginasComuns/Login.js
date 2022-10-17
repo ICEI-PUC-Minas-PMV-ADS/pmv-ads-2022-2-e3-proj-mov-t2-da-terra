@@ -154,9 +154,10 @@ const styles = StyleSheet.create({
   aviso: {
     marginTop: 10,
     marginLeft: 10,
-    color: "#B00020",
+    color: "#D32F2F",
     fontStyle: "italic",
     fontWeight: "bold",
+    textAlign: 'center'
   },
   logo: {
     height: 190,

@@ -3,7 +3,7 @@ import {BottomNavigation,} from 'react-native-paper';
 import {StyleSheet} from "react-native";
 
 import Loja from './Loja'
-import MeusPedidos from "./MeusPedidos";
+import MinhasVendas from "./MinhasVendas";
 import MinhaConta from "../PaginasComuns/MinhaConta"
 
 import { AuthContext } from '../contexts/AuthProvider';
@@ -16,14 +16,14 @@ const HomeVendedor = () => {
     const [routes] = useState([
 
         {key: 'loja', title: 'Loja', focusedIcon: 'store'},
-        {key: 'meusPedidos', title: 'Meus pedidos', focusedIcon: 'truck-fast'},
+        {key: 'minhasVendas', title: 'Minhas Vendas', focusedIcon: 'currency-usd'},
         {key: 'minhaConta', title: 'Minha Conta', focusedIcon: 'account-multiple'},
 
     ]);
 
     const renderScene = BottomNavigation.SceneMap({
         loja: Loja,
-        meusPedidos: MeusPedidos,
+        minhasVendas: MinhasVendas,
         minhaConta: MinhaConta,
     });
 

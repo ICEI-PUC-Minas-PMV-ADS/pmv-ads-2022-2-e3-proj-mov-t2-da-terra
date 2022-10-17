@@ -84,7 +84,6 @@ const Loja = () => {
 
 const styles = StyleSheet.create({
   containerProdutos: {
-    justifyContent: "center",
     borderRadius: 10,
     padding: 10,
     margin: 5,

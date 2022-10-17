@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Dimensions,BackHandler
+  Dimensions, BackHandler
 } from "react-native";
 
 import { fetch } from "react-native/Libraries/Network/fetch";
@@ -121,10 +121,10 @@ const CadastroUsuario = ({ navigation, route }) => {
       setMissInfo(false);//Seta a varíavel que indica que esta faltando informação para false para,caso anteriormente tenha faltando info,o não impedir posteriormente de o usuário cadastrar com todas as informações corretamente
       getCadastrado(email).then((usuario) => {
         setUser(usuario[0]);
-        
+
 
         //Caso o valor retornado do banco seja do tipo undefined significa que não possui nenhum usuario com o email digitado,assim prosseguira com o cadastro do usuário
-        if (typeof(usuario[0]) == "undefined") {
+        if (typeof (usuario[0]) == "undefined") {
           insertUsuario({
             nome: nome,
             dtNascimento: data,
@@ -144,20 +144,20 @@ const CadastroUsuario = ({ navigation, route }) => {
             .then()
             .catch();
           navigation.navigate("Login");
-        } 
+        }
         //Se o valor retornado do banco não for undefined significa que o o email já e cadastrado,assim seta a variável abaixo para
         else {
           setUserAlredyRegister(true);
         }
       });
-     }
+    }
   };
 
   useEffect(() => {
     buscarEndereco();
   }, [cep]);
 
-   const buscarEndereco = () => {
+  const buscarEndereco = () => {
     const Cep = (e) => {
       if (String(cep).length == 8) {
         const meuCep = String(cep);
@@ -368,7 +368,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           {userAlredyRegister && (
             <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>
           )}
-          <View style={{marginTop:20}}>
+          <View style={{ marginTop: 20 }}>
             <Botao
               style={styles.textoBotao}
               textoBotao="Cadastrar"
@@ -376,9 +376,9 @@ const CadastroUsuario = ({ navigation, route }) => {
               onPress={handleCadastrar}
             />
           </View>
-          <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
 
-          <Text style={styles.textoVoltar}>Voltar</Text>
+            <Text style={styles.textoVoltar}>Voltar</Text>
 
           </TouchableOpacity>
         </ScrollView>
@@ -430,12 +430,12 @@ const styles = StyleSheet.create({
     color: "red",
     fontStyle: "italic",
     fontWeight: "bold",
-    
+
   },
-  textoVoltar:{
-    textAlign:"center",
-    marginTop:8,
-    fontSize:18
+  textoVoltar: {
+    textAlign: "center",
+    marginTop: 8,
+    fontSize: 18
   },
   logo: {
     height: 190,

@@ -14,4 +14,4 @@
 // '#9fd09d'
 
 // Vermelho para alertas, avisos de exclusão e erros
-// '#B00020'
+// '#D32F2F'

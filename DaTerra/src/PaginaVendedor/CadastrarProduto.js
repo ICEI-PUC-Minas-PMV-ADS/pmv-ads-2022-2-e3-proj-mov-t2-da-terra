@@ -278,7 +278,7 @@ const Loja = ({ route }) => {
                       style={styles.textoBotao}
                       textoBotao='Excluir'
                       mode='outlined'
-                      textColor='#B00020'
+                      textColor='#D32F2F'
                     />
                   }
                 </TouchableOpacity>
