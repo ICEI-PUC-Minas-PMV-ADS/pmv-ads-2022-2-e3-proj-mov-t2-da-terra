@@ -16,35 +16,40 @@ const Seletor = (props) => {
   };
 
   const downQtd = () => {
-    setQuantidade(contador -= 1);
+    if (contador == 1) {
+      setQuantidade(contador = 1);
+    }
+    else {
+      setQuantidade(contador -= 1);
+    }
   };
 
-  return (
-    <>
-      < View style={styles.viewBotaoSeletorQtd} >
-        {/* Botão Menos */}
-        < TouchableOpacity
-          style={styles.botaoSeletorQtd}
-          onPress={() => downQtd()}
-        >
-          <Text style={styles.textBotaoSeletorQtd}>-</Text>
-        </TouchableOpacity >
+return (
+  <>
+    < View style={styles.viewBotaoSeletorQtd} >
+      {/* Botão Menos */}
+      < TouchableOpacity
+        style={styles.botaoSeletorQtd}
+        onPress={() => downQtd()}
+      >
+        <Text style={styles.textBotaoSeletorQtd}>-</Text>
+      </TouchableOpacity >
 
-        {/* Quantidade Dinâmica */}
-        < View style={styles.viewTextDinamicoSeletorQtd} >
-          <Text style={styles.textDinamicoSeletorQtd}>{contador}</Text>
-        </View >
-
-        {/* Botão Mais */}
-        <TouchableOpacity
-          style={styles.botaoSeletorQtd}
-          onPress={() => upQtd()}
-        >
-          <Text style={styles.textBotaoSeletorQtd}>+</Text>
-        </TouchableOpacity >
+      {/* Quantidade Dinâmica */}
+      < View style={styles.viewTextDinamicoSeletorQtd} >
+        <Text style={styles.textDinamicoSeletorQtd}>{contador}</Text>
       </View >
-    </>
-  );
+
+      {/* Botão Mais */}
+      <TouchableOpacity
+        style={styles.botaoSeletorQtd}
+        onPress={() => upQtd()}
+      >
+        <Text style={styles.textBotaoSeletorQtd}>+</Text>
+      </TouchableOpacity >
+    </View >
+  </>
+);
 }
 
 const styles = StyleSheet.create({
