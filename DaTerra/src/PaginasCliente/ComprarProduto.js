@@ -33,6 +33,12 @@ const ComprarProduto = ({ route }) => {
 
   console.log(item); // Item ok (via rota)
 
+const upQntd=()=>{
+setQuantidade(quantidade+1)
+console.log(quantidade)
+
+}
+
   useEffect(() => {
     getProdutosCompras(1).then(dados => {
       setResultado(dados);
@@ -63,7 +69,7 @@ const ComprarProduto = ({ route }) => {
         </View>
         
         <TouchableOpacity
-          onPress={() => { }}
+          onPress={() => {setQuantidade()}}
           style={styles.botaoSeletorQtd}
         >
           <Text style={styles.textBotaoSeletorQtd}>+</Text>
