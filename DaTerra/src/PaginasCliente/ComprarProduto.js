@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { Button, FAB, List } from "react-native-paper";
+import { Button, Divider, FAB, List } from "react-native-paper";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -34,17 +34,22 @@ const ComprarProduto = ({ route }) => {
   console.log(item); // Item ok (via rota)
 
   useEffect(() => {
-    getProdutosCompras(1).then(dados => {
+    getProdutosCompras(3).then(dados => {
       setResultado(dados);
     }).catch(error => console.log(error))
   }, [isFocused]);
 
   const renderItem = ({ item }) => (
     <View>
-      <View>
-        <Text style={styles.textTitulos}>{item.nome} {item.embalagem}</Text>
-        <Text>R$ {item.preco}</Text>
-        <Text>{item.descricao}</Text>
+      <View style={{ marginVertical: 20 }}>
+        <Text style={styles.textNomeProduto}>{item.nome} {item.embalagem}</Text>
+        <Text style={styles.textPreco}>R$ {item.preco}</Text>
+      </View>
+      
+      <Divider style={{marginBottom: 20}} />
+
+      {/*Imagem*/}
+      <View style={styles.viewImg}>
         <Image
           style={styles.img}
           source={require("../assets/maracuja.jpg")} />
@@ -52,16 +57,20 @@ const ComprarProduto = ({ route }) => {
 
       {/*Início Seletor Quantidade*/}
       <View style={styles.viewBotaoSeletorQtd}>
+        {/* Botão Menos */}
         <TouchableOpacity
           style={styles.botaoSeletorQtd}
           onPress={() => { }}
         >
           <Text style={styles.textBotaoSeletorQtd}>-</Text>
         </TouchableOpacity>
+
+        {/* Quantidade Dinâmica */}
         <View style={styles.viewTextDinamicoSeletorQtd}>
           <Text style={styles.textDinamicoSeletorQtd}>{quantidade}</Text>
         </View>
-        
+
+        {/* Botão Mais */}
         <TouchableOpacity
           onPress={() => { }}
           style={styles.botaoSeletorQtd}
@@ -70,15 +79,24 @@ const ComprarProduto = ({ route }) => {
         </TouchableOpacity>
       </View>
       {/*Fim Seletor Quantidade*/}
-      
-      <Text>Mais produto da NOME_DA_LOJA</Text>
-      <Text>Dar um Select no banco</Text>
-    </View>
+
+      {/*Descrição e 'Mais Produtos do Usário'*/}
+      <Divider />
+      <View style={styles.textEntreDivider}>
+        <Text style={styles.textDescricao}>{item.descricao}</Text>
+      </View>
+      <Divider />
+      <View style={styles.textEntreDivider}>
+        <Text style={styles.textMaisProdutos}>Mais produto de NOME_DA_LOJA</Text>
+      </View>
+
+      <Text>Dar um Select no banco, buscando produtos pelo o ID do usuário</Text>
+    </View >
   );
 
   return (
     <Container>
-      <Header title={'Compras'}
+      <Header title={'Anúncio'}
         goBack={() => navigation.goBack()} />
       <Body>
         <FlatList
@@ -98,28 +116,50 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: '#fff',
     elevation: 5,
+  }, 
+  // Imagem
+  viewImg: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   img: {
-    width: 254,
-    height: 200,
+    maxWidth: 318,
+    maxHeight: 250,
+    flexGrow: 1,
+    flexShrink: 1,
     borderRadius: 10,
     marginRight: 10,
     alignSelf: 'center',
   },
-  textTitulos: {
-    marginTop: 14,
+
+  // Nome, embalagem, preço, descrição
+  textNomeProduto: {
     textAlignVertical: 'center',
     marginLeft: 14,
     fontSize: 32,
     lineHeight: 34,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    alignSelf: 'center',
+  },
+  textPreco: {
+    marginTop: 10,
+    marginLeft: 20,
+    fontSize: 24,
+    lineHeight: 26,
+    fontWeight: 'bold',
+    alignSelf: 'flex-start',
+  },
+  textDescricao: {
+    fontSize: 18,
+    lineHeight: 20,
+    alignSelf: 'flex-start',
   },
 
   // Seletor Quantidade
   viewBotaoSeletorQtd: {
     flexDirection: 'row',
     justifyContent: 'center',
-    margin: 12,
+    marginVertical: 20,
   },
   botaoSeletorQtd: {
     alignItems: 'center',
@@ -146,6 +186,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     lineHeight: 24,
     textAlign: 'center',
+  },
+
+  // Texto do final, 'mais produtos'
+  textMaisProdutos: {
+    fontSize: 16,
+    lineHeight: 18,
+    color: '#919191',
+  },
+  // Na parte da descrição e 'mais produtos'
+  textEntreDivider: {
+    marginHorizontal: 5,
+    marginVertical: 10
   }
 });
 
