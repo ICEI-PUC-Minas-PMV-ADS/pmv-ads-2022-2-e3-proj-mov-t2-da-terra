@@ -25,6 +25,14 @@ export const getProdutosCompras = async (id) => {
   return results.rows._array;
 };
 
+
+// CRIAR A QUERY PARA RELACIONAR O PRODUTO COM O USUÁRIO
+// export const getProdutosCompras = async (id) => {
+//   let results = await DB_EXEC("SELECT * FROM Produtos WHERE id=?;", [id]);
+
+//   return results.rows._array;
+// };
+
 // TESTE INSERT OK
 export const insertProduto = async (produto) => {
   let results = await DB_EXEC(
