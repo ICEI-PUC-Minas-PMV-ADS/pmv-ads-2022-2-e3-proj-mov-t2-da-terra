@@ -46,22 +46,30 @@ const ComprarProduto = ({ route }) => {
     <View>
       <View>
         <Text style={styles.textTitulos}>{item.nome}</Text>
+        <Text>R$ {item.preco}</Text>
+        <Text>{item.descricao}</Text>
         <Image
           style={styles.img}
           source={require("../assets/maracuja.jpg")} />
       </View>
-      <View style={styles.viewBotaoSeletorQtd}>       
+
+      {/*Início Seletor Quantidade*/}
+      <View style={styles.viewBotaoSeletorQtd}>
         <TouchableOpacity
           style={styles.botaoSeletorQtd}
         >
           <Text style={styles.textBotaoSeletorQtd}>-</Text>
         </TouchableOpacity>
+        <View style={{padding: 10, flexGrow: 1, flexShrink: 1,maxWidth: 80 }}>
+          <Text style={styles.textDinamicoSeletorQtd}>10</Text>
+        </View>
         <TouchableOpacity
           style={styles.botaoSeletorQtd}
         >
           <Text style={styles.textBotaoSeletorQtd}>+</Text>
         </TouchableOpacity>
       </View>
+           {/*Fim Seletor Quantidade*/}
     </View>
   );
 
@@ -103,23 +111,33 @@ const styles = StyleSheet.create({
     lineHeight: 34,
     fontWeight: 'bold'
   },
-  botaoSeletorQtd: {   
+
+  // Seletor Quantidade
+  viewBotaoSeletorQtd: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    margin: 12,
+  },
+  botaoSeletorQtd: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 40,
-    height: 40,    
+    height: 40,
     borderRadius: 50,
     backgroundColor: '#5f9846',
-  },
-  viewBotaoSeletorQtd: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    elevation: 2,
   },
   textBotaoSeletorQtd: {
     color: '#FFF',
     fontSize: 30,
     fontWeight: 'bold',
   },
+  textDinamicoSeletorQtd: {       
+    fontSize: 22,
+    fontWeight: 'bold',
+    lineHeight: 24,
+    textAlign: 'center',
+  }
 });
 
 export default ComprarProduto;
