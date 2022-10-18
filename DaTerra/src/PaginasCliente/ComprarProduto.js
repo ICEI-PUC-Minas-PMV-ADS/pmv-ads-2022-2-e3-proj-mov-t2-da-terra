@@ -24,17 +24,14 @@ const ComprarProduto = ({ route }) => {
 
   // Alterar Rota para provider
   const { item } = route.params ? route.params : {};
-
   //const { produto } = useContext(ProdutoProvider);
   //console.log(produto);
-
   const navigation = useNavigation();
-
-  const [resultado, setResultado] = useState([]);
   const isFocused = useIsFocused();
+  const [resultado, setResultado] = useState([]);
+  const [quantidade, setQuantidade] = useState(1);
 
   console.log(item); // Item ok (via rota)
-
 
   useEffect(() => {
     getProdutosCompras(1).then(dados => {
@@ -45,7 +42,7 @@ const ComprarProduto = ({ route }) => {
   const renderItem = ({ item }) => (
     <View>
       <View>
-        <Text style={styles.textTitulos}>{item.nome}</Text>
+        <Text style={styles.textTitulos}>{item.nome} {item.embalagem}</Text>
         <Text>R$ {item.preco}</Text>
         <Text>{item.descricao}</Text>
         <Image
@@ -57,19 +54,25 @@ const ComprarProduto = ({ route }) => {
       <View style={styles.viewBotaoSeletorQtd}>
         <TouchableOpacity
           style={styles.botaoSeletorQtd}
+          onPress={() => { }}
         >
           <Text style={styles.textBotaoSeletorQtd}>-</Text>
         </TouchableOpacity>
-        <View style={{padding: 10, flexGrow: 1, flexShrink: 1,maxWidth: 80 }}>
-          <Text style={styles.textDinamicoSeletorQtd}>10</Text>
+        <View style={styles.viewTextDinamicoSeletorQtd}>
+          <Text style={styles.textDinamicoSeletorQtd}>{quantidade}</Text>
         </View>
+        
         <TouchableOpacity
+          onPress={() => { }}
           style={styles.botaoSeletorQtd}
         >
           <Text style={styles.textBotaoSeletorQtd}>+</Text>
         </TouchableOpacity>
       </View>
-           {/*Fim Seletor Quantidade*/}
+      {/*Fim Seletor Quantidade*/}
+      
+      <Text>Mais produto da NOME_DA_LOJA</Text>
+      <Text>Dar um Select no banco</Text>
     </View>
   );
 
@@ -132,7 +135,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
   },
-  textDinamicoSeletorQtd: {       
+  viewTextDinamicoSeletorQtd: {
+    padding: 10,
+    flexGrow: 1,
+    flexShrink: 1,
+    maxWidth: 80
+  },
+  textDinamicoSeletorQtd: {
     fontSize: 22,
     fontWeight: 'bold',
     lineHeight: 24,
