@@ -33,22 +33,19 @@ const ComprarProduto = ({ route }) => {
   console.log(item); // Item ok (via rota)
 
   const upQtd = () => {
-    console.log(contador)
     setQuantidade(contador += 1);
   };
   const downQtd = () => {
     if(contador==1){
-      console.log("foioi")
       setQuantidade(contador=1);
 
     }
     else{
-      console.log(contador)
 
       setQuantidade(contador -= 1);
     }
   };
-  
+
   useEffect(() => {
     getProdutosCompras(3)
       .then((dados) => {
