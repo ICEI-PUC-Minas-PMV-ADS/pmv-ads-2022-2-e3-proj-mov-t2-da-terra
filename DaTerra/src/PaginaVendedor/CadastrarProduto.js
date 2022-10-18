@@ -18,7 +18,7 @@ import { insertProduto, updateProduto, deleteProduto } from "../DBService/DBProd
 import { useNavigation,useRoute} from "@react-navigation/native";
 import { cadastrarUsuario } from "../DBService/DBUsuario";
 
-const Loja = ({ route }) => {
+const CadastarProduto = ({ route }) => {
 
   const navigation = useNavigation();
 
@@ -41,15 +41,12 @@ const Loja = ({ route }) => {
   const [categoria, setCategoria] = useState('Verduras');
   const [embalagem, setEmbalagem] = useState("KG")
   const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
-  const routeA = useRoute();
 
   // Verificando se tem dados na rota
   const { item } = route.params ? route.params : {};
 
   // Para exibir dados quando clica no card do produto
-  useEffect(() => {
-  
-   
+  useEffect(() => {  
     if (item) { // Se vier dados da rota
       setNome(item.nome);
       setPreco(item.preco.toFixed(2));
@@ -63,7 +60,6 @@ const Loja = ({ route }) => {
 
   const handleCadastro = () => {
     // Metodo quem vem do provider produto,e do provider vem de fato o método de cadastrar do BD    
-    //console.log(nome, preco, embalagem, estoque, categoria, descricao);
     if (!item) {
       insertProduto({ // TESTE OK
         nome: nome.trim(),
@@ -349,4 +345,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Loja;
+export default CadastarProduto;

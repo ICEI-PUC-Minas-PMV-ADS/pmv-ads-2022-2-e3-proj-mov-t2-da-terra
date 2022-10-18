@@ -9,12 +9,22 @@ export const getProdutos = async () => {
 
   return results.rows._array;
 };
+
+// Get para uso na barra de busca
 export const getSearchProduto = async (nome) => {
-  let results = await DB_EXEC("SELECT * FROM Produtos WHERE nome LIKE ?;",[nome]);
-  console.log(results)
+  let results = await DB_EXEC("SELECT * FROM Produtos WHERE nome LIKE ?;",     [nome]);
+ // console.log(results)
 
   return results.rows._array;
 };
+
+// Get para uso na tela de compras
+export const getProdutosCompras = async (id) => {
+  let results = await DB_EXEC("SELECT * FROM Produtos WHERE id=?;", [id]);
+
+  return results.rows._array;
+};
+
 // TESTE INSERT OK
 export const insertProduto = async (produto) => {
   let results = await DB_EXEC(

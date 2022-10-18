@@ -9,62 +9,64 @@ import HomeCliente from "../PaginasCliente/HomeCliente";
 import MinhaConta from "../PaginasComuns/MinhaConta";
 import Login from "../PaginasComuns/Login";
 import CadastroUsuario from '../PaginasComuns/CadastroUsuario';
-import CadastrarProduto from '../PaginaVendedor/CadastrarProduto'
+import CadastrarProduto from '../PaginaVendedor/CadastrarProduto';
+import ComprarProduto from '../PaginasCliente/ComprarProduto';
+
 import { AuthProvider } from '../contexts/AuthProvider';
-import EditarProduto from '../PaginaVendedor/EditarProduto';
+
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
-    return (
-        <Stack.Navigator initialRouteName="CadastroUsuario">
-            <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <Stack.Screen
-                name="HomeCliente"
-                component={HomeCliente}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <Stack.Screen
-                name="HomeVendedor"
-                component={HomeVendedor}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <Stack.Screen
-                name="CadastroUsuario"
-                component={CadastroUsuario}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <Stack.Screen
-                name="CadastrarProduto"
-                component={CadastrarProduto}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <Stack.Screen
-                name="EditarProduto"
-                component={EditarProduto}
-                options={{
-                    header: () => null,
-                }}
+	return (
+		<Stack.Navigator initialRouteName="ComprarProduto">
+			<Stack.Screen
+				name="Login"
+				component={Login}
+				options={{
+					header: () => null,
+				}}
+			/>
+			<Stack.Screen
+				name="HomeCliente"
+				component={HomeCliente}
+				options={{
+					header: () => null,
+				}}
+			/>
+			<Stack.Screen
+				name="HomeVendedor"
+				component={HomeVendedor}
+				options={{
+					header: () => null,
+				}}
+			/>
+			<Stack.Screen
+				name="CadastroUsuario"
+				component={CadastroUsuario}
+				options={{
+					header: () => null,
+				}}
+			/>
+			<Stack.Screen
+				name="CadastrarProduto"
+				component={CadastrarProduto}
+				options={{
+					header: () => null,
+				}}
+			/>			
+			<Stack.Screen
+				name="ComprarProduto"
+				component={ComprarProduto}
+				options={{
+					header: () => null,
+				}}
 
-            />         
+			/>
 
 
-        </Stack.Navigator>
+		</Stack.Navigator>
 
-    );
+	);
 };
 
 export default Main;

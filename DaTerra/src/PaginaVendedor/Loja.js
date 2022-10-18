@@ -69,7 +69,6 @@ const Loja = () => {
           data={produto}
           renderItem={renderItem}
           keyExtractor={item => item.id}
-        // numColumns={2}
         />
         <FAB
           style={styles.fab}

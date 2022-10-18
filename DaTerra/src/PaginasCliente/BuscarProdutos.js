@@ -3,7 +3,7 @@ import { FlatList, Image, StyleSheet, View, TouchableOpacity, Text,BackHandler,A
 import { List, Searchbar,FAB } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation,useRoute} from "@react-navigation/native";
-import { getProdutos,getSearchProduto } from "../DBService/DBProduto";
+import { getProdutos, getSearchProduto } from "../DBService/DBProduto";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 
@@ -14,10 +14,9 @@ const BuscarProdutos = () => {
   //const {} = useContext(ProdutoProvider);
 const navigation = useNavigation();
 const route = useRoute();
-const [searchQuery, setSearchQuery] = useState('');
+const [searchQuery, setSearchQuery] = useState('Banana');
 const [resultados, setResultados] = useState([]);
  
-
 // useEffect(() => {
   //   if(route.name=="HomeCliente"){
   //   const backAction = () => {
@@ -40,26 +39,11 @@ const [resultados, setResultados] = useState([]);
   //   return () => backHandler.remove();}
   // }, []);
 
-  // Estudar search bar
-  
-  
-  
   
   useEffect(()=>{
-    getSearchProduto(searchQuery).then((prod)=>{
-   
-        setResultados(prod)
-
-      
-     
-
-
-
+    getSearchProduto(searchQuery).then((prod)=>{   
+        setResultados(prod)  
     })
-
-
-
-
   },[searchQuery])
   
   const onChangeSearch = (query) => {
@@ -71,16 +55,10 @@ const [resultados, setResultados] = useState([]);
     }
   };
 
-
-
-
-
-
-
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
-       onPress={() => navigation.navigate("CadastrarProduto", { item })}
+       onPress={() => navigation.navigate("ComprarProduto", { item })}
       >
         <List.Item
           title={`${item.nome}`}

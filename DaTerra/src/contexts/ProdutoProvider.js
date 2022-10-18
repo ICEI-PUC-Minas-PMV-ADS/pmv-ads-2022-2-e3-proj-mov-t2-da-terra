@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import { Alert } from "react-native";
 import { cadastrarProduto } from "../DBService/DBProduto";
+
 export const ProdutoContext = createContext();
 
 const ProdutoProvider = ({ children }) => {
@@ -18,27 +19,17 @@ const ProdutoProvider = ({ children }) => {
   //       estoque: estoque,
   //       categoria: categoria,
   //       descricao: descricao
-  //     });
-     
-  //     console.log("Chamar BD"); // Chamar banco aqui ???
+  //     });     
   //     navigation.navigate('HomeVendedor');
   //   }
   // }
+ 
 
   return (
-    <ProdutoContext.Provider value={{ cadastrarProduto }}>
+    <ProdutoContext.Provider value={{ cadastrarProduto, produto, setProduto }}>
       {children}
     </ProdutoContext.Provider>
   );
 }
 
 export default ProdutoProvider;
-
-
-  // const editarProduto = (id, nomeLoja) => {
-  //   //Editar produto
-  // }
-
-  // const excluirProduto = (id) => {
-  //   //Editar produto
-  // }
