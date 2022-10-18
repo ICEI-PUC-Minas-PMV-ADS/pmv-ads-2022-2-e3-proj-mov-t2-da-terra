@@ -21,7 +21,6 @@ import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
 import ProdutoProvider from "../contexts/ProdutoProvider";
 
 const ComprarProduto = ({ route }) => {
-
   // Alterar Rota para provider
   const { item } = route.params ? route.params : {};
   //const { produto } = useContext(ProdutoProvider);
@@ -30,44 +29,54 @@ const ComprarProduto = ({ route }) => {
   const isFocused = useIsFocused();
   const [resultado, setResultado] = useState([]);
   const [quantidade, setQuantidade] = useState(1);
-
+  let contador = quantidade;
   console.log(item); // Item ok (via rota)
 
-const upQntd=()=>{
-setQuantidade(quantidade+1)
-console.log(quantidade)
+  const upQtd = () => {
+    console.log(contador)
+    setQuantidade(contador += 1);
+  };
+  const downQtd = () => {
+    if(contador==1){
+      console.log("foioi")
+      setQuantidade(contador=1);
 
-}
+    }
+    else{
+      console.log(contador)
 
+      setQuantidade(contador -= 1);
+    }
+  };
+  
   useEffect(() => {
-    getProdutosCompras(3).then(dados => {
-      setResultado(dados);
-    }).catch(error => console.log(error))
+    getProdutosCompras(3)
+      .then((dados) => {
+        setResultado(dados);
+      })
+      .catch((error) => console.log(error));
   }, [isFocused]);
 
   const renderItem = ({ item }) => (
     <View>
       <View style={{ marginVertical: 20 }}>
-        <Text style={styles.textNomeProduto}>{item.nome} {item.embalagem}</Text>
+        <Text style={styles.textNomeProduto}>
+          {item.nome} {item.embalagem}
+        </Text>
         <Text style={styles.textPreco}>R$ {item.preco}</Text>
       </View>
-      
-      <Divider style={{marginBottom: 20}} />
+
+      <Divider style={{ marginBottom: 20 }} />
 
       {/*Imagem*/}
       <View style={styles.viewImg}>
-        <Image
-          style={styles.img}
-          source={require("../assets/maracuja.jpg")} />
+        <Image style={styles.img} source={require("../assets/maracuja.jpg")} />
       </View>
 
       {/*Início Seletor Quantidade*/}
       <View style={styles.viewBotaoSeletorQtd}>
         {/* Botão Menos */}
-        <TouchableOpacity
-          style={styles.botaoSeletorQtd}
-          onPress={() => { }}
-        >
+        <TouchableOpacity style={styles.botaoSeletorQtd} onPress={downQtd}>
           <Text style={styles.textBotaoSeletorQtd}>-</Text>
         </TouchableOpacity>
 
@@ -77,10 +86,7 @@ console.log(quantidade)
         </View>
 
         {/* Botão Mais */}
-        <TouchableOpacity
-          onPress={() => {setQuantidade()}}
-          style={styles.botaoSeletorQtd}
-        >
+        <TouchableOpacity onPress={upQtd} style={styles.botaoSeletorQtd}>
           <Text style={styles.textBotaoSeletorQtd}>+</Text>
         </TouchableOpacity>
       </View>
@@ -93,40 +99,43 @@ console.log(quantidade)
       </View>
       <Divider />
       <View style={styles.textEntreDivider}>
-        <Text style={styles.textMaisProdutos}>Mais produto de NOME_DA_LOJA</Text>
+        <Text style={styles.textMaisProdutos}>
+          Mais produto de NOME_DA_LOJA
+        </Text>
       </View>
 
-      <Text>Dar um Select no banco, buscando produtos pelo o ID do usuário</Text>
-    </View >
+      <Text>
+        Dar um Select no banco, buscando produtos pelo o ID do usuário
+      </Text>
+    </View>
   );
 
   return (
     <Container>
-      <Header title={'Anúncio'}
-        goBack={() => navigation.goBack()} />
+      <Header title={"Anúncio"} goBack={() => navigation.goBack()} />
       <Body>
         <FlatList
           data={resultado}
           renderItem={renderItem}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
         />
       </Body>
     </Container>
   );
-}
+};
 
 const styles = StyleSheet.create({
   containerProdutos: {
     borderRadius: 10,
     padding: 10,
     margin: 5,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     elevation: 5,
-  }, 
+  },
   // Imagem
   viewImg: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
   },
   img: {
     maxWidth: 318,
@@ -135,76 +144,76 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     borderRadius: 10,
     marginRight: 10,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 
   // Nome, embalagem, preço, descrição
   textNomeProduto: {
-    textAlignVertical: 'center',
+    textAlignVertical: "center",
     marginLeft: 14,
     fontSize: 32,
     lineHeight: 34,
-    fontWeight: 'bold',
-    alignSelf: 'center',
+    fontWeight: "bold",
+    alignSelf: "center",
   },
   textPreco: {
     marginTop: 10,
     marginLeft: 20,
     fontSize: 24,
     lineHeight: 26,
-    fontWeight: 'bold',
-    alignSelf: 'flex-start',
+    fontWeight: "bold",
+    alignSelf: "flex-start",
   },
   textDescricao: {
     fontSize: 18,
     lineHeight: 20,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
 
   // Seletor Quantidade
   viewBotaoSeletorQtd: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     marginVertical: 20,
   },
   botaoSeletorQtd: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: 40,
     height: 40,
     borderRadius: 50,
-    backgroundColor: '#5f9846',
+    backgroundColor: "#5f9846",
     elevation: 2,
   },
   textBotaoSeletorQtd: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   viewTextDinamicoSeletorQtd: {
     padding: 10,
     flexGrow: 1,
     flexShrink: 1,
-    maxWidth: 80
+    maxWidth: 80,
   },
   textDinamicoSeletorQtd: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     lineHeight: 24,
-    textAlign: 'center',
+    textAlign: "center",
   },
 
   // Texto do final, 'mais produtos'
   textMaisProdutos: {
     fontSize: 16,
     lineHeight: 18,
-    color: '#919191',
+    color: "#919191",
   },
   // Na parte da descrição e 'mais produtos'
   textEntreDivider: {
     marginHorizontal: 5,
-    marginVertical: 10
-  }
+    marginVertical: 10,
+  },
 });
 
 export default ComprarProduto;
