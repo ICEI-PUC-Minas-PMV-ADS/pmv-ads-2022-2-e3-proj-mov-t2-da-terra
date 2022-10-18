@@ -14,6 +14,7 @@ import { Button, Divider, FAB, List } from "react-native-paper";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
+import Seletor from '../Componentes/Seletor';
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
@@ -29,7 +30,7 @@ const ComprarProduto = ({ route }) => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [resultado, setResultado] = useState([]);
-  const [quantidade, setQuantidade] = useState(1);
+  //const [quantidade, setQuantidade] = useState(1);
 
   console.log(item); // Item ok (via rota)
 
@@ -45,8 +46,7 @@ const ComprarProduto = ({ route }) => {
         <Text style={styles.textNomeProduto}>{item.nome} {item.embalagem}</Text>
         <Text style={styles.textPreco}>R$ {item.preco}</Text>
       </View>
-      
-      <Divider style={{marginBottom: 20}} />
+      <Divider style={{ marginBottom: 20 }} />
 
       {/*Imagem*/}
       <View style={styles.viewImg}>
@@ -55,30 +55,8 @@ const ComprarProduto = ({ route }) => {
           source={require("../assets/maracuja.jpg")} />
       </View>
 
-      {/*Início Seletor Quantidade*/}
-      <View style={styles.viewBotaoSeletorQtd}>
-        {/* Botão Menos */}
-        <TouchableOpacity
-          style={styles.botaoSeletorQtd}
-          onPress={() => { }}
-        >
-          <Text style={styles.textBotaoSeletorQtd}>-</Text>
-        </TouchableOpacity>
-
-        {/* Quantidade Dinâmica */}
-        <View style={styles.viewTextDinamicoSeletorQtd}>
-          <Text style={styles.textDinamicoSeletorQtd}>{quantidade}</Text>
-        </View>
-
-        {/* Botão Mais */}
-        <TouchableOpacity
-          onPress={() => { }}
-          style={styles.botaoSeletorQtd}
-        >
-          <Text style={styles.textBotaoSeletorQtd}>+</Text>
-        </TouchableOpacity>
-      </View>
-      {/*Fim Seletor Quantidade*/}
+      {/* Seletor quantidade mais e menos */}
+      <Seletor />
 
       {/*Descrição e 'Mais Produtos do Usário'*/}
       <Divider />
@@ -86,6 +64,7 @@ const ComprarProduto = ({ route }) => {
         <Text style={styles.textDescricao}>{item.descricao}</Text>
       </View>
       <Divider />
+      
       <View style={styles.textEntreDivider}>
         <Text style={styles.textMaisProdutos}>Mais produto de NOME_DA_LOJA</Text>
       </View>
@@ -116,7 +95,7 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: '#fff',
     elevation: 5,
-  }, 
+  },
   // Imagem
   viewImg: {
     flexDirection: 'row',
