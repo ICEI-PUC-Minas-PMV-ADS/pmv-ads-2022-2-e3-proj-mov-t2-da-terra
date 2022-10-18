@@ -29,24 +29,7 @@ const ComprarProduto = ({ route }) => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [resultado, setResultado] = useState([]);
-  const [quantidade, setQuantidade] = useState(1);
-  let contador = quantidade;
-  console.log(item); // Item ok (via rota)
-
-  const upQtd = () => {
-    setQuantidade(contador += 1);
-  };
-  const downQtd = () => {
-    if(contador==1){
-      setQuantidade(contador=1);
-
-    }
-    else{
-
-      setQuantidade(contador -= 1);
-    }
-  };
-
+ 
   useEffect(() => {
     getProdutosCompras(3)
       .then((dados) => {

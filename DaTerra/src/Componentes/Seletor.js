@@ -8,34 +8,41 @@ import {
 } from "react-native";
 
 const Seletor = (props) => {
-  const [quantidade, setQuantidade] = useState(1);  
+  const [quantidade, setQuantidade] = useState(1);
+  let contador = quantidade;
+
+  const upQtd = () => {
+    setQuantidade(contador += 1);
+  };
+
+  const downQtd = () => {
+    setQuantidade(contador -= 1);
+  };
 
   return (
     <>
-      {/*Início Seletor Quantidade*/}
       < View style={styles.viewBotaoSeletorQtd} >
         {/* Botão Menos */}
         < TouchableOpacity
           style={styles.botaoSeletorQtd}
-          onPress={() => setQuantidade(false)}
+          onPress={() => downQtd()}
         >
           <Text style={styles.textBotaoSeletorQtd}>-</Text>
         </TouchableOpacity >
 
         {/* Quantidade Dinâmica */}
         < View style={styles.viewTextDinamicoSeletorQtd} >
-          <Text style={styles.textDinamicoSeletorQtd}>{quantidade}</Text>
+          <Text style={styles.textDinamicoSeletorQtd}>{contador}</Text>
         </View >
 
         {/* Botão Mais */}
-        < TouchableOpacity
-          onPress={() => setQuantidade(true)}
+        <TouchableOpacity
           style={styles.botaoSeletorQtd}
+          onPress={() => upQtd()}
         >
           <Text style={styles.textBotaoSeletorQtd}>+</Text>
         </TouchableOpacity >
       </View >
-      {/*Fim Seletor Quantidade*/}
     </>
   );
 }
