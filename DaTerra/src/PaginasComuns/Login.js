@@ -16,6 +16,8 @@ import { getLogin } from "../DBService/DBUsuario";
 
 import { AuthContext } from "../contexts/AuthProvider";
 
+/* 01311-000 */
+
 export default function Login() {
   const navigation = useNavigation();
   const { user, setUser } = useContext(AuthContext);
@@ -28,18 +30,15 @@ export default function Login() {
   const validarLogin = () => {
     if (email == "" || senha == "") {
       setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando
-      setAviso("Por favor insira o email e a sua senha")
+      setAviso("Por favor, insira o email e a senha")
     }
     else {
       getLogin(email, senha).then((usuario) => {
         // console.log(usuario[0]);
-
-        setUser(usuario[0]);
-        console.log("aquii")
+        setUser(usuario[0]);       
         console.log(typeof (usuario[0]));
         setUser(usuario[0])
         console.log(usuario[0]);
-
 
         if (typeof (usuario[0]) == "undefined") {
           setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando

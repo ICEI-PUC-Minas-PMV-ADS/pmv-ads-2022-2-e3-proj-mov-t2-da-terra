@@ -47,14 +47,11 @@ export const getLogin = async (email, senha) => {
 
 };
 export const getCadastrado = async (email) => {
-  let resultEmail = await DB_EXEC('SELECT * FROM Usuarios WHERE email=?;',[email]);
-  console.log(typeof(resultEmail))
- 
-
-
+  let resultEmail = await DB_EXEC('SELECT * FROM Usuarios WHERE email=?;', [email]);
+  //console.log(typeof(resultEmail))
    if(typeof(resultEmail.rows._array[0])=="undefined"){
     console.log(typeof(resultEmail))
-    console.log("Incontrável")
+    //console.log("Incontrável")
     return 0;
    }
    

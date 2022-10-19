@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
-  Button,
   Text,
   ScrollView,
   TouchableOpacity,
@@ -10,7 +9,7 @@ import {
 } from "react-native";
 
 import { fetch } from "react-native/Libraries/Network/fetch";
-import { RadioButton, Appbar, TextInput,  } from "react-native-paper";
+import { RadioButton, Appbar, TextInput, } from "react-native-paper";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
@@ -111,8 +110,7 @@ const CadastroUsuario = ({ navigation, route }) => {
       confirmarSenha == "" ||
       confirmarSenha != senha ||
       cidade == "" ||
-      uf == "" ||
-      complemento == ""
+      uf == ""
     ) {
       setMissInfo(true);//Tem informação errada/faltando
     } else {
@@ -120,8 +118,6 @@ const CadastroUsuario = ({ navigation, route }) => {
       setMissInfo(false);//Seta a varíavel que indica que esta faltando informação para false para,caso anteriormente tenha faltando info,o não impedir posteriormente de o usuário cadastrar com todas as informações corretamente
       getCadastrado(email).then((usuario) => {
         setUser(usuario[0]);
-
-
         //Caso o valor retornado do banco seja do tipo undefined significa que não possui nenhum usuario com o email digitado,assim prosseguira com o cadastro do usuário
         if (typeof (usuario[0]) == "undefined") {
           insertUsuario({
@@ -156,6 +152,7 @@ const CadastroUsuario = ({ navigation, route }) => {
     buscarEndereco();
   }, [cep]);
 
+  // API: Buscar o Cep
   const buscarEndereco = () => {
     const Cep = (e) => {
       if (String(cep).length == 8) {
@@ -174,7 +171,6 @@ const CadastroUsuario = ({ navigation, route }) => {
               setUf(json.uf)
             }
           });
-        console.log(uf)
       }
     };
     Cep();
@@ -186,7 +182,10 @@ const CadastroUsuario = ({ navigation, route }) => {
         title={"Cadastro"}
         goBack={() => navigation.goBack()} // Só se houver tela empilhada
       >
-        <Appbar.Action icon="check" onPress={() => handleCadastrar()} />
+        <Appbar.Action
+          style={{ marginRight: 10 }}
+          icon="check"
+          onPress={() => handleCadastrar()} />
       </Header>
       <Body>
         <ScrollView>
@@ -202,7 +201,7 @@ const CadastroUsuario = ({ navigation, route }) => {
                 status={tipoUsuario === "cliente" ? "checked" : "unchecked"}
                 onPress={() => setTipoUsuario("cliente")}
               />
-              <Text style={{fontSize:18}}>Cliente</Text>
+              <Text style={{ fontSize: 18 }}>Cliente</Text>
             </View>
             <View style={styles.radioItem}>
               <RadioButton
@@ -211,14 +210,17 @@ const CadastroUsuario = ({ navigation, route }) => {
                 status={tipoUsuario === "produtor" ? "checked" : "unchecked"}
                 onPress={() => setTipoUsuario("produtor")}
               />
-              <Text style={{fontSize:18}}>Produtor</Text>
+              <Text style={{ fontSize: 18 }}>Produtor</Text>
             </View>
           </View>
 
           <Input
             label="Nome"
             onChangeText={setNome}
-            value={nome} />
+            value={nome}
+            //error={nome == '' ? true : false}
+          />
+
           {nome == "" && missInfo && (
             <Text style={styles.aviso}>{avisoNome}</Text>
           )}
@@ -238,6 +240,7 @@ const CadastroUsuario = ({ navigation, route }) => {
                 style={styles.textInput}
                 label="CPF"
                 mode='outlined'
+                maxLength={11}
                 onChangeText={setCpf}
                 keyboardType="decimal-pad"
                 value={cpf}
@@ -280,7 +283,11 @@ const CadastroUsuario = ({ navigation, route }) => {
             </View>
           </View>
 
-          <Input label="Email" onChangeText={setEmail} value={email} />
+          <Input
+            label="Email"
+            onChangeText={setEmail}
+            value={email}
+          />
           {email == "" && missInfo && (
             <Text style={styles.aviso}>{avisoEmail}</Text>
           )}
@@ -297,7 +304,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             {telefone == "" && missInfo && (
               <Text style={styles.aviso}>{avisoTelefone}</Text>
             )}
-  
+
             <TextInput
               style={styles.textInput}
               mode='outlined'

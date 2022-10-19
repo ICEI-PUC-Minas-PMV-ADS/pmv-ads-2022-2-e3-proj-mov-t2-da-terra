@@ -10,13 +10,12 @@ import {
 
 } from "react-native";
 
-import { Divider, Button } from "react-native-paper";
+import { Divider, Button, Appbar } from "react-native-paper";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import Seletor from "../Componentes/Seletor";
-import Botao from '../Componentes/Botao';
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
@@ -33,15 +32,7 @@ const ComprarProduto = ({ route }) => {
 
   const isFocused = useIsFocused();
   const [resultado, setResultado] = useState([]);
-  useEffect(() => {
-    getProdutos()
-      .then((dados) => {
-        // console.log(dados);
-        // setLoja[produtos[0]]
-      })
-      .catch((error) => console.log(error));
-  }, [isFocused]);
-  
+
   useEffect(() => {
     getProdutosCompras(3)
       .then((dados) => {
@@ -138,7 +129,12 @@ const ComprarProduto = ({ route }) => {
 
   return (
     <Container>
-      <Header title={"Anúncio"} goBack={() => navigation.goBack()} />
+      <Header title={"Anúncio"} goBack={() => navigation.goBack()}>
+        <Appbar.Action
+          style={{marginRight: 10}}
+          icon="cart" onPress={() => console.log('ir tela carrinho')} />
+      </Header>
+
       <Body>
         <FlatList
           data={resultado}
