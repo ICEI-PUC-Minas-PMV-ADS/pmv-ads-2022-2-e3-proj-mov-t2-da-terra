@@ -54,9 +54,10 @@ const ComprarProduto = ({ route }) => {
         <Text style={styles.textNomeProduto}>
           {item.nome} {item.embalagem}
         </Text>
-        <Text style={styles.textPreco}>R$ {item.preco}</Text>
+        <Text style={styles.textPreco}>R$ {item.preco.toFixed(2)}</Text>
       </View>
 
+      <Divider style={{ marginBottom: 10 }} />
       {/*Imagem*/}
       <View style={styles.viewImg}>
         <Image style={styles.img} source={require("../assets/maracuja.jpg")} />
@@ -65,17 +66,20 @@ const ComprarProduto = ({ route }) => {
       {/* Seletor quantidade mais e menos */}
       <Seletor />
 
+      <Divider style={{ marginBottom: 5 }} />
       {/*Descrição e 'Mais Produtos do Usário'*/}
-
       <View style={styles.textEntreDivider}>
         <Text style={styles.textDescricao}>{item.descricao}</Text>
       </View>
+
+      <Divider style={{ marginVertical: 5 }} />
 
       <View style={styles.textEntreDivider}>
         <Text style={styles.textMaisProdutos}>
           Mais produto de NOME_DA_LOJA
         </Text>
       </View>
+
       <View style={styles.viewVerMaisProdutos}>
         <View style={styles.cards}>
           <TouchableOpacity>
@@ -83,9 +87,9 @@ const ComprarProduto = ({ route }) => {
               style={styles.imgPlus}
               source={require("../assets/img-banana.jpg")}
             />
-            <Text style={styles.textoCard}>{item.nome}</Text>
+            <Text style={styles.textoCard}>{item.nome} {item.embalagem}</Text>
             <Text style={styles.textoCard}>
-              R${item.preco} Reais/{item.embalagem}
+              R$ {item.preco.toFixed(2)}
             </Text>
           </TouchableOpacity>
         </View>
@@ -96,21 +100,22 @@ const ComprarProduto = ({ route }) => {
               style={styles.imgPlus}
               source={require("../assets/img-laranja.jpg")}
             />
-            <Text style={styles.textoCard}>{item.nome}</Text>
+            <Text style={styles.textoCard}>{item.nome} {item.embalagem}</Text>
             <Text style={styles.textoCard}>
-              R${item.preco} Reais/{item.embalagem}
+              R$ {item.preco.toFixed(2)}
             </Text>
           </TouchableOpacity>
         </View>
+
         <View style={styles.cards}>
           <TouchableOpacity>
             <Image
               style={styles.imgPlus}
               source={require("../assets/img-brocolis.jpg")}
             />
-            <Text style={styles.textoCard}>{item.nome}</Text>
+            <Text style={styles.textoCard}>{item.nome} {item.embalagem}</Text>
             <Text style={styles.textoCard}>
-              R${item.preco} Reais/{item.embalagem}
+              R$ {item.preco.toFixed(2)}
             </Text>
           </TouchableOpacity>
         </View>
@@ -167,8 +172,8 @@ const styles = StyleSheet.create({
     maxHeight: 175,
     flexGrow: 1,
     flexShrink: 1,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
     marginRight: 10,
     alignSelf: "center",
   },
@@ -179,7 +184,6 @@ const styles = StyleSheet.create({
     marginLeft: 14,
     fontSize: 31,
     lineHeight: 34,
-    fontStyle:"italic",
     alignSelf: "center",
     letterSpacing: 2,
   },
