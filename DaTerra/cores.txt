@@ -19,8 +19,11 @@
 // Verde Analogo - botões
 // '#5f9846'
 
-// Magenta = complementar (utilizadno no '+' para incluir novo produto)
+// Magenta
 // '#cf96c7'
+
+// Laranja - Botão comprar
+// '#FF8919'
 
 
 // Vermelho para alertas, avisos de exclusão e erros

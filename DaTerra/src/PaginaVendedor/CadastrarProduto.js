@@ -15,7 +15,7 @@ import Container from "../Componentes/Container";
 import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
 import { insertProduto, updateProduto, deleteProduto } from "../DBService/DBProduto";
-import { useNavigation,useRoute} from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { cadastrarUsuario } from "../DBService/DBUsuario";
 
 const CadastarProduto = ({ route }) => {
@@ -46,7 +46,7 @@ const CadastarProduto = ({ route }) => {
   const { item } = route.params ? route.params : {};
 
   // Para exibir dados quando clica no card do produto
-  useEffect(() => {  
+  useEffect(() => {
     if (item) { // Se vier dados da rota
       setNome(item.nome);
       setPreco(item.preco.toFixed(2));
@@ -95,10 +95,12 @@ const CadastarProduto = ({ route }) => {
       <Container>
         <Header
           title={item ? 'Editar Produto' : 'Cadastrar Produto'}
-          goBack={() => navigation.goBack()} // Só se houver tela empilhada        
+          // Só se houver tela empilhada        
+          goBack={() => navigation.goBack()}
         />
         <Body>
           <ScrollView>
+            {/* Nome do Produto */}
             <Text style={styles.textTitulos}>Nome</Text>
             <Input
               value={nome}
@@ -108,6 +110,7 @@ const CadastarProduto = ({ route }) => {
               />}
             />
 
+            {/* Descrição */}
             <Text style={styles.textTitulos}>Descrição</Text>
             <TextInput
               style={styles.inputDescricao}
@@ -120,6 +123,7 @@ const CadastarProduto = ({ route }) => {
               left={<TextInput.Icon icon='card-text-outline' />}
             />
 
+            {/* Estoque */}
             <View style={styles.viewPrecoEmbalagem}>
               <Text style={styles.textTitulos}>Estoque</Text>
               <TextInput
@@ -245,6 +249,7 @@ const CadastarProduto = ({ route }) => {
             </View>
             {/*Fim Categoria Portal*/}
 
+            {/* Preço */}
             <View style={styles.viewPrecoEmbalagem}>
               <Text style={styles.textTitulos}>Preço</Text>
               <TextInput
@@ -257,6 +262,7 @@ const CadastarProduto = ({ route }) => {
               ></TextInput>
             </View>
 
+            {/* Botão - Cadastrar/ Salvar/ Excluir */}
             <View style={styles.viewBotao}>
               <TouchableOpacity onPress={() => handleCadastro()}>
                 <Botao
@@ -266,7 +272,7 @@ const CadastarProduto = ({ route }) => {
                   buttonColor='#3d9d74'
                 />
               </TouchableOpacity>
-              <View style={{marginTop: 10}}>
+              <View style={{ marginTop: 10 }}>
                 <TouchableOpacity onPress={() => handleExcluir()}>
                   { // Só renderiza se houver item (na rota)
                     item &&
@@ -323,11 +329,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  // View/TextInput/Text de preço e embalagem
+  // Preço, embalagem, estoque, categoria
   viewPrecoEmbalagem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+
+  /* TextInput Direto: Embalagem, categoria, estoque
+  preço, descrição 
+  */
   inputEspecial: {
     height: 48,
     width: 160,

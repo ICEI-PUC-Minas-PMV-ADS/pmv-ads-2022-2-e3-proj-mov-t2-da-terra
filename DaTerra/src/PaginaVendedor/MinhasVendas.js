@@ -153,8 +153,7 @@ const MinhasVendas = () => {
           style={styles.botaoSegmented}
           mode='elevated'
           onPress={() => { setValue(0) }}
-          buttonColor={value == 0 ? '#c8e5cc' : '#fff'}
-        //icon={'account-question-outline'}
+          buttonColor={value == 0 ? '#c8e5cc' : '#fff'}       
         >
           <Text style={styles.textoBotaoSegmented}>Solicitado</Text>
         </Button>
@@ -163,8 +162,7 @@ const MinhasVendas = () => {
           style={styles.botaoSegmented}
           mode='elevated'
           onPress={() => { setValue(1) }}
-          buttonColor={value == 1 ? '#c8e5cc' : '#fff'}
-        // icon={'progress-question'}
+          buttonColor={value == 1 ? '#c8e5cc' : '#fff'}   
         >
           <Text style={styles.textoBotaoSegmented}>Andamento</Text>
         </Button>
@@ -173,14 +171,13 @@ const MinhasVendas = () => {
           style={styles.botaoSegmented}
           mode='elevated'
           onPress={() => { setValue(2) }}
-          buttonColor={value == 2 ? '#c8e5cc' : '#fff'}
-        // icon={'check-bold'}          
+          buttonColor={value == 2 ? '#c8e5cc' : '#fff'}         
         >
           <Text style={styles.textoBotaoSegmented}>Finalizado</Text>
         </Button>
       </View>
       <Body>
-        {/* <Text style={styles.textTitulos}>Solicitações</Text> */}
+
         <View style={styles.viewFlatList}>
           <FlatList
             data={DATA}
