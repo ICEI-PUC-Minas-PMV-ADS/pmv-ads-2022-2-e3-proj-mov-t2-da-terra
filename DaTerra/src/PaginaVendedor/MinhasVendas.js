@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 
-import { StyleSheet, Text, FlatList, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, FlatList, View } from "react-native";
 import { Button, List, Divider } from 'react-native-paper';
 
 import Body from "../Componentes/Body";
 import Container from '../Componentes/Container';
 import Header from '../Componentes/Header';
-import Botao from '../Componentes/Botao';
 
+// Para Testes
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -78,6 +78,7 @@ const MinhasVendas = () => {
     if (value == 0) {
       return (
         <View>
+          {/* Número do Pedido / Preço / Usuário */}
           <List.Item
             title={`${item.title}`}
             titleStyle={{
@@ -99,6 +100,7 @@ const MinhasVendas = () => {
               </View>
             }
           />
+          {/* Itens */}
           <List.Accordion
             style={{ height: 70, marginTop: -25, textAlignVertical: 'center' }}
             title="Itens"
@@ -111,6 +113,7 @@ const MinhasVendas = () => {
             </View>
           </List.Accordion>
 
+          {/* Botão Recusar / Aceitar */}
           <View style={styles.viewBotao}>
             <Button
               style={styles.botao}
@@ -136,9 +139,7 @@ const MinhasVendas = () => {
       );
     } else {
       return (
-        <>
-          <Text>FINALIZADOS</Text>
-        </>
+        <Text>FINALIZADOS</Text>
       );
     }
   }
@@ -148,12 +149,13 @@ const MinhasVendas = () => {
       <Header
         title={'Minhas Vendas'}
       />
+      {/* Menu Superior - Segmented */}
       <View style={styles.viewBotaoSegmented}>
         <Button
           style={styles.botaoSegmented}
           mode='elevated'
           onPress={() => { setValue(0) }}
-          buttonColor={value == 0 ? '#c8e5cc' : '#fff'}       
+          buttonColor={value == 0 ? '#c8e5cc' : '#fff'}
         >
           <Text style={styles.textoBotaoSegmented}>Solicitado</Text>
         </Button>
@@ -162,7 +164,7 @@ const MinhasVendas = () => {
           style={styles.botaoSegmented}
           mode='elevated'
           onPress={() => { setValue(1) }}
-          buttonColor={value == 1 ? '#c8e5cc' : '#fff'}   
+          buttonColor={value == 1 ? '#c8e5cc' : '#fff'}
         >
           <Text style={styles.textoBotaoSegmented}>Andamento</Text>
         </Button>
@@ -171,13 +173,13 @@ const MinhasVendas = () => {
           style={styles.botaoSegmented}
           mode='elevated'
           onPress={() => { setValue(2) }}
-          buttonColor={value == 2 ? '#c8e5cc' : '#fff'}         
+          buttonColor={value == 2 ? '#c8e5cc' : '#fff'}
         >
           <Text style={styles.textoBotaoSegmented}>Finalizado</Text>
         </Button>
       </View>
       <Body>
-
+      
         <View style={styles.viewFlatList}>
           <FlatList
             data={DATA}
@@ -192,22 +194,13 @@ const MinhasVendas = () => {
 }
 
 const styles = StyleSheet.create({
-  group: {
-    padding: 8,
-    alignSelf: 'center'
-  },
+ /* FlatList */
   viewFlatList: {
     flexDirection: 'row',
     padding: 5,
-  },
-  textTitulos: {
-    marginTop: 25,
-    textAlignVertical: 'center',
-    marginLeft: 14,
-    fontSize: 22,
-    lineHeight: 24,
-    fontWeight: 'bold'
-  },
+  },  
+  
+  // Botões
   viewBotao: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -222,6 +215,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+
+  // Menu Superior - Segmented
   viewBotaoSegmented: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -244,10 +239,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
   },
-});
-
-const styleCompose = StyleSheet.create({
-  //borderBottomWidth: {value}  
 });
 
 export default MinhasVendas;

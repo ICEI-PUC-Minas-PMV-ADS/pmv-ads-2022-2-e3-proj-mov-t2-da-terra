@@ -267,7 +267,7 @@ const CadastarProduto = ({ route }) => {
               <TouchableOpacity onPress={() => handleCadastro()}>
                 <Botao
                   style={styles.textoBotao}
-                  textoBotao={item ? 'Salvar' : 'Cadastar'}
+                  textoBotao={item ? 'Salvar' : 'Cadastrar'}
                   mode='contained'
                   buttonColor='#3d9d74'
                 />

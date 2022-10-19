@@ -41,6 +41,7 @@ const ComprarProduto = ({ route }) => {
       })
       .catch((error) => console.log(error));
   }, [isFocused]);
+  
   useEffect(() => {
     getProdutosCompras(3)
       .then((dados) => {
