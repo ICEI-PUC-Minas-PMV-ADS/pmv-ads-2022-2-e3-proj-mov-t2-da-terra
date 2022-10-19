@@ -32,7 +32,7 @@ return (
         style={styles.botaoSeletorQtd}
         onPress={() => downQtd()}
       >
-        <Text style={styles.textBotaoSeletorQtd}>-</Text>
+        <Text style={styles.textBotaoSeletorQtd}> - </Text>
       </TouchableOpacity >
 
       {/* Quantidade Dinâmica */}
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     maxWidth: 80
   },
   textDinamicoSeletorQtd: {
-    fontSize: 22,
+    fontSize: 23,
     fontWeight: 'bold',
     lineHeight: 24,
     textAlign: 'center',

@@ -4,7 +4,7 @@ import Body from "../Componentes/Body";
 import { AuthContext } from '../contexts/AuthProvider';
 
 const MeusPedidos = () => {
-const {} = useContext(AuthContext)
+const {user} = useContext(AuthContext)
     return (
         <Body>
             <Text>Olá página pedidos</Text>

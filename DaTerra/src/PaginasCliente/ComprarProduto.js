@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  SafeAreaView,
 } from "react-native";
 
 import { Button, Divider, FAB, List } from "react-native-paper";
@@ -14,12 +15,12 @@ import { Button, Divider, FAB, List } from "react-native-paper";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
-import Seletor from '../Componentes/Seletor';
+import Seletor from "../Componentes/Seletor";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
 
-import ProdutoProvider from "../contexts/ProdutoProvider";
+import ProdutoProvider, { ProdutoContext } from "../contexts/ProdutoProvider";
 
 const ComprarProduto = ({ route }) => {
   // Alterar Rota para provider
@@ -27,9 +28,18 @@ const ComprarProduto = ({ route }) => {
   //const { produto } = useContext(ProdutoProvider);
   //console.log(produto);
   const navigation = useNavigation();
+  const { produto } = useContext(ProdutoContext);
+
   const isFocused = useIsFocused();
   const [resultado, setResultado] = useState([]);
- 
+  useEffect(() => {
+    getProdutos()
+      .then((dados) => {
+        // console.log(dados);
+        // setLoja[produtos[0]]
+      })
+      .catch((error) => console.log(error));
+  }, [isFocused]);
   useEffect(() => {
     getProdutosCompras(3)
       .then((dados) => {
@@ -40,13 +50,12 @@ const ComprarProduto = ({ route }) => {
 
   const renderItem = ({ item }) => (
     <View>
-      <View style={{ marginVertical: 20 }}>
+      <View style={{ marginVertical: 10 }}>
         <Text style={styles.textNomeProduto}>
           {item.nome} {item.embalagem}
         </Text>
         <Text style={styles.textPreco}>R$ {item.preco}</Text>
       </View>
-      <Divider style={{ marginBottom: 20 }} />
 
       {/*Imagem*/}
       <View style={styles.viewImg}>
@@ -57,21 +66,55 @@ const ComprarProduto = ({ route }) => {
       <Seletor />
 
       {/*Descrição e 'Mais Produtos do Usário'*/}
-      <Divider />
+
       <View style={styles.textEntreDivider}>
         <Text style={styles.textDescricao}>{item.descricao}</Text>
       </View>
-      <Divider />
-      
+
       <View style={styles.textEntreDivider}>
         <Text style={styles.textMaisProdutos}>
           Mais produto de NOME_DA_LOJA
         </Text>
       </View>
+      <View style={styles.viewVerMaisProdutos}>
+        <View style={styles.cards}>
+          <TouchableOpacity>
+            <Image
+              style={styles.imgPlus}
+              source={require("../assets/img-banana.jpg")}
+            />
+            <Text style={styles.textoCard}>{item.nome}</Text>
+            <Text style={styles.textoCard}>
+              R${item.preco} Reais/{item.embalagem}
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-      <Text>
-        Dar um Select no banco, buscando produtos pelo o ID do usuário
-      </Text>
+        <View style={styles.cards}>
+          <TouchableOpacity>
+            <Image
+              style={styles.imgPlus}
+              source={require("../assets/img-laranja.jpg")}
+            />
+            <Text style={styles.textoCard}>{item.nome}</Text>
+            <Text style={styles.textoCard}>
+              R${item.preco} Reais/{item.embalagem}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.cards}>
+          <TouchableOpacity>
+            <Image
+              style={styles.imgPlus}
+              source={require("../assets/img-brocolis.jpg")}
+            />
+            <Text style={styles.textoCard}>{item.nome}</Text>
+            <Text style={styles.textoCard}>
+              R${item.preco} Reais/{item.embalagem}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 
@@ -102,12 +145,30 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
   },
+  textoCard: {
+    marginVertical: 3,
+    fontSize: 13,
+    fontWeight: "bold",
+    letterSpacing: 0.75,
+  },
+  viewVerMaisProdutos: {
+    marginVertical: 15,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  imgPlus: {
+    width: 101,
+    height: 83,
+    borderTopLeftRadius: 7,
+    borderTopRightRadius: 7,
+  },
   img: {
-    maxWidth: 318,
-    maxHeight: 250,
+    maxWidth: 228,
+    maxHeight: 175,
     flexGrow: 1,
     flexShrink: 1,
-    borderRadius: 10,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
     marginRight: 10,
     alignSelf: "center",
   },
@@ -116,17 +177,17 @@ const styles = StyleSheet.create({
   textNomeProduto: {
     textAlignVertical: "center",
     marginLeft: 14,
-    fontSize: 32,
+    fontSize: 31,
     lineHeight: 34,
-    fontWeight: "bold",
+    fontStyle:"italic",
     alignSelf: "center",
+    letterSpacing: 2,
   },
   textPreco: {
     marginTop: 10,
     marginLeft: 20,
     fontSize: 24,
     lineHeight: 26,
-    fontWeight: "bold",
     alignSelf: "flex-start",
   },
   textDescricao: {
@@ -171,13 +232,13 @@ const styles = StyleSheet.create({
   // Texto do final, 'mais produtos'
   textMaisProdutos: {
     fontSize: 16,
-    lineHeight: 18,
+    lineHeight: 17,
     color: "#919191",
   },
   // Na parte da descrição e 'mais produtos'
   textEntreDivider: {
     marginHorizontal: 5,
-    marginVertical: 10,
+    marginVertical: 2,
   },
 });
 
