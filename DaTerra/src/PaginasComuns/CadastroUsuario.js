@@ -24,6 +24,9 @@ import Header from "../Componentes/Header";
 //import { inserirPessoa } from "../DBService/DBQuery";
 import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
 
+
+/* CEP PARA TESTE 01311-000 */
+
 const CadastroUsuario = ({ navigation, route }) => {
 
   // Esconde Senha e Avisos
@@ -93,6 +96,8 @@ const CadastroUsuario = ({ navigation, route }) => {
     DataBase.getConnection();
   }, []);
 
+  
+  // Cadastrar Usuário e fazer validação de Dados
   const handleCadastrar = () => {
     //Verifica se alguma informação esta incompleta ou errada,se sim seta na variável missInfo para poder mostrar nos campos qual informação esta faltando
     if (
@@ -148,6 +153,7 @@ const CadastroUsuario = ({ navigation, route }) => {
     }
   };
 
+  // API: Buscar o Cep
   useEffect(() => {
     buscarEndereco();
   }, [cep]);
@@ -185,14 +191,23 @@ const CadastroUsuario = ({ navigation, route }) => {
         <Appbar.Action
           style={{ marginRight: 10 }}
           icon="check"
+          // icon={() => (
+          //   <Image
+          //     source={require('../assets/DATERRA-NOME-800X162.png')}
+          //     style={{ width: 20, height: 20, tintColor: 'white' }}
+          //   />
+          // )}        
           onPress={() => handleCadastrar()} />
       </Header>
       <Body>
         <ScrollView>
+          {/* Logo */}
           <Image
             style={styles.logo}
             source={require("../assets/DATERRA-COMPLETO-800X1050.png")}
           />
+
+          {/* RadioButton Cliente ou Produtor */}
           <View style={styles.radioContainer}>
             <View style={styles.radioItem}>
               <RadioButton
@@ -214,75 +229,66 @@ const CadastroUsuario = ({ navigation, route }) => {
             </View>
           </View>
 
+          {/* Nome */}
           <Input
             label="Nome"
             onChangeText={setNome}
             value={nome}
-            //error={nome == '' ? true : false}
+          //error={nome == '' ? true : false}
           />
-
           {nome == "" && missInfo && (
             <Text style={styles.aviso}>{avisoNome}</Text>
           )}
 
-          <View
-            style={
-              {
-                // flexDirection: 'row',
-                // alignSelf: 'stretch',
-                // flexGrow: 1,
-                // backgroundColor: "#000"
-              }
+          {/* CPF / Data */}
+          <View style={{ flexDirection: 'row' }}>
+            <TextInput
+              style={styles.textInput}
+              label="CPF"
+              mode='outlined'
+              maxLength={11}
+              onChangeText={setCpf}
+              keyboardType="decimal-pad"
+              value={cpf}
+            />
+            {(cpf == "" ||
+              cpf.length < 11) && missInfo && (
+                <View>
+                  <Text style={styles.aviso}>{avisoCpf}</Text>
+                </View>
+              )}
+
+            {/* Data: Início Configuração DATE*/}
+            {
+              show && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  mode={"date"}
+                  is24Hour={true}
+                  display="default"
+                  onTouchCancel={() => setShow(false)} // Para fechar
+                  onChange={(event, date) => {
+                    setShow(false);
+                    setData(moment(date).format("DD/MM/YYYY"));
+                  }}
+                />
+              )
             }
-          >
-            <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity onPress={() => setShow(true)}>
               <TextInput
                 style={styles.textInput}
-                label="CPF"
-                mode='outlined'
-                maxLength={11}
-                onChangeText={setCpf}
-                keyboardType="decimal-pad"
-                value={cpf}
+                label="Data Nascimento"
+                mode="outlined"
+                value={data}
+                left={<TextInput.Icon icon="calendar" />}
+                editable={false}
               />
-              {(cpf == "" ||
-                cpf.length < 11) && missInfo && (
-                  <View>
-                    <Text style={styles.aviso}>{avisoCpf}</Text>
-                  </View>
-                )}
-
-              {
-                // Início Configuração DATE
-                show && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={date}
-                    mode={"date"}
-                    is24Hour={true}
-                    display="default"
-                    onTouchCancel={() => setShow(false)} // Para fechar
-                    onChange={(event, date) => {
-                      setShow(false);
-                      setData(moment(date).format("DD/MM/YYYY"));
-                    }}
-                  />
-                )
-              }
-              <TouchableOpacity onPress={() => setShow(true)}>
-                <TextInput
-                  style={styles.textInput}
-                  label="Data Nascimento"
-                  mode="outlined"
-                  value={data}
-                  left={<TextInput.Icon icon="calendar" />}
-                  editable={false}
-                />
-              </TouchableOpacity>
-              {/* Fim configuração DATE*/}
-            </View>
+            </TouchableOpacity>
+            {/* Fim configuração DATE*/}
           </View>
 
+          {/* Email */}
           <Input
             label="Email"
             onChangeText={setEmail}
@@ -292,6 +298,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             <Text style={styles.aviso}>{avisoEmail}</Text>
           )}
 
+          {/* Telefone */}
           <View style={{ flexDirection: 'row' }}>
             <TextInput
               style={styles.textInput}
@@ -319,14 +326,19 @@ const CadastroUsuario = ({ navigation, route }) => {
               )}
           </View>
 
+          {/* Rua / Número Casa */}
           <View style={{ flexDirection: 'row' }}>
+            {/* Rua */}
             <TextInput
               style={styleCompose}
-              mode='outlined' label="Rua" onChangeText={setRua} value={rua} />
+              mode='outlined'
+              label="Rua"
+              onChangeText={setRua} value={rua} />
             {rua == "" && missInfo && (
               <Text style={styles.aviso}>{avisoRua}</Text>
             )}
 
+            {/* Número Casa */}
             <TextInput
               style={styles.textInput}
               mode='outlined'
@@ -338,7 +350,10 @@ const CadastroUsuario = ({ navigation, route }) => {
               <Text style={styles.aviso}>{avisoNumeroCasa}</Text>
             )}
           </View>
+
+          {/* Bairro / Complemento */}
           <View style={{ flexDirection: 'row' }}>
+            {/* Bairro */}
             <TextInput
               style={styleCompose}
               mode='outlined'
@@ -348,6 +363,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               <Text style={styles.aviso}>{avisoBairro}</Text>
             )}
 
+            {/* Complemento */}
             <TextInput
               style={styles.textInput}
               label={'Apt'}
@@ -360,7 +376,9 @@ const CadastroUsuario = ({ navigation, route }) => {
             )} */}
           </View>
 
+          {/* Cidade / UF */}
           <View style={{ flexDirection: 'row' }}>
+            {/* Cidade */}
             <TextInput
               style={styleCompose}
               mode='outlined'
@@ -370,6 +388,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               <Text style={styles.aviso}>{avisoCidade}</Text>
             )}
 
+            {/* UF */}
             <TextInput
               style={styles.textInput}
               mode='outlined'
@@ -379,6 +398,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             {uf == "" && missInfo && <Text style={styles.aviso}>{avisoUf}</Text>}
           </View>
 
+          {/* Senha */}
           <Input
             label="Senha"
             value={senha}
@@ -399,6 +419,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             <Text style={styles.aviso}>{avisoSenha}</Text>
           )}
 
+          {/* Confirmar Senha */}
           <Input
             label="Confirmar Senha"
             value={confirmarSenha}
@@ -423,7 +444,9 @@ const CadastroUsuario = ({ navigation, route }) => {
           {userAlredyRegister && (
             <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>
           )}
-          <View style={{ marginVertical: 15 }}>
+
+          {/* Botão Cadastrar */}
+          <View style={styles.viewBotaoCadastrar}>
             <Botao
               style={styles.textoBotao}
               textoBotao="Cadastrar"
@@ -431,11 +454,6 @@ const CadastroUsuario = ({ navigation, route }) => {
               onPress={handleCadastrar}
             />
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-
-            {/* <Text style={styles.textoVoltar}>Voltar</Text> */}
-
-          </TouchableOpacity>
         </ScrollView>
       </Body>
     </Container >
@@ -443,10 +461,18 @@ const CadastroUsuario = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 8,
+ 
+  // Logo
+  logo: {
+    marginTop: 10,
+    height: 190,
+    width: 145,
+    padding: 10,
+    marginBottom: 30,
+    alignSelf: "center",
   },
+
+  // Inputs e TextInputs
   containerInput: {
     marginVertical: 40,
   },
@@ -464,6 +490,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
   },
+
+  // RadioButton
   radioContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -473,12 +501,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+
+// Botão
+  viewBotaoCadastrar: {
+    marginVertical: 30,
+  },
   textoBotao: {
     textAlign: "center",
     fontSize: 18,
     fontWeight: 'bold',
     color: '#FFF',
   },
+
+  // Text Aviso de info incompletas
   aviso: {
     marginTop: 5,
     marginLeft: 8,
@@ -493,23 +528,10 @@ const styles = StyleSheet.create({
     color: "red",
     fontStyle: "italic",
     fontWeight: "bold",
-
-  },
-  textoVoltar: {
-    textAlign: "center",
-    marginTop: 8,
-    fontSize: 18
-  },
-  logo: {
-    marginTop: 10,
-    height: 190,
-    width: 145,
-    padding: 10,
-    marginBottom: 30,
-    alignSelf: "center",
   },
 });
 
+// Estilos (e compose) para os TextInputs 'especiais'
 const styles2 = StyleSheet.create({
   textInputEspecial: {
     flexBasis: 240,

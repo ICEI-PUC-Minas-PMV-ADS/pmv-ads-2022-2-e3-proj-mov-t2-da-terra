@@ -16,16 +16,18 @@ import { getLogin } from "../DBService/DBUsuario";
 
 import { AuthContext } from "../contexts/AuthProvider";
 
-/* 01311-000 */
-
 export default function Login() {
   const navigation = useNavigation();
   const { user, setUser } = useContext(AuthContext);
-  const [escondeSenha, setEscondeSenha] = useState(true);
+
+  // Aviso de erro para dados incompletos ou incorretos
   const [aviso, setAviso] = useState("");
   const [missInfo, setMissInfo] = useState(false);
+
+  // Email / Senha / Ícone Senha
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [escondeSenha, setEscondeSenha] = useState(true);
 
   const validarLogin = () => {
     if (email == "" || senha == "") {
@@ -35,7 +37,7 @@ export default function Login() {
     else {
       getLogin(email, senha).then((usuario) => {
         // console.log(usuario[0]);
-        setUser(usuario[0]);       
+        setUser(usuario[0]);
         console.log(typeof (usuario[0]));
         setUser(usuario[0])
         console.log(usuario[0]);
@@ -56,16 +58,21 @@ export default function Login() {
   return (
     <Container>
       <Body>
+        {/* Logo */}
         <Image
           style={styles.logo}
           source={require("../assets/DATERRA-COMPLETO-800X1050.png")}
         />
+
+        {/* Email */}
         <Input
           label={"Email"}
           onChangeText={(text) => setEmail(text)}
           activeOutlineColor={"#3d9d74"}
           right={<TextInput.Icon icon="email-outline" />}
         />
+
+        {/* Senha */}
         <Input
           label={"Senha"}
           onChangeText={(text) => setSenha(text)}
@@ -83,6 +90,8 @@ export default function Login() {
         {missInfo && (
           <Text style={styles.aviso}>{aviso}</Text>
         )}
+
+        {/* Botão Entrar */}
         <View style={styles.viewBotao}>
           <TouchableOpacity onPress={() => validarLogin()}>
             <Botao
@@ -94,10 +103,12 @@ export default function Login() {
           </TouchableOpacity>
         </View>
 
+        {/* Mensagem  'Não tem uma conta?'*/}
         <View style={styles.viewTexto}>
           <Text style={styles.textoCadastro}>Não tem um conta?</Text>
         </View>
 
+        {/* Botão Cadastra-se */}
         <View style={styles.viewBotao}>
           <TouchableOpacity
             onPress={() => navigation.navigate("CadastroUsuario")}
@@ -116,33 +127,40 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
-  titulo: {
-    fontSize: 30,
-    fontWeight: "bold",
-    fontStyle: "italic",
-    textAlign: "center",
-    color: "white",
+  // Logo
+  logo: {
+    height: 190,
+    width: 145,
+    padding: 10,
+    marginBottom: 30,
+    alignSelf: "center",
   },
+
+ // Botão 
   viewBotao: {
     marginTop: 20,
     marginBottom: 25,
-  },
-  viewTexto: {
-    width: 350,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: -11,
   },
   textoBotao: {
     textAlign: "center",
     fontSize: 18,
   },
+
+  // Text 'Não tem uma conta?'
+  viewTexto: {
+    width: 350,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: -11,
+  },  
   textoCadastro: {
     color: "black",
     fontWeight: "bold",
     fontSize: 16,
     textAlign: "center",
   },
+
+  // View Esqueceu a Senha (Falta Implementar)
   containerEsqsenha: {
     width: 300,
     marginTop: 20,
@@ -150,6 +168,8 @@ const styles = StyleSheet.create({
   textoEsqsenha: {
     color: "#72E6FF",
   },
+
+  // Aviso de dados incompletos
   aviso: {
     marginTop: 10,
     marginLeft: 10,
@@ -157,13 +177,6 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     fontWeight: "bold",
     textAlign: 'center'
-  },
-  logo: {
-    height: 190,
-    width: 145,
-    padding: 10,
-    marginBottom: 30,
-    alignSelf: "center",
   },
 });
 
