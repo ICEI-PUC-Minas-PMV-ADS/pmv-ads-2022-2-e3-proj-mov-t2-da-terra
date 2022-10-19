@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     margin: 12,
     right: 0,
     bottom: 0,
-    backgroundColor: '#cf96c7'
+    backgroundColor: '#FF8919'
   },
 });
 

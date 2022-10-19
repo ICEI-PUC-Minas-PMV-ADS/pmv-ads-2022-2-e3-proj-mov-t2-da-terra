@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-  SafeAreaView,
+
 } from "react-native";
 
-import { Button, Divider, FAB, List } from "react-native-paper";
+import { Divider, Button, Appbar } from "react-native-paper";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -32,14 +32,7 @@ const ComprarProduto = ({ route }) => {
 
   const isFocused = useIsFocused();
   const [resultado, setResultado] = useState([]);
-  useEffect(() => {
-    getProdutos()
-      .then((dados) => {
-        // console.log(dados);
-        // setLoja[produtos[0]]
-      })
-      .catch((error) => console.log(error));
-  }, [isFocused]);
+
   useEffect(() => {
     getProdutosCompras(3)
       .then((dados) => {
@@ -54,10 +47,11 @@ const ComprarProduto = ({ route }) => {
         <Text style={styles.textNomeProduto}>
           {item.nome} {item.embalagem}
         </Text>
-        <Text style={styles.textPreco}>R$ {item.preco}</Text>
+        <Text style={styles.textPreco}>R$ {item.preco.toFixed(2)}</Text>
       </View>
 
       {/*Imagem*/}
+      <Divider style={{ marginBottom: 10 }} />
       <View style={styles.viewImg}>
         <Image style={styles.img} source={require("../assets/maracuja.jpg")} />
       </View>
@@ -65,17 +59,31 @@ const ComprarProduto = ({ route }) => {
       {/* Seletor quantidade mais e menos */}
       <Seletor />
 
-      {/*Descrição e 'Mais Produtos do Usário'*/}
-
-      <View style={styles.textEntreDivider}>
-        <Text style={styles.textDescricao}>{item.descricao}</Text>
+      {/*Botão Comprar*/}
+      <View style={styles.viewBotaoComprar}>
+        <Button
+          icon="cart"
+          mode="contained"
+          buttonColor="#FF8919"
+          onPress={() => console.log('Pressed')}>
+          <Text style={styles.labelBotao}>Comprar</Text>
+        </Button>
       </View>
 
+      {/*Descrição e 'Mais Produtos do Usário'*/}
+      <Divider style={{ marginVertical: 5 }} />
+      <View style={styles.textEntreDivider}>
+        <Text style={styles.textDescricao}>{item.descricao}</Text>
+
+        {/* <Text style={styles.textDescricao}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac efficitur urna, a ultricies metus. Fusce ut mauris feugiat tellus scelerisque elementum sed quis purus. In eu risus bibendum, eleifend mi in, consequat quam. Etiam non est quis odio ornare porta. Vivamus sagittis neque ut tellus facilisis, eu aliquam erat ornare. Nullam pulvinar cursus dapibus. Nam facilisis felis nec consequat feugiat. Mauris dignissim dignissim tortor id euismod. Sed vitae pharetra sem, vel aliquam libero. Praesent laoreet, nunc varius ultrices euismod, mi ipsum aliquet mauris, id vehicula lacus leo sed neque. Praesent tristique enim a maximus sodales. Morbi fringilla vitae ante eget semper.</Text> */}
+      </View>
+      <Divider style={{ marginVertical: 5 }} />
       <View style={styles.textEntreDivider}>
         <Text style={styles.textMaisProdutos}>
           Mais produto de NOME_DA_LOJA
         </Text>
       </View>
+
       <View style={styles.viewVerMaisProdutos}>
         <View style={styles.cards}>
           <TouchableOpacity>
@@ -83,9 +91,9 @@ const ComprarProduto = ({ route }) => {
               style={styles.imgPlus}
               source={require("../assets/img-banana.jpg")}
             />
-            <Text style={styles.textoCard}>{item.nome}</Text>
+            <Text style={styles.textoCard}>{item.nome} {item.embalagem}</Text>
             <Text style={styles.textoCard}>
-              R${item.preco} Reais/{item.embalagem}
+              R$ {item.preco.toFixed(2)}
             </Text>
           </TouchableOpacity>
         </View>
@@ -96,21 +104,22 @@ const ComprarProduto = ({ route }) => {
               style={styles.imgPlus}
               source={require("../assets/img-laranja.jpg")}
             />
-            <Text style={styles.textoCard}>{item.nome}</Text>
+            <Text style={styles.textoCard}>{item.nome} {item.embalagem}</Text>
             <Text style={styles.textoCard}>
-              R${item.preco} Reais/{item.embalagem}
+              R$ {item.preco.toFixed(2)}
             </Text>
           </TouchableOpacity>
         </View>
+
         <View style={styles.cards}>
           <TouchableOpacity>
             <Image
               style={styles.imgPlus}
               source={require("../assets/img-brocolis.jpg")}
             />
-            <Text style={styles.textoCard}>{item.nome}</Text>
+            <Text style={styles.textoCard}>{item.nome} {item.embalagem}</Text>
             <Text style={styles.textoCard}>
-              R${item.preco} Reais/{item.embalagem}
+              R$ {item.preco.toFixed(2)}
             </Text>
           </TouchableOpacity>
         </View>
@@ -120,7 +129,12 @@ const ComprarProduto = ({ route }) => {
 
   return (
     <Container>
-      <Header title={"Anúncio"} goBack={() => navigation.goBack()} />
+      <Header title={"Anúncio"} goBack={() => navigation.goBack()}>
+        <Appbar.Action
+          style={{marginRight: 10}}
+          icon="cart" onPress={() => console.log('ir tela carrinho')} />
+      </Header>
+
       <Body>
         <FlatList
           data={resultado}
@@ -140,6 +154,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     elevation: 5,
   },
+
   // Imagem
   viewImg: {
     flexDirection: "row",
@@ -167,10 +182,23 @@ const styles = StyleSheet.create({
     maxHeight: 175,
     flexGrow: 1,
     flexShrink: 1,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
     marginRight: 10,
     alignSelf: "center",
+  },
+
+  // Botão Adicionar ao Carrinho
+  viewBotaoComprar: {
+    marginVertical: 5,
+    alignSelf: 'center',
+  },
+  labelBotao: {
+    textAlign: "center",
+    fontSize: 20,
+    lineHeight: 22,
+    fontWeight: 'bold',
+    color: '#FFF',
   },
 
   // Nome, embalagem, preço, descrição
@@ -179,7 +207,7 @@ const styles = StyleSheet.create({
     marginLeft: 14,
     fontSize: 31,
     lineHeight: 34,
-    fontStyle:"italic",
+    // fontWeight: 'bold',
     alignSelf: "center",
     letterSpacing: 2,
   },
@@ -235,6 +263,7 @@ const styles = StyleSheet.create({
     lineHeight: 17,
     color: "#919191",
   },
+
   // Na parte da descrição e 'mais produtos'
   textEntreDivider: {
     marginHorizontal: 5,
