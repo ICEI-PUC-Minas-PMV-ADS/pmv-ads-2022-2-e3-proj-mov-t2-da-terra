@@ -174,7 +174,6 @@ const CadastroUsuario = ({ navigation, route }) => {
               setUf(json.uf)
             }
           });
-        console.log(uf)
       }
     };
     Cep();
