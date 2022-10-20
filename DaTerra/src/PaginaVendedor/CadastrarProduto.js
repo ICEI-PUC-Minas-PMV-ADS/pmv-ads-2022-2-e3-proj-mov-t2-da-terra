@@ -63,21 +63,21 @@ const CadastarProduto = ({ route }) => {
     if (!item) {
       insertProduto({ // TESTE OK
         nome: nome.trim(),
-        preco: preco,
-        embalagem: embalagem,
-        estoque: estoque,
-        categoria: categoria,
-        descricao: descricao,
+        preco: preco.trim(),
+        embalagem: embalagem.trim(),
+        estoque: estoque.trim(),
+        categoria: categoria.trim(),
+        descricao: descricao.trim(),
       }).then()
         .catch(console.log("ERRO CATCH INSERT"));
     } else {
       updateProduto({ // TESTE OK
-        nome: nome,
-        preco: preco,
-        embalagem: embalagem,
-        estoque: estoque,
-        categoria: categoria,
-        descricao: descricao,
+        nome: nome.trim(),
+        preco: preco.trim(),
+        embalagem: embalagem.trim(),
+        estoque: estoque.trim(),
+        categoria: categoriatrim(),
+        descricao: descricaotrim(),
         id: item.id,
       }).then()
         .catch(console.log("ERRO CATCH UPDATE"));
