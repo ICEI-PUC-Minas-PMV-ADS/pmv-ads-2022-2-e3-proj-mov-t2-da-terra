@@ -26,8 +26,7 @@ const Loja = () => {
   const { user, setUser } = useContext(AuthContext)
   const [produto, setProduto] = useState([]);
   const isFocused = useIsFocused();
-  //const[loja,setLoja]=useState([])
-
+  
   // ALTERADO PARA TESTES - falta setar
   useEffect(() => {
     getProdutos().then(dados => {
@@ -53,7 +52,7 @@ const Loja = () => {
               style={styles.img}
               source={require("../assets/maracuja.jpg")} />}
           right={() =>
-            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco}</Text>
+            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)}</Text>
           }
           description={`Estoque: ${item.estoque} ${item.embalagem}`}
         />

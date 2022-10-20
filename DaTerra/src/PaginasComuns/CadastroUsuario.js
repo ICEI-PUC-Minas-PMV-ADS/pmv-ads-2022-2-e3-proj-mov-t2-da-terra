@@ -25,12 +25,9 @@ import Header from "../Componentes/Header";
 //import { inserirPessoa } from "../DBService/DBQuery";
 import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
 
-
-/* CEP PARA TESTE 01311-000 */
-
 const CadastroUsuario = ({ navigation, route }) => {
 
-  // Esconde Senha e Avisos
+  // Esconde Senha, Avisos e Falta Info
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [user, setUser] = useState([]);
   const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true);
@@ -44,59 +41,31 @@ const CadastroUsuario = ({ navigation, route }) => {
 
   // Dados Pessoais dos Usuário
   const [nome, setNome] = useState("");
-  const [avisoNome, setAvisoNome] = useState("Digite seu nome completo");
   const [cpf, setCpf] = useState("");
-  const [avisoCpf, setAvisoCpf] = useState("CPF Incompleto");
   const [telefone, setTelefone] = useState("");
-  const [avisoTelefone, setAvisoTelefone] = useState(
-    "Digite o nome do seu telefone"
-  );
 
   // Endereço do Usuário
-  const [rua, setRua] = useState("");
-  const [avisoRua, setAvisoRua] = useState("Digite o nome da sua rua");
-  const [bairro, setBairro] = useState("");
-  const [avisoBairro, setAvisoBairro] = useState(
-    "Informe o nome do seu bairro"
-  );
-  const [numeroCasa, setNumeroCasa] = useState("");
-  const [avisoNumeroCasa, setAvisoNumeroCasa] = useState("Informe o numero da sua casa");
-  const [cep, setCep] = useState("");
-  const [avisoCep, setAvisoCep] = useState("CEP inválido");
-  const [cidade, setCidade] = useState("");
-  const [avisoCidade, setAvisoCidade] = useState(
-    "Você precisa informar o nome da sua cidade"
-  );
-  const [uf, setUf] = useState("");
-  const [avisoUf, setAvisoUf] = useState("Informe a sua unidade federativa");
-  const [complemento, setComplemento] = useState("");
-  const [avisoComplemento, setAvisoComplemento] = useState(
-    "Digite um complemento para o seu endereço"
-  );
+  const [rua, setRua] = useState("");  
+  const [bairro, setBairro] = useState(""); 
+  const [numeroCasa, setNumeroCasa] = useState("");  
+  const [cep, setCep] = useState("");  
+  const [cidade, setCidade] = useState("");  
+  const [uf, setUf] = useState("");  
+  const [complemento, setComplemento] = useState("");  
 
   // Tipo de Usuário
   const [tipoUsuario, setTipoUsuario] = useState("cliente"); // Cliente Default
-  const [email, setEmail] = useState("");
-  const [avisoEmail, setAvisoEmail] = useState(
-    "Você precisa informar seu email"
-  );
+  const [email, setEmail] = useState("");  
 
   // Senha
-  const [senha, setSenha] = useState("");
-  const [avisoSenha, setAvisoSenha] = useState(
-    "Você precisa informar um senha válida"
-  );
-  const [confirmarSenha, setConfirmarSenha] = useState("");
-  const [avisoConfirmarSenha, setAvisoConfirmarSenha] = useState(
-    "As senhas estão diferentes,por favor verifique"
-  );
+  const [senha, setSenha] = useState("");  
+  const [confirmarSenha, setConfirmarSenha] = useState(""); 
 
   const [dataCadastro, setDataCadastro] = useState(); // Somento DB
 
   useEffect(() => {
     DataBase.getConnection();
   }, []);
-
 
   // Cadastrar Usuário, Validação de Dados e senha
   const handleCadastrar = () => {
@@ -207,7 +176,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           {/* Logo */}
           <Image
             style={styles.logo}
-            source={require("../assets/DATERRA-COMPLETO-800X1050.png")}
+            source={require("../assets/DATERRA-LOGO-800X797.png")}
           />
 
           {/* RadioButton Cliente ou Produtor */}
@@ -452,12 +421,11 @@ const CadastroUsuario = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-
   // Logo
   logo: {
     marginTop: 10,
-    height: 190,
-    width: 145,
+    height: 80,
+    width: 80,
     padding: 10,
     marginBottom: 30,
     alignSelf: "center",
