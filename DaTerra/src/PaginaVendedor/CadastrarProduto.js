@@ -60,6 +60,12 @@ const CadastarProduto = ({ route }) => {
     }
   }, [item]);
 
+  // if (!String.prototype.trim) {
+  //   String.prototype.trim = function () {
+  //     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+  //   };
+  // }
+
   // Cadastrar produto e validar campos 
   const handleCadastro = () => {
     if (!nome || !preco || !embalagem ||
@@ -69,22 +75,22 @@ const CadastarProduto = ({ route }) => {
       setMissInfo(false); // Seta FALSE, pois o usuário já preencheu o restante dos dados
       if (!item) {       
         insertProduto({ // TESTE OK
-          nome: nome,
-          preco: preco,
+          nome: nome.trim(),
+          preco: preco.trim(),
           embalagem: embalagem,
-          estoque: estoque,
+          estoque: estoque.trim(),
           categoria: categoria,
-          descricao: descricao,
+          descricao: descricao.trim(),
         }).then()
           .catch(console.log("ERRO CATCH INSERT"));
       } else {
         updateProduto({ // TESTE OK
-          nome: nome,
-          preco: preco,
+          nome: nome.trim(),
+          preco: preco.trim(),
           embalagem: embalagem,
-          estoque: estoque,
+          estoque: estoque.trim(),
           categoria: categoria,
-          descricao: descricao,
+          descricao: descricao.trim(),
           id: item.id,
         }).then()
           .catch(console.log("ERRO CATCH UPDATE"));
