@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 
 import { fetch } from "react-native/Libraries/Network/fetch";
@@ -96,34 +97,35 @@ const CadastroUsuario = ({ navigation, route }) => {
     DataBase.getConnection();
   }, []);
 
-  
-  // Cadastrar Usuário e fazer validação de Dados
+
+  // Cadastrar Usuário, Validação de Dados e senha
   const handleCadastrar = () => {
-    //Verifica se alguma informação esta incompleta ou errada,se sim seta na variável missInfo para poder mostrar nos campos qual informação esta faltando
-    if (
-      nome == "" ||
-      cpf == "" ||
+    // Verificar se tem algo incompleto no formulário
+    if (!nome ||
+      !cpf ||
       cpf.length < 11 ||
-      email == "" ||
-      telefone == "" ||
-      rua == "" ||
-      bairro == "" ||
-      numeroCasa == "" ||
-      cep == "" ||
+      !email ||
+      !telefone ||
+      !rua ||
+      !bairro ||
+      !numeroCasa ||
+      !cidade ||
+      !uf ||
+      !cep ||
       cep.length < 8 ||
-      senha == "" ||
-      confirmarSenha == "" ||
-      confirmarSenha != senha ||
-      cidade == "" ||
-      uf == ""
+      !senha ||
+      !confirmarSenha
     ) {
-      setMissInfo(true);//Tem informação errada/faltando
+      setMissInfo(true);  // Falta Informação
+      if (senha != confirmarSenha) {
+        Alert.alert("Confirmação de senha incorreta, verifique")
+      }
     } else {
-      // Vai chamar o metodo do banco para verificar se o usuário já esta cadastrado
-      setMissInfo(false);//Seta a varíavel que indica que esta faltando informação para false para,caso anteriormente tenha faltando info,o não impedir posteriormente de o usuário cadastrar com todas as informações corretamente
+      //Indica que falta informação,caso anteriormente tenha faltado info, não impede posteriormente de o usuário cadastrar com todas as informações corretamente
+      setMissInfo(false); 
+      // Se retornar undefined, então segue o fluxo e seta os valores para cadastrar o usuário
       getCadastrado(email).then((usuario) => {
-        setUser(usuario[0]);
-        //Caso o valor retornado do banco seja do tipo undefined significa que não possui nenhum usuario com o email digitado,assim prosseguira com o cadastro do usuário
+        setUser(usuario[0]);        
         if (typeof (usuario[0]) == "undefined") {
           insertUsuario({
             nome: nome,
@@ -143,9 +145,10 @@ const CadastroUsuario = ({ navigation, route }) => {
           })
             .then()
             .catch();
+          console.log('Entrou')
           navigation.navigate("Login");
         }
-        //Se o valor retornado do banco não for undefined significa que o o email já e cadastrado,assim seta a variável abaixo para
+        //Se o valor retornado do banco não for undefined significa que o o email já e cadastrado, assim seta a variável abaixo para
         else {
           setUserAlredyRegister(true);
         }
@@ -234,11 +237,8 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="Nome"
             onChangeText={setNome}
             value={nome}
-          //error={nome == '' ? true : false}
+            error={missInfo && !nome ? true : false}
           />
-          {nome == "" && missInfo && (
-            <Text style={styles.aviso}>{avisoNome}</Text>
-          )}
 
           {/* CPF / Data */}
           <View style={{ flexDirection: 'row' }}>
@@ -250,13 +250,8 @@ const CadastroUsuario = ({ navigation, route }) => {
               onChangeText={setCpf}
               keyboardType="decimal-pad"
               value={cpf}
+              error={missInfo && !cpf ? true : false}
             />
-            {(cpf == "" ||
-              cpf.length < 11) && missInfo && (
-                <View>
-                  <Text style={styles.aviso}>{avisoCpf}</Text>
-                </View>
-              )}
 
             {/* Data: Início Configuração DATE*/}
             {
@@ -293,13 +288,12 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="Email"
             onChangeText={setEmail}
             value={email}
+            error={missInfo && !email ? true : false}
           />
-          {email == "" && missInfo && (
-            <Text style={styles.aviso}>{avisoEmail}</Text>
-          )}
 
-          {/* Telefone */}
+          {/* Telefone / CEP */}
           <View style={{ flexDirection: 'row' }}>
+            {/* Telefone */}
             <TextInput
               style={styles.textInput}
               mode='outlined'
@@ -307,11 +301,9 @@ const CadastroUsuario = ({ navigation, route }) => {
               keyboardType="decimal-pad"
               onChangeText={setTelefone}
               value={telefone}
+              error={missInfo && !telefone ? true : false}
             />
-            {telefone == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoTelefone}</Text>
-            )}
-
+            {/* CEP */}
             <TextInput
               style={styles.textInput}
               mode='outlined'
@@ -319,11 +311,8 @@ const CadastroUsuario = ({ navigation, route }) => {
               keyboardType="decimal-pad"
               onChangeText={setCep}
               value={cep}
+              error={missInfo && !cep ? true : false}
             />
-            {(cep == "" ||
-              cep.length < 8) && missInfo && (
-                <Text style={styles.aviso}>{avisoCep}</Text>
-              )}
           </View>
 
           {/* Rua / Número Casa */}
@@ -333,10 +322,9 @@ const CadastroUsuario = ({ navigation, route }) => {
               style={styleCompose}
               mode='outlined'
               label="Rua"
-              onChangeText={setRua} value={rua} />
-            {rua == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoRua}</Text>
-            )}
+              error={missInfo && !rua ? true : false}
+              onChangeText={setRua}
+              value={rua} />
 
             {/* Número Casa */}
             <TextInput
@@ -344,11 +332,10 @@ const CadastroUsuario = ({ navigation, route }) => {
               mode='outlined'
               label="Nº"
               keyboardType="decimal-pad"
+              error={missInfo && !numeroCasa ? true : false}
+              value={numeroCasa}
               onChangeText={setNumeroCasa}
             />
-            {numeroCasa == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoNumeroCasa}</Text>
-            )}
           </View>
 
           {/* Bairro / Complemento */}
@@ -358,10 +345,9 @@ const CadastroUsuario = ({ navigation, route }) => {
               style={styleCompose}
               mode='outlined'
               label="Bairro"
-              onChangeText={setBairro} value={bairro} />
-            {bairro == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoBairro}</Text>
-            )}
+              error={missInfo && !bairro ? true : false}
+              onChangeText={setBairro}
+              value={bairro} />
 
             {/* Complemento */}
             <TextInput
@@ -371,9 +357,6 @@ const CadastroUsuario = ({ navigation, route }) => {
               onChangeText={setComplemento}
               value={complemento}
             />
-            {/* {complemento == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoComplemento}</Text>
-            )} */}
           </View>
 
           {/* Cidade / UF */}
@@ -383,10 +366,8 @@ const CadastroUsuario = ({ navigation, route }) => {
               style={styleCompose}
               mode='outlined'
               label={'Cidade'}
+              error={missInfo && !cidade ? true : false}
               onChangeText={setCidade} value={cidade} />
-            {cidade == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoCidade}</Text>
-            )}
 
             {/* UF */}
             <TextInput
@@ -394,8 +375,8 @@ const CadastroUsuario = ({ navigation, route }) => {
               mode='outlined'
               label="UF"
               value={uf}
+              error={missInfo && !uf ? true : false}
               onChangeText={setUf} />
-            {uf == "" && missInfo && <Text style={styles.aviso}>{avisoUf}</Text>}
           </View>
 
           {/* Senha */}
@@ -403,6 +384,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="Senha"
             value={senha}
             secureTextEntry={escondeSenha}
+            error={missInfo && !senha ? true : false}
             right={
               <TextInput.Icon
                 onPress={() =>
@@ -415,15 +397,13 @@ const CadastroUsuario = ({ navigation, route }) => {
             }
             onChangeText={setSenha}
           />
-          {senha == "" && missInfo && (
-            <Text style={styles.aviso}>{avisoSenha}</Text>
-          )}
 
           {/* Confirmar Senha */}
           <Input
             label="Confirmar Senha"
             value={confirmarSenha}
             secureTextEntry={escondeConfirmarSenha}
+            error={missInfo && !confirmarSenha ? true : false}
             right={
               <TextInput.Icon
                 onPress={() =>
@@ -436,11 +416,8 @@ const CadastroUsuario = ({ navigation, route }) => {
             }
             onChangeText={setConfirmarSenha}
           />
-          {(confirmarSenha == "" ||
-            confirmarSenha != senha) && missInfo && (
-              <Text style={styles.aviso}>{avisoConfirmarSenha}</Text>
-            )}
-          {/* {trySignIn && <Text style={styles.aviso}>Usuario já cadastrado</Text>} */}
+         
+          {/* Verifica se email já tem cadastro */}
           {userAlredyRegister && (
             <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>
           )}
@@ -461,7 +438,7 @@ const CadastroUsuario = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
- 
+
   // Logo
   logo: {
     marginTop: 10,
@@ -502,7 +479,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-// Botão
+  // Botão
   viewBotaoCadastrar: {
     marginVertical: 30,
   },
