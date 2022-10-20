@@ -58,13 +58,7 @@ const CadastarProduto = ({ route }) => {
       setEmbalagem(item.embalagem);
       // inserir foto
     }
-  }, [item]);
-
-  // if (!String.prototype.trim) {
-  //   String.prototype.trim = function () {
-  //     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-  //   };
-  // }
+  }, [item]);  
 
   // Cadastrar produto e validar campos 
   const handleCadastro = () => {

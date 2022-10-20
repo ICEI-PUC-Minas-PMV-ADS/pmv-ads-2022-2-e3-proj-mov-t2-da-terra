@@ -33,8 +33,10 @@ const ComprarProduto = ({ route }) => {
   const isFocused = useIsFocused();
   const [resultado, setResultado] = useState([]);
 
+  console.log(item);
+
   useEffect(() => {
-    getProdutosCompras(3)
+    getProdutosCompras(1)
       .then((dados) => {
         setResultado(dados);
       })

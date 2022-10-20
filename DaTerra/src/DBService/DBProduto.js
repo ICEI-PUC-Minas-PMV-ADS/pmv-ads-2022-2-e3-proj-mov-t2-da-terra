@@ -13,7 +13,7 @@ export const getProdutos = async () => {
 // Get para uso na barra de busca
 export const getSearchProduto = async (nome) => {
   let results = await DB_EXEC("SELECT * FROM Produtos WHERE nome LIKE ?;",     [nome]);
- // console.log(results)
+  //console.log(id)
 
   return results.rows._array;
 };
