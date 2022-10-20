@@ -9,8 +9,6 @@ import Container from "../Componentes/Container";
 import Body from "../Componentes/Body";
 import Botao from "../Componentes/Botao";
 
-import HomeVendedor from "../PaginaVendedor/HomeVendedor";
-import HomeCliente from "../PaginasCliente/HomeCliente";
 import { getUsuario } from "../DBService/DBUsuario";
 import { getLogin } from "../DBService/DBUsuario";
 
@@ -30,20 +28,19 @@ export default function Login() {
   const [escondeSenha, setEscondeSenha] = useState(true);
 
   const validarLogin = () => {
-    if (email == "" || senha == "") {
-      setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando
+    if (!email || !senha) {
+      setMissInfo(true); // Falta Informação 
       setAviso("Por favor, insira o email e a senha")
     }
     else {
-      getLogin(email, senha).then((usuario) => {
-        // console.log(usuario[0]);
+      getLogin(email, senha).then((usuario) => {        
         setUser(usuario[0]);
-        console.log(typeof (usuario[0]));
+       // console.log(typeof (usuario[0]));
         setUser(usuario[0])
-        console.log(usuario[0]);
+        //console.log(usuario[0]);
 
         if (typeof (usuario[0]) == "undefined") {
-          setMissInfo(true); //Faz com que mostre um aviso que tem informação incorreta/faltando
+          setMissInfo(true); // Falta Informação 
           setAviso("Email ou senha incorretos")
         } else {
           if (usuario[0].tipoUsuario == "produtor" && usuario[0].tipoUsuario != "undefined")
@@ -69,6 +66,7 @@ export default function Login() {
           label={"Email"}
           onChangeText={(text) => setEmail(text)}
           activeOutlineColor={"#3d9d74"}
+          error={missInfo && !email ? true : false}
           right={<TextInput.Icon icon="email-outline" />}
         />
 
@@ -77,6 +75,7 @@ export default function Login() {
           label={"Senha"}
           onChangeText={(text) => setSenha(text)}
           secureTextEntry={escondeSenha}
+          error={missInfo && !senha ? true : false}
           activeOutlineColor={"#3d9d74"}
           right={
             <TextInput.Icon
@@ -179,9 +178,3 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
 });
-
-// '#6cc438'
-// '#d3e4a5'
-// '#3d9d74'
-// '#50ac5d'
-// '#9fd09d' - verde claro

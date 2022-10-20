@@ -238,10 +238,12 @@ const CadastroUsuario = ({ navigation, route }) => {
             onChangeText={setNome}
             value={nome}
             error={missInfo && !nome ? true : false}
+            activeOutlineColor={"#3d9d74"}
           />
 
           {/* CPF / Data */}
           <View style={{ flexDirection: 'row' }}>
+            {/* CPF */}
             <TextInput
               style={styles.textInput}
               label="CPF"
@@ -251,6 +253,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               keyboardType="decimal-pad"
               value={cpf}
               error={missInfo && !cpf ? true : false}
+              activeOutlineColor={"#3d9d74"}
             />
 
             {/* Data: Início Configuração DATE*/}
@@ -277,7 +280,7 @@ const CadastroUsuario = ({ navigation, route }) => {
                 mode="outlined"
                 value={data}
                 left={<TextInput.Icon icon="calendar" />}
-                editable={false}
+                editable={false}                
               />
             </TouchableOpacity>
             {/* Fim configuração DATE*/}
@@ -289,6 +292,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             onChangeText={setEmail}
             value={email}
             error={missInfo && !email ? true : false}
+            activeOutlineColor={"#3d9d74"}
           />
 
           {/* Telefone / CEP */}
@@ -302,6 +306,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               onChangeText={setTelefone}
               value={telefone}
               error={missInfo && !telefone ? true : false}
+              activeOutlineColor={"#3d9d74"}
             />
             {/* CEP */}
             <TextInput
@@ -312,6 +317,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               onChangeText={setCep}
               value={cep}
               error={missInfo && !cep ? true : false}
+              activeOutlineColor={"#3d9d74"}
             />
           </View>
 
@@ -323,6 +329,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               mode='outlined'
               label="Rua"
               error={missInfo && !rua ? true : false}
+              activeOutlineColor={"#3d9d74"}
               onChangeText={setRua}
               value={rua} />
 
@@ -333,6 +340,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               label="Nº"
               keyboardType="decimal-pad"
               error={missInfo && !numeroCasa ? true : false}
+              activeOutlineColor={"#3d9d74"}
               value={numeroCasa}
               onChangeText={setNumeroCasa}
             />
@@ -346,6 +354,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               mode='outlined'
               label="Bairro"
               error={missInfo && !bairro ? true : false}
+              activeOutlineColor={"#3d9d74"}
               onChangeText={setBairro}
               value={bairro} />
 
@@ -354,6 +363,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               style={styles.textInput}
               label={'Apt'}
               mode='outlined'
+              activeOutlineColor={"#3d9d74"}
               onChangeText={setComplemento}
               value={complemento}
             />
@@ -367,6 +377,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               mode='outlined'
               label={'Cidade'}
               error={missInfo && !cidade ? true : false}
+              activeOutlineColor={"#3d9d74"}
               onChangeText={setCidade} value={cidade} />
 
             {/* UF */}
@@ -376,6 +387,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               label="UF"
               value={uf}
               error={missInfo && !uf ? true : false}
+              activeOutlineColor={"#3d9d74"}
               onChangeText={setUf} />
           </View>
 
@@ -385,6 +397,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             value={senha}
             secureTextEntry={escondeSenha}
             error={missInfo && !senha ? true : false}
+            activeOutlineColor={"#3d9d74"}
             right={
               <TextInput.Icon
                 onPress={() =>
@@ -404,6 +417,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             value={confirmarSenha}
             secureTextEntry={escondeConfirmarSenha}
             error={missInfo && !confirmarSenha ? true : false}
+            activeOutlineColor={"#3d9d74"}
             right={
               <TextInput.Icon
                 onPress={() =>
