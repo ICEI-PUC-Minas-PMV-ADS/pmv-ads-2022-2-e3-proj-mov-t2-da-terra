@@ -30,7 +30,65 @@ const Database = {
         "embalagem TEXT NOT NULL," +
         "estoque INTEGER NOT NULL," +
         "categoria TEXT NOT NULL," +
-        "descricao TEXT NOT NULL);"
+        "descricao TEXT NOT NULL)"
+      );
+      tx.executeSql(
+       "CREATE TABLE IF NOT EXISTS Carrinho (idCarrinho INTEGER PRIMARY KEY," +
+          "idCarrinho` INTEGER NOT NULL,"+
+          "idUsuario` INTEGER NOT NULL,"+
+          "precoTotal` DOUBLE NOT NULL,"+
+          "INDEX `FK_Carrinho_Usuario_idx` (`idUsuario` ASC) VISIBLE,"+
+          "CONSTRAINT `FK_Carrinho_Usuario`,"+
+          " FOREIGN KEY (idUsuario),"+
+          " REFERENCES Usuario (idUsuario),"+
+          " ON DELETE NO ACTION,"+
+          " ON UPDATE NO ACTION)"
+      );
+      tx.executeSql(
+        "CREATE TABLE IF NOT EXISTS Pedido (idPedido INTEGER PRIMARY KEY,"+
+          "idPedido INT NOT NULL,"+
+          "status  VARCHAR(10) NOT NULL,"+
+          "dataPedido DATE NOT NULL,"+
+          "idCliente INT NULL,"+
+          "idProdutor INT NULL,"+
+          "INDEX `FK_Pedido_Produtor_idx` (`idProdutor` ASC) VISIBLE,,"+
+          "CONSTRAINT `FK_Pedido_Produtor`,"+
+          "FOREIGN KEY (`idProdutor`),"+
+          "REFERENCES `Usuario` (`idUsuario`),"+
+          "ON DELETE NO ACTION,"+
+          " ON UPDATE NO ACTION,"+
+          "CONSTRAINT `FK_Pedido_Cliente`,"+
+          " FOREIGN KEY (idCliente),"+
+          " REFERENCES Usuario (idUsuario),"+
+          " ON DELETE NO ACTION,"+
+          " ON UPDATE NO ACTION)"
+      );
+      tx.executeSql(
+        "CREATE TABLE IF NOT EXISTS Item (idItem INTEGER PRIMARY KEY,"+
+          "idItem INT NOT NULL,"+
+          "idProduto INT NOT NULL,"+
+          "idPedido INT NOT NULL,"+
+          "idCarrinho INT NOT NULL,"+
+          "precoUnitario DOUBLE NOT NULL,"+
+          "qtdUnitario DOUBLE NOT NULL,"+
+          "INDEX `FK_Item_Produto_idx` (`idProduto` ASC) VISIBLE,"+
+          "INDEX `FK_Item_Pedido_idx` (`idPedido` ASC) VISIBLE,"+
+          "INDEX `FK_Item_Carrinho_idx` (`idCarrinho` ASC) VISIBLE,"+
+          "CONSTRAINT `FK_Item_Produto`,"+
+          " FOREIGN KEY (`idProduto`),"+
+          " REFERENCES `produto` (`idProduto`),"+
+          " ON DELETE NO ACTION,"+
+          " ON UPDATE NO ACTION,"+
+          "CONSTRAINT `FK_Item_Pedido`,"+
+          " FOREIGN KEY (idPedido),"+
+          " REFERENCES pedido (idPedido),"+
+          " ON DELETE NO ACTION,"+
+          " ON UPDATE NO ACTION,"+
+          "CONSTRAINT `FK_Item_Carrinho`,"+
+          " FOREIGN KEY (idCarrinho),"+
+          " REFERENCES carrinho (idCarrinho),"+
+          " ON DELETE NO ACTION,"+
+          " ON UPDATE NO ACTION)"
       );
     });
 
