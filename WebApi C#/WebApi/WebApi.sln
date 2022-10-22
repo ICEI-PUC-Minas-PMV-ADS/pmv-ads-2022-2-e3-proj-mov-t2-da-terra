@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiDaTerra", "WebApiDaTerra.csproj", "{F6A694BF-8ADA-4A93-8B40-9B517D2104CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6A694BF-8ADA-4A93-8B40-9B517D2104CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A694BF-8ADA-4A93-8B40-9B517D2104CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A694BF-8ADA-4A93-8B40-9B517D2104CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A694BF-8ADA-4A93-8B40-9B517D2104CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

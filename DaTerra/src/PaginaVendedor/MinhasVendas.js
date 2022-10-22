@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
  /* FlatList */
   viewFlatList: {
     flexDirection: 'row',
-    padding: 5,
+   // padding: 5,
   },  
   
   // Botões

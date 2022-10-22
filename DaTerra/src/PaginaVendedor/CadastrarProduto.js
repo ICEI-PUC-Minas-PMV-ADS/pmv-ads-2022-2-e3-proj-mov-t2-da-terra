@@ -16,7 +16,6 @@ import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
 import { insertProduto, updateProduto, deleteProduto } from "../DBService/DBProduto";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { cadastrarUsuario } from "../DBService/DBUsuario";
 
 const CadastarProduto = ({ route }) => {
 
@@ -42,10 +41,13 @@ const CadastarProduto = ({ route }) => {
   const [embalagem, setEmbalagem] = useState("KG")
   const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
 
+  // Faltando informação
+  const [missInfo, setMissInfo] = useState(false);
+
   // Verificando se tem dados na rota
   const { item } = route.params ? route.params : {};
 
-  // Para exibir dados quando clica no card do produto
+  // Para exibir dados quando clica no card do produto (editar)
   useEffect(() => {
     if (item) { // Se vier dados da rota
       setNome(item.nome);
@@ -58,31 +60,67 @@ const CadastarProduto = ({ route }) => {
     }
   }, [item]);
 
+  // if (!String.prototype.trim) {
+  //   String.prototype.trim = function () {
+  //     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+  //   };
+  // }
+
+  // Cadastrar produto e validar campos 
   const handleCadastro = () => {
-    // Metodo quem vem do provider produto,e do provider vem de fato o método de cadastrar do BD    
-    if (!item) {
-      insertProduto({ // TESTE OK
-        nome: nome.trim(),
-        preco: preco.trim(),
-        embalagem: embalagem.trim(),
-        estoque: estoque.trim(),
-        categoria: categoria.trim(),
-        descricao: descricao.trim(),
-      }).then()
-        .catch(console.log("ERRO CATCH INSERT"));
-    } else {
-      updateProduto({ // TESTE OK
-        nome: nome.trim(),
-        preco: preco.trim(),
-        embalagem: embalagem.trim(),
-        estoque: estoque.trim(),
-        categoria: categoriatrim(),
-        descricao: descricaotrim(),
-        id: item.id,
-      }).then()
-        .catch(console.log("ERRO CATCH UPDATE"));
-    }
-    navigation.goBack();
+
+      const url = "http://10.0.2.2:5111/api/produtos";
+    
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify({
+          nomeProduto: nome,
+          preco:preco,
+          embalagem: embalagem,
+          estoque:estoque,
+          categoria: categoria,
+          descricao: descricao,
+
+        }),
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
+    
+    
+
+    // if (!nome || !preco || !embalagem ||
+    //   !estoque || !categoria || !descricao) {
+    //   setMissInfo(true);  // Faltam dados
+    // } else {    
+    //   setMissInfo(false); // Seta FALSE, pois o usuário já preencheu o restante dos dados
+    //   if (!item) {       
+    //     insertProduto({ // TESTE OK
+    //       nome: nome.trim(),
+    //       preco: preco.trim(),
+    //       embalagem: embalagem,
+    //       estoque: estoque.trim(),
+    //       categoria: categoria,
+    //       descricao: descricao.trim(),
+    //     }).then()
+    //       .catch(console.log("ERRO CATCH INSERT"));
+    //   } else {
+    //     updateProduto({ // TESTE OK
+    //       nome: nome.trim(),
+    //       preco: preco.trim(),
+    //       embalagem: embalagem,
+    //       estoque: estoque.trim(),
+    //       categoria: categoria,
+    //       descricao: descricao.trim(),
+    //       id: item.id,
+    //     }).then()
+    //       .catch(console.log("ERRO CATCH UPDATE"));
+    //   }
+    //   navigation.goBack();
+    // }
+
   }
 
   const handleExcluir = () => { // TESTE OK
@@ -100,11 +138,13 @@ const CadastarProduto = ({ route }) => {
         />
         <Body>
           <ScrollView>
+
             {/* Nome do Produto */}
             <Text style={styles.textTitulos}>Nome</Text>
             <Input
               value={nome}
               activeOutlineColor={"#3d9d74"}
+              error={missInfo && !nome ? true : false}
               onChangeText={(text) => setNome(text)}
               left={<TextInput.Icon icon='sort-variant'
               />}
@@ -118,6 +158,7 @@ const CadastarProduto = ({ route }) => {
               multiline={true}
               numberOfLines={5}
               activeOutlineColor={"#3d9d74"}
+              error={missInfo && !descricao ? true : false}
               value={descricao}
               onChangeText={(text) => setDescricao(text)}
               left={<TextInput.Icon icon='card-text-outline' />}
@@ -131,6 +172,7 @@ const CadastarProduto = ({ route }) => {
                 keyboardType='decimal-pad'
                 value={estoque}
                 activeUnderlineColor={"#3d9d74"}
+                error={missInfo && !estoque ? true : false}
                 onChangeText={(text) => setEstoque(text)}
                 left={<TextInput.Icon icon='archive-outline' />}
               />
@@ -257,6 +299,7 @@ const CadastarProduto = ({ route }) => {
                 keyboardType='decimal-pad'
                 value={preco}
                 activeUnderlineColor={"#3d9d74"}
+                error={missInfo && !preco ? true : false}
                 onChangeText={(text) => setPreco(text)}
                 left={<TextInput.Icon icon='currency-brl' />}
               ></TextInput>

@@ -6,7 +6,7 @@ import { useNavigation,useRoute} from "@react-navigation/native";
 import { getProdutos, getSearchProduto } from "../DBService/DBProduto";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
-
+import axios from "axios";
 import ProdutoProvider from "../contexts/ProdutoProvider";
 
 const BuscarProdutos = () => {
@@ -40,11 +40,8 @@ const [resultados, setResultados] = useState([]);
   // }, []);
 
   
-  useEffect(()=>{
-    getSearchProduto(searchQuery).then((prod)=>{   
-        setResultados(prod)  
-    })
-  },[searchQuery])
+  
+    
   
   const onChangeSearch = (query) => {
     setSearchQuery(query);  
@@ -96,6 +93,7 @@ const [resultados, setResultados] = useState([]);
   );
 };
 
+
 const styles = StyleSheet.create({
   searchBar: {
     // Estilizar
@@ -109,5 +107,4 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
-
 export default BuscarProdutos;

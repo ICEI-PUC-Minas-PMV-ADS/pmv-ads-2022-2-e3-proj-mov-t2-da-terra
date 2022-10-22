@@ -26,20 +26,28 @@ const Loja = () => {
   const { user, setUser } = useContext(AuthContext)
   const [produto, setProduto] = useState([]);
   const isFocused = useIsFocused();
-  //const[loja,setLoja]=useState([])
-
+  
   // ALTERADO PARA TESTES - falta setar
   useEffect(() => {
-    getProdutos().then(dados => {
-      // console.log(dados);
-      // setLoja[produtos[0]]
-      setProduto(dados);
-    }).catch(error => console.log(error))
+    const url = "http://10.0.2.2:5111/api/produtos";
+    
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify({
+          nomeProduto: nome,
+          preco:preco,
+          embalagem: embalagem,
+          estoque:estoque,
+          categoria: categoria,
+          descricao: descricao,
 
-    // ERRO DE PROMISSE
-    // getUsuario(3).then((usuario)=>{
-    //   setUser(usuario[0])//Aqui seta para o user o array encontrado de acordo com o id passado,
-    //  console.log(user.email)//teste da variável user OK
+        }),
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
   }, [isFocused]);
 
   const renderItem = ({ item }) => (
@@ -53,7 +61,7 @@ const Loja = () => {
               style={styles.img}
               source={require("../assets/maracuja.jpg")} />}
           right={() =>
-            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco}</Text>
+            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)}</Text>
           }
           description={`Estoque: ${item.estoque} ${item.embalagem}`}
         />

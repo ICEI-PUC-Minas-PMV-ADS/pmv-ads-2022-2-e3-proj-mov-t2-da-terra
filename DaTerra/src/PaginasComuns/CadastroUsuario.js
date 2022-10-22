@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 
 import { fetch } from "react-native/Libraries/Network/fetch";
@@ -24,12 +25,9 @@ import Header from "../Componentes/Header";
 //import { inserirPessoa } from "../DBService/DBQuery";
 import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
 
-
-/* CEP PARA TESTE 01311-000 */
-
 const CadastroUsuario = ({ navigation, route }) => {
 
-  // Esconde Senha e Avisos
+  // Esconde Senha, Avisos e Falta Info
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [user, setUser] = useState([]);
   const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true);
@@ -43,52 +41,25 @@ const CadastroUsuario = ({ navigation, route }) => {
 
   // Dados Pessoais dos Usuário
   const [nome, setNome] = useState("");
-  const [avisoNome, setAvisoNome] = useState("Digite seu nome completo");
   const [cpf, setCpf] = useState("");
-  const [avisoCpf, setAvisoCpf] = useState("CPF Incompleto");
   const [telefone, setTelefone] = useState("");
-  const [avisoTelefone, setAvisoTelefone] = useState(
-    "Digite o nome do seu telefone"
-  );
 
   // Endereço do Usuário
-  const [rua, setRua] = useState("");
-  const [avisoRua, setAvisoRua] = useState("Digite o nome da sua rua");
-  const [bairro, setBairro] = useState("");
-  const [avisoBairro, setAvisoBairro] = useState(
-    "Informe o nome do seu bairro"
-  );
-  const [numeroCasa, setNumeroCasa] = useState("");
-  const [avisoNumeroCasa, setAvisoNumeroCasa] = useState("Informe o numero da sua casa");
-  const [cep, setCep] = useState("");
-  const [avisoCep, setAvisoCep] = useState("CEP inválido");
-  const [cidade, setCidade] = useState("");
-  const [avisoCidade, setAvisoCidade] = useState(
-    "Você precisa informar o nome da sua cidade"
-  );
-  const [uf, setUf] = useState("");
-  const [avisoUf, setAvisoUf] = useState("Informe a sua unidade federativa");
-  const [complemento, setComplemento] = useState("");
-  const [avisoComplemento, setAvisoComplemento] = useState(
-    "Digite um complemento para o seu endereço"
-  );
+  const [rua, setRua] = useState("");  
+  const [bairro, setBairro] = useState(""); 
+  const [numeroCasa, setNumeroCasa] = useState("");  
+  const [cep, setCep] = useState("");  
+  const [cidade, setCidade] = useState("");  
+  const [uf, setUf] = useState("");  
+  const [complemento, setComplemento] = useState("");  
 
   // Tipo de Usuário
   const [tipoUsuario, setTipoUsuario] = useState("cliente"); // Cliente Default
-  const [email, setEmail] = useState("");
-  const [avisoEmail, setAvisoEmail] = useState(
-    "Você precisa informar seu email"
-  );
+  const [email, setEmail] = useState("");  
 
   // Senha
-  const [senha, setSenha] = useState("");
-  const [avisoSenha, setAvisoSenha] = useState(
-    "Você precisa informar um senha válida"
-  );
-  const [confirmarSenha, setConfirmarSenha] = useState("");
-  const [avisoConfirmarSenha, setAvisoConfirmarSenha] = useState(
-    "As senhas estão diferentes,por favor verifique"
-  );
+  const [senha, setSenha] = useState("");  
+  const [confirmarSenha, setConfirmarSenha] = useState(""); 
 
   const [dataCadastro, setDataCadastro] = useState(); // Somento DB
 
@@ -96,34 +67,34 @@ const CadastroUsuario = ({ navigation, route }) => {
     DataBase.getConnection();
   }, []);
 
-  
-  // Cadastrar Usuário e fazer validação de Dados
+  // Cadastrar Usuário, Validação de Dados e senha
   const handleCadastrar = () => {
-    //Verifica se alguma informação esta incompleta ou errada,se sim seta na variável missInfo para poder mostrar nos campos qual informação esta faltando
-    if (
-      nome == "" ||
-      cpf == "" ||
+    // Verificar se tem algo incompleto no formulário
+    if (!nome ||
+      !cpf ||
       cpf.length < 11 ||
-      email == "" ||
-      telefone == "" ||
-      rua == "" ||
-      bairro == "" ||
-      numeroCasa == "" ||
-      cep == "" ||
+      !email ||
+      !telefone ||
+      !rua ||
+      !bairro ||
+      !numeroCasa ||
+      !cidade ||
+      !uf ||
+      !cep ||
       cep.length < 8 ||
-      senha == "" ||
-      confirmarSenha == "" ||
-      confirmarSenha != senha ||
-      cidade == "" ||
-      uf == ""
+      !senha ||
+      !confirmarSenha
     ) {
-      setMissInfo(true);//Tem informação errada/faltando
+      setMissInfo(true);  // Falta Informação
+      if (senha != confirmarSenha) {
+        Alert.alert("Confirmação de senha incorreta, verifique")
+      }
     } else {
-      // Vai chamar o metodo do banco para verificar se o usuário já esta cadastrado
-      setMissInfo(false);//Seta a varíavel que indica que esta faltando informação para false para,caso anteriormente tenha faltando info,o não impedir posteriormente de o usuário cadastrar com todas as informações corretamente
+      //Indica que falta informação,caso anteriormente tenha faltado info, não impede posteriormente de o usuário cadastrar com todas as informações corretamente
+      setMissInfo(false); 
+      // Se retornar undefined, então segue o fluxo e seta os valores para cadastrar o usuário
       getCadastrado(email).then((usuario) => {
-        setUser(usuario[0]);
-        //Caso o valor retornado do banco seja do tipo undefined significa que não possui nenhum usuario com o email digitado,assim prosseguira com o cadastro do usuário
+        setUser(usuario[0]);        
         if (typeof (usuario[0]) == "undefined") {
           insertUsuario({
             nome: nome.trim(),
@@ -143,9 +114,10 @@ const CadastroUsuario = ({ navigation, route }) => {
           })
             .then()
             .catch();
+          console.log('Entrou')
           navigation.navigate("Login");
         }
-        //Se o valor retornado do banco não for undefined significa que o o email já e cadastrado,assim seta a variável abaixo para
+        //Se o valor retornado do banco não for undefined significa que o o email já e cadastrado, assim seta a variável abaixo para
         else {
           setUserAlredyRegister(true);
         }
@@ -204,7 +176,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           {/* Logo */}
           <Image
             style={styles.logo}
-            source={require("../assets/DATERRA-COMPLETO-800X1050.png")}
+            source={require("../assets/DATERRA-LOGO-800X797.png")}
           />
 
           {/* RadioButton Cliente ou Produtor */}
@@ -234,14 +206,13 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="Nome"
             onChangeText={setNome}
             value={nome}
-          //error={nome == '' ? true : false}
+            error={missInfo && !nome ? true : false}
+            activeOutlineColor={"#3d9d74"}
           />
-          {nome == "" && missInfo && (
-            <Text style={styles.aviso}>{avisoNome}</Text>
-          )}
 
           {/* CPF / Data */}
           <View style={{ flexDirection: 'row' }}>
+            {/* CPF */}
             <TextInput
               style={styles.textInput}
               label="CPF"
@@ -250,13 +221,9 @@ const CadastroUsuario = ({ navigation, route }) => {
               onChangeText={setCpf}
               keyboardType="decimal-pad"
               value={cpf}
+              error={missInfo && !cpf ? true : false}
+              activeOutlineColor={"#3d9d74"}
             />
-            {(cpf == "" ||
-              cpf.length < 11) && missInfo && (
-                <View>
-                  <Text style={styles.aviso}>{avisoCpf}</Text>
-                </View>
-              )}
 
             {/* Data: Início Configuração DATE*/}
             {
@@ -282,7 +249,7 @@ const CadastroUsuario = ({ navigation, route }) => {
                 mode="outlined"
                 value={data}
                 left={<TextInput.Icon icon="calendar" />}
-                editable={false}
+                editable={false}                
               />
             </TouchableOpacity>
             {/* Fim configuração DATE*/}
@@ -293,13 +260,13 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="Email"
             onChangeText={setEmail}
             value={email}
+            error={missInfo && !email ? true : false}
+            activeOutlineColor={"#3d9d74"}
           />
-          {email == "" && missInfo && (
-            <Text style={styles.aviso}>{avisoEmail}</Text>
-          )}
 
-          {/* Telefone */}
+          {/* Telefone / CEP */}
           <View style={{ flexDirection: 'row' }}>
+            {/* Telefone */}
             <TextInput
               style={styles.textInput}
               mode='outlined'
@@ -307,11 +274,10 @@ const CadastroUsuario = ({ navigation, route }) => {
               keyboardType="decimal-pad"
               onChangeText={setTelefone}
               value={telefone}
+              error={missInfo && !telefone ? true : false}
+              activeOutlineColor={"#3d9d74"}
             />
-            {telefone == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoTelefone}</Text>
-            )}
-
+            {/* CEP */}
             <TextInput
               style={styles.textInput}
               mode='outlined'
@@ -319,11 +285,9 @@ const CadastroUsuario = ({ navigation, route }) => {
               keyboardType="decimal-pad"
               onChangeText={setCep}
               value={cep}
+              error={missInfo && !cep ? true : false}
+              activeOutlineColor={"#3d9d74"}
             />
-            {(cep == "" ||
-              cep.length < 8) && missInfo && (
-                <Text style={styles.aviso}>{avisoCep}</Text>
-              )}
           </View>
 
           {/* Rua / Número Casa */}
@@ -333,10 +297,10 @@ const CadastroUsuario = ({ navigation, route }) => {
               style={styleCompose}
               mode='outlined'
               label="Rua"
-              onChangeText={setRua} value={rua} />
-            {rua == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoRua}</Text>
-            )}
+              error={missInfo && !rua ? true : false}
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setRua}
+              value={rua} />
 
             {/* Número Casa */}
             <TextInput
@@ -344,11 +308,11 @@ const CadastroUsuario = ({ navigation, route }) => {
               mode='outlined'
               label="Nº"
               keyboardType="decimal-pad"
+              error={missInfo && !numeroCasa ? true : false}
+              activeOutlineColor={"#3d9d74"}
+              value={numeroCasa}
               onChangeText={setNumeroCasa}
             />
-            {numeroCasa == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoNumeroCasa}</Text>
-            )}
           </View>
 
           {/* Bairro / Complemento */}
@@ -358,22 +322,20 @@ const CadastroUsuario = ({ navigation, route }) => {
               style={styleCompose}
               mode='outlined'
               label="Bairro"
-              onChangeText={setBairro} value={bairro} />
-            {bairro == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoBairro}</Text>
-            )}
+              error={missInfo && !bairro ? true : false}
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setBairro}
+              value={bairro} />
 
             {/* Complemento */}
             <TextInput
               style={styles.textInput}
               label={'Apt'}
               mode='outlined'
+              activeOutlineColor={"#3d9d74"}
               onChangeText={setComplemento}
               value={complemento}
             />
-            {/* {complemento == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoComplemento}</Text>
-            )} */}
           </View>
 
           {/* Cidade / UF */}
@@ -383,10 +345,9 @@ const CadastroUsuario = ({ navigation, route }) => {
               style={styleCompose}
               mode='outlined'
               label={'Cidade'}
+              error={missInfo && !cidade ? true : false}
+              activeOutlineColor={"#3d9d74"}
               onChangeText={setCidade} value={cidade} />
-            {cidade == "" && missInfo && (
-              <Text style={styles.aviso}>{avisoCidade}</Text>
-            )}
 
             {/* UF */}
             <TextInput
@@ -394,8 +355,9 @@ const CadastroUsuario = ({ navigation, route }) => {
               mode='outlined'
               label="UF"
               value={uf}
+              error={missInfo && !uf ? true : false}
+              activeOutlineColor={"#3d9d74"}
               onChangeText={setUf} />
-            {uf == "" && missInfo && <Text style={styles.aviso}>{avisoUf}</Text>}
           </View>
 
           {/* Senha */}
@@ -403,6 +365,8 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="Senha"
             value={senha}
             secureTextEntry={escondeSenha}
+            error={missInfo && !senha ? true : false}
+            activeOutlineColor={"#3d9d74"}
             right={
               <TextInput.Icon
                 onPress={() =>
@@ -415,15 +379,14 @@ const CadastroUsuario = ({ navigation, route }) => {
             }
             onChangeText={setSenha}
           />
-          {senha == "" && missInfo && (
-            <Text style={styles.aviso}>{avisoSenha}</Text>
-          )}
 
           {/* Confirmar Senha */}
           <Input
             label="Confirmar Senha"
             value={confirmarSenha}
             secureTextEntry={escondeConfirmarSenha}
+            error={missInfo && !confirmarSenha ? true : false}
+            activeOutlineColor={"#3d9d74"}
             right={
               <TextInput.Icon
                 onPress={() =>
@@ -436,11 +399,8 @@ const CadastroUsuario = ({ navigation, route }) => {
             }
             onChangeText={setConfirmarSenha}
           />
-          {(confirmarSenha == "" ||
-            confirmarSenha != senha) && missInfo && (
-              <Text style={styles.aviso}>{avisoConfirmarSenha}</Text>
-            )}
-          {/* {trySignIn && <Text style={styles.aviso}>Usuario já cadastrado</Text>} */}
+         
+          {/* Verifica se email já tem cadastro */}
           {userAlredyRegister && (
             <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>
           )}
@@ -461,12 +421,11 @@ const CadastroUsuario = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
- 
   // Logo
   logo: {
     marginTop: 10,
-    height: 190,
-    width: 145,
+    height: 80,
+    width: 80,
     padding: 10,
     marginBottom: 30,
     alignSelf: "center",
@@ -502,7 +461,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-// Botão
+  // Botão
   viewBotaoCadastrar: {
     marginVertical: 30,
   },
