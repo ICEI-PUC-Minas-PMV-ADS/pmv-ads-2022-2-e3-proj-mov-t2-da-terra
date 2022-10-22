@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Button, Text, ScrollView, TouchableOpacity, Image, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 
 import { fetch } from "react-native/Libraries/Network/fetch";
-import { RadioButton, Appbar, TextInput } from "react-native-paper";
+import { RadioButton, Appbar, TextInput, } from "react-native-paper";
 
-import DateTimePicker from '@react-native-community/datetimepicker';
-import moment from 'moment';
+import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
 
 import Body from "../Componentes/Body";
 import Botao from "../Componentes/Botao";
@@ -15,74 +23,116 @@ import Input from "../Componentes/Input";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 //import { inserirPessoa } from "../DBService/DBQuery";
-
-
-const larguraTela = Dimensions.get('screen').width
+import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
 
 const CadastroUsuario = ({ navigation, route }) => {
-  const [escondeSenha, setEscondeSenha] = useState(true)
-  const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true)
+
+  // Esconde Senha, Avisos e Falta Info
+  const [escondeSenha, setEscondeSenha] = useState(true);
+  const [user, setUser] = useState([]);
+  const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true);
+  const [missInfo, setMissInfo] = useState(false);
+  const [userAlredyRegister, setUserAlredyRegister] = useState(false);
 
   // Configurar DATE
-  const [data, setData] = useState(moment(new Date()).format('DD/MM/YYYY'));
+  const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date());
 
-  const [nome, setNome] = useState();
-  const [cpf, setCpf] = useState();
-  const [telefone, setTelefone] = useState();
-  const [rua, setRua] = useState();
-  const [bairro, setBairro] = useState();
-  const [numeroCasa, setNumeroCasa] = useState();
-  const [cep, setCep] = useState();
-  const [cidade, setCidade] = useState();
-  const [uf, setUf] = useState();
-  const [complemento, setComplemento] = useState(null);
-  const [tipoUsuario, setTipoUsuario] = useState('cliente');  // Cliente Default
-  const [email, setEmail] = useState();
-  const [senha, setSenha] = useState();
-  const [confirmarSenha, setConfirmarSenha] = useState(); // Tempo de execução
-  const [dataCadastro, setDataCadastro] = useState();   // Somento DB
+  // Dados Pessoais dos Usuário
+  const [nome, setNome] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [telefone, setTelefone] = useState("");
 
-  const handleSalvar = () => (
-    // Aqui vai chamar o banco para salvar o
-    console.log("Salvar")
-  )
+  // Endereço do Usuário
+  const [rua, setRua] = useState("");  
+  const [bairro, setBairro] = useState(""); 
+  const [numeroCasa, setNumeroCasa] = useState("");  
+  const [cep, setCep] = useState("");  
+  const [cidade, setCidade] = useState("");  
+  const [uf, setUf] = useState("");  
+  const [complemento, setComplemento] = useState("");  
+
+  // Tipo de Usuário
+  const [tipoUsuario, setTipoUsuario] = useState("cliente"); // Cliente Default
+  const [email, setEmail] = useState("");  
+
+  // Senha
+  const [senha, setSenha] = useState("");  
+  const [confirmarSenha, setConfirmarSenha] = useState(""); 
+
+  const [dataCadastro, setDataCadastro] = useState(); // Somento DB
 
   useEffect(() => {
     DataBase.getConnection();
   }, []);
 
-  const cadastrarUsuario = async () => {
-    const pessoa = {
-      nome: nome,
-      dataNascimento: dataNascimento,
-      cpf: cpf,
-      telefone: telefone,
-      rua: rua,
-      bairro: bairro,
-      numeroCasa: numeroCasa,
-      cep: cep,
-      cidade: cidade,
-      uf: uf,
-      complemento: complemento,
-      tipoUsuario: tipoUsuario,
-      email: email,
-      senha: senha,
-      dataCadastro: dataCadastro,
-    };
-    alert("Cadastro: " + pessoa.senha);  // TESTE OBJETO OK
-    await inserirPessoa(pessoa).then().catch();
+  // Cadastrar Usuário, Validação de Dados e senha
+  const handleCadastrar = () => {
+    // Verificar se tem algo incompleto no formulário
+    if (!nome ||
+      !cpf ||
+      cpf.length < 11 ||
+      !email ||
+      !telefone ||
+      !rua ||
+      !bairro ||
+      !numeroCasa ||
+      !cidade ||
+      !uf ||
+      !cep ||
+      cep.length < 8 ||
+      !senha ||
+      !confirmarSenha
+    ) {
+      setMissInfo(true);  // Falta Informação
+      if (senha != confirmarSenha) {
+        Alert.alert("Confirmação de senha incorreta, verifique")
+      }
+    } else {
+      //Indica que falta informação,caso anteriormente tenha faltado info, não impede posteriormente de o usuário cadastrar com todas as informações corretamente
+      setMissInfo(false); 
+      // Se retornar undefined, então segue o fluxo e seta os valores para cadastrar o usuário
+      getCadastrado(email).then((usuario) => {
+        setUser(usuario[0]);        
+        if (typeof (usuario[0]) == "undefined") {
+          insertUsuario({
+            nome: nome.trim(),
+            dtNascimento: data,
+            cpf: cpf.trim(),
+            telefone: telefone.trim(),
+            rua: rua.trim(),
+            bairro: bairro.trim(),
+            numCasa: numeroCasa.trim(),
+            cep: cep.trim(),
+            cidade: cidade.trim(),
+            uf: uf.trim(),
+            complemento: complemento.trim(),
+            email: email.trim(),
+            senha: senha.trim(),
+            tipoUsuario: tipoUsuario,
+          })
+            .then()
+            .catch();
+          console.log('Entrou')
+          navigation.navigate("Login");
+        }
+        //Se o valor retornado do banco não for undefined significa que o o email já e cadastrado, assim seta a variável abaixo para
+        else {
+          setUserAlredyRegister(true);
+        }
+      });
+    }
+  };
 
-    //navigation.navigate('Lista');
-  }
+  // API: Buscar o Cep
   useEffect(() => {
-    buscarEndereco()
-  },
-    [cep])
+    buscarEndereco();
+  }, [cep]);
 
+  // API: Buscar o Cep
   const buscarEndereco = () => {
-    const Cep = (e => {
+    const Cep = (e) => {
       if (String(cep).length == 8) {
         const meuCep = String(cep);
 
@@ -90,180 +140,363 @@ const CadastroUsuario = ({ navigation, route }) => {
         const url = `https://viacep.com.br/ws/${value}/json/`;
 
         fetch(url)
-          .then(response => response.json())
-          .then(json => {
-
+          .then((response) => response.json())
+          .then((json) => {
             if (json.logradouro) {
-              setBairro(json.bairro)
-              setCidade(json.localidade)
-              setRua((json.logradouro))
+              setBairro(json.bairro);
+              setCidade(json.localidade);
+              setRua(json.logradouro);
+              setUf(json.uf)
             }
           });
       }
-    });
+    };
     Cep();
-  }
+  };
 
   return (
     <Container>
       <Header
-        title={'Cadastro'}
-        goBack={() => navigation.goBack()} // Só se houver tela empilhada        
+        title={"Cadastro"}
+        goBack={() => navigation.goBack()} // Só se houver tela empilhada
       >
-        <Appbar.Action icon='check' onPress={() => handleSalvar()} />
+        <Appbar.Action
+          style={{ marginRight: 10 }}
+          icon="check"
+          // icon={() => (
+          //   <Image
+          //     source={require('../assets/DATERRA-NOME-800X162.png')}
+          //     style={{ width: 20, height: 20, tintColor: 'white' }}
+          //   />
+          // )}        
+          onPress={() => handleCadastrar()} />
       </Header>
       <Body>
         <ScrollView>
+          {/* Logo */}
           <Image
             style={styles.logo}
-            source={require('../assets/DATERRA-COMPLETO-800X1050.png')}
+            source={require("../assets/DATERRA-LOGO-800X797.png")}
           />
+
+          {/* RadioButton Cliente ou Produtor */}
           <View style={styles.radioContainer}>
             <View style={styles.radioItem}>
               <RadioButton
+                color={'#3d9d74'}
                 value="cliente"
-                status={tipoUsuario === 'cliente' ? 'checked' : 'unchecked'}
-                onPress={() => setTipoUsuario('Cliente')}
+                status={tipoUsuario === "cliente" ? "checked" : "unchecked"}
+                onPress={() => setTipoUsuario("cliente")}
               />
-              <Text>Cliente</Text>
+              <Text style={{ fontSize: 18 }}>Cliente</Text>
             </View>
             <View style={styles.radioItem}>
               <RadioButton
+                color={'#3d9d74'}
                 value="produtor"
-                status={tipoUsuario === 'produtor' ? 'checked' : 'unchecked'}
-                onPress={() => setTipoUsuario('Produtor')}
+                status={tipoUsuario === "produtor" ? "checked" : "unchecked"}
+                onPress={() => setTipoUsuario("produtor")}
               />
-              <Text>Produtor</Text>
+              <Text style={{ fontSize: 18 }}>Produtor</Text>
             </View>
           </View>
 
-          <Input label="Nome" onChangeText={setNome} />
+          {/* Nome */}
+          <Input
+            label="Nome"
+            onChangeText={setNome}
+            value={nome}
+            error={missInfo && !nome ? true : false}
+            activeOutlineColor={"#3d9d74"}
+          />
 
-          <View style={
-            {
-              // flexDirection: 'row',
-              // alignSelf: 'stretch',
-              // flexGrow: 1,              
-              // backgroundColor: "#000"
-            }
-          }>
-            <Input
-              //style={{ flexBasis: 10, flexGrow: 1}}
+          {/* CPF / Data */}
+          <View style={{ flexDirection: 'row' }}>
+            {/* CPF */}
+            <TextInput
+              style={styles.textInput}
               label="CPF"
+              mode='outlined'
+              maxLength={11}
               onChangeText={setCpf}
-              keyboardType='decimal-pad'
+              keyboardType="decimal-pad"
+              value={cpf}
+              error={missInfo && !cpf ? true : false}
+              activeOutlineColor={"#3d9d74"}
             />
 
-            { // Início Configuração DATE
+            {/* Data: Início Configuração DATE*/}
+            {
               show && (
                 <DateTimePicker
                   testID="dateTimePicker"
                   value={date}
-                  mode={'date'}
+                  mode={"date"}
                   is24Hour={true}
-                  display='default'
+                  display="default"
                   onTouchCancel={() => setShow(false)} // Para fechar
                   onChange={(event, date) => {
                     setShow(false);
-                    setData(moment(date).format('DD/MM/YYYY'));
+                    setData(moment(date).format("DD/MM/YYYY"));
                   }}
                 />
-              )}
+              )
+            }
             <TouchableOpacity onPress={() => setShow(true)}>
-              <Input
-                label='Data Nascimento'
+              <TextInput
+                style={styles.textInput}
+                label="Data Nascimento"
+                mode="outlined"
                 value={data}
-                left={<TextInput.Icon icon='calendar' />}
-                editable={false}
+                left={<TextInput.Icon icon="calendar" />}
+                editable={false}                
               />
             </TouchableOpacity>
             {/* Fim configuração DATE*/}
           </View>
-          <Input
-            label="Telefone"
-            keyboardType='decimal-pad'
-            onChangeText={setTelefone}
-          />
+
+          {/* Email */}
           <Input
             label="Email"
             onChangeText={setEmail}
+            value={email}
+            error={missInfo && !email ? true : false}
+            activeOutlineColor={"#3d9d74"}
           />
+
+          {/* Telefone / CEP */}
+          <View style={{ flexDirection: 'row' }}>
+            {/* Telefone */}
+            <TextInput
+              style={styles.textInput}
+              mode='outlined'
+              label="Telefone"
+              keyboardType="decimal-pad"
+              onChangeText={setTelefone}
+              value={telefone}
+              error={missInfo && !telefone ? true : false}
+              activeOutlineColor={"#3d9d74"}
+            />
+            {/* CEP */}
+            <TextInput
+              style={styles.textInput}
+              mode='outlined'
+              label="CEP"
+              keyboardType="decimal-pad"
+              onChangeText={setCep}
+              value={cep}
+              error={missInfo && !cep ? true : false}
+              activeOutlineColor={"#3d9d74"}
+            />
+          </View>
+
+          {/* Rua / Número Casa */}
+          <View style={{ flexDirection: 'row' }}>
+            {/* Rua */}
+            <TextInput
+              style={styleCompose}
+              mode='outlined'
+              label="Rua"
+              error={missInfo && !rua ? true : false}
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setRua}
+              value={rua} />
+
+            {/* Número Casa */}
+            <TextInput
+              style={styles.textInput}
+              mode='outlined'
+              label="Nº"
+              keyboardType="decimal-pad"
+              error={missInfo && !numeroCasa ? true : false}
+              activeOutlineColor={"#3d9d74"}
+              value={numeroCasa}
+              onChangeText={setNumeroCasa}
+            />
+          </View>
+
+          {/* Bairro / Complemento */}
+          <View style={{ flexDirection: 'row' }}>
+            {/* Bairro */}
+            <TextInput
+              style={styleCompose}
+              mode='outlined'
+              label="Bairro"
+              error={missInfo && !bairro ? true : false}
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setBairro}
+              value={bairro} />
+
+            {/* Complemento */}
+            <TextInput
+              style={styles.textInput}
+              label={'Apt'}
+              mode='outlined'
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setComplemento}
+              value={complemento}
+            />
+          </View>
+
+          {/* Cidade / UF */}
+          <View style={{ flexDirection: 'row' }}>
+            {/* Cidade */}
+            <TextInput
+              style={styleCompose}
+              mode='outlined'
+              label={'Cidade'}
+              error={missInfo && !cidade ? true : false}
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setCidade} value={cidade} />
+
+            {/* UF */}
+            <TextInput
+              style={styles.textInput}
+              mode='outlined'
+              label="UF"
+              value={uf}
+              error={missInfo && !uf ? true : false}
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setUf} />
+          </View>
+
+          {/* Senha */}
           <Input
-            label="CEP"
-            keyboardType='decimal-pad'
-            onChangeText={setCep}
-            value={cep}
+            label="Senha"
+            value={senha}
+            secureTextEntry={escondeSenha}
+            error={missInfo && !senha ? true : false}
+            activeOutlineColor={"#3d9d74"}
+            right={
+              <TextInput.Icon
+                onPress={() =>
+                  escondeSenha
+                    ? setEscondeSenha(false)
+                    : setEscondeSenha(true)
+                }
+                icon={escondeSenha ? 'eye-off' : 'eye'}
+              />
+            }
+            onChangeText={setSenha}
           />
-          <Input label="Rua" onChangeText={setRua} value={rua} />
-          <Input label="Bairro" onChangeText={setBairro} value={bairro} />
+
+          {/* Confirmar Senha */}
           <Input
-            label="Nº"
-            keyboardType='decimal-pad'
-            onChangeText={setNumeroCasa}
+            label="Confirmar Senha"
+            value={confirmarSenha}
+            secureTextEntry={escondeConfirmarSenha}
+            error={missInfo && !confirmarSenha ? true : false}
+            activeOutlineColor={"#3d9d74"}
+            right={
+              <TextInput.Icon
+                onPress={() =>
+                  escondeConfirmarSenha
+                    ? setEscondeConfirmarSenha(false)
+                    : setEscondeConfirmarSenha(true)
+                }
+                icon={escondeConfirmarSenha ? 'eye-off' : 'eye'}
+              />
+            }
+            onChangeText={setConfirmarSenha}
           />
-          <Input label="Cidade" onChangeText={setCidade} value={cidade} />
-          <Input label="UF" onChangeText={setUf} />
-          <Input label="Complemento" onChangeText={setComplemento} />
+         
+          {/* Verifica se email já tem cadastro */}
+          {userAlredyRegister && (
+            <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>
+          )}
 
-          <Input label="Senha" secureTextEntry={escondeSenha}
-            right={<TextInput.Icon onPress={() =>
-              escondeSenha ?
-                setEscondeSenha(false) : setEscondeSenha(true)} 
-                icon="eye" />} onChangeText={setSenha} />
-
-          <Input label="Confirmar Senha" secureTextEntry={true} right={<TextInput.Icon onPress={() =>
-            escondeConfirmarSenha ?
-              setEscondeConfirmarSenha(false) : setEscondeConfirmarSenha(true)} icon="eye" />} onChangeText={setConfirmarSenha} />
-
-          <Botao
-            style={styles.textoBotao}
-            textoBotao='Cadastrar'
-            mode='outlined'
-            onPress={cadastrarUsuario}
-
-          />
+          {/* Botão Cadastrar */}
+          <View style={styles.viewBotaoCadastrar}>
+            <Botao
+              style={styles.textoBotao}
+              textoBotao="Cadastrar"
+              buttonColor='#3d9d74'
+              onPress={handleCadastrar}
+            />
+          </View>
         </ScrollView>
       </Body>
-    </Container>
+    </Container >
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 8,
+  // Logo
+  logo: {
+    marginTop: 10,
+    height: 80,
+    width: 80,
+    padding: 10,
+    marginBottom: 30,
+    alignSelf: "center",
   },
+
+  // Inputs e TextInputs
   containerInput: {
     marginVertical: 40,
   },
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 5,
     marginHorizontal: 10,
     marginTop: 5,
   },
+  textInput: {
+    height: 48,
+    fontSize: 16,
+    backgroundColor: "#FFFAFA",
+    margin: 3,
+    flexGrow: 1,
+    flexShrink: 1,
+  },
+
+  // RadioButton
   radioContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
   },
   radioItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  // Botão
+  viewBotaoCadastrar: {
+    marginVertical: 30,
   },
   textoBotao: {
     textAlign: "center",
-    fontSize: 20,
-    color: "white"
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFF',
   },
-  logo: {
-    height: 190,
-    width: 145,
-    padding: 10,
-    marginBottom: 30,
-    alignSelf: 'center'
+
+  // Text Aviso de info incompletas
+  aviso: {
+    marginTop: 5,
+    marginLeft: 8,
+    marginBottom: 10,
+    color: "red",
+    fontWeight: "bold",
+  },
+  avisoUserAlredyRegister: {
+    marginTop: 12,
+    marginLeft: 8,
+    marginBottom: 10,
+    color: "red",
+    fontStyle: "italic",
+    fontWeight: "bold",
   },
 });
 
+// Estilos (e compose) para os TextInputs 'especiais'
+const styles2 = StyleSheet.create({
+  textInputEspecial: {
+    flexBasis: 240,
+  }
+});
+
+const styleCompose = StyleSheet.compose(styles.textInput, styles2.textInputEspecial)
 
 export default CadastroUsuario;

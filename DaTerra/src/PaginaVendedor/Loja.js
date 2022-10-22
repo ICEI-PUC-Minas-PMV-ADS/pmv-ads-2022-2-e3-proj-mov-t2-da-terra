@@ -1,217 +1,114 @@
-import React, { useContext, useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, Image ,ScrollView} from "react-native";
+import React, { useContext, useState, useEffect } from "react";
 import {
-  TextInput,
-  Portal,
-  Dialog,
-  Button,
-  Provider,
-  RadioButton,
-  FAB,
-} from "react-native-paper";
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  Text,
+} from "react-native";
+
+import { FAB, List } from "react-native-paper";
 
 import Body from "../Componentes/Body";
-import Botao from "../Componentes/Botao";
 import Container from "../Componentes/Container";
-import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
 
 import { AuthContext } from "../contexts/AuthProvider";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { getProdutos } from "../DBService/DBProduto";
+import { getUsuario } from "../DBService/DBUsuario";
 
 const Loja = () => {
+
   const navigation = useNavigation();
-  const { usuario } = useContext(AuthContext);
+  //Provider com as informações do usuário logado  
+  const { user, setUser } = useContext(AuthContext)
+  const [produto, setProduto] = useState([]);
+  const isFocused = useIsFocused();
+  
+  // ALTERADO PARA TESTES - falta setar
+  useEffect(() => {
+    const url = "http://10.0.2.2:5111/api/produtos";
+    
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify({
+          nomeProduto: nome,
+          preco:preco,
+          embalagem: embalagem,
+          estoque:estoque,
+          categoria: categoria,
+          descricao: descricao,
+
+        }),
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
+  }, [isFocused]);
+
+  const renderItem = ({ item }) => (
+    <View style={styles.containerProdutos}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("CadastrarProduto", { item })}>
+        <List.Item
+          title={`${item.nome}`}
+          left={() =>
+            <Image
+              style={styles.img}
+              source={require("../assets/maracuja.jpg")} />}
+          right={() =>
+            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)}</Text>
+          }
+          description={`Estoque: ${item.estoque} ${item.embalagem}`}
+        />
+      </TouchableOpacity >
+    </View>
+  );
 
   return (
-    <>
-      <View style={styles.apresentacao}>
-        <Text style={{ fontSize: 25 }}>Loja de {usuario.nome}</Text>
-        <Text style={{ fontSize: 20 }}>
-          {usuario.nomeLoja}
-        </Text>
-      </View>
-      <ScrollView>
-      <View style={styles.containerPrincipal}>
-        <View style={styles.principaisFuncionalidades}>
-          <View style={styles.containerProdutos}>
-          <TouchableOpacity>
-          <Image
-              style={styles.img}
-              source={require("../assets/maracuja.jpg")}
-            />
-            <Text style={styles.textoProduto}>Maracujá</Text>
-            <Text style={styles.textoProduto}>Fruta</Text>
-            <Text style={styles.textoEstoque}>5kg</Text>
-
-
-          </TouchableOpacity>
-            
-            
-          </View>
-
-          <View style={styles.containerProdutos}>
-            <TouchableOpacity>
-
-            <Image
-              style={styles.img}
-              source={require("../assets/img-banana.jpg")}
-            />
-            <Text style={styles.textoProduto}>Banana</Text>
-            <Text style={styles.textoCategoria}>Fruta</Text>
-
-            <Text style={styles.textoEstoque}>3kg</Text>
-
-            </TouchableOpacity>
-            
-          </View>
-          <View style={styles.containerProdutos}>
-          <TouchableOpacity>
-
-          <Image
-              style={styles.img}
-              source={require("../assets/img-maça.jpg")}
-            />
-            <Text style={styles.textoProduto}>Maça</Text>
-            <Text style={styles.textoCategoria}>Fruta</Text>
-           
-            <Text style={styles.textoEstoque}>2kg</Text>
-
-            
-
-            </TouchableOpacity>
-          </View>
-         
-           
-           
-          <View style={styles.containerProdutos}>
-            <TouchableOpacity>
-
-            <Image
-              style={styles.img}
-              source={require("../assets/img-laranja.jpg")}
-            />
-            <Text style={styles.textoProduto}>Laranja</Text>
-            <Text style={styles.textoCategoria}>Fruta</Text>
-
-            <Text style={styles.textoEstoque}>7kg</Text>
-
-
-            </TouchableOpacity>
-          </View>
-          <View style={styles.containerProdutos}>
-             <TouchableOpacity>
-
-            <Image
-              style={styles.img}
-              source={require("../assets/img-alface.jpg")}
-            />
-            <Text style={styles.textoProduto}>Alface</Text>
-            <Text style={styles.textoCategoria}>Hortaliça</Text>
-
-            <Text style={styles.textoEstoque}>2,5kg</Text>
-
-             </TouchableOpacity>
-          </View>
-          <View style={styles.containerProdutos}>
-          <TouchableOpacity>
-
-            <Image
-              style={styles.img}
-              source={require("../assets/img-brocolis.jpg")}
-            />
-            <Text style={styles.textoProduto}>Brócolis</Text>
-            <Text style={styles.textoCategoria}>Vegetal</Text>
-
-            <Text style={styles.textoEstoque}>2kg</Text>
-
-          </TouchableOpacity>
-
-          </View>
-        </View>
-      </View>
-
-      <FAB
-        style={styles.fab}
-        small
-        label="Cadastrar Produto"
-        onPress={() => navigation.navigate("CadastrarProduto")}
-      />
-      </ScrollView>
-    </>
+    <Container>
+      <Header title={user.nomeLoja}></Header>
+      <Body>
+        <FlatList
+          data={produto}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+        <FAB
+          style={styles.fab}
+          small
+          icon="plus"          
+          onPress={() => navigation.navigate("CadastrarProduto")}
+        />
+      </Body>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  apresentacao: {
-    marginTop: 50,
-    padding: 10,
-  },
-  containerPrincipal: {
-    maxWidth: 350,
-    height: "auto",
-
-    margin: "auto",
-    justifyContent: "center",
-  },
-  textoProduto: {
-    padding: 3,
-    letterSpacing: 2.2,
-    fontStyle: "italic",
-    fontWeight: "bold",
-  },
-  textoEstoque: {
-    padding: 2,
-    letterSpacing: 2.2,
-    fontStyle: "italic",
-    fontWeight: "bold",
-    marginLeft:85,
-    
-  },
-  textoCategoria: {
-    padding: 3,
-    letterSpacing: 2.2,
-    fontStyle: "italic",
-    fontWeight: "bold",
-    
-  },
-
-  principaisFuncionalidades: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-  },
-
   containerProdutos: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    borderRadius: 9,
-    padding: 15,
-    alignitems: "center",
-    fontWeight: "bold",
-    fontSize: 1.4,
-    marginTop: 15,
+    borderRadius: 10,
+    padding: 10,
+    margin: 5,
+    backgroundColor: '#fff',
+    elevation: 5,
   },
-
   img: {
-    /*Aqui é configuração do tamanho das imagens que vão dentro das caixas*/
     width: 127,
     height: 100,
-    padding: 10,
-    borderTopRightRadius: 6,
-    borderTopLeftRadius: 6,
-    borderWidth:0.8,
-   
-    
+    borderRadius: 10,
+    marginRight: 10,
   },
-
   fab: {
     position: "absolute",
     margin: 12,
     right: 0,
     bottom: 0,
+    backgroundColor: '#FF8919'
   },
 });
 

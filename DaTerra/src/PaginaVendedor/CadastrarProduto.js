@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { Text, StyleSheet, View, TouchableOpacity, ScrollView } from "react-native";
 import {
   TextInput,
   Portal,
@@ -14,11 +14,12 @@ import Botao from "../Componentes/Botao";
 import Container from "../Componentes/Container";
 import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
+import { insertProduto, updateProduto, deleteProduto } from "../DBService/DBProduto";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-import { ProdutoContext } from "../contexts/ProdutoProvider";
+const CadastarProduto = ({ route }) => {
 
-const Loja = () => {
-  const { cadastrarProduto } = useContext(ProdutoContext);
+  const navigation = useNavigation();
 
   // Categoria Portal
   const [visible, setVisible] = useState(false);
@@ -40,51 +41,161 @@ const Loja = () => {
   const [embalagem, setEmbalagem] = useState("KG")
   const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
 
-  const handleCadastro = () => {
-    // Testes OK
-    console.log('nome: ' + nome)
-    console.log('preco: ' + preco)
-    console.log('estoque: ' + estoque)
-    console.log('decricao: ' + descricao)
-    console.log('categoria: ' + categoria)
+  // Faltando informação
+  const [missInfo, setMissInfo] = useState(false);
 
-    // Context 
-    cadastrarProduto(nome, preco, estoque, descricao, categoria);
+  // Verificando se tem dados na rota
+  const { item } = route.params ? route.params : {};
+
+  // Para exibir dados quando clica no card do produto (editar)
+  useEffect(() => {
+    if (item) { // Se vier dados da rota
+      setNome(item.nome);
+      setPreco(item.preco.toFixed(2));
+      setEstoque(item.estoque.toFixed(0));
+      setDescricao(item.descricao);
+      setCategoria(item.categoria);
+      setEmbalagem(item.embalagem);
+      // inserir foto
+    }
+  }, [item]);
+
+  // if (!String.prototype.trim) {
+  //   String.prototype.trim = function () {
+  //     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+  //   };
+  // }
+
+  // Cadastrar produto e validar campos 
+  const handleCadastro = () => {
+
+      const url = "http://10.0.2.2:5111/api/produtos";
+    
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify({
+          nomeProduto: nome,
+          preco:preco,
+          embalagem: embalagem,
+          estoque:estoque,
+          categoria: categoria,
+          descricao: descricao,
+
+        }),
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
+    
+    
+
+    // if (!nome || !preco || !embalagem ||
+    //   !estoque || !categoria || !descricao) {
+    //   setMissInfo(true);  // Faltam dados
+    // } else {    
+    //   setMissInfo(false); // Seta FALSE, pois o usuário já preencheu o restante dos dados
+    //   if (!item) {       
+    //     insertProduto({ // TESTE OK
+    //       nome: nome.trim(),
+    //       preco: preco.trim(),
+    //       embalagem: embalagem,
+    //       estoque: estoque.trim(),
+    //       categoria: categoria,
+    //       descricao: descricao.trim(),
+    //     }).then()
+    //       .catch(console.log("ERRO CATCH INSERT"));
+    //   } else {
+    //     updateProduto({ // TESTE OK
+    //       nome: nome.trim(),
+    //       preco: preco.trim(),
+    //       embalagem: embalagem,
+    //       estoque: estoque.trim(),
+    //       categoria: categoria,
+    //       descricao: descricao.trim(),
+    //       id: item.id,
+    //     }).then()
+    //       .catch(console.log("ERRO CATCH UPDATE"));
+    //   }
+    //   navigation.goBack();
+    // }
+
+  }
+
+  const handleExcluir = () => { // TESTE OK
+    deleteProduto(item.id).then().catch();
+    navigation.goBack();
   }
 
   return (
     <Provider>
       <Container>
-        <Header title={'Cadastro de Produto'} />
+        <Header
+          title={item ? 'Editar Produto' : 'Cadastrar Produto'}
+          // Só se houver tela empilhada        
+          goBack={() => navigation.goBack()}
+        />
         <Body>
-          {/* <Text style={styles.titulo}>Cadastro de Produto</Text> */}
-          <View style={styles.container}>
+          <ScrollView>
+
+            {/* Nome do Produto */}
+            <Text style={styles.textTitulos}>Nome</Text>
             <Input
-              label='Nome'
               value={nome}
+              activeOutlineColor={"#3d9d74"}
+              error={missInfo && !nome ? true : false}
               onChangeText={(text) => setNome(text)}
-              left={<TextInput.Icon icon='sort-variant' />}
-            />
-            <Input
-              label='Preço'
-              keyboardType='decimal-pad'
-              value={preco}
-              onChangeText={(text) => setPreco(text)}
-              left={<TextInput.Icon icon='currency-brl' />}
+              left={<TextInput.Icon icon='sort-variant'
+              />}
             />
 
-            {/*Tipo de Embalagem Portal*/}
-            <TouchableOpacity onPress={showDialogEmbalagem}>
-              <Input
-                label='Tipo Embalagem'
-                editable={false}
-                value={embalagem}
-                onChangeText={(text) => setEmbalagem(text)}
+            {/* Descrição */}
+            <Text style={styles.textTitulos}>Descrição</Text>
+            <TextInput
+              style={styles.inputDescricao}
+              mode="outlined"
+              multiline={true}
+              numberOfLines={5}
+              activeOutlineColor={"#3d9d74"}
+              error={missInfo && !descricao ? true : false}
+              value={descricao}
+              onChangeText={(text) => setDescricao(text)}
+              left={<TextInput.Icon icon='card-text-outline' />}
+            />
+
+            {/* Estoque */}
+            <View style={styles.viewPrecoEmbalagem}>
+              <Text style={styles.textTitulos}>Estoque</Text>
+              <TextInput
+                style={styles.inputEspecial}
+                keyboardType='decimal-pad'
+                value={estoque}
+                activeUnderlineColor={"#3d9d74"}
+                error={missInfo && !estoque ? true : false}
+                onChangeText={(text) => setEstoque(text)}
                 left={<TextInput.Icon icon='archive-outline' />}
               />
-            </TouchableOpacity>
+            </View>
+
+            {/*Tipo de Embalagem Portal*/}
+            <View style={styles.viewPrecoEmbalagem}>
+              <Text style={styles.textTitulos}>Embalagem</Text>
+              <TouchableOpacity onPress={showDialogEmbalagem}>
+                <TextInput
+                  style={styles.inputEspecial}
+                  keyboardType='decimal-pad'
+                  editable={false}
+                  value={embalagem}
+                  onChangeText={(text) => setEmbalagem(text)}
+                  left={<TextInput.Icon icon='archive-outline' />}
+                />
+              </TouchableOpacity>
+            </View>
             <Portal>
-              <Dialog style={styles.dialog} visible={visibleEmbalagem} onDismiss={hideDialogEmbalagem}>
+              <Dialog style={styles.dialog}
+                visible={visibleEmbalagem}
+                onDismiss={hideDialogEmbalagem}>
                 <Dialog.Title>Selecione a Embalagem</Dialog.Title>
                 <Dialog.Content>
                   <View style={styles.radioItem}>
@@ -109,27 +220,24 @@ const Loja = () => {
             </Portal>
             {/* Fim Tipo de Embalagem Portal*/}
 
-            <Input
-              label='Quantidade em Estoque'
-              keyboardType='decimal-pad'
-              value={estoque}
-              onChangeText={(text) => setEstoque(text)}
-              left={<TextInput.Icon icon='archive-outline' />}
-            />
-
             {/*Categoria Portal*/}
-            <TouchableOpacity onPress={showDialog}>
-              <Input
-                label='Categoria'
-                editable={false}
-                value={categoria}
-                onChangeText={(text) => setCategoria(text)}
-                left={<TextInput.Icon icon='segment' />}
-              />
-            </TouchableOpacity>
+            <View style={styles.viewPrecoEmbalagem}>
+              <Text style={styles.textTitulos}>Categoria</Text>
+              <TouchableOpacity onPress={showDialog}>
+                <TextInput
+                  style={styles.inputEspecial}
+                  editable={false}
+                  value={categoria}
+                  onChangeText={(text) => setCategoria(text)}
+                  left={<TextInput.Icon icon='segment' />}
+                />
+              </TouchableOpacity>
+            </View>
             <View>
               <Portal>
-                <Dialog style={styles.dialog} visible={visible} onDismiss={hideDialog}>
+                <Dialog style={styles.dialog}
+                  visible={visible}
+                  onDismiss={hideDialog}>
                   <Dialog.Title>Selecione a Categoria</Dialog.Title>
                   <Dialog.Content>
                     <View style={styles.radioItem}>
@@ -183,27 +291,46 @@ const Loja = () => {
             </View>
             {/*Fim Categoria Portal*/}
 
-            <TextInput
-              label='Descrição'
-              mode="outlined"
-              multiline={true}
-              numberOfLines={5}
-              style={styles.inputDescricao}
-              onChangeText={(text) => setDescricao(text)}
-              left={<TextInput.Icon icon='card-text-outline' />}
-            />
+            {/* Preço */}
+            <View style={styles.viewPrecoEmbalagem}>
+              <Text style={styles.textTitulos}>Preço</Text>
+              <TextInput
+                style={styles.inputEspecial}
+                keyboardType='decimal-pad'
+                value={preco}
+                activeUnderlineColor={"#3d9d74"}
+                error={missInfo && !preco ? true : false}
+                onChangeText={(text) => setPreco(text)}
+                left={<TextInput.Icon icon='currency-brl' />}
+              ></TextInput>
+            </View>
+
+            {/* Botão - Cadastrar/ Salvar/ Excluir */}
             <View style={styles.viewBotao}>
               <TouchableOpacity onPress={() => handleCadastro()}>
                 <Botao
                   style={styles.textoBotao}
-                  textoBotao='Cadastrar'
+                  textoBotao={item ? 'Salvar' : 'Cadastrar'}
                   mode='contained'
                   buttonColor='#3d9d74'
-                  onPress={cadastrarProduto}
                 />
               </TouchableOpacity>
+              <View style={{ marginTop: 10 }}>
+                <TouchableOpacity onPress={() => handleExcluir()}>
+                  { // Só renderiza se houver item (na rota)
+                    item &&
+                    <Botao
+                      style={styles.textoBotao}
+                      textoBotao='Excluir'
+                      mode='outlined'
+                      buttonColor='#D32F2F'
+                      textColor='#FFF'
+                    />
+                  }
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          </ScrollView>
         </Body>
       </Container>
     </Provider>
@@ -224,6 +351,7 @@ const styles = StyleSheet.create({
   textoBotao: {
     textAlign: "center",
     fontSize: 18,
+    fontWeight: 'bold'
   },
   viewBotao: {
     marginTop: 30,
@@ -243,6 +371,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+
+  // Preço, embalagem, estoque, categoria
+  viewPrecoEmbalagem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  /* TextInput Direto: Embalagem, categoria, estoque
+  preço, descrição 
+  */
+  inputEspecial: {
+    height: 48,
+    width: 160,
+    fontSize: 16,
+    backgroundColor: "#FFFAFA",
+    margin: 3,
+    marginRight: 11
+  },
+  textTitulos: {
+    marginTop: 14,
+    textAlignVertical: 'center',
+    marginLeft: 14,
+    fontSize: 20,
+    fontWeight: 'bold'
+  }
 });
 
-export default Loja;
+export default CadastarProduto;

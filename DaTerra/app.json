@@ -4,12 +4,12 @@
     "slug": "DaTerra",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "",
+    "icon": "src/assets/DATERRA-LOGO-800X797.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "",
+      "image": "src/assets/logo_da_terra_transparente.png",
       "resizeMode": "contain",
-      "backgroundColor": "#36393e"
+      "backgroundColor": "#FFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,7 +22,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "",
+        "foregroundImage": "src/assets/DATERRA-LOGO-800X797.png",
         "backgroundColor": "#FFFFFF"
       }
     },
