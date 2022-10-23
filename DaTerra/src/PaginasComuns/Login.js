@@ -33,7 +33,8 @@ export default function Login() {
       setAviso("Por favor, insira o email e a senha")
     }
     else {
-      getLogin(email, senha).then((usuario) => {        
+      getLogin(email.trim(), senha.trim()).then((usuario) => {
+        // console.log(usuario[0]);
         setUser(usuario[0]);
        // console.log(typeof (usuario[0]));
         setUser(usuario[0])

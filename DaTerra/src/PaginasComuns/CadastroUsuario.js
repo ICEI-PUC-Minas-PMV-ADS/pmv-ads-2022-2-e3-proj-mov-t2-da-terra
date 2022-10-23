@@ -97,19 +97,19 @@ const CadastroUsuario = ({ navigation, route }) => {
         setUser(usuario[0]);        
         if (typeof (usuario[0]) == "undefined") {
           insertUsuario({
-            nome: nome,
+            nome: nome.trim(),
             dtNascimento: data,
-            cpf: cpf,
-            telefone: telefone,
-            rua: rua,
-            bairro: bairro,
-            numCasa: numeroCasa,
-            cep: cep,
-            cidade: cidade,
-            uf: uf,
-            complemento: complemento,
-            email: email,
-            senha: senha,
+            cpf: cpf.trim(),
+            telefone: telefone.trim(),
+            rua: rua.trim(),
+            bairro: bairro.trim(),
+            numCasa: numeroCasa.trim(),
+            cep: cep.trim(),
+            cidade: cidade.trim(),
+            uf: uf.trim(),
+            complemento: complemento.trim(),
+            email: email.trim(),
+            senha: senha.trim(),
             tipoUsuario: tipoUsuario,
           })
             .then()
