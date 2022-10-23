@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="app">
   <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.39">
-    <root id="1">
-      <ServerVersion>3.39.2</ServerVersion>
-    </root>
+    <root id="1"/>
     <collation id="2" parent="1" name="BINARY"/>
     <collation id="3" parent="1" name="NOCASE"/>
     <collation id="4" parent="1" name="RTRIM"/>
@@ -1313,190 +1311,28 @@
     <argument id="481" parent="165">
       <Position>1</Position>
     </argument>
-    <table id="482" parent="166" name="Produtos"/>
-    <table id="483" parent="166" name="Usuarios"/>
-    <table id="484" parent="166" name="__EFMigrationsHistory"/>
-    <table id="485" parent="166" name="sqlite_master">
+    <table id="482" parent="166" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="486" parent="166" name="sqlite_sequence">
-      <System>1</System>
-    </table>
-    <column id="487" parent="482" name="Id">
-      <AutoIncrement>1</AutoIncrement>
-      <DataType>INTEGER|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="488" parent="482" name="NomeProduto">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="489" parent="482" name="Preco">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="490" parent="482" name="Embalagem">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="491" parent="482" name="Estoque">
-      <DataType>INTEGER|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-    </column>
-    <column id="492" parent="482" name="Categoria">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-    </column>
-    <column id="493" parent="482" name="Descricao">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-    </column>
-    <key id="494" parent="482" name="PK_Produtos">
-      <ColNames>Id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="495" parent="483" name="Id">
-      <AutoIncrement>1</AutoIncrement>
-      <DataType>INTEGER|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="496" parent="483" name="Bairro">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="497" parent="483" name="Cep">
-      <DataType>INTEGER|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="498" parent="483" name="Cidade">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="499" parent="483" name="Cpf">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-    </column>
-    <column id="500" parent="483" name="DataNascimento">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-    </column>
-    <column id="501" parent="483" name="Email">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-    </column>
-    <column id="502" parent="483" name="Nome">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>8</Position>
-    </column>
-    <column id="503" parent="483" name="NumeroCasa">
-      <DataType>INTEGER|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>9</Position>
-    </column>
-    <column id="504" parent="483" name="ProdutoId">
-      <DataType>INTEGER|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>10</Position>
-    </column>
-    <column id="505" parent="483" name="Rua">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>11</Position>
-    </column>
-    <column id="506" parent="483" name="Senha">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>12</Position>
-    </column>
-    <column id="507" parent="483" name="Telefone">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>13</Position>
-    </column>
-    <column id="508" parent="483" name="TipoUsario">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>14</Position>
-    </column>
-    <column id="509" parent="483" name="Uf">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>15</Position>
-    </column>
-    <foreign-key id="510" parent="483" name="FK_Usuarios_Produtos_ProdutoId">
-      <ColNames>ProdutoId</ColNames>
-      <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefKeyName>PK_Produtos</RefKeyName>
-      <RefTableName>Produtos</RefTableName>
-    </foreign-key>
-    <index id="511" parent="483" name="IX_Usuarios_ProdutoId">
-      <ColNames>ProdutoId</ColNames>
-    </index>
-    <key id="512" parent="483" name="PK_Usuarios">
-      <ColNames>Id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="513" parent="484" name="MigrationId">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="514" parent="484" name="ProductVersion">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <index id="515" parent="484" name="sqlite_autoindex___EFMigrationsHistory_1">
-      <ColNames>MigrationId</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Unique>1</Unique>
-    </index>
-    <key id="516" parent="484" name="PK___EFMigrationsHistory">
-      <ColNames>MigrationId</ColNames>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>sqlite_autoindex___EFMigrationsHistory_1</UnderlyingIndexName>
-    </key>
-    <column id="517" parent="485" name="type">
+    <column id="483" parent="482" name="type">
       <DataType>TEXT|0s</DataType>
       <Position>1</Position>
     </column>
-    <column id="518" parent="485" name="name">
+    <column id="484" parent="482" name="name">
       <DataType>TEXT|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="519" parent="485" name="tbl_name">
+    <column id="485" parent="482" name="tbl_name">
       <DataType>TEXT|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="520" parent="485" name="rootpage">
+    <column id="486" parent="482" name="rootpage">
       <DataType>INT|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="521" parent="485" name="sql">
+    <column id="487" parent="482" name="sql">
       <DataType>TEXT|0s</DataType>
       <Position>5</Position>
-    </column>
-    <column id="522" parent="486" name="name">
-      <Position>1</Position>
-    </column>
-    <column id="523" parent="486" name="seq">
-      <Position>2</Position>
     </column>
   </database-model>
 </dataSource>

@@ -15,39 +15,37 @@ import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 
 import { AuthContext } from "../contexts/AuthProvider";
+
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-import { getProdutos } from "../DBService/DBProduto";
+import { getProdutos } from "../api/api";
 import { getUsuario } from "../DBService/DBUsuario";
+import { ProdutoContext } from "../contexts/ProdutoProvider";
 
 const Loja = () => {
 
   const navigation = useNavigation();
   //Provider com as informações do usuário logado  
   const { user, setUser } = useContext(AuthContext)
-  const [produto, setProduto] = useState([]);
+  const [produto,setProduto] = useState([]);
   const isFocused = useIsFocused();
   
   // ALTERADO PARA TESTES - falta setar
   useEffect(() => {
     const url = "http://10.0.2.2:5111/api/produtos";
-    
-      fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify({
-          nomeProduto: nome,
-          preco:preco,
-          embalagem: embalagem,
-          estoque:estoque,
-          categoria: categoria,
-          descricao: descricao,
 
-        }),
-      })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        setProduto(json)
+      });
+    
+      
   }, [isFocused]);
 
   const renderItem = ({ item }) => (
@@ -73,6 +71,7 @@ const Loja = () => {
     <Container>
       <Header title={user.nomeLoja}></Header>
       <Body>
+        <Text>{produto.nomeProduto}</Text>
         <FlatList
           data={produto}
           renderItem={renderItem}

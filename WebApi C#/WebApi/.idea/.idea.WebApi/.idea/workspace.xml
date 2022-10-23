@@ -8,7 +8,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="487ea0ba-385c-49a8-aef3-498f0ac3ccdf" name="Changes" comment="" />
+    <list default="true" id="487ea0ba-385c-49a8-aef3-498f0ac3ccdf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../DaTerra/src/DBService/DBProduto.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../DaTerra/src/DBService/DBProduto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DaTerra/src/Navegacoes/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../DaTerra/src/Navegacoes/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DaTerra/src/PaginaVendedor/Loja.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../DaTerra/src/PaginaVendedor/Loja.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DaTerra/src/api/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../DaTerra/src/api/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi/.idea/dataSources/0498e4b2-0255-4900-a960-0ee8c4bb2846.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi/.idea/dataSources/0498e4b2-0255-4900-a960-0ee8c4bb2846.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.genruntimeconfig.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/WebApiDaTerra.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/WebApiDaTerra.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/WebApiDaTerra.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/staticwebassets.pack.sentinel" beforeDir="false" afterPath="$PROJECT_DIR$/obj/staticwebassets.pack.sentinel" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +41,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2GSduViZTztknIGF6242znoJi9D" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -78,6 +102,10 @@
       <updated>1666386171815</updated>
       <workItem from="1666386255412" duration="10761000" />
       <workItem from="1666437704182" duration="8323000" />
+      <workItem from="1666476841339" duration="264000" />
+      <workItem from="1666477367205" duration="144000" />
+      <workItem from="1666477777936" duration="319000" />
+      <workItem from="1666480362200" duration="1730000" />
     </task>
     <servers />
   </component>

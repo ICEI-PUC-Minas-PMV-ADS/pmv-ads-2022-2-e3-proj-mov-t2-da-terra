@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\WebApi C#\\WebApi\\WebApiDaTerra.csproj": {}
+    "C:\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi C#\\WebApi\\WebApiDaTerra.csproj": {}
   },
   "projects": {
-    "C:\\WebApi C#\\WebApi\\WebApiDaTerra.csproj": {
+    "C:\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi C#\\WebApi\\WebApiDaTerra.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\WebApi C#\\WebApi\\WebApiDaTerra.csproj",
+        "projectUniqueName": "C:\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi C#\\WebApi\\WebApiDaTerra.csproj",
         "projectName": "WebApiDaTerra",
-        "projectPath": "C:\\WebApi C#\\WebApi\\WebApiDaTerra.csproj",
+        "projectPath": "C:\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi C#\\WebApi\\WebApiDaTerra.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\WebApi C#\\WebApi\\obj\\",
+        "outputPath": "C:\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi C#\\WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
