@@ -5,6 +5,7 @@ import { StyleSheet } from "react-native";
 import MeusPedidos from "./MeusPedidos";
 import BuscarProdutos from "./BuscarProdutos";
 import MinhaConta from "../PaginasComuns/MinhaConta";
+import Carrinho from "../PaginasCliente/Carrinho"
 
 import { AuthContext } from "../contexts/AuthProvider";
 
@@ -13,8 +14,9 @@ const HomeCliente = () => {
   const [index, setIndex] = useState(0);
 
   const [routes] = useState([
-    { key: "buscarProdutos", title: "Buscar produtos", focusedIcon: "magnify" },
-    { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },
+    { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
+    { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },    
+    { key: "carrinho", title: "Carrinho", focusedIcon: "cart" },
     { key: "minhaConta", title: "Minha Conta", focusedIcon: "account" },
   ]);
 
@@ -22,6 +24,7 @@ const HomeCliente = () => {
     buscarProdutos: BuscarProdutos,
     meusPedidos: MeusPedidos,
     minhaConta: MinhaConta,
+    carrinho: Carrinho
   });
 
   return (

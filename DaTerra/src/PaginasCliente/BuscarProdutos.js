@@ -14,7 +14,7 @@ const BuscarProdutos = () => {
   //const {} = useContext(ProdutoProvider);
 const navigation = useNavigation();
 const route = useRoute();
-const [searchQuery, setSearchQuery] = useState('Banana');
+const [searchQuery, setSearchQuery] = useState('Pera');
 const [resultados, setResultados] = useState([]);
  
 // useEffect(() => {

@@ -16,6 +16,7 @@ import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import Seletor from "../Componentes/Seletor";
+import Carrinho from "../PaginasCliente/Carrinho";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
@@ -23,14 +24,14 @@ import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
 import ProdutoProvider, { ProdutoContext } from "../contexts/ProdutoProvider";
 
 const ComprarProduto = ({ route }) => {
+
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
+
   // Alterar Rota para provider
   const { item } = route.params ? route.params : {};
-  //const { produto } = useContext(ProdutoProvider);
-  //console.log(produto);
-  const navigation = useNavigation();
-  const { produto } = useContext(ProdutoContext);
-
-  const isFocused = useIsFocused();
+  const { produto } = useContext(ProdutoContext);  
+    
   const [resultado, setResultado] = useState([]);
 
   console.log(item);
@@ -134,7 +135,7 @@ const ComprarProduto = ({ route }) => {
       <Header title={"Anúncio"} goBack={() => navigation.goBack()}>
         <Appbar.Action
           style={{marginRight: 10}}
-          icon="cart" onPress={() => console.log('ir tela carrinho')} />
+          icon="cart" onPress={() => navigation.navigate("Carrinho")} />
       </Header>
 
       <Body>
