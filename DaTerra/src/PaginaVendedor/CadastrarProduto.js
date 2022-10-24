@@ -62,35 +62,58 @@ const CadastarProduto = ({ route }) => {
 
   // Cadastrar produto e validar campos 
   const handleCadastro = () => {
-    if (!nome || !preco || !embalagem ||
-      !estoque || !categoria || !descricao) {
-      setMissInfo(true);  // Faltam dados
-    } else {    
-      setMissInfo(false); // Seta FALSE, pois o usuário já preencheu o restante dos dados
-      if (!item) {       
-        insertProduto({ // TESTE OK
-          nome: nome.trim(),
-          preco: preco.trim(),
+
+      const url = "http://10.0.2.2:5111/api/produtos";
+    
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify({
+          nomeProduto: nome,
+          preco:preco,
           embalagem: embalagem,
-          estoque: estoque.trim(),
+          estoque:estoque,
           categoria: categoria,
-          descricao: descricao.trim(),
-        }).then()
-          .catch(console.log("ERRO CATCH INSERT"));
-      } else {
-        updateProduto({ // TESTE OK
-          nome: nome.trim(),
-          preco: preco.trim(),
-          embalagem: embalagem,
-          estoque: estoque.trim(),
-          categoria: categoria,
-          descricao: descricao.trim(),
-          id: item.id,
-        }).then()
-          .catch(console.log("ERRO CATCH UPDATE"));
-      }
-      navigation.goBack();
-    }
+          descricao: descricao,
+
+        }),
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
+    
+    
+
+    // if (!nome || !preco || !embalagem ||
+    //   !estoque || !categoria || !descricao) {
+    //   setMissInfo(true);  // Faltam dados
+    // } else {    
+    //   setMissInfo(false); // Seta FALSE, pois o usuário já preencheu o restante dos dados
+    //   if (!item) {       
+    //     insertProduto({ // TESTE OK
+    //       nome: nome.trim(),
+    //       preco: preco.trim(),
+    //       embalagem: embalagem,
+    //       estoque: estoque.trim(),
+    //       categoria: categoria,
+    //       descricao: descricao.trim(),
+    //     }).then()
+    //       .catch(console.log("ERRO CATCH INSERT"));
+    //   } else {
+    //     updateProduto({ // TESTE OK
+    //       nome: nome.trim(),
+    //       preco: preco.trim(),
+    //       embalagem: embalagem,
+    //       estoque: estoque.trim(),
+    //       categoria: categoria,
+    //       descricao: descricao.trim(),
+    //       id: item.id,
+    //     }).then()
+    //       .catch(console.log("ERRO CATCH UPDATE"));
+    //   }
+    //   navigation.goBack();
+    // }
 
   }
 

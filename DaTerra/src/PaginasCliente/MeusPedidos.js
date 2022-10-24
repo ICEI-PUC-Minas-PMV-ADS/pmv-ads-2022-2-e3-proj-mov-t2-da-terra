@@ -20,7 +20,7 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
 
 import ProdutoProvider, { ProdutoContext } from "../contexts/ProdutoProvider";
-
+import axios from "axios";
 data = [
   {
     id: 1,
@@ -66,8 +66,15 @@ data = [
   },
 ];
 
+  
+
+
 const MeusPedidos = () => {
-  // const {user} = useContext(AuthContext)
+ 
+  
+
+  
+  
   const renderItem = ({ item }) => {
     return (
       <View style={{ marginTop: 20 }}>
