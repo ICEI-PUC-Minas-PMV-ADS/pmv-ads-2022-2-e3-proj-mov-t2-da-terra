@@ -17,35 +17,28 @@ import Header from "../Componentes/Header";
 import { AuthContext } from "../contexts/AuthProvider";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-import { getProdutos } from "../api/api";
 import { getUsuario } from "../DBService/DBUsuario";
-import { ProdutoContext } from "../contexts/ProdutoProvider";
+import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 
 const Loja = () => {
 
   const navigation = useNavigation();
-  //Provider com as informações do usuário logado  
-  const { user, setUser } = useContext(AuthContext)
-  const [produto,setProduto] = useState([]);
+  const { produto, getProduto } = useContext(ProdutoContext);
+  const { user, setUser } = useContext(AuthContext); // User Logado
   const isFocused = useIsFocused();
-  
+
   // ALTERADO PARA TESTES - falta setar
   useEffect(() => {
-    const url = "http://10.0.2.2:5111/api/produtos";
+    getProduto(6);
 
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        setProduto(json)
-      });
-    
-      
+    // Teste
+    //console.log(typeof (produto));  // Objeto
+    // Percorrendo objeto produto
+     Object.keys(produto).forEach((item) => {
+       console.log(item + " = " + produto[item]);
+     });
+
+
   }, [isFocused]);
 
   const renderItem = ({ item }) => (
@@ -71,7 +64,7 @@ const Loja = () => {
     <Container>
       <Header title={user.nomeLoja}></Header>
       <Body>
-        <Text>{produto.nomeProduto}</Text>
+        {/* <Text>{produto.nomeProduto}</Text> */}
         <FlatList
           data={produto}
           renderItem={renderItem}
@@ -80,7 +73,7 @@ const Loja = () => {
         <FAB
           style={styles.fab}
           small
-          icon="plus"          
+          icon="plus"
           onPress={() => navigation.navigate("CadastrarProduto")}
         />
       </Body>

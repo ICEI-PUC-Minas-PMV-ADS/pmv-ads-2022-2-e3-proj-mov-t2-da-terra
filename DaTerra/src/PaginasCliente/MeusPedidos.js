@@ -19,8 +19,8 @@ import Seletor from "../Componentes/Seletor";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
 
-import ProdutoProvider, { ProdutoContext } from "../contexts/ProdutoProvider";
-import axios from "axios";
+import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
+
 data = [
   {
     id: 1,
@@ -66,15 +66,11 @@ data = [
   },
 ];
 
-  
+
 
 
 const MeusPedidos = () => {
- 
-  
 
-  
-  
   const renderItem = ({ item }) => {
     return (
       <View style={{ marginTop: 20 }}>
@@ -88,36 +84,36 @@ const MeusPedidos = () => {
           }}
           right={() => (
             <>
-        <View style={{flexDirection:"column",marginTop:40,}}>
-            <Text
-              style={{
-                textAlignVertical: "center",
-                fontWeight: "bold",
-                fontSize: 16,
-                marginTop:25,
-              }}
-            >
-              R${item.preco}
-            </Text>
-            <Text style={styles.textDataPedido}>{item.dataPedido}</Text>
-            </View>
-          
+              <View style={{ flexDirection: "column", marginTop: 40, }}>
+                <Text
+                  style={{
+                    textAlignVertical: "center",
+                    fontWeight: "bold",
+                    fontSize: 16,
+                    marginTop: 25,
+                  }}
+                >
+                  R${item.preco}
+                </Text>
+                <Text style={styles.textDataPedido}>{item.dataPedido}</Text>
+              </View>
+
             </>
           )}
-          
+
           description={
             <>
-            
+
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <List.Icon icon={item.aprovado?"check":"clock-outline"} />
-                <Text style={item.aprovado?styles.aprovado:styles.esperandoAprovação}>{`${item.aprovado?"Aprovado":"Aguardando aprovação"}`}</Text>
-                </View>
+                <List.Icon icon={item.aprovado ? "check" : "clock-outline"} />
+                <Text style={item.aprovado ? styles.aprovado : styles.esperandoAprovação}>{`${item.aprovado ? "Aprovado" : "Aguardando aprovação"}`}</Text>
+              </View>
 
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <List.Icon icon="store" />
                 <Text style={{ fontSize: 16 }}>{item.loja}</Text>
               </View>
-              
+
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <List.Icon icon="calendar-check-outline" />
                 <Text style={{ fontSize: 16 }}>{item.dataPedido}</Text>
@@ -127,7 +123,7 @@ const MeusPedidos = () => {
         />
       </View>
     );
- 
+
   };
 
   return (
@@ -139,46 +135,45 @@ const MeusPedidos = () => {
           keyExtractor={(item) => item.id}
         />
       </Body>
-      
+
     </Container>
   );
 };
 export default MeusPedidos;
 const styles = StyleSheet.create({
-    /* FlatList */
-    textDataPedido:{
-    fontWeight:"bold",
-    marginTop:8,
+  /* FlatList */
+  textDataPedido: {
+    fontWeight: "bold",
+    marginTop: 8,
 
-    } ,
-    
-    
-    
-    aprovado: {
-        fontSize: 16,
-    fontWeight:"bold",
-      borderRadius:10,
-      backgroundColor:"#6cc438",
-      padding:5,
-          
-      
-      
-     },
-     esperandoAprovação: {
-        fontSize: 16,
-        fontWeight:"bold",
-        borderRadius:12,
-        backgroundColor:"#EDD251",
-        padding:5,
+  },
 
-        
-      
-       },    
-     
-   
-     
-   });
-   
 
-   
-   
+
+  aprovado: {
+    fontSize: 16,
+    fontWeight: "bold",
+    borderRadius: 10,
+    backgroundColor: "#6cc438",
+    padding: 5,
+
+
+
+  },
+  esperandoAprovação: {
+    fontSize: 16,
+    fontWeight: "bold",
+    borderRadius: 12,
+    backgroundColor: "#EDD251",
+    padding: 5,
+
+
+
+  },
+
+
+
+});
+
+
+

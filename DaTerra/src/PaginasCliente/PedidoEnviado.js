@@ -12,7 +12,6 @@ import { useNavigation } from "@react-navigation/native";
 import Botao from "../Componentes/Botao";
 import Container from "../Componentes/Container";
 
-import ProdutoProvider from "../contexts/ProdutoProvider";
 
 const PedidoEnviado = () => {
 

@@ -63,25 +63,25 @@ const CadastarProduto = ({ route }) => {
   // Cadastrar produto e validar campos 
   const handleCadastro = () => {
 
-      const url = "http://10.0.2.2:5111/api/produtos";
+      // const url = "http://10.0.2.2:5111/api/produtos";
     
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify({
-          nomeProduto: nome,
-          preco:preco,
-          embalagem: embalagem,
-          estoque:estoque,
-          categoria: categoria,
-          descricao: descricao,
+      // fetch(url, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-type': 'application/json; charset=UTF-8',
+      //   },
+      //   body: JSON.stringify({
+      //     nomeProduto: nome,
+      //     preco:preco,
+      //     embalagem: embalagem,
+      //     estoque:estoque,
+      //     categoria: categoria,
+      //     descricao: descricao,
 
-        }),
-      })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
+      //   }),
+      // })
+      //   .then((response) => response.json())
+      //   .then((json) => console.log(json));
     
     
 

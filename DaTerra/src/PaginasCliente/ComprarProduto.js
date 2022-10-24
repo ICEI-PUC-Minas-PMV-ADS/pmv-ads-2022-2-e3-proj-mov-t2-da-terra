@@ -21,7 +21,7 @@ import Carrinho from "../PaginasCliente/Carrinho";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
 
-import ProdutoProvider, { ProdutoContext } from "../contexts/ProdutoProvider";
+import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 
 const ComprarProduto = ({ route }) => {
 
@@ -30,7 +30,7 @@ const ComprarProduto = ({ route }) => {
 
   // Alterar Rota para provider
   const { item } = route.params ? route.params : {};
-  const { produto } = useContext(ProdutoContext);  
+  //const { produto } = useContext(ProdutoContext);  
     
   const [resultado, setResultado] = useState([]);
 

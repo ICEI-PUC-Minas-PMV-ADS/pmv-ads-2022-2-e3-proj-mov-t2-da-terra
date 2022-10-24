@@ -6,8 +6,6 @@ import { useNavigation,useRoute} from "@react-navigation/native";
 import { getProdutos, getSearchProduto } from "../DBService/DBProduto";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
-import axios from "axios";
-import ProdutoProvider from "../contexts/ProdutoProvider";
 
 const BuscarProdutos = () => {
   //Abaixo seria no caso aonde pegaria os dados da busca no banco
