@@ -11,6 +11,7 @@ namespace WebApi.Controllers
   [Route(template: "v1")]
   public class ProdutosController : ControllerBase
   {
+
     // GET 
     [HttpGet(template: "produtos/{id}")]
     public async Task<IActionResult> GetProdutoAsync(
@@ -33,8 +34,8 @@ namespace WebApi.Controllers
       [FromBody] CreateProdutoViewModel model)
     {
       if (!ModelState.IsValid)
-        return BadRequest();
-
+        return BadRequest();    
+      
       var produto = new Produto()
       {
         Nome = model.Nome,
@@ -43,12 +44,13 @@ namespace WebApi.Controllers
         Estoque = model.Estoque,
         Categoria = model.Categoria,
         Descricao = model.Descricao,
-        DataCadastro = DateTime.Now.ToString("dd/MM/yyyy HH:mm")
+        DataCadastro = model.DataCadastro
       };
 
       try
       {
-        await context.Produtos.AddAsync(produto);
+        // aqui context.AddAsync(produto);
+        await context.AddAsync(produto);
         await context.SaveChangesAsync();
 
         return Created($"v1/produtos/{produto.Id}", produto);
@@ -83,7 +85,7 @@ namespace WebApi.Controllers
         produto.Estoque = model.Estoque;
         produto.Categoria = model.Categoria;
         produto.Descricao = model.Descricao;
-        produto.DataCadastro = model.DataCadastro;
+        // produto.DataCadastro = model.DataCadastro;
 
         context.Produtos.Update(produto);
         await context.SaveChangesAsync();

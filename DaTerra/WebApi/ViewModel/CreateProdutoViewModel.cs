@@ -16,7 +16,7 @@ namespace WebApi.ViewModel
     public string Categoria { get; set; }
     [Required]
     public string Descricao { get; set; }
-    [Required]
-    public string DataCadastro { get; set; }
+    // [Required]
+    public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");    
   }
 }

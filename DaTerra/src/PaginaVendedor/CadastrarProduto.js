@@ -14,8 +14,12 @@ import Botao from "../Componentes/Botao";
 import Container from "../Componentes/Container";
 import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
+
+import moment from "moment";
 import { insertProduto, updateProduto, deleteProduto } from "../DBService/DBProduto";
 import { useNavigation, useRoute } from "@react-navigation/native";
+
+import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 
 const CadastarProduto = ({ route }) => {
 
@@ -41,13 +45,20 @@ const CadastarProduto = ({ route }) => {
   const [embalagem, setEmbalagem] = useState("KG")
   const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
 
-  // Faltando informação
+  // Context WebAPI
+  const { postProduto,
+    deleteProduto,
+    putProduto,
+    getProduto
+  } = useContext(ProdutoContext);
+
+  // Faltando informação no input (para as mensagens de error)
   const [missInfo, setMissInfo] = useState(false);
 
-  // Verificando se tem dados na rota
+  // Verificando se tem dados na rota (será substituído pela webapi)
   const { item } = route.params ? route.params : {};
 
-  // Para exibir dados quando clica no card do produto (editar)
+  // Para exibir dados quando clicar no card do produto (editar)
   useEffect(() => {
     if (item) { // Se vier dados da rota
       setNome(item.nome);
@@ -58,68 +69,45 @@ const CadastarProduto = ({ route }) => {
       setEmbalagem(item.embalagem);
       // inserir foto
     }
-  }, [item]);  
+    // deleteProduto(9) // TESTE AXIOS OK
+  }, [item]);
 
   // Cadastrar produto e validar campos 
   const handleCadastro = () => {
-
-      // const url = "http://10.0.2.2:5111/api/produtos";
-    
-      // fetch(url, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-type': 'application/json; charset=UTF-8',
-      //   },
-      //   body: JSON.stringify({
-      //     nomeProduto: nome,
-      //     preco:preco,
-      //     embalagem: embalagem,
-      //     estoque:estoque,
-      //     categoria: categoria,
-      //     descricao: descricao,
-
-      //   }),
-      // })
-      //   .then((response) => response.json())
-      //   .then((json) => console.log(json));
-    
-    
-
-    // if (!nome || !preco || !embalagem ||
-    //   !estoque || !categoria || !descricao) {
-    //   setMissInfo(true);  // Faltam dados
-    // } else {    
-    //   setMissInfo(false); // Seta FALSE, pois o usuário já preencheu o restante dos dados
-    //   if (!item) {       
-    //     insertProduto({ // TESTE OK
-    //       nome: nome.trim(),
-    //       preco: preco.trim(),
-    //       embalagem: embalagem,
-    //       estoque: estoque.trim(),
-    //       categoria: categoria,
-    //       descricao: descricao.trim(),
-    //     }).then()
-    //       .catch(console.log("ERRO CATCH INSERT"));
-    //   } else {
-    //     updateProduto({ // TESTE OK
-    //       nome: nome.trim(),
-    //       preco: preco.trim(),
-    //       embalagem: embalagem,
-    //       estoque: estoque.trim(),
-    //       categoria: categoria,
-    //       descricao: descricao.trim(),
-    //       id: item.id,
-    //     }).then()
-    //       .catch(console.log("ERRO CATCH UPDATE"));
-    //   }
-    //   navigation.goBack();
-    // }
-
+    if (!nome || !preco || !embalagem ||
+      !estoque || !categoria || !descricao) {
+      setMissInfo(true);  // Faltam dados
+    } else {
+      setMissInfo(false); // Seta FALSE, pois o usuário já preencheu o restante dos dados
+      if (!item) {
+        postProduto({ // TESTE AXIOS OK
+          nome: nome,
+          preco: preco,
+          embalagem: embalagem,
+          estoque: estoque,
+          categoria: categoria,
+          descricao: descricao,
+        }).then()
+        // .catch(console.log("Catch postProduto"));
+      } else {
+        updateProduto({ // TESTE OK
+          nome: nome.trim(),
+          preco: preco.trim(),
+          embalagem: embalagem,
+          estoque: estoque.trim(),
+          categoria: categoria,
+          descricao: descricao.trim(),
+          id: item.id,
+        }).then()
+          .catch(console.log("ERRO CATCH UPDATE"));
+      }
+      // navigation.goBack();
+    }
   }
 
-  const handleExcluir = () => { // TESTE OK
-    deleteProduto(item.id).then().catch();
-    navigation.goBack();
+  const handleExcluir = () => { // TESTE AXIOS OK
+    //  deleteProduto(6).then().catch();
+    // navigation.goBack();
   }
 
   return (

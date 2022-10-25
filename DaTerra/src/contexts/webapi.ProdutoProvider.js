@@ -9,23 +9,22 @@ const ProdutoProvider = ({ children }) => {
 
   const [produto, setProduto] = useState();
 
+  // IMPLEMENTAR GET PRODUTO 'GERAL', POR USER ID
+
   // GET
   const getProduto = async (id) => {
-   // console.log(id); // teste
-    //console.log(`${BASE_URL}${id}`) // teste
     try {
       return await API.get(`${BASE_URL}${id}`)
         .then(
           response => {
             console.log(response.status);
             console.log(response.data);
-            // const produto = []
-            // produto[0] = response.data
-             setProduto(response.data);
+            setProduto(response.data);
 
             return response.data;
           },
           error => {
+            console.error(error.response.headers);
             console.log("error " + error)
             return null;
           }
@@ -37,7 +36,7 @@ const ProdutoProvider = ({ children }) => {
   }
 
   // POST
-  const postProduto = async (param) => {
+  const postProduto = async (param) => { 
     try {
       return await API.post(`${BASE_URL}`, param)
         .then(
@@ -47,7 +46,8 @@ const ProdutoProvider = ({ children }) => {
             return response.data;
           },
           error => {
-            console.log("error " + error)
+            console.error(error.response.headers);
+            console.error("error " + error)
             return null;
           }
         );
@@ -87,6 +87,7 @@ const ProdutoProvider = ({ children }) => {
             console.log(response.status);
           },
           error => {
+            console.error(error.response.headers);
             console.log("error " + error)
             return null;
           }

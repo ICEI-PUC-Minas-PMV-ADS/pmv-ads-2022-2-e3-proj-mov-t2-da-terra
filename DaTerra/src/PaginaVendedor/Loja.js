@@ -14,35 +14,34 @@ import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 
-import { AuthContext } from "../contexts/AuthProvider";
+import moment from "moment";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-import { getUsuario } from "../DBService/DBUsuario";
+//import { getUsuario } from "../DBService/DBUsuario";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const Loja = () => {
 
   const navigation = useNavigation();
   const { produto, getProduto } = useContext(ProdutoContext);
   const { user, setUser } = useContext(AuthContext); // User Logado
+
   const isFocused = useIsFocused();
 
-  // ALTERADO PARA TESTES - falta setar
+  // TESTE AXIOS OK
+  // Ver como renderizar
   useEffect(() => {
-    getProduto(6);
-
-    // Teste
-    //console.log(typeof (produto));  // Objeto
-    // Percorrendo objeto produto
-     Object.keys(produto).forEach((item) => {
-       console.log(item + " = " + produto[item]);
-     });
-
-
+     getProduto(7);
+    // // Percorrendo objeto produto
+    //  Object.keys(produto).forEach((item) => {
+    //    console.log(item + " = " + produto[item]);
+    //  });
+    //getProdutoGeral();
   }, [isFocused]);
 
-  const renderItem = ({ item }) => (
-    <View style={styles.containerProdutos}>
+  const renderItem = ({ item }) => (    
+    <View style={styles.containerProdutos}>      
       <TouchableOpacity
         onPress={() => navigation.navigate("CadastrarProduto", { item })}>
         <List.Item
@@ -64,7 +63,7 @@ const Loja = () => {
     <Container>
       <Header title={user.nomeLoja}></Header>
       <Body>
-        {/* <Text>{produto.nomeProduto}</Text> */}
+        {/* <Text>{renderProduto.nomeProduto}</Text>  */}        
         <FlatList
           data={produto}
           renderItem={renderItem}
