@@ -59,15 +59,12 @@ const Loja = () => {
 //}
   
   // Para testes
-  const listar = () => {
-    //var prod = JSON.stringify(produto);
-    console.log(typeof (prod));
+  const listar = () => {    
     // for (let i in produto) {
     //   console.log(i + ' = ' + produto[i]);
     // }
-
-    // Iterando
-    var result = produto.map(x => console.log(produto));
+        
+    console.log(produto);
     //console.log(result);
   }
 
