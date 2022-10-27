@@ -1,0 +1,33 @@
+// Verde médio  'vivo'
+// '#6cc438'
+
+// Verde claro - amarelado
+// '#d3e4a5'
+
+// Verde escuro - azulado
+// '#3d9d74'
+
+// Verde médio (Header e Bottom Navigation)
+// '#50ac5d'
+
+// Verde Claro
+// '#9fd09d'
+
+// Verde bem claro (utilizando na guia na page minhas vendas do vendedor)
+// '#c8e5cc'
+
+// Verde Analogo - botões
+// '#5f9846'
+
+// Magenta
+// '#cf96c7'
+
+// Laranja - Botão comprar
+// '#FF8919'
+
+
+// Vermelho para alertas, avisos de exclusão e erros
+// '#D32F2F'
+
+// Cinza
+  '#919191',
