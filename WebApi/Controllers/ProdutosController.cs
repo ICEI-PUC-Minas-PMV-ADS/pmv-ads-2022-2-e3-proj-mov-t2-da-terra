@@ -27,6 +27,21 @@ namespace WebApi.Controllers
       return produto == null ? NotFound() : Ok(produtoJson);
     }
 
+     // GET 
+    [HttpGet(template: "produtos")]
+    public async Task<IActionResult> GetAllProdutoAsync(
+        [FromServices] AppDbContext context)
+    {
+      var produto = await context.Produtos.ToListAsync();
+
+         //var produto =  from prod in context.Produtos
+           //         select prod;
+
+      string produtoJson = JsonSerializer.Serialize(produto);
+
+      return produto == null ? NotFound() : Ok(produtoJson);
+    }
+
     // POST
     [HttpPost(template: "produtos")]
     public async Task<IActionResult> PostProdutoAsync(
@@ -35,10 +50,10 @@ namespace WebApi.Controllers
     {
       if (!ModelState.IsValid)
         return BadRequest();
-      
+
       var produto = new Produto()
       {
-        Nome = model.Nome,  
+        Nome = model.Nome,
         Preco = model.Preco,
         Embalagem = model.Embalagem,
         Estoque = model.Estoque,
@@ -46,7 +61,7 @@ namespace WebApi.Controllers
         Descricao = model.Descricao,
         DataCadastro = model.DataCadastro
       };
-     
+
       try
       {
         // aqui context.AddAsync(produto);

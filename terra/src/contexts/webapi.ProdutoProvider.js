@@ -7,7 +7,7 @@ const ProdutoProvider = ({ children }) => {
 
   const [produto, setProduto] = useState();
 
-  // GET 
+  // GET - OK
   const getProduto = async (id) => {
     console.log(`${url}/produtos/${id}`)
     return await fetch(`${url}/produtos/${id}`, {
@@ -21,7 +21,7 @@ const ProdutoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  // POST
+  // POST - OK
   const postProduto = async (param = {}) => {
     console.log(`${url}/produtos/`);
     return await fetch(`${url}/produtos/`, {
@@ -50,12 +50,25 @@ const ProdutoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  // DELETE
+  // DELETE - OK 
   const deleteProduto = async (id) => {
     return await fetch(`${url}/produtos/${id}`, {
       method: 'DELETE',
     })
       .then(response => console.log(response.status))
+      .catch(error => console.error(error));
+  }
+
+  const getAllProduto = async () => {
+    console.log(`${url}/produtos/`)
+    return await fetch(`${url}/produtos/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => setProduto(json))
       .catch(error => console.error(error));
   }
 
@@ -67,7 +80,8 @@ const ProdutoProvider = ({ children }) => {
         getProduto,
         postProduto,
         putProduto,
-        deleteProduto
+        deleteProduto,
+        getAllProduto
       }}
     >
       {children}

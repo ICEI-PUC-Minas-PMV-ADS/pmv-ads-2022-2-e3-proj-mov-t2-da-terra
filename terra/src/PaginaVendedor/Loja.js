@@ -26,10 +26,11 @@ const Loja = () => {
   const { user, setUser } = useContext(AuthContext)
   const isFocused = useIsFocused();
 
-  const { produto, getProduto, deleteProduto } = useContext(ProdutoContext);
+  const { produto, getProduto, deleteProduto, getAllProduto } = useContext(ProdutoContext);
 
   useEffect(() => {
-    //deleteProduto(11)
+    //getProduto(18);
+    getAllProduto();
 
   }, [isFocused])
 
@@ -52,27 +53,38 @@ const Loja = () => {
     </View>
   );
 
-  // Parar Testes ok  
-  const busca = (id) => {
-    getProduto(id);
-
-  }
+  // // Parar Testes ok  
+  // const busca = (id) => {
+  //   getProduto(id);
+//}
+  
   // Para testes
   const listar = () => {
-    for (let i in produto) {
-      console.log(i + ' = ' + produto[i]);
-    }
+    //var prod = JSON.stringify(produto);
+    console.log(typeof (prod));
+    // for (let i in produto) {
+    //   console.log(i + ' = ' + produto[i]);
+    // }
+
+    // Iterando
+    var result = produto.map(x => console.log(produto));
+    //console.log(result);
   }
 
   return (
     <Container>
       <Header title={user.nomeLoja}></Header>
       <Body>
-        <FlatList
+        {/* <FlatList
           data={produto}
           renderItem={renderItem}
           keyExtractor={item => item.id}
-        />       
+        />      */}
+        <FAB          
+          small
+          icon="plus"
+          onPress={() => listar()}
+        />
         <FAB
           style={styles.fab}
           small

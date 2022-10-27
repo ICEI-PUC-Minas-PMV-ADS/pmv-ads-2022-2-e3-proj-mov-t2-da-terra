@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DOSy0c4idgK3nxvILE9FlX3ZQ5Io5virNFDBSNrvnjCxkGMrLYfv+Z5Z4yqrf1KbB93RrcZkmPMCRYp2rdndsg==",
+  "dgSpecHash": "lbpSs7UbYDn8z7yAxh+CSn8DfaSx0yGXFjkhSAchLeq4aHPce75PRybGvzGAgpVj+4mPnRp2ojaQZFq8f3m/4A==",
   "success": true,
-  "projectFilePath": "C:\\workspace\\WebApi\\WebApi.csproj",
+  "projectFilePath": "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\carlo\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.10\\microsoft.data.sqlite.core.6.0.10.nupkg.sha512",

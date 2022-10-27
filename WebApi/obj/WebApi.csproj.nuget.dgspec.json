@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\workspace\\WebApi\\WebApi.csproj": {}
+    "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj": {}
   },
   "projects": {
-    "C:\\workspace\\WebApi\\WebApi.csproj": {
+    "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\workspace\\WebApi\\WebApi.csproj",
+        "projectUniqueName": "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj",
         "projectName": "WebApi",
-        "projectPath": "C:\\workspace\\WebApi\\WebApi.csproj",
+        "projectPath": "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj",
         "packagesPath": "C:\\Users\\carlo\\.nuget\\packages\\",
-        "outputPath": "C:\\workspace\\WebApi\\obj\\",
+        "outputPath": "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\carlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
