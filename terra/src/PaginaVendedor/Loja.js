@@ -18,21 +18,25 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { AuthContext } from "../contexts/AuthProvider";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
+import { createIconSetFromFontello } from "react-native-vector-icons";
 
 const Loja = () => {
 
   const navigation = useNavigation();
-  //Provider com as informações do usuário logado  
+
+  // Provider com as informações do usuário logado  
   const { user, setUser } = useContext(AuthContext)
   const isFocused = useIsFocused();
 
-  const { produto, getProduto, deleteProduto, getAllProduto } = useContext(ProdutoContext);
+  // Pegando dados do contexto
+  const { produto, getAllProduto } = useContext(ProdutoContext);
 
-  useEffect(() => {
-    //getProduto(18);
-    getAllProduto();
-
+  useEffect(() => {   
+    // Pega todos os itens no banco
+    // tem que ajsuta para pegar somente os itens do user x
+    getAllProduto();  
   }, [isFocused])
+
 
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
@@ -53,34 +57,14 @@ const Loja = () => {
     </View>
   );
 
-  // // Parar Testes ok  
-  // const busca = (id) => {
-  //   getProduto(id);
-//}
-  
-  // Para testes
-  const listar = () => {    
-    // for (let i in produto) {
-    //   console.log(i + ' = ' + produto[i]);
-    // }
-        
-    console.log(produto);
-    //console.log(result);
-  }
-
   return (
     <Container>
       <Header title={user.nomeLoja}></Header>
       <Body>
-        {/* <FlatList
+        <FlatList
           data={produto}
           renderItem={renderItem}
           keyExtractor={item => item.id}
-        />      */}
-        <FAB          
-          small
-          icon="plus"
-          onPress={() => listar()}
         />
         <FAB
           style={styles.fab}
@@ -101,12 +85,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     elevation: 5,
   },
+
+  // Foto produto
   img: {
     width: 127,
     height: 100,
     borderRadius: 10,
     marginRight: 10,
   },
+
+  // Botão '+' de cadastrar produto
   fab: {
     position: "absolute",
     margin: 12,

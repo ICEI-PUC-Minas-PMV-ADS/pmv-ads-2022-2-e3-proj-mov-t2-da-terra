@@ -49,7 +49,7 @@ const CadastarProduto = ({ route }) => {
   const { item } = route.params ? route.params : {};
 
   // Context Produto
-  const { postProduto } = useContext(ProdutoContext);
+  const { postProduto, putProduto, deleteProduto } = useContext(ProdutoContext);
 
   // Para exibir dados quando clica no card do produto (editar)
   useEffect(() => {
@@ -73,15 +73,15 @@ const CadastarProduto = ({ route }) => {
       setMissInfo(false); // Seta FALSE, pois o usuário já preencheu o restante dos dados
       if (!item) {       
         postProduto({ // TESTE OK
-          nome: nome,
-          preco: preco,
+          nome: nome.trim(),
+          preco: preco.trim(),
           embalagem: embalagem,
-          estoque: estoque,
+          estoque: estoque.trim(),
           categoria: categoria,
-          descricao: descricao,
-        }).then()         
+          descricao: descricao.trim(),
+        }).then();         
       } else {
-        updateProduto({ // TESTE OK
+        putProduto({ // TESTE OK
           nome: nome.trim(),
           preco: preco.trim(),
           embalagem: embalagem,
@@ -89,12 +89,10 @@ const CadastarProduto = ({ route }) => {
           categoria: categoria,
           descricao: descricao.trim(),
           id: item.id,
-        }).then()
-          .catch(console.log("ERRO CATCH UPDATE"));
+        }).then();
       }
       navigation.goBack();
     }
-
   }
 
   const handleExcluir = () => { // TESTE OK

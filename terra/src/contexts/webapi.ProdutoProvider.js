@@ -7,6 +7,20 @@ const ProdutoProvider = ({ children }) => {
 
   const [produto, setProduto] = useState();
 
+  //GET ALL - ok
+  const getAllProduto = async () => {
+    console.log(`${url}/produtos/`)
+    return await fetch(`${url}/produtos/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => setProduto(json))
+      .catch(error => console.error(error));
+  }
+
   // GET - OK
   const getProduto = async (id) => {
     console.log(`${url}/produtos/${id}`)
@@ -20,6 +34,8 @@ const ProdutoProvider = ({ children }) => {
       .then(json => setProduto(json))
       .catch(error => console.error(error));
   }
+
+
 
   // POST - OK
   const postProduto = async (param = {}) => {
@@ -36,10 +52,10 @@ const ProdutoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  // PUT - Falta testar, dependende do get  
+  // PUT - OK
   const putProduto = async (param = {}) => {
     return await fetch(`${url}/produtos/${param.id}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -59,18 +75,7 @@ const ProdutoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  const getAllProduto = async () => {
-    console.log(`${url}/produtos/`)
-    return await fetch(`${url}/produtos/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => response.json())
-      .then(json => setProduto(json))
-      .catch(error => console.error(error));
-  }
+
 
 
   return (
