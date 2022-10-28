@@ -34,12 +34,9 @@ namespace WebApi.Controllers
     {
       var produto = await context.Produtos.ToListAsync();
 
-         //var produto =  from prod in context.Produtos
-           //         select prod;
+     // string produtoJson = JsonSerializer.Serialize(produto);
 
-      string produtoJson = JsonSerializer.Serialize(produto);
-
-      return produto == null ? NotFound() : Ok(produtoJson);
+      return produto == null ? NotFound() : Ok(produto);
     }
 
     // POST
