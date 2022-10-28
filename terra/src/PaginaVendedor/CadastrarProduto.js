@@ -32,10 +32,10 @@ const CadastarProduto = ({ route }) => {
   const showDialogEmbalagem = () => setVisibleEmbalagem(true);
   const hideDialogEmbalagem = () => setVisibleEmbalagem(false);
 
-  const [nome, setNome] = useState('Abacate');
-  const [preco, setPreco] = useState(7.98);
-  const [estoque, setEstoque] = useState(33);
-  const [descricao, setDescricao] = useState('Bonito');
+  const [nome, setNome] = useState();
+  const [preco, setPreco] = useState();
+  const [estoque, setEstoque] = useState();
+  const [descricao, setDescricao] = useState();
 
   // Categoria: verduras, hortalicas, frutas, folhagens, bebidas, outros    
   const [categoria, setCategoria] = useState('Verduras');

@@ -12,7 +12,7 @@ const BuscarProdutos = () => {
   //const {} = useContext(ProdutoProvider);
 const navigation = useNavigation();
 const route = useRoute();
-const [searchQuery, setSearchQuery] = useState('Pera');
+const [searchQuery, setSearchQuery] = useState();
 const [resultados, setResultados] = useState([]);
  
 // useEffect(() => {
@@ -39,9 +39,9 @@ const [resultados, setResultados] = useState([]);
 
   
   useEffect(()=>{
-    getSearchProduto(searchQuery).then((prod)=>{   
-        setResultados(prod)  
-    })
+    // getSearchProduto(searchQuery).then((prod)=>{   
+    //     setResultados(prod)  
+    // })
   },[searchQuery])
   
   const onChangeSearch = (query) => {
