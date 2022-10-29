@@ -1,0 +1,55 @@
+{
+  "users": [
+    {
+      "email": "joao@gmail.com",
+      "password": "$2a$10$1pMs85okWA6rKG3tVIspoeU1CHsxd8Kef1eyJYzw36gCmN1y1KbAy",
+      "nome": "João",
+      "dataNascimento": "10/12/2021",
+      "cpf": "12345678978",
+      "telefone": "2799998888",
+      "rua": "Das Palmeiras",
+      "bairro": "Ramones",
+      "numeroCasa": "127",
+      "cep": "01153000",
+      "cidade": "Sao Paulo",
+      "uf": "SP",
+      "complemento": "2 Andar",
+      "tipoUsuario": "cliente",
+      "id": 1
+    },
+    {
+      "email": "joana@email.com",
+      "password": "$2a$10$JJr5PbTr7l5VELv1GQ2.5e9VVxP6l7Moi87kHzkVoRA4ieXt.7K3K",
+      "nome": "Joana",
+      "dataNascimento": "29/10/2022",
+      "cpf": "11111111111",
+      "telefone": "111112222",
+      "rua": "Rua Vitorino Carmilo",
+      "bairro": "Barra Funda",
+      "numeroCasa": "33",
+      "cep": "01153000",
+      "cidade": "São Paulo",
+      "uf": "SP",
+      "complemento": "",
+      "tipoUsuario": "cliente",
+      "id": 2
+    },
+    {
+      "email": "mario@email.com",
+      "password": "$2a$10$1UqMsuEkPHFxVjpqzEN2jOsoHuXGRkANoi/Cwz6YtgpS5mekfRciq",
+      "nome": "Mario",
+      "dataNascimento": "29/10/2022",
+      "cpf": "11111111111",
+      "telefone": "111112222",
+      "rua": "Rua Vitorino Carmilo",
+      "bairro": "Barra Funda",
+      "numeroCasa": "33",
+      "cep": "01153000",
+      "cidade": "São Paulo",
+      "uf": "SP",
+      "complemento": "",
+      "tipoUsuario": "produtor",
+      "id": 3
+    }
+  ]
+}

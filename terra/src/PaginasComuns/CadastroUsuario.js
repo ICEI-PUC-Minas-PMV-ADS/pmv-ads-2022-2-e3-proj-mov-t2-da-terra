@@ -9,7 +9,7 @@ import {
   Alert,
 } from "react-native";
 
-import { fetch } from "react-native/Libraries/Network/fetch";
+
 import { RadioButton, Appbar, TextInput, } from "react-native-paper";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -23,7 +23,9 @@ import Input from "../Componentes/Input";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 //import { inserirPessoa } from "../DBService/DBQuery";
-import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
+// import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
+
+import { register } from '../JsonServer/webapi.usuarios'
 
 const CadastroUsuario = ({ navigation, route }) => {
 
@@ -45,21 +47,21 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [telefone, setTelefone] = useState("");
 
   // Endereço do Usuário
-  const [rua, setRua] = useState("");  
-  const [bairro, setBairro] = useState(""); 
-  const [numeroCasa, setNumeroCasa] = useState("");  
-  const [cep, setCep] = useState("");  
-  const [cidade, setCidade] = useState("");  
-  const [uf, setUf] = useState("");  
-  const [complemento, setComplemento] = useState("");  
+  const [rua, setRua] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [numeroCasa, setNumeroCasa] = useState("");
+  const [cep, setCep] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [uf, setUf] = useState("");
+  const [complemento, setComplemento] = useState("");
 
   // Tipo de Usuário
   const [tipoUsuario, setTipoUsuario] = useState("cliente"); // Cliente Default
-  const [email, setEmail] = useState("");  
+  const [email, setEmail] = useState("");
 
   // Senha
-  const [senha, setSenha] = useState("");  
-  const [confirmarSenha, setConfirmarSenha] = useState(""); 
+  const [senha, setSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
 
   const [dataCadastro, setDataCadastro] = useState(); // Somento DB
 
@@ -91,37 +93,39 @@ const CadastroUsuario = ({ navigation, route }) => {
       }
     } else {
       //Indica que falta informação,caso anteriormente tenha faltado info, não impede posteriormente de o usuário cadastrar com todas as informações corretamente
-      setMissInfo(false); 
-      // Se retornar undefined, então segue o fluxo e seta os valores para cadastrar o usuário
-      getCadastrado(email).then((usuario) => {
-        setUser(usuario[0]);        
-        if (typeof (usuario[0]) == "undefined") {
-          insertUsuario({
-            nome: nome.trim(),
-            dtNascimento: data,
-            cpf: cpf.trim(),
-            telefone: telefone.trim(),
-            rua: rua.trim(),
-            bairro: bairro.trim(),
-            numCasa: numeroCasa.trim(),
-            cep: cep.trim(),
-            cidade: cidade.trim(),
-            uf: uf.trim(),
-            complemento: complemento.trim(),
-            email: email.trim(),
-            senha: senha.trim(),
-            tipoUsuario: tipoUsuario,
-          })
-            .then()
-            .catch();
-          console.log('Entrou')
-          navigation.navigate("Login");
-        }
-        //Se o valor retornado do banco não for undefined significa que o o email já e cadastrado, assim seta a variável abaixo para
-        else {
-          setUserAlredyRegister(true);
-        }
-      });
+      setMissInfo(false);
+      // GET CADASTRADO COMENTADO - FAZER GET VINDO DO JSON SERVER
+      // Se retornar undefined, então segue o fluxo e seta os valores para cadastrar o usuário      
+      // getCadastrado(email).then((usuario) => {
+      //   setUser(usuario[0]);
+      //  if (typeof (usuario[0]) == "undefined") {
+      register({
+        nome: nome.trim(),
+        dataNascimento: data,
+        cpf: cpf.trim(),
+        telefone: telefone.trim(),
+        rua: rua.trim(),
+        bairro: bairro.trim(),
+        numeroCasa: numeroCasa.trim(),
+        cep: cep.trim(),
+        cidade: cidade.trim(),
+        uf: uf.trim(),
+        complemento: complemento.trim(),
+        tipoUsuario: tipoUsuario,
+        email: email.trim(),
+        password: senha.trim(),
+      }).then(res => console.log(res));
+      navigation.navigate("Login");
+      // })
+      //   .then()
+      //   .catch();
+      // console.log('Entrou')
+      // }
+      //Se o valor retornado do banco não for undefined significa que o o email já e cadastrado, assim seta a variável abaixo para
+      // else {
+      //   setUserAlredyRegister(true);
+      //  }
+      //});
     }
   };
 
@@ -249,7 +253,7 @@ const CadastroUsuario = ({ navigation, route }) => {
                 mode="outlined"
                 value={data}
                 left={<TextInput.Icon icon="calendar" />}
-                editable={false}                
+                editable={false}
               />
             </TouchableOpacity>
             {/* Fim configuração DATE*/}
@@ -399,7 +403,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             }
             onChangeText={setConfirmarSenha}
           />
-         
+
           {/* Verifica se email já tem cadastro */}
           {userAlredyRegister && (
             <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>

@@ -14,6 +14,8 @@ import { getLogin } from "../DBService/DBUsuario";
 
 import { AuthContext } from "../contexts/AuthProvider";
 
+import { login } from "../JsonServer/webapi.usuarios";
+
 export default function Login() {
   const navigation = useNavigation();
   const { user, setUser } = useContext(AuthContext);
@@ -32,24 +34,12 @@ export default function Login() {
       setMissInfo(true); // Falta Informação 
       setAviso("Por favor, insira o email e a senha")
     }
-    else {
-      getLogin(email.trim(), senha.trim()).then((usuario) => {
-        // console.log(usuario[0]);
-        setUser(usuario[0]);
-       // console.log(typeof (usuario[0]));
-        setUser(usuario[0])
-        //console.log(usuario[0]);
-
-        if (typeof (usuario[0]) == "undefined") {
-          setMissInfo(true); // Falta Informação 
-          setAviso("Email ou senha incorretos")
-        } else {
-          if (usuario[0].tipoUsuario == "produtor" && usuario[0].tipoUsuario != "undefined")
-            navigation.navigate("HomeVendedor");
-          else if (usuario[0].tipoUsuario == "cliente" && usuario[0].tipoUsuario != "undefined")
-            navigation.navigate("HomeCliente");
-        }
-      });
+    else { // FAZER A VALIDAÇÃO SE É CLIENTE OU PRODUTOR      
+      login({
+        email: email.trim(),
+        password: senha
+      }).then(res => console.log(res));
+      navigation.navigate("HomeCliente");
     }
   };
 
@@ -136,7 +126,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 
- // Botão 
+  // Botão 
   viewBotao: {
     marginTop: 20,
     marginBottom: 25,
@@ -152,7 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: -11,
-  },  
+  },
   textoCadastro: {
     color: "black",
     fontWeight: "bold",
