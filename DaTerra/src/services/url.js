@@ -1,0 +1,1 @@
+export const BASE_URL="https://brave-showers-sleep-179-189-41-126.loca.lt";
