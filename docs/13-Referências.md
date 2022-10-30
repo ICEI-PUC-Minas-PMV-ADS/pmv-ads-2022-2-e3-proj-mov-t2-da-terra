@@ -13,4 +13,5 @@ Acesso em: 3 set. 2022.
 
 * E-commerce dispara e poderá atingir até 5 trilhões de dólares em vendas. Disponível em: < https://seucreditodigital.com.br/e-commerce-dispara-e-podera-atingir-ate-5-trilhoes-de-dolares-em-vendas/ >. Acesso em: 3 set. 2022. 
  
+ * Getting Started with Klaviyo APIs. Disponível em: <https://help.klaviyo.com/hc/en-us/articles/360045726811-Getting-Started-with-Klaviyo-APIs>. Acesso em: 29 out 2022.
 
