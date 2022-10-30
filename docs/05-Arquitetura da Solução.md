@@ -6,8 +6,8 @@ A imagem a seguir ilustra o processo:
 
 <img src=https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/API.png alt="API" width="690" height="266">
 
-[klaviyo.com](https://help.klaviyo.com/hc/en-us/articles/360045726811-Getting-Started-with-Klaviyo-APIs)
-Fonte de Imagem: 
+Fonte de Imagem: [klaviyo.com](https://help.klaviyo.com/hc/en-us/articles/360045726811-Getting-Started-with-Klaviyo-APIs)
+
 
 
 ## Diagrama de Classes
