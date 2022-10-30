@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create();
-const url = 'https://early-donuts-roll-179-189-41-126.loca.lt';
+const url = 'https://orange-cities-juggle-187-59-103-199.loca.lt';
 
 
 // POST - Cadastro Usuário

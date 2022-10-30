@@ -36,39 +36,20 @@ export default function Login() {
     else { // FAZER A VALIDAÇÃO SE É CLIENTE OU PRODUTOR      
       login({
         email: email.trim(),
-        password:senha.trim()
+        password: senha.trim()
       }).then(res => {
-        
-        
-        if(typeof(res)!="null" && res.user.tipoUsuario=="cliente"){
-
-          navigation.navigate("HomeCliente")
-
+        if (typeof (res) != "null" && res.user.tipoUsuario == "cliente") {
+          navigation.navigate("HomeCliente");
         }
-        else if(typeof(res)!="null" && res.user.tipoUsuario=="produtor"){
-
-          navigation.navigate("HomeVendedor")
-
-
+        else if (typeof (res) != "null" && res.user.tipoUsuario == "produtor") {
+          navigation.navigate("HomeVendedor");
         }
-        else{
+        else {
           //Significa que ou o usuario digitou os dados erros ou esse meliante não existe
-        setMissInfo(true)
-        setAviso("Email ou senha incorretos")
-          
+          setMissInfo(true)
+          setAviso("Email ou senha incorretos")
         }
-
-
-
-
-
-
-
-
-
-
       });
-      
     }
   };
 

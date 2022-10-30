@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -25,7 +25,7 @@ import Header from "../Componentes/Header";
 //import { inserirPessoa } from "../DBService/DBQuery";
 // import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
 
-import { register } from '../JsonServer/webapi.usuarios'
+import { register, login } from '../JsonServer/webapi.usuarios'
 
 const CadastroUsuario = ({ navigation, route }) => {
 
@@ -42,26 +42,26 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date());
 
   // Dados Pessoais dos Usuário
-  const [nome, setNome] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [telefone, setTelefone] = useState("");
+  const [nome, setNome] = useState("Carlos");
+  const [cpf, setCpf] = useState("22222222222");
+  const [telefone, setTelefone] = useState("2222222222");
 
   // Endereço do Usuário
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
-  const [numeroCasa, setNumeroCasa] = useState("");
-  const [cep, setCep] = useState("");
+  const [numeroCasa, setNumeroCasa] = useState("33");
+  const [cep, setCep] = useState("01153000");
   const [cidade, setCidade] = useState("");
-  const [uf, setUf] = useState("");
+  const [uf, setUf] = useState("33");
   const [complemento, setComplemento] = useState("");
 
   // Tipo de Usuário
   const [tipoUsuario, setTipoUsuario] = useState("cliente"); // Cliente Default
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("c@email.com");
 
   // Senha
-  const [senha, setSenha] = useState("");
-  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [senha, setSenha] = useState("123456");
+  const [confirmarSenha, setConfirmarSenha] = useState("123456");
 
   const [dataCadastro, setDataCadastro] = useState(); // Somento DB
 
@@ -94,16 +94,16 @@ const CadastroUsuario = ({ navigation, route }) => {
     } else {
       login({
         email: email.trim(),
-        password:senha.trim()//Ver se precisa de senha pra validar
+        password: senha.trim() //Ver se precisa de senha pra validar
       }).then(res => {
-        if(typeof(res)!="null"){
+        if (typeof (res) != "null") {
           //Siginifica que o usuario já esta cadastrado
           setUserAlredyRegister(true);
-
+          Alert.alert("Esse usuário já possui cadastro")
         }
-        else{
+        else {
           setMissInfo(false);
-         //Vai registrar o usuario
+          //Vai registrar o usuario
           register({
             nome: nome.trim(),
             dataNascimento: data,
@@ -120,41 +120,11 @@ const CadastroUsuario = ({ navigation, route }) => {
             email: email.trim(),
             password: senha.trim(),
           }).then(res => console.log(res));
-          
-          
+
           //Usuario foi cadastrado
           navigation.navigate("Login");
-
-
-
-
-          
         }
-
-
-
-
-
-
-
-
-      }
-        
-        
-        
-        
-        )
-      
-      // })
-      //   .then()
-      //   .catch();
-      // console.log('Entrou')
-      // }
-      //Se o valor retornado do banco não for undefined significa que o o email já e cadastrado, assim seta a variável abaixo para
-      // else {
-      //   setUserAlredyRegister(true);
-      //  }
-      //});
+      })
     }
   };
 
