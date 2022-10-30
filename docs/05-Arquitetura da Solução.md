@@ -1,12 +1,14 @@
 # Arquitetura da Solução
 
- PRÓXIMA ETAPA
- 
-<span style="color:red">Pré-requisitos: <a href="3-Projeto de Interface.md"> Projeto de Interface</a></span>
+As resquests e response do aplicativo com o servidor serão feitas através de API desenvolvida na linguagem C#, utilizando a plataforma .Net.
 
-Definição de como o software é estruturado em termos dos componentes que fazem parte da solução e do ambiente de hospedagem da aplicação.
+A imagem a seguir ilustra o processo:
 
-![Arquitetura da Solução](img/02-mob-arch.png)
+<img src=https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/API.png alt="API" width="690" height="266">
+
+Fonte de Imagem: https://help.klaviyo.com/hc/en-us/articles/360045726811-Getting-Started-with-Klaviyo-APIs
+
+![Arquitetura da Solução]()
 
 ## Diagrama de Classes
 
