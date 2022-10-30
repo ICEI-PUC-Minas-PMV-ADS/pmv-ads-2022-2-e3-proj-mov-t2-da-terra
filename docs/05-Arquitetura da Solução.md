@@ -6,9 +6,9 @@ A imagem a seguir ilustra o processo:
 
 <img src=https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/outras/API.png alt="API" width="690" height="266">
 
-Fonte de Imagem: https://help.klaviyo.com/hc/en-us/articles/360045726811-Getting-Started-with-Klaviyo-APIs
+[klaviyo.com](https://help.klaviyo.com/hc/en-us/articles/360045726811-Getting-Started-with-Klaviyo-APIs)
+Fonte de Imagem: 
 
-![Arquitetura da Solução]()
 
 ## Diagrama de Classes
 
@@ -29,8 +29,9 @@ O modelo a seguir demonstra o esquema das tabelas para um Banco de Dados Relacio
 ![DaTerra-Esquema-Relacional.png](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/DaTerra-Esquema-Relacional.png)
 
 ## Modelo Físico
-PRÓXIMA ETAPA
-Entregar um arquivo banco.sql contendo os scripts de criação das tabelas do banco de dados. Este arquivo deverá ser incluído dentro da pasta src\bd.
+Os scritps SQL e DML podem ser encontrados em:
+[Scripts](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/tree/teste/terra/src/DBService)
+
 
 ## Tecnologias Utilizadas
 PRÓXIMA ETAPA
