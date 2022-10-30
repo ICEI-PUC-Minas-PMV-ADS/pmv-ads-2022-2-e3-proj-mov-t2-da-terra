@@ -88,6 +88,7 @@ Dentro das limitações da proposta, podemos elencar:
 * Compra de produtos a longas distâncias: Se tornaria inviável devido aos custos envolvidos. Portanto, a aplicação delimitará o escopo geográfico da busca;
 * Transações financeiras: Não está na proposta da aplicação. Dessa forma, fica a cargo dos envolvidos questões relativas a pagamento. A plataforma apenas oferecerá os contatos das partes.
 
+<<<<<<< HEAD
 ## Diagrama BPMN
 
 Para este projeto, o diagrama de BPMN pode ser dividido em duas raias: cliente e vendedor. A comunicação entre as duas partes se dá da seguinte forma:
@@ -108,6 +109,12 @@ Para este projeto, o diagrama de BPMN pode ser dividido em duas raias: cliente e
 | Protótipo | Obter feedbacks do cliente | Esboço | Entrega por parte do Time de desenvolvimento |
 | Download | Obter número de downloads do APP | Contador de downloads | Cliente |
 | Contas Criadas | Obter número de contas criadas | Contagem via Banco de Dados | Cliente |
+=======
+## Indicadores de Desempenho
+
+![daterra-indicador-desempenho](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/diagramas/daterra-indicador-desempenho.png)
+
+>>>>>>> b5d9830c2d873083586b0a3722d507625e427561
 
 ## Requisitos
 
@@ -151,6 +158,7 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 |--|-------------------------------------------------------|
 |01| O projeto deverá ser entregue até a data 07/12/2022	|
 
+<<<<<<< HEAD
 ## Mapeamento dos Requisitos
 
 Com o mapeamento dos processos organizacionais demonstrado anteriormente no Diagrama BPMN, podem ser feitas as seguintes relações quanto aos requisitos funcionais e não-funcionais elicitados e os processos mapeados: 
@@ -175,6 +183,8 @@ Com o mapeamento dos processos organizacionais demonstrado anteriormente no Diag
 | RNF-006: O aplicativo deve ter uma boa eficiência no uso da bateria do aparelho. | - Todos | Ambas |
 | RNF-007: A busca por produtos deve retornar os itens desejado em menos de 3 segundos. | - Seleciona Vendedor;<br> - Seleciona Produto; | Cliente |
 | RNF-008: O sistema persistir os dados, de forma que em situações de falha do app ou perda de conexão, informações importantes para o usuário não se percam  | - Todos | Ambas |
+=======
+>>>>>>> b5d9830c2d873083586b0a3722d507625e427561
 
 ## Diagrama de Casos de Uso
 
