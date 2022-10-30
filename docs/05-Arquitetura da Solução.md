@@ -34,13 +34,22 @@ Os scritps SQL e DML podem ser encontrados em:
 
 
 ## Tecnologias Utilizadas
-PRÓXIMA ETAPA
-Descreva aqui qual(is) tecnologias você vai usar para resolver o seu problema, ou seja, implementar a sua solução. Liste todas as tecnologias envolvidas, linguagens a serem utilizadas, serviços web, frameworks, bibliotecas, IDEs de desenvolvimento, e ferramentas.
+|Tecnologias |Usada em|
+|:---:|:---:|
+|JavaScript|Desenvolvimento da Aplicação|
+|React Native|Framework desenvolvImento APP|
+|C# / .net|Desenvolvimento API|
+|SQLite|Banco de dados|
+|ngrok|Tunel local para internet|
+|VS Code|Desenvolvimento da Aplicação|
+|Figma|Prototipagem da Aplicação|
 
+ETAPA 4 / 5
+Descreva aqui qual(is) tecnologias você vai usar para resolver o seu problema, ou seja, implementar a sua solução. Liste todas as tecnologias envolvidas, linguagens a serem utilizadas, serviços web, frameworks, bibliotecas, IDEs de desenvolvimento, e ferramentas.
 Apresente também uma figura explicando como as tecnologias estão relacionadas ou como uma interação do usuário com o sistema vai ser conduzida, por onde ela passa até retornar uma resposta ao usuário.
 
 ## Hospedagem
-PRÓXIMA ETAPA
+ETAPA 4 / 5
 Explique como a hospedagem e o lançamento da plataforma foi feita.
 
 > **Links Úteis**:
