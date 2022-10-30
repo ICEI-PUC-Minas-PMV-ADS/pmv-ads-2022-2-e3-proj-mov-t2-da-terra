@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj": {}
+    "C:\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj": {
+    "C:\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj",
+        "projectUniqueName": "C:\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj",
         "projectName": "WebApi",
-        "projectPath": "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj",
-        "packagesPath": "C:\\Users\\carlo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\obj\\",
+        "projectPath": "C:\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\carlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -40,21 +38,35 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.0-rc.2.22472.11, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
+              "version": "[7.0.0-rc.2.22472.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
               "version": "[6.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.0-rc.2.22472.11, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0-rc.2.22472.11, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.10, )"
             }
@@ -65,8 +77,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -78,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     }

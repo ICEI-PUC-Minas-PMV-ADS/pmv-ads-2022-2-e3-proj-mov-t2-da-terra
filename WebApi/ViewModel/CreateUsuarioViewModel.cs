@@ -7,9 +7,9 @@ namespace WebApi.ViewModel
   {
     public int Id { get; set; }
 
-    public int ProdutoId { get; set; }
-    [ForeignKey("ProdutoId")]
-    public Produto Produto { get; set; }
+    // public int ProdutoId { get; set; }
+    // [ForeignKey("ProdutoId")]
+    // public Produto Produto { get; set; }
 
     public string Nome { get; set; }
     public string DataNascimento { get; set; }
@@ -24,7 +24,7 @@ namespace WebApi.ViewModel
     public string Complemento { get; set; }
     public string Email { get; set; }
     public string Senha { get; set; }
-    public string TipoUsario { get; set; }
+    public string TipoUsuario { get; set; }
     public string DataCadastro { get; set; }
   }
 }

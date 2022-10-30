@@ -40,7 +40,7 @@ namespace WebApi.Controllers
     }
 
     // POST
-    [HttpPost(template: "produtos")]
+    [HttpPost(template:"produtos")]
     public async Task<IActionResult> PostProdutoAsync(
       [FromServices] AppDbContext context,
       [FromBody] CreateProdutoViewModel model)

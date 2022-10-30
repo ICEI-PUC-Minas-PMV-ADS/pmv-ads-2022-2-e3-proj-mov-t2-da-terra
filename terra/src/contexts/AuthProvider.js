@@ -11,10 +11,22 @@ export const AuthProvider = ({ children }) => {
   const navigation = useNavigation();
   // const [usuario, setUsuario] = useState();
 
- 
+  const postUsuario = async (param = {}) => {
+    console.log(`${url}/usuarios/`);
+    return await fetch(`${url}/usuarios/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(param)
+    })
+      .then(response => response.json())
+      .then(json => console.log(json))
+      .catch(error => console.error(error));
+  }
 
   return (
-    <AuthContext.Provider value={{user,setUser}}>
+    <AuthContext.Provider value={{user,setUser,postUsuario}}>
       {children}
     </AuthContext.Provider>
   );
