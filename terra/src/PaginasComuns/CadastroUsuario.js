@@ -66,17 +66,40 @@ const CadastroUsuario = ({ navigation, route }) => {
 
   //const [dataCadastro, setDataCadastro] = useState(); // Somento DB
 
-  const { getUsuario, postUsuario } = useContext(UsuarioContext);
+  const {
+    getUsuario,
+    postUsuario,
+    putUsuario,
+    deleteUsuario,
+  } = useContext(UsuarioContext);
 
   useEffect(() => {
-    //getUsuario(3);
-    postUsuario({
-      nome: "Mateus",
+    // getUsuario(3);  //OK
+    // postUsuario({  //OK
+    //   nome: "Mateus",
+    //   dataNascimento: "25/10/2022",
+    //   cpf: "11111111111",
+    //   telefone: "1111111111",
+    //   rua: "Palmeiras",
+    //   bairro: "Secos e molhados",
+    //   numeroCasa: "13",
+    //   cep: "00153000",
+    //   cidade: "São Caetano",
+    //   uf: "RS",
+    //   complemento: "",
+    //   tipoUsuario: "cliente",
+    //   email: "loco@email.com",
+    //   senha: "123456"
+    // }).then(res => console.log(res));
+
+        
+    putUsuario({  
+      nome: "Marcos",
       dataNascimento: "25/10/2022",
       cpf: "11111111111",
       telefone: "1111111111",
       rua: "Palmeiras",
-      bairro: "Secos e molhados",
+      bairro: "Sepultura",
       numeroCasa: "13",
       cep: "00153000",
       cidade: "São Caetano",
@@ -84,10 +107,12 @@ const CadastroUsuario = ({ navigation, route }) => {
       complemento: "",
       tipoUsuario: "cliente",
       email: "loco@email.com",
-      senha: "123456"
+      senha: "123456",
+      id: 20
     }).then(res => console.log(res));
 
 
+    //deleteUsuario(9); // OK
     //buscarEndereco(); // Busca CEP
     DataBase.getConnection();
   }, [cep]);
@@ -151,7 +176,7 @@ const CadastroUsuario = ({ navigation, route }) => {
     }
   };
 
- 
+
   // API: Buscar o Cep
   const buscarEndereco = async () => {
     if (String(cep).length == 8) {

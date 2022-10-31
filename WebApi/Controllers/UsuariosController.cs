@@ -45,38 +45,7 @@ namespace WebApi.Controllers
       return usuario;
     }
 
-    // PUT: api/Usuarios/5
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPut(template: "usuarios/{id}")]
-    public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
-    {
-      if (id != usuario.Id)
-      {
-        return BadRequest();
-      }
-
-      _context.Entry(usuario).State = EntityState.Modified;
-
-      try
-      {
-        await _context.SaveChangesAsync();
-      }
-      catch (DbUpdateConcurrencyException)
-      {
-        if (!UsuarioExists(id))
-        {
-          return NotFound();
-        }
-        else
-        {
-          throw;
-        }
-      }
-      return NoContent();
-    }
-
-    // POST: api/Usuarios
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    // POST    
     [HttpPost(template: "usuarios")]
     public async Task<IActionResult> PostUsuarioAsync(
         [FromServices] AppDbContext context,
@@ -106,8 +75,8 @@ namespace WebApi.Controllers
         Senha = JsonSerializer.Serialize(BCrypt.Net.BCrypt.HashPassword(model.Senha)),
         TipoUsuario = model.TipoUsuario,
         DataCadastro = model.DataCadastro,
-      };     
-       
+      };
+
       try
       {
         await context.AddAsync(usuario);
@@ -115,11 +84,56 @@ namespace WebApi.Controllers
 
         return Created($"v1/usuarios/{usuario.Id}", usuario);
       }
-      catch 
+      catch
       {
         return BadRequest();
       }
       //  usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
+    }
+
+    // PUT
+    [HttpPut(template: "usuarios/{id}")]
+    public async Task<IActionResult> PutUsuario(
+            [FromServices] AppDbContext context,
+            [FromBody] CreateUsuarioViewModel model,
+            [FromRoute] int id)
+    {
+      if (!ModelState.IsValid)
+        return BadRequest();
+
+      var usuario = await context.Usuarios
+      .FirstOrDefaultAsync(x => x.Id == id);
+
+      if (usuario == null)
+        return NotFound();
+
+      try
+      {   
+        usuario.Nome = model.Nome;
+        usuario.DataNascimento = model.DataNascimento;
+        usuario.Cpf = model.Cpf;
+        usuario.Telefone = model.Telefone;
+        usuario.Rua = model.Rua;
+        usuario.Bairro = model.Bairro;
+        usuario.NumeroCasa = model.NumeroCasa;
+        usuario.Cep = model.Cep;
+        usuario.Cidade = model.Cidade;
+        usuario.Uf = model.Uf;
+        usuario.Complemento = model.Complemento;
+        usuario.Email = model.Email;
+        usuario.Senha = JsonSerializer.Serialize(BCrypt.Net.BCrypt.HashPassword(model.Senha));
+        usuario.TipoUsuario = model.TipoUsuario;
+        usuario.DataCadastro = model.DataCadastro;
+
+        context.Usuarios.Update(usuario);
+        await context.SaveChangesAsync();
+
+        return Ok(usuario);
+      }
+      catch (System.Exception)
+      {
+        return BadRequest();
+      }
     }
 
     // DELETE: api/Usuarios/5
