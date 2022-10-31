@@ -43,7 +43,12 @@ namespace WebApi.Migrations
                     b.Property<decimal>("Preco")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Produtos");
                 });
@@ -102,6 +107,17 @@ namespace WebApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("WebApi.Models.Produto", b =>
+                {
+                    b.HasOne("WebApi.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 #pragma warning restore 612, 618
         }

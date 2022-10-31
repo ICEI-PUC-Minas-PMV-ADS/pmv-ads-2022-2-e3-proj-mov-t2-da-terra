@@ -1,9 +1,16 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using WebApi.Models;
 
 namespace WebApi.ViewModel
 {
   public class CreateProdutoViewModel
   {
+    [Required]
+    public int UsuarioId { get; set; }
+    [ForeignKey("UsuarioId")]
+    public Usuario Usuario { get; set; }
+    
     [Required]
     public string Nome { get; set; }
     [Required]
@@ -17,6 +24,6 @@ namespace WebApi.ViewModel
     [Required]
     public string Descricao { get; set; }
     // [Required]
-    public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");    
+    public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
   }
 }

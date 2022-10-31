@@ -93,23 +93,23 @@ const CadastroUsuario = ({ navigation, route }) => {
     // }).then(res => console.log(res));
 
         
-    putUsuario({  
-      nome: "Marcos",
-      dataNascimento: "25/10/2022",
-      cpf: "11111111111",
-      telefone: "1111111111",
-      rua: "Palmeiras",
-      bairro: "Sepultura",
-      numeroCasa: "13",
-      cep: "00153000",
-      cidade: "São Caetano",
-      uf: "RS",
-      complemento: "",
-      tipoUsuario: "cliente",
-      email: "loco@email.com",
-      senha: "123456",
-      id: 20
-    }).then(res => console.log(res));
+    // putUsuario({  
+    //   nome: "Marcos",
+    //   dataNascimento: "25/10/2022",
+    //   cpf: "11111111111",
+    //   telefone: "1111111111",
+    //   rua: "Palmeiras",
+    //   bairro: "Sepultura",
+    //   numeroCasa: "13",
+    //   cep: "00153000",
+    //   cidade: "São Caetano",
+    //   uf: "RS",
+    //   complemento: "",
+    //   tipoUsuario: "cliente",
+    //   email: "loco@email.com",
+    //   senha: "123456",
+    //   id: 20
+    // }).then(res => console.log(res));
 
 
     //deleteUsuario(9); // OK
@@ -193,7 +193,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           setRua(json.logradouro);
           setUf(json.uf)
         });
-    }
+    }    
   };
 
   return (

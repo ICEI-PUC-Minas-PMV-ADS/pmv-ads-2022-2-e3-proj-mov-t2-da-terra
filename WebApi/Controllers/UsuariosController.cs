@@ -72,7 +72,8 @@ namespace WebApi.Controllers
         Uf = model.Uf,
         Complemento = model.Complemento,
         Email = model.Email,
-        Senha = JsonSerializer.Serialize(BCrypt.Net.BCrypt.HashPassword(model.Senha)),
+        Senha = JsonSerializer.Serialize(
+          BCrypt.Net.BCrypt.HashPassword(model.Senha)),
         TipoUsuario = model.TipoUsuario,
         DataCadastro = model.DataCadastro,
       };
@@ -88,7 +89,6 @@ namespace WebApi.Controllers
       {
         return BadRequest();
       }
-      //  usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
     }
 
     // PUT
@@ -108,7 +108,7 @@ namespace WebApi.Controllers
         return NotFound();
 
       try
-      {   
+      {
         usuario.Nome = model.Nome;
         usuario.DataNascimento = model.DataNascimento;
         usuario.Cpf = model.Cpf;
@@ -121,7 +121,8 @@ namespace WebApi.Controllers
         usuario.Uf = model.Uf;
         usuario.Complemento = model.Complemento;
         usuario.Email = model.Email;
-        usuario.Senha = JsonSerializer.Serialize(BCrypt.Net.BCrypt.HashPassword(model.Senha));
+        usuario.Senha = JsonSerializer.Serialize(
+          BCrypt.Net.BCrypt.HashPassword(model.Senha));
         usuario.TipoUsuario = model.TipoUsuario;
         usuario.DataCadastro = model.DataCadastro;
 

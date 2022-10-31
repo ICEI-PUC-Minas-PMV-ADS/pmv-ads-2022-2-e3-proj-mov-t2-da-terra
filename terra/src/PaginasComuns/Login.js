@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
 
 import { useNavigation } from "@react-navigation/native";
@@ -9,15 +9,15 @@ import Container from "../Componentes/Container";
 import Body from "../Componentes/Body";
 import Botao from "../Componentes/Botao";
 
-import { getUsuario } from "../DBService/DBUsuario";
-import { getLogin } from "../DBService/DBUsuario";
+//import { getUsuario } from "../DBService/DBUsuario";
+//import { getLogin } from "../DBService/DBUsuario";
+//import { getLogin } from "../JsonServer/webapi.usuarios";
 
 import { AuthContext } from "../contexts/AuthProvider";
 
-import { login } from "../JsonServer/webapi.usuarios";
 export default function Login() {
   const navigation = useNavigation();
-  const { user, setUser } = useContext(AuthContext);
+  const { usuario, getLogin } = useContext(AuthContext);
 
   // Aviso de erro para dados incompletos ou incorretos
   const [aviso, setAviso] = useState("");
@@ -28,28 +28,42 @@ export default function Login() {
   const [senha, setSenha] = useState("");
   const [escondeSenha, setEscondeSenha] = useState(true);
 
+  // const validarLogin = () => {
+  //   if (!email || !senha) {
+  //     setMissInfo(true); // Falta Informação 
+  //     setAviso("Por favor, insira o email e a senha")
+  //   }
+  //   else { // FAZER A VALIDAÇÃO SE É CLIENTE OU PRODUTOR      
+  //     login({
+  //       email: email.trim(),
+  //       password: senha.trim()
+  //     }).then(res => {
+  //       if (typeof (res) != "null" && res.user.tipoUsuario == "cliente") {
+  //         navigation.navigate("HomeCliente");
+  //       }
+  //       else if (typeof (res) != "null" && res.user.tipoUsuario == "produtor") {
+  //         navigation.navigate("HomeVendedor");
+  //       }
+  //       else {
+  //         //Significa que ou o usuario digitou os dados erros ou esse meliante não existe
+  //         setMissInfo(true)
+  //         setAviso("Email ou senha incorretos")
+  //       }
+  //     });
+  //   }
+  // };
+
+
   const validarLogin = () => {
     if (!email || !senha) {
       setMissInfo(true); // Falta Informação 
       setAviso("Por favor, insira o email e a senha")
     }
-    else { // FAZER A VALIDAÇÃO SE É CLIENTE OU PRODUTOR      
-      login({
-        email: email.trim(),
-        password: senha.trim()
-      }).then(res => {
-        if (typeof (res) != "null" && res.user.tipoUsuario == "cliente") {
-          navigation.navigate("HomeCliente");
-        }
-        else if (typeof (res) != "null" && res.user.tipoUsuario == "produtor") {
-          navigation.navigate("HomeVendedor");
-        }
-        else {
-          //Significa que ou o usuario digitou os dados erros ou esse meliante não existe
-          setMissInfo(true)
-          setAviso("Email ou senha incorretos")
-        }
-      });
+    else {  // Terminar Validação (recuperando ID ok)
+      getLogin({
+        email: email,
+        senha: senha
+      }).then()
     }
   };
 

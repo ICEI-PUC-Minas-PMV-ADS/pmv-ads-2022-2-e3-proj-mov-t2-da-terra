@@ -1,19 +1,14 @@
 import React, { createContext, useState } from "react";
-import { Alert } from "react-native";
-import { getLogin } from "../DBService/DBUsuario";
-import { useNavigation } from "@react-navigation/native";
+import { url } from "./webapi.url";
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState([]);
+  const [usuario, setUsuario] = useState([]); 
 
-  const navigation = useNavigation();
-  // const [usuario, setUsuario] = useState();
-
-  const postUsuario = async (param = {}) => {
-    console.log(`${url}/usuarios/`);
-    return await fetch(`${url}/usuarios/`, {
+  const getLogin = async (param) => {    
+    console.log(`${url}/login/`);
+    return await fetch(`${url}/login/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -26,7 +21,10 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{user,setUser,postUsuario}}>
+    <AuthContext.Provider value={{
+      usuario,
+      getLogin
+    }}>
       {children}
     </AuthContext.Provider>
   );
