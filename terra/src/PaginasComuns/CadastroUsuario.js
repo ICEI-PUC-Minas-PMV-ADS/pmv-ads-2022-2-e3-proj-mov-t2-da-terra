@@ -26,6 +26,7 @@ import Header from "../Componentes/Header";
 // import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
 
 import { register, login } from '../JsonServer/webapi.usuarios'
+import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 
 const CadastroUsuario = ({ navigation, route }) => {
 
@@ -63,11 +64,33 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
 
-  const [dataCadastro, setDataCadastro] = useState(); // Somento DB
+  //const [dataCadastro, setDataCadastro] = useState(); // Somento DB
+
+  const { getUsuario, postUsuario } = useContext(UsuarioContext);
 
   useEffect(() => {
+    //getUsuario(3);
+    postUsuario({
+      nome: "Mateus",
+      dataNascimento: "25/10/2022",
+      cpf: "11111111111",
+      telefone: "1111111111",
+      rua: "Palmeiras",
+      bairro: "Secos e molhados",
+      numeroCasa: "13",
+      cep: "00153000",
+      cidade: "São Caetano",
+      uf: "RS",
+      complemento: "",
+      tipoUsuario: "cliente",
+      email: "loco@email.com",
+      senha: "123456"
+    }).then(res => console.log(res));
+
+
+    //buscarEndereco(); // Busca CEP
     DataBase.getConnection();
-  }, []);
+  }, [cep]);
 
   // Cadastrar Usuário, Validação de Dados e senha
   const handleCadastrar = () => {
@@ -128,11 +151,7 @@ const CadastroUsuario = ({ navigation, route }) => {
     }
   };
 
-  // API: Buscar o Cep
-  useEffect(() => {
-    buscarEndereco();
-  }, [cep]);
-
+ 
   // API: Buscar o Cep
   const buscarEndereco = async () => {
     if (String(cep).length == 8) {

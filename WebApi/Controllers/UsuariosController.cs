@@ -103,13 +103,11 @@ namespace WebApi.Controllers
         Uf = model.Uf,
         Complemento = model.Complemento,
         Email = model.Email,
-        Senha = model.Senha,
+        Senha = JsonSerializer.Serialize(BCrypt.Net.BCrypt.HashPassword(model.Senha)),
         TipoUsuario = model.TipoUsuario,
         DataCadastro = model.DataCadastro,
-
-      };
-      usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
-
+      };     
+       
       try
       {
         await context.AddAsync(usuario);
@@ -117,7 +115,7 @@ namespace WebApi.Controllers
 
         return Created($"v1/usuarios/{usuario.Id}", usuario);
       }
-      catch (System.Exception)
+      catch 
       {
         return BadRequest();
       }
@@ -133,7 +131,7 @@ namespace WebApi.Controllers
       try
       {
         _context.Usuarios.Remove(usuario);
-        await context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
 
         return Ok();
       }

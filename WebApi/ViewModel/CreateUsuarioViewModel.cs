@@ -25,6 +25,6 @@ namespace WebApi.ViewModel
     public string Email { get; set; }
     public string Senha { get; set; }
     public string TipoUsuario { get; set; }
-    public string DataCadastro { get; set; }
+    public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
   }
 }

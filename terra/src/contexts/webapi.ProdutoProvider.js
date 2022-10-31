@@ -24,29 +24,29 @@ const ProdutoProvider = ({ children }) => {
   // GET - OK
   const getProduto = async (id) => {
     console.log(`${url}/produtos/${id}`)
-    return await fetch(`${url}/produtos/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    return await fetch(`${url}/produtos/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
       .then(response => response.json())
       .then(json => setProduto(json))
       .catch(error => console.error(error));
   }
 
-
-
   // POST - OK
   const postProduto = async (param = {}) => {
     console.log(`${url}/produtos/`);
-    return await fetch(`${url}/produtos/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(param)
-    })
+    return await fetch(`${url}/produtos/`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(param)
+      })
       .then(response => response.json())
       .then(json => console.log(json))
       .catch(error => console.error(error));
@@ -54,13 +54,14 @@ const ProdutoProvider = ({ children }) => {
 
   // PUT - OK
   const putProduto = async (param = {}) => {
-    return await fetch(`${url}/produtos/${param.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(param)
-    })
+    return await fetch(`${url}/produtos/${param.id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(param)
+      })
       .then(response => response.json())
       .then(json => setProduto(json))
       .catch(error => console.error(error));
@@ -68,15 +69,13 @@ const ProdutoProvider = ({ children }) => {
 
   // DELETE - OK 
   const deleteProduto = async (id) => {
-    return await fetch(`${url}/produtos/${id}`, {
-      method: 'DELETE',
-    })
+    return await fetch(`${url}/produtos/${id}`,
+      {
+        method: 'DELETE',
+      })
       .then(response => console.log(response.status))
       .catch(error => console.error(error));
   }
-
-
-
 
   return (
     <ProdutoContext.Provider
