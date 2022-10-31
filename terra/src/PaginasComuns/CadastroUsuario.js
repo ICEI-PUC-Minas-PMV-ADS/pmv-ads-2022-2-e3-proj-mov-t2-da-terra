@@ -113,7 +113,7 @@ const CadastroUsuario = ({ navigation, route }) => {
 
 
     //deleteUsuario(9); // OK
-    //buscarEndereco(); // Busca CEP
+    buscarEndereco(); // Busca CEP
     DataBase.getConnection();
   }, [cep]);
 

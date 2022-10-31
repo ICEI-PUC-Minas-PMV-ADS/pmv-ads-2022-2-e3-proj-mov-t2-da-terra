@@ -17,7 +17,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 export default function Login() {
   const navigation = useNavigation();
-  const { usuario, getLogin } = useContext(AuthContext);
+  const { idLogado, postLogin } = useContext(AuthContext);
 
   // Aviso de erro para dados incompletos ou incorretos
   const [aviso, setAviso] = useState("");
@@ -60,10 +60,13 @@ export default function Login() {
       setAviso("Por favor, insira o email e a senha")
     }
     else {  // Terminar Validação (recuperando ID ok)
-      getLogin({
+      postLogin({
         email: email,
         senha: senha
-      }).then()
+      }).then();  // Está retornando o ID
+      // for (let x in idLogado) {
+      //   console.log(idLogado[x])
+      // }
     }
   };
 
@@ -119,7 +122,7 @@ export default function Login() {
 
         {/* Mensagem  'Não tem uma conta?'*/}
         <View style={styles.viewTexto}>
-          <Text style={styles.textoCadastro}>Não tem um conta?</Text>
+          <Text style={styles.textoCadastro}>Não tem uma conta?</Text>
         </View>
 
         {/* Botão Cadastra-se */}
