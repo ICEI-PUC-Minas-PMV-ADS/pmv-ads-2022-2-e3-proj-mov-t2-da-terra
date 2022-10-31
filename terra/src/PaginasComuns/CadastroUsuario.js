@@ -42,26 +42,26 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date());
 
   // Dados Pessoais dos Usuário
-  const [nome, setNome] = useState("Carlos");
-  const [cpf, setCpf] = useState("22222222222");
-  const [telefone, setTelefone] = useState("2222222222");
+  const [nome, setNome] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [telefone, setTelefone] = useState("");
 
   // Endereço do Usuário
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
-  const [numeroCasa, setNumeroCasa] = useState("33");
-  const [cep, setCep] = useState("01153000");
+  const [numeroCasa, setNumeroCasa] = useState("");
+  const [cep, setCep] = useState("");
   const [cidade, setCidade] = useState("");
-  const [uf, setUf] = useState("33");
+  const [uf, setUf] = useState("");
   const [complemento, setComplemento] = useState("");
 
   // Tipo de Usuário
   const [tipoUsuario, setTipoUsuario] = useState("cliente"); // Cliente Default
-  const [email, setEmail] = useState("c@email.com");
+  const [email, setEmail] = useState("");
 
   // Senha
-  const [senha, setSenha] = useState("123456");
-  const [confirmarSenha, setConfirmarSenha] = useState("123456");
+  const [senha, setSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
 
   const [dataCadastro, setDataCadastro] = useState(); // Somento DB
 
@@ -134,27 +134,22 @@ const CadastroUsuario = ({ navigation, route }) => {
   }, [cep]);
 
   // API: Buscar o Cep
-  const buscarEndereco = () => {
-    const Cep = (e) => {
-      if (String(cep).length == 8) {
-        const meuCep = String(cep);
+  const buscarEndereco = async () => {
+    if (String(cep).length == 8) {
+      const meuCep = String(cep);
 
-        const value = meuCep.replace(/[^0-9]+/, meuCep);
-        const url = `https://viacep.com.br/ws/${value}/json/`;
+      const value = meuCep.replace(/[^0-9]+/, meuCep);
+      const url = `https://viacep.com.br/ws/${value}/json/`;
 
-        fetch(url)
-          .then((response) => response.json())
-          .then((json) => {
-            if (json.logradouro) {
-              setBairro(json.bairro);
-              setCidade(json.localidade);
-              setRua(json.logradouro);
-              setUf(json.uf)
-            }
-          });
-      }
-    };
-    Cep();
+      await fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+          setBairro(json.bairro);
+          setCidade(json.localidade);
+          setRua(json.logradouro);
+          setUf(json.uf)
+        });
+    }
   };
 
   return (
