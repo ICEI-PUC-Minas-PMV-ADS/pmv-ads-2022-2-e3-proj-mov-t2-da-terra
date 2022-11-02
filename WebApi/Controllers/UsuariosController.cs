@@ -36,7 +36,8 @@ namespace WebApi.Controllers
     [HttpGet(template: "usuarios/{id}")]
     public async Task<ActionResult<Usuario>> GetUsuario(int id)
     {
-      var usuario = await _context.Usuarios.FindAsync(id);
+      
+      var usuario = await _context.Clientes.FindAsync(id);
 
       if (usuario == null)
       {
@@ -53,37 +54,92 @@ namespace WebApi.Controllers
     {
       if (!ModelState.IsValid)
       {
-
         return BadRequest();
       }
 
-      var usuario = new Usuario()
-      {
-        //Ver como vai ficar o Produto e ProdutoId
-        Nome = model.Nome,
-        DataNascimento = model.DataNascimento,
-        Cpf = model.Cpf,
-        Telefone = model.Telefone,
-        Rua = model.Rua,
-        Bairro = model.Bairro,
-        NumeroCasa = model.NumeroCasa,
-        Cep = model.Cep,
-        Cidade = model.Cidade,
-        Uf = model.Uf,
-        Complemento = model.Complemento,
-        Email = model.Email,
-        Senha = JsonSerializer.Serialize(
-          BCrypt.Net.BCrypt.HashPassword(model.Senha)),
-        TipoUsuario = model.TipoUsuario,
-        DataCadastro = model.DataCadastro,
-      };
-
       try
       {
-        await context.AddAsync(usuario);
-        await context.SaveChangesAsync();
+        if (model.TipoUsuario == "cliente")
+        {
+          var cliente = new Cliente()
+          {
+            Nome = model.Nome,
+            DataNascimento = model.DataNascimento,
+            Cpf = model.Cpf,
+            Telefone = model.Telefone,
+            Rua = model.Rua,
+            Bairro = model.Bairro,
+            NumeroCasa = model.NumeroCasa,
+            Cep = model.Cep,
+            Cidade = model.Cidade,
+            Uf = model.Uf,
+            Complemento = model.Complemento,
+            Email = model.Email,
+            Senha = JsonSerializer.Serialize(
+            BCrypt.Net.BCrypt.HashPassword(model.Senha)),
+            TipoUsuario = model.TipoUsuario,
+            DataCadastro = model.DataCadastro,
+          };
 
-        return Created($"v1/usuarios/{usuario.Id}", usuario);
+          await context.AddAsync(cliente);
+          await context.SaveChangesAsync();
+
+          return Created($"v1/usuarios/{cliente.Id}", cliente);
+        }
+        else
+        {
+          var produtor = new Produtor()
+          {
+            Nome = model.Nome,
+            DataNascimento = model.DataNascimento,
+            Cpf = model.Cpf,
+            Telefone = model.Telefone,
+            Rua = model.Rua,
+            Bairro = model.Bairro,
+            NumeroCasa = model.NumeroCasa,
+            Cep = model.Cep,
+            Cidade = model.Cidade,
+            Uf = model.Uf,
+            Complemento = model.Complemento,
+            Email = model.Email,
+            Senha = JsonSerializer.Serialize(
+              BCrypt.Net.BCrypt.HashPassword(model.Senha)),
+            TipoUsuario = model.TipoUsuario,
+            DataCadastro = model.DataCadastro,
+            NomeLoja = model.NomeLoja
+          };
+          await context.AddAsync(produtor);
+          await context.SaveChangesAsync();
+
+          return Created($"v1/usuarios/{produtor.Id}", produtor);
+        }
+
+        // var usuario = new Usuario()
+        // {
+        //   //Ver como vai ficar o Produto e ProdutoId
+        //   Nome = model.Nome,
+        //   DataNascimento = model.DataNascimento,
+        //   Cpf = model.Cpf,
+        //   Telefone = model.Telefone,
+        //   Rua = model.Rua,
+        //   Bairro = model.Bairro,
+        //   NumeroCasa = model.NumeroCasa,
+        //   Cep = model.Cep,
+        //   Cidade = model.Cidade,
+        //   Uf = model.Uf,
+        //   Complemento = model.Complemento,
+        //   Email = model.Email,
+        //   Senha = JsonSerializer.Serialize(
+        //     BCrypt.Net.BCrypt.HashPassword(model.Senha)),
+        //   TipoUsuario = model.TipoUsuario,
+        //   DataCadastro = model.DataCadastro,
+        // };
+
+
+        // await context.AddAsync(usuario);
+        // await context.SaveChangesAsync();
+
+        // return Created($"v1/usuarios/{usuario.Id}", usuario);
       }
       catch
       {

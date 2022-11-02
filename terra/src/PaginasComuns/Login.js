@@ -54,6 +54,7 @@ export default function Login() {
   // };
 
 
+  // COM API .net
   const validarLogin = () => {
     if (!email || !senha) {
       setMissInfo(true); // Falta Informação 

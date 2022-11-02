@@ -3,10 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApi.Models;
 
-public class Usuario
+public abstract class Usuario
 {
-  [Key]
-  public int Id { get; set; } 
+  public int Id { get; set; }
   public string Nome { get; set; }
   public string DataNascimento { get; set; }
   public string Cpf { get; set; }

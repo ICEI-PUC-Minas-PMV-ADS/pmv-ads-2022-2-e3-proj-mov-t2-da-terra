@@ -50,7 +50,7 @@ namespace WebApi.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Produtos");
+                    b.ToTable("Produtos", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.Usuario", b =>
@@ -106,7 +106,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Usuarios", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.Produto", b =>

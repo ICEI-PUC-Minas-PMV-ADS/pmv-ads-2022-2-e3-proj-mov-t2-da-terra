@@ -6,7 +6,9 @@ namespace WebApi.Data
   public class AppDbContext : DbContext
   {
     public DbSet<Produto> Produtos { get; set; }
-    public DbSet<Usuario> Usuarios { get; set; }
+    // public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<Cliente> Clientes { get; set; }
+    public DbSet<Produtor> Produtores { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
