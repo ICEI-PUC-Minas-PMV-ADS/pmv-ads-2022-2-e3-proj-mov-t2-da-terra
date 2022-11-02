@@ -14,6 +14,7 @@ import Botao from "../Componentes/Botao";
 //import { getLogin } from "../JsonServer/webapi.usuarios";
 
 import { AuthContext } from "../contexts/AuthProvider";
+import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -55,6 +56,10 @@ export default function Login() {
 
 
   const validarLogin = () => {
+    fetch('http://localhost:8081/v1/usuarios/2')
+    .then(response => response.text())
+    .then(json => console.log(json))
+
     if (!email || !senha) {
       setMissInfo(true); // Falta Informação 
       setAviso("Por favor, insira o email e a senha")
@@ -63,7 +68,7 @@ export default function Login() {
       postLogin({
         email: email,
         senha: senha
-      }).then();  // Está retornando o ID
+      }).then(response=>console.log(response));  // Está retornando o ID
       // for (let x in idLogado) {
       //   console.log(idLogado[x])
       // }

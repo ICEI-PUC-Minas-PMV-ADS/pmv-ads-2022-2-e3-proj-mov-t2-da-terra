@@ -22,4 +22,13 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Arquitetura Banco" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ViewModel\CreateClienteViewModel.cs" />
+    <Compile Remove="Models\Vendedor.cs" />
+  </ItemGroup>
+
 </Project>

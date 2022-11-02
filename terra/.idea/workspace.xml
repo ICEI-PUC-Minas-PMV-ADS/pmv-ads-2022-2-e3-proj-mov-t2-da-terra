@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f8f37fb2-3e6f-4c3f-a6d2-37c2ede3ef0a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../WebApi/Models/Pedido.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApi/Models/Vendedor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApi/ViewModel/CreateClienteViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/Data/AppDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/Models/Usuario.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/Models/Usuario.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/WebApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/WebApi.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/daterra.db" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/daterra.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/daterra.db-shm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/daterra.db-wal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/obj/Debug/net6.0/WebApi.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/obj/Debug/net6.0/WebApi.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/obj/Debug/net6.0/WebApi.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/obj/Debug/net6.0/WebApi.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/obj/Debug/net6.0/WebApi.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/obj/Debug/net6.0/WebApi.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/obj/Debug/net6.0/WebApi.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/obj/Debug/net6.0/WebApi.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/obj/Debug/net6.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/obj/Debug/net6.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/obj/WebApi.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/obj/WebApi.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/obj/WebApi.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/obj/WebApi.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApi/obj/staticwebassets.pack.sentinel" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApi/obj/staticwebassets.pack.sentinel" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PaginasComuns/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/PaginasComuns/Login.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2GvNt9qx1eoZp3l0IZF5GsWxcrU" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f8f37fb2-3e6f-4c3f-a6d2-37c2ede3ef0a" name="Changes" comment="" />
+      <created>1667265316191</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667265316191</updated>
+    </task>
+    <servers />
+  </component>
+</project>
