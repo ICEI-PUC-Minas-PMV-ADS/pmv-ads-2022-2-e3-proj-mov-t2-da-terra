@@ -55,6 +55,7 @@ export default function Login() {
   // };
 
 
+  // COM API .net
   const validarLogin = () => {
     fetch('http://localhost:8081/v1/usuarios/2')
     .then(response => response.text())
