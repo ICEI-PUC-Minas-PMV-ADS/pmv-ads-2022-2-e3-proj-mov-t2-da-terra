@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-# DaTerra
 
-![logo300x300](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/logo/logo300x300.png)
-=======
 <h1 align="center"># DaTerra</h1>
 
  ![logo300x300](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra/blob/main/entregas/images/logo/logo300x300.png)
->>>>>>> b5d9830c2d873083586b0a3722d507625e427561
 
 `Análise e Desenvolvimento de Sistemas`
 
