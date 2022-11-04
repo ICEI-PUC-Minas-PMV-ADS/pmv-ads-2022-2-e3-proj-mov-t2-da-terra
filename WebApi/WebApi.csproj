@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="ViewModel\CreateClienteViewModel.cs" />
     <Compile Remove="Models\Vendedor.cs" />
+    <Compile Remove="Controllers\ProdutoresController.cs" />
   </ItemGroup>
 
 </Project>

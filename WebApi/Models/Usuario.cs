@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Models;
 
-public abstract class Usuario
+public class Usuario
 {
   [Key]
 

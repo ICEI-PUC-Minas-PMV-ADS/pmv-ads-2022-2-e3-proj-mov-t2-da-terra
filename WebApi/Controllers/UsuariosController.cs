@@ -34,11 +34,15 @@ namespace WebApi.Controllers
 
     // GET: api/Usuarios/5
     [HttpGet(template: "usuarios/{id}")]
-    public async Task<ActionResult<Usuario>> GetUsuario(int id)
+    
+    /*Para tentar "Simplificar", a ideia é deixar 1 Método  genérico somente de getUsuario e dentro dele os metodos
+     secundarios para buscar se é cliente ou usuario
+     
+     */
+     public async Task<ActionResult<Cliente>> GetUsuario(int id)
     {
-
-      var cliente = await _context.Clientes.FindAsync(id);
-      var produtor = await _context.Produtores.FindAsync(id);
+      var cliente = GetCliente(id);
+      var produtor = GetProdutor(id);
 
       if (cliente == null && produtor == null)
       {
@@ -46,23 +50,68 @@ namespace WebApi.Controllers
         
       }
       else
+      //Estudar com retornar  um ou outro,pois o ActionResult permite So um Tipo
       {
-        //Verifica de forma implicita de se é ou cliente ou produtor,caso seja um dos dois retorna o valor encontrado
         if (cliente != null)
         {
 
-          return cliente;
+          // return cliente;
         }
         else
         {
-          return produtor;
+          // return produtor;
         }
+        
+      }
+
+      return NotFound();
+
+    }
+    [HttpGet(template: "usuarios/{id}")]
+    public async Task<ActionResult<Cliente>> GetCliente(int id)//Método "secundário" para ser chamado no getUsuario
+    {
+
+      var cliente = await _context.Clientes.FindAsync(id);//Se achar,retorna o objeto,se não retorna null
+
+      if (cliente == null)//V
+      {
+        return null;//Ao inves de retornar NotFound,retorna o tipo null,ficando mais fácil de trabalhar no metodo getUsuario
+      }
+      else
+      {
+       
+
+          return cliente;
+        
+      
         
       }
       
       
     }
+    //GET PARA BUSCAR O NO BANCO O ID NA TABELA PRODUTOR
 
+    [HttpGet(template: "usuarios/{id}")]
+    public async Task<ActionResult<Produtor>> GetProdutor(int id)//Método "secundário" para ser chamado no getUsuario
+    {
+
+      var produtor = await _context.Produtores.FindAsync(id);//Se achar,retorna o objeto,se não retorna null
+
+      if (produtor == null)//Ao inves de retornar NotFound,retorna o tipo null,ficando mais fácil de trabalhar no metodo getUsuario
+      {
+        return null;
+      }
+      else
+      {
+        
+          return produtor;
+        
+      
+        
+      }
+      
+      
+    }
     // POST    
     [HttpPost(template: "usuarios")]
     public async Task<IActionResult> PostUsuarioAsync(
@@ -94,7 +143,6 @@ namespace WebApi.Controllers
             Email = model.Email,
             Senha = JsonSerializer.Serialize(
             BCrypt.Net.BCrypt.HashPassword(model.Senha)),
-            TipoUsuario = model.TipoUsuario,
             DataCadastro = model.DataCadastro,
           };
 
@@ -121,9 +169,8 @@ namespace WebApi.Controllers
             Email = model.Email,
             Senha = JsonSerializer.Serialize(
               BCrypt.Net.BCrypt.HashPassword(model.Senha)),
-            TipoUsuario = model.TipoUsuario,
+            NomeLoja = model.NomeLoja,
             DataCadastro = model.DataCadastro,
-            NomeLoja = model.NomeLoja
           };
           await context.AddAsync(produtor);
           await context.SaveChangesAsync();

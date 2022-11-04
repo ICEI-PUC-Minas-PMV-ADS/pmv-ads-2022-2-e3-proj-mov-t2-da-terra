@@ -19,22 +19,7 @@ namespace WebApi.Data
     {
       optionsBuilder.UseSqlite(connectionString: "DataSource=daterra.db;Cache=Shared");
     }
-      //Aqui criaria TCP(Table concret type),criando de fato as tabelas Cliente e Produtor,mas precisa do
-      //DbModelBuilder,usando o namespace System.Data.Entity só que nao funciona) 
-      // protected override void OnModelCreating(DbModelBuilder modelBuilder)
-      // {
-      //   modelBuilder.Entity<Cliente>().Map(m =>
-      //   {
-      //     m.MapInheritedProperties();
-      //     m.ToTable("Clientes");
-      //   });
-      //
-      //   modelBuilder.Entity<Produtor>().Map(m =>
-      //   {
-      //     m.MapInheritedProperties();
-      //     m.ToTable("Produtores");
-      //   });
-      // }
+     
 
   }
 }

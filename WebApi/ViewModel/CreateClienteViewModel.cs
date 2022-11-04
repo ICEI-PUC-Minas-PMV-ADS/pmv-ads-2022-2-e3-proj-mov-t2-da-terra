@@ -1,22 +1,50 @@
-<<<<<<< HEAD
-﻿namespace WebApi.ViewModel;
-using WebApi.Models;
+﻿using Microsoft.Build.Framework;
 
+namespace WebApi.ViewModel;
 
-public class CreateClienteViewModel:Usuario
+public class CreateClienteViewModel
 {
-    
-=======
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+    public int Id { get; set; } 
+    [Required]
 
-namespace WebApi.ViewModel
-{
-    public class CreateClienteViewModel
-    {
-        
-    }
->>>>>>> 68ec8ccad7b176a1ea1efeb8a24cbe54985f8642
+    public string Nome { get; set; }
+    [Required]
+
+    public string DataNascimento { get; set; }
+    [Required]
+
+    public string Cpf { get; set; }
+    [Required]
+
+    public string Telefone { get; set; }
+    [Required]
+
+    public string Rua { get; set; }
+    [Required]
+
+    public string Bairro { get; set; }
+    [Required]
+
+    public int NumeroCasa { get; set; }
+    [Required]
+
+    public int Cep { get; set; }
+    [Required]
+
+    public string Cidade { get; set; }
+    [Required]
+
+    public string Uf { get; set; }
+    [Required]
+
+    public string Complemento { get; set; }
+    [Required]
+
+    public string Email { get; set; }
+    [Required]
+
+    public string Senha { get; set; }
+    [Required]
+
+    public string DataCadastro { get; set; } 
 }
