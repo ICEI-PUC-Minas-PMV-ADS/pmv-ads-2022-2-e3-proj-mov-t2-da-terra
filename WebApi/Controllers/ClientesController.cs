@@ -15,32 +15,32 @@ namespace WebApi.Controllers
 {
   [ApiController]
   [Route(template: "v1")]
-  public class ProdutoresController : ControllerBase
+  public class ClientesController : ControllerBase
   {
     // GET: Todos produtores
-    [HttpGet(template: "produtores")]
-    public async Task<IActionResult> GetAllProdutor(
+    [HttpGet(template: "clientes")]
+    public async Task<IActionResult> GetAllCliente(
       [FromServices] AppDbContext context)
     {
-      var produtor = await context.Produtores.ToListAsync();
-      return Ok(produtor);
+      var cliente = await context.Clientes.ToListAsync();
+      return Ok(cliente);
     }
 
     // GET : Por ID
-    [HttpGet(template: "produtores/{id}")]
-    public async Task<IActionResult> GetProdutor(
+    [HttpGet(template: "clientes/{id}")]
+    public async Task<IActionResult> GetCliente(
         [FromServices] AppDbContext context,
         [FromRoute] int id)
     {
-      var produtor = await context.Produtores
+      var cliente = await context.Clientes
         .FirstOrDefaultAsync(x => x.Id == id);
 
-      if (produtor == null)
-        return NotFound(new { message = "Produtor não encontrado" });
+      if (cliente == null)
+        return NotFound(new { message = "Cliente não encontrado" });
 
       try
       {
-        return Ok(produtor);
+        return Ok(cliente);
       }
       catch (System.Exception)
       {
@@ -49,17 +49,17 @@ namespace WebApi.Controllers
     }
 
     // POST   
-    [HttpPost(template: "produtores")]
-    public async Task<IActionResult> PostProdutor(
+    [HttpPost(template: "clientes")]
+    public async Task<IActionResult> PostCliente(
         [FromServices] AppDbContext context,
-        [FromBody] CreateProdutorViewModel model)
+        [FromBody] CreateClienteViewModel model)
     {
       if (!ModelState.IsValid)
         return BadRequest();
 
       try
       {
-        var produtor = new Produtor()
+        var cliente = new Cliente()
         {
           //Ver como vai ficar o Produto e ProdutoId
           Nome = model.Nome,
@@ -77,14 +77,13 @@ namespace WebApi.Controllers
           Senha = JsonSerializer.Serialize(
             BCrypt.Net.BCrypt.HashPassword(model.Senha)),
           TipoUsuario = model.TipoUsuario,
-          NomeLoja = model.NomeLoja,
           DataCadastro = model.DataCadastro,
         };
 
-        await context.AddAsync(produtor);
+        await context.AddAsync(cliente);
         await context.SaveChangesAsync();
 
-        return Created($"v1/produtores/{produtor.Id}", produtor);
+        return Created($"v1/clientes/{cliente.Id}", cliente);
       }
       catch
       {
@@ -93,45 +92,44 @@ namespace WebApi.Controllers
     }
 
     // PUT
-    [HttpPut(template: "produtores/{id}")]
-    public async Task<IActionResult> PutProdutor(
+    [HttpPut(template: "clientes/{id}")]
+    public async Task<IActionResult> PutCliente(
             [FromServices] AppDbContext context,
-            [FromBody] CreateProdutorViewModel model,
+            [FromBody] CreateClienteViewModel model,
             [FromRoute] int id)
     {
       if (!ModelState.IsValid)
         return BadRequest();
 
-      var produtor = await context.Produtores
+      var cliente = await context.Clientes
       .FirstOrDefaultAsync(x => x.Id == id);
 
-      if (produtor == null)
+      if (cliente == null)
         return NotFound();
 
       try
       {
-        produtor.Nome = model.Nome;
-        produtor.DataNascimento = model.DataNascimento;
-        produtor.Cpf = model.Cpf;
-        produtor.Telefone = model.Telefone;
-        produtor.Rua = model.Rua;
-        produtor.Bairro = model.Bairro;
-        produtor.NumeroCasa = model.NumeroCasa;
-        produtor.Cep = model.Cep;
-        produtor.Cidade = model.Cidade;
-        produtor.Uf = model.Uf;
-        produtor.Complemento = model.Complemento;
-        produtor.Email = model.Email;
-        produtor.Senha = JsonSerializer.Serialize(
+        cliente.Nome = model.Nome;
+        cliente.DataNascimento = model.DataNascimento;
+        cliente.Cpf = model.Cpf;
+        cliente.Telefone = model.Telefone;
+        cliente.Rua = model.Rua;
+        cliente.Bairro = model.Bairro;
+        cliente.NumeroCasa = model.NumeroCasa;
+        cliente.Cep = model.Cep;
+        cliente.Cidade = model.Cidade;
+        cliente.Uf = model.Uf;
+        cliente.Complemento = model.Complemento;
+        cliente.Email = model.Email;
+        cliente.Senha = JsonSerializer.Serialize(
           BCrypt.Net.BCrypt.HashPassword(model.Senha));
-        produtor.TipoUsuario = model.TipoUsuario;
-        produtor.NomeLoja = model.NomeLoja;
-        produtor.DataCadastro = model.DataCadastro;
+        cliente.TipoUsuario = model.TipoUsuario;
+        cliente.DataCadastro = model.DataCadastro;
 
-        context.Produtores.Update(produtor);
+        context.Clientes.Update(cliente);
         await context.SaveChangesAsync();
 
-        return Ok(produtor);
+        return Ok(cliente);
       }
       catch (System.Exception)
       {
@@ -140,16 +138,16 @@ namespace WebApi.Controllers
     }
 
     // DELETE: api/Usuarios/5
-    [HttpDelete(template: "produtores/{id}")]
-    public async Task<IActionResult> DeleteProdutor(
+    [HttpDelete(template: "clientes/{id}")]
+    public async Task<IActionResult> DeleteCliente(
         [FromServices] AppDbContext context,
         [FromRoute] int id)
     {
-      var produtor = await context.Produtores.FindAsync(id);
+      var cliente = await context.Clientes.FindAsync(id);
 
       try
       {
-        context.Produtores.Remove(produtor);
+        context.Clientes.Remove(cliente);
         await context.SaveChangesAsync();
 
         return Ok();
@@ -159,7 +157,5 @@ namespace WebApi.Controllers
         return BadRequest();
       }
     }
-
   }
 }
-

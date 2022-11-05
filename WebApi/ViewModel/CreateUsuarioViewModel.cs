@@ -8,9 +8,6 @@ namespace WebApi.ViewModel
   {
     public int Id { get; set; }
 
-    // public int ProdutoId { get; set; }
-    // [ForeignKey("ProdutoId")]
-    // public Produto Produto { get; set; }
     [Required]
     public string Nome { get; set; }
     [Required]
@@ -37,10 +34,9 @@ namespace WebApi.ViewModel
     [Required]
     public string Senha { get; set; }
     [Required]
-    public string TipoUsuario { get; set; }    
+    public string TipoUsuario { get; set; }
     [Required]
-    public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-
     public string NomeLoja { get; set; } // É null quando cliente
+    public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
   }
 }
