@@ -7,10 +7,8 @@ namespace WebApi.ViewModel
   public class CreateProdutoViewModel
   {
     [Required]
-    public int UsuarioId { get; set; }
-    [ForeignKey("UsuarioId")]
-    public Usuario Usuario { get; set; }
-    
+    public int ProdutorId { get; set; }
+
     [Required]
     public string Nome { get; set; }
     [Required]

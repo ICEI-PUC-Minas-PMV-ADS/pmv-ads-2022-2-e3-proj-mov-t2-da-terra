@@ -32,10 +32,10 @@ const CadastarProduto = ({ route }) => {
   const showDialogEmbalagem = () => setVisibleEmbalagem(true);
   const hideDialogEmbalagem = () => setVisibleEmbalagem(false);
 
-  const [nome, setNome] = useState();
-  const [preco, setPreco] = useState();
-  const [estoque, setEstoque] = useState();
-  const [descricao, setDescricao] = useState();
+  const [nome, setNome] = useState("Pera");
+  const [preco, setPreco] = useState(7.98);
+  const [estoque, setEstoque] = useState(25);
+  const [descricao, setDescricao] = useState("Top de Linha");
 
   // Categoria: verduras, hortalicas, frutas, folhagens, bebidas, outros    
   const [categoria, setCategoria] = useState('Verduras');
@@ -51,6 +51,9 @@ const CadastarProduto = ({ route }) => {
   // Context Produto
   const { postProduto, putProduto, deleteProduto } = useContext(ProdutoContext);
 
+  // Está estática para testes, mas vai vir da api com o ID do usuário logado para setar na tabela Produtos no DB
+  const usuarioLogado = 5;
+
   // Para exibir dados quando clica no card do produto (editar)
   useEffect(() => {
     if (item) { // Se vier dados da rota
@@ -62,16 +65,16 @@ const CadastarProduto = ({ route }) => {
       setEmbalagem(item.embalagem);
       // inserir foto     
     }
-  }, [item]);  
+  }, [item]);
 
   // Cadastrar produto e validar campos 
   const handleCadastro = () => {
     if (!nome || !preco || !embalagem ||
       !estoque || !categoria || !descricao) {
       setMissInfo(true);  // Faltam dados
-    } else {    
+    } else {
       setMissInfo(false); // Seta FALSE, pois o usuário já preencheu o restante dos dados
-      if (!item) {       
+      if (!item) {
         postProduto({ // TESTE OK
           nome: nome.trim(),
           preco: preco.trim(),
@@ -79,7 +82,8 @@ const CadastarProduto = ({ route }) => {
           estoque: estoque.trim(),
           categoria: categoria,
           descricao: descricao.trim(),
-        }).then();         
+          usuarioLogado: usuarioLogado.trim()
+        }).then();
       } else {
         putProduto({ // TESTE OK
           nome: nome.trim(),

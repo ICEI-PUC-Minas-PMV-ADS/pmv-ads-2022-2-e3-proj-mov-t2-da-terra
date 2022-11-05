@@ -40,7 +40,7 @@ namespace WebApi.Controllers
       var cliente = await context.Clientes
       .FirstOrDefaultAsync(x => x.Email == model.Email);
 
-      // SENHA RETORNANDO INVÁLIDA - VERIFICAR
+      // SENHA RETORNANDO INVÁLIDA , pois é preciso fazer outro tipo de comparação da senha model com a a senha do banco, pq a senha do banco está criptografa - Verificar uso de ClaimsIdentity
       try
       {
         if (produtor != null)
@@ -53,10 +53,10 @@ namespace WebApi.Controllers
           return Created($"v1/login/{produtor.Id}", produtor.Id);
         }
         else if (cliente != null)
-        {
+        {         
           if (cliente.Senha != model.Senha)
           {
-            return BadRequest(new { message = "Senha Inválida (Cliente)" });
+            return BadRequest(new { message = $"Senha Inválida (Cliente)" });
           }
           // Em testes, depois tirar Create e colocar OK
           return Created($"v1/login/{cliente.Id}", cliente.Id);

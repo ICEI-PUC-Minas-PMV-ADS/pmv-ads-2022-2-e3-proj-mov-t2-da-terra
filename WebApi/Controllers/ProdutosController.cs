@@ -17,7 +17,7 @@ namespace WebApi.Controllers
     public async Task<IActionResult> GetProdutoAsync(
         [FromServices] AppDbContext context,
         [FromRoute] int id)
-    {
+    {     
       var produto = await context.Produtos
       .AsNoTracking()
       .FirstOrDefaultAsync(x => x.Id == id);
@@ -27,20 +27,35 @@ namespace WebApi.Controllers
       return produto == null ? NotFound() : Ok(produtoJson);
     }
 
-     // GET 
+    // Estudar como fazer a busca
+    // // GET 
+    // [HttpGet(template: "produtos/meusprodutos/{produtorId}")]
+    // public async Task<IActionResult> GetProdutoProdutorAsync(
+    //     [FromServices] AppDbContext context,
+    //     [FromRoute]int produtorId)
+    // {
+    //   var produto = await context.Produtos.Include(c => c.Produtor)      
+    //   .ToListAsync();
+
+    //  // string produtoJson = JsonSerializer.Serialize(produto);
+
+    //   return produto == null ? NotFound() : Ok(produto);
+    // }
+
+    // GET 
     [HttpGet(template: "produtos")]
     public async Task<IActionResult> GetAllProdutoAsync(
         [FromServices] AppDbContext context)
     {
       var produto = await context.Produtos.ToListAsync();
 
-     // string produtoJson = JsonSerializer.Serialize(produto);
+      // string produtoJson = JsonSerializer.Serialize(produto);
 
       return produto == null ? NotFound() : Ok(produto);
     }
 
     // POST
-    [HttpPost(template:"produtos")]
+    [HttpPost(template: "produtos")]
     public async Task<IActionResult> PostProdutoAsync(
       [FromServices] AppDbContext context,
       [FromBody] CreateProdutoViewModel model)
@@ -56,6 +71,7 @@ namespace WebApi.Controllers
         Estoque = model.Estoque,
         Categoria = model.Categoria,
         Descricao = model.Descricao,
+        ProdutorId = model.ProdutorId,
         DataCadastro = model.DataCadastro
       };
 

@@ -57,17 +57,13 @@ export default function Login() {
 
   // COM API .net
   const validarLogin = () => {
-    // fetch('http://localhost:8081/v1/usuarios/2')
-    // .then(response => response.text())
-    // .then(json => console.log(json))
-
     if (!email || !senha) {
       setMissInfo(true); // Falta Informação 
       setAviso("Por favor, insira o email e a senha")
     }
     else {  // Terminar Validação (recuperando ID ok)
 
-        // SENHA RETORNANDO INVÁLILDA - VERIFICAR API 
+       // SENHA RETORNANDO INVÁLIDA - VERIFICAR API (Temos que implementa o Claims Identity do dotnet)
       postLogin({
         email: email,
         senha: senha
