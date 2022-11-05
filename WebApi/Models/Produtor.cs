@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace WebApi.Models
 {
   public class Produtor
   {
+    [Key]
     public int Id { get; set; }
 
     public string Nome { get; set; }

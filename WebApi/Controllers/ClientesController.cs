@@ -50,12 +50,12 @@ namespace WebApi.Controllers
         [FromBody] CreateClienteViewModel model)
     {
       if (!ModelState.IsValid)
-        return BadRequest();
+        return BadRequest(new { message = "Model Invalid" });
 
       try
       {
         var cliente = new Cliente()
-        {          
+        {
           Nome = model.Nome,
           DataNascimento = model.DataNascimento,
           Cpf = model.Cpf,
@@ -81,7 +81,7 @@ namespace WebApi.Controllers
       }
       catch
       {
-        return BadRequest();
+        return BadRequest(new { message = "System Exception" });
       }
     }
 
@@ -93,13 +93,13 @@ namespace WebApi.Controllers
             [FromRoute] int id)
     {
       if (!ModelState.IsValid)
-        return BadRequest();
+        return BadRequest(new { message = "Model Invalid" });
 
       var cliente = await context.Clientes
       .FirstOrDefaultAsync(x => x.Id == id);
 
       if (cliente == null)
-        return NotFound();
+        return NotFound(new { message = "Cliente não encontrado" });
 
       try
       {
@@ -127,7 +127,7 @@ namespace WebApi.Controllers
       }
       catch (System.Exception)
       {
-        return BadRequest();
+        return BadRequest(new { message = "System Exception" });
       }
     }
 
@@ -148,7 +148,7 @@ namespace WebApi.Controllers
       }
       catch (System.Exception)
       {
-        return BadRequest();
+        return BadRequest(new { message = "System Exception" });
       }
     }
   }
