@@ -23,9 +23,8 @@ namespace WebApi.Models
     public string Complemento { get; set; }
     public string Email { get; set; }
     public string Senha { get; set; }
-
     public string NomeLoja { get; set; }
-
+    public string TipoUsuario { get; set; }
     public string DataCadastro { get; set; } 
   }
 }

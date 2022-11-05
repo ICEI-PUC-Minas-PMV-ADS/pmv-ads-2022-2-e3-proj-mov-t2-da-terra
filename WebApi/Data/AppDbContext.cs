@@ -10,8 +10,7 @@ namespace WebApi.Data
   {
     public DbSet<Produto> Produtos { get; set; }
     public DbSet<Usuario> Usuarios { get; set; }
-   public DbSet<Pedido> Pedidos { get; set; }
-    
+    public DbSet<Pedido> Pedidos { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Produtor> Produtores { get; set; }
 
@@ -19,7 +18,7 @@ namespace WebApi.Data
     {
       optionsBuilder.UseSqlite(connectionString: "DataSource=daterra.db;Cache=Shared");
     }
-     
+
 
   }
 }
