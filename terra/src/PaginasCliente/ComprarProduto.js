@@ -18,6 +18,7 @@ import Header from "../Componentes/Header";
 import Seletor from "../Componentes/Seletor";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { ProdutoContext  } from "../contexts/webapi.ProdutoProvider";
 // import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
 
 const ComprarProduto = ({ route }) => {
