@@ -7,9 +7,10 @@ const UsuarioProvider = ({ children }) => {
 
   const [usuario, setUsuario] = useState();
 
-  // GET - OK
-  const getUsuario = async (id) => {
-    return await fetch(`${url}/usuarios/${id}`,
+  // CRUD - Produtor e Cliente  
+  // GET (Produtor)
+  const getProdutor = async (id) => {
+    return await fetch(`${url}/produtores/${id}`,
       {
         method: 'GET',
         headers: {
@@ -18,13 +19,33 @@ const UsuarioProvider = ({ children }) => {
       }
     )
       .then(response => response.json())
-      .then(json => setUsuario(json))
+      //.then(json => setUsuario(json))
+      .then(json => console.log(json))
       .catch(error => console.error(error));
   }
 
-  // POST - OK
+  // GET (Cliente)
+  const getCliente = async (id) => {
+    return await fetch(`${url}/clientes/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+      .then(response => response.json())
+      //.then(json => setUsuario(json))
+      .then(json => console.log(json))
+      .catch(error => console.error(error));
+  }
+
+  // POST (Cliente e Produtor)
   const postUsuario = async (param) => {
-    return await fetch(`${url}/usuarios/`,
+    return await fetch(
+      param.tipoUsuario == 'produtor'
+        ? `${url}/produtores/`
+        : `${url}/clientes/`,
       {
         method: 'POST',
         headers: {
@@ -37,10 +58,12 @@ const UsuarioProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  // PUT
+  // PUT (Cliente e Produtor)
   const putUsuario = async (param) => {
-    console.log(`${url}/usuarios/${param.id}`);
-    return await fetch(`${url}/usuarios/${param.id}`,
+    return await fetch(
+      param.tipoUsuario == 'produtor'
+        ? `${url}/produtores/${param.id}`
+        : `${url}/clientes/${param.id}`,
       {
         method: 'PUT',
         headers: {
@@ -53,11 +76,23 @@ const UsuarioProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  const deleteUsuario = async (id) => {
+  // DELETE (Produtor)
+  const deleteProdutor = async (id) => {
     console.log(id)
-    return await fetch(`${url}/usuarios/${id}`,
+    return await fetch(`${url}/produtores/${id}`,
       {
-        method: 'DELETE',       
+        method: 'DELETE',
+      })
+      .then(response => console.log(response.status))
+      .catch(error => console.error(error));
+  }
+
+  // DELETE (Ciente)
+  const deleteCliente = async (id) => {
+    console.log(id)
+    return await fetch(`${url}/clientes/${id}`,
+      {
+        method: 'DELETE',
       })
       .then(response => console.log(response.status))
       .catch(error => console.error(error));
@@ -67,10 +102,12 @@ const UsuarioProvider = ({ children }) => {
     <UsuarioContext.Provider
       value={{
         usuario,
-        getUsuario,
+        getProdutor,
+        getCliente,
         postUsuario,
         putUsuario,
-        deleteUsuario,
+        deleteCliente,
+        deleteProdutor,
       }}>
       {children}
     </UsuarioContext.Provider>

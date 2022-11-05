@@ -32,21 +32,39 @@ namespace WebApi.Controllers
         [FromBody] CreateLoginViewModel model)
     {
       if (!ModelState.IsValid)
-        return BadRequest();
+        return BadRequest(new { message = "Model Invalid" });
 
-      var usuario = await context.Usuarios
+      var produtor = await context.Produtores
       .FirstOrDefaultAsync(x => x.Email == model.Email);
 
-      if (usuario == null)
-        return NotFound(new { message = "Email não cadastrado" });
+      var cliente = await context.Clientes
+      .FirstOrDefaultAsync(x => x.Email == model.Email);
 
+      // SENHA RETORNANDO INVÁLIDA - VERIFICAR
       try
       {
-        if (usuario.Senha != model.Senha)
+        if (produtor != null)
         {
-          return BadRequest(new { message = "Senha Inválida" });
+          if (produtor.Senha != model.Senha)
+          {
+            return BadRequest(new { message = "Senha Inválida (Produtor)" });
+          }
+          // Em testes, depois tirar Create e colocar OK
+          return Created($"v1/login/{produtor.Id}", produtor.Id);
         }
-        return Created($"v1/produtos/{usuario.Id}", usuario.Id);
+        else if (cliente != null)
+        {
+          if (cliente.Senha != model.Senha)
+          {
+            return BadRequest(new { message = "Senha Inválida (Cliente)" });
+          }
+          // Em testes, depois tirar Create e colocar OK
+          return Created($"v1/login/{cliente.Id}", cliente.Id);
+        }
+        else
+        {
+          return NotFound(new { message = "Email não cadastrado" });
+        }
       }
       catch (System.Exception)
       {

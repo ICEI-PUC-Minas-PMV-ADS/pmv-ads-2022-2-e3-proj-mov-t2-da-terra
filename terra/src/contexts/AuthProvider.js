@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [idLogado, setIdLogado] = useState();
 
   const postLogin = async (param) => {
-    //console.log(`${url}/login/`);
+    console.log("AQUI: " + param.senha);
     return await fetch(`${url}/login/`, {
       method: 'POST',
       headers: {
@@ -17,10 +17,10 @@ export const AuthProvider = ({ children }) => {
       body: JSON.stringify(param)
     })
       .then(response => response.json())
-      //.then(json => console.log(json))
-      .then(json => setIdLogado(json))  // Retorna ID       
+      .then(json => console.log(json))
+     // .then(json => setIdLogado(json))  // Retorna ID       
       .catch(error => console.error(error));
-  }
+  }  
   
 return (
   <AuthContext.Provider value={{

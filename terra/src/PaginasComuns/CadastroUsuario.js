@@ -27,6 +27,7 @@ import Header from "../Componentes/Header";
 
 import { register, login } from '../JsonServer/webapi.usuarios'
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
+import { ValidarCadastroContext } from "../contexts/webapi.ValidarCadastro";
 
 const CadastroUsuario = ({ navigation, route }) => {
 
@@ -58,68 +59,40 @@ const CadastroUsuario = ({ navigation, route }) => {
 
   // Tipo de Usuário
   const [tipoUsuario, setTipoUsuario] = useState("cliente"); // Cliente Default
-  const [email, setEmail] = useState("");
+  const [nomeLoja, setNomeLoja] = useState("");
 
-  // Senha
+  // Email e Senha
+  const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
 
-  //const [dataCadastro, setDataCadastro] = useState(); // Somento DB
-
   const {
-    getUsuario,
+    getProdutor,
+    getCliente,
     postUsuario,
     putUsuario,
-    deleteUsuario,
+    deleteProdutor,
+    deleteCliente,
   } = useContext(UsuarioContext);
 
+  const {
+    idCadastrado,
+    postValidarCadastro
+  } = useContext(ValidarCadastroContext);
+
   useEffect(() => {
-    // getUsuario(3);  //OK
-    // postUsuario({  //OK
-    //   nome: "Mateus",
-    //   dataNascimento: "25/10/2022",
-    //   cpf: "11111111111",
-    //   telefone: "1111111111",
-    //   rua: "Palmeiras",
-    //   bairro: "Secos e molhados",
-    //   numeroCasa: "13",
-    //   cep: "00153000",
-    //   cidade: "São Caetano",
-    //   uf: "RS",
-    //   complemento: "",
-    //   tipoUsuario: "cliente",
-    //   email: "loco@email.com",
-    //   senha: "123456"
-    // }).then(res => console.log(res));
-
-        
-    // putUsuario({  
-    //   nome: "Marcos",
-    //   dataNascimento: "25/10/2022",
-    //   cpf: "11111111111",
-    //   telefone: "1111111111",
-    //   rua: "Palmeiras",
-    //   bairro: "Sepultura",
-    //   numeroCasa: "13",
-    //   cep: "00153000",
-    //   cidade: "São Caetano",
-    //   uf: "RS",
-    //   complemento: "",
-    //   tipoUsuario: "cliente",
-    //   email: "loco@email.com",
-    //   senha: "123456",
-    //   id: 20
-    // }).then(res => console.log(res));
-
-
-    //deleteUsuario(9); // OK
+    // deleteProdutor(7); // OK
+    // deleteCliente(7); // OK
+    // getCliente(3); // OK
+    // getProdutor(2); // OK
     buscarEndereco(); // Busca CEP
     DataBase.getConnection();
   }, [cep]);
 
   // Cadastrar Usuário, Validação de Dados e senha
+  // CRUD OK - Falta testar o PUT
   const handleCadastrar = () => {
-    // Verificar se tem algo incompleto no formulário
+    // Verifica se tem algo incompleto no formulário
     if (!nome ||
       !cpf ||
       cpf.length < 11 ||
@@ -135,46 +108,119 @@ const CadastroUsuario = ({ navigation, route }) => {
       !senha ||
       !confirmarSenha
     ) {
-      setMissInfo(true);  // Falta Informação
+      setMissInfo(true);  // Falta Informação      
       if (senha != confirmarSenha) {
         Alert.alert("Confirmação de senha incorreta, verifique")
       }
-    } else {
-      login({
-        email: email.trim(),
-        password: senha.trim() //Ver se precisa de senha pra validar
-      }).then(res => {
-        if (typeof (res) != "null") {
-          //Siginifica que o usuario já esta cadastrado
-          setUserAlredyRegister(true);
-          Alert.alert("Esse usuário já possui cadastro")
-        }
-        else {
-          setMissInfo(false);
-          //Vai registrar o usuario
-          register({
-            nome: nome.trim(),
-            dataNascimento: data,
-            cpf: cpf.trim(),
-            telefone: telefone.trim(),
-            rua: rua.trim(),
-            bairro: bairro.trim(),
-            numeroCasa: numeroCasa.trim(),
-            cep: cep.trim(),
-            cidade: cidade.trim(),
-            uf: uf.trim(),
-            complemento: complemento.trim(),
-            tipoUsuario: tipoUsuario,
-            email: email.trim(),
-            password: senha.trim(),
-          }).then(res => console.log(res));
-
-          //Usuario foi cadastrado
-          navigation.navigate("Login");
-        }
-      })
     }
-  };
+
+    // Verifica se o user já possui cadastro
+    postValidarCadastro({
+      email: email,
+    }).then();
+
+    // Se retornar number, então retornou ID, pois o error é objeto
+    if (typeof (idCadastrado) === "number") {
+      Alert.alert("Esse email já está cadastrado");
+
+    } else if (tipoUsuario == 'produtor') {
+      // PRODUTOR
+      postUsuario({
+        nome: nome.trim(),
+        dataNascimento: data.trim(),
+        cpf: cpf.trim(),
+        telefone: telefone.trim(),
+        rua: rua.trim(),
+        bairro: bairro.trim(),
+        numeroCasa: numeroCasa.trim(),
+        cep: cep.trim(),
+        cidade: cidade.trim(),
+        uf: uf.trim(),
+        complemento: complemento.trim(),
+        tipoUsuario: tipoUsuario.trim(),
+        nomeLoja: nomeLoja.trim(),   // Somente produtor
+        email: email.trim(),
+        senha: senha.trim()
+      }).then(res => console.log(res));
+    } else {
+      // CLIENTE
+      postUsuario({
+        nome: nome.trim(),
+        dataNascimento: data.trim(),
+        cpf: cpf.trim(),
+        telefone: telefone.trim(),
+        rua: rua.trim(),
+        bairro: bairro.trim(),
+        numeroCasa: numeroCasa.trim(),
+        cep: cep.trim(),
+        cidade: cidade.trim(),
+        uf: uf.trim(),
+        complemento: complemento.trim(),
+        tipoUsuario: tipoUsuario.trim(),
+        email: email.trim(),
+        senha: senha.trim()
+      }).then(res => console.log(res));
+    }
+  }
+
+  // // Cadastrar Usuário, Validação de Dados e senha
+  // const handleCadastrar = () => {
+  //   // Verificar se tem algo incompleto no formulário
+  //   if (!nome ||
+  //     !cpf ||
+  //     cpf.length < 11 ||
+  //     !email ||
+  //     !telefone ||
+  //     !rua ||
+  //     !bairro ||
+  //     !numeroCasa ||
+  //     !cidade ||
+  //     !uf ||
+  //     !cep ||
+  //     cep.length < 8 ||
+  //     !senha ||
+  //     !confirmarSenha
+  //   ) {
+  //     setMissInfo(true);  // Falta Informação
+  //     if (senha != confirmarSenha) {
+  //       Alert.alert("Confirmação de senha incorreta, verifique")
+  //     }
+  //   } else {
+  //     login({
+  //       email: email.trim(),
+  //       password: senha.trim() //Ver se precisa de senha pra validar
+  //     }).then(res => {
+  //       if (typeof (res) != "null") {
+  //         //Siginifica que o usuario já esta cadastrado
+  //         setUserAlredyRegister(true);
+  //         Alert.alert("Esse usuário já possui cadastro")
+  //       }
+  //       else {
+  //         setMissInfo(false);
+  //         //Vai registrar o usuario
+  //         register({
+  //           nome: nome.trim(),
+  //           dataNascimento: data,
+  //           cpf: cpf.trim(),
+  //           telefone: telefone.trim(),
+  //           rua: rua.trim(),
+  //           bairro: bairro.trim(),
+  //           numeroCasa: numeroCasa.trim(),
+  //           cep: cep.trim(),
+  //           cidade: cidade.trim(),
+  //           uf: uf.trim(),
+  //           complemento: complemento.trim(),
+  //           tipoUsuario: tipoUsuario,
+  //           email: email.trim(),
+  //           password: senha.trim(),
+  //         }).then(res => console.log(res));
+
+  //         //Usuario foi cadastrado
+  //         navigation.navigate("Login");
+  //       }
+  //     })
+  //   }
+  // };
 
 
   // API: Buscar o Cep
@@ -193,7 +239,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           setRua(json.logradouro);
           setUf(json.uf)
         });
-    }    
+    }
   };
 
   return (
@@ -242,6 +288,19 @@ const CadastroUsuario = ({ navigation, route }) => {
               <Text style={{ fontSize: 18 }}>Produtor</Text>
             </View>
           </View>
+
+          {/* Nome da Loja (Somente para Produtor) */}
+          {
+            tipoUsuario == "produtor" && (
+              <Input
+                label="Nome da Loja"
+                onChangeText={setNomeLoja}
+                value={nomeLoja}
+                error={missInfo && !nomeLoja ? true : false}
+                activeOutlineColor={"#3d9d74"}
+              />
+            )
+          }
 
           {/* Nome */}
           <Input

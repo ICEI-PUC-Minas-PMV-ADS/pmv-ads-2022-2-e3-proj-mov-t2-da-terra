@@ -25,8 +25,7 @@ namespace WebApi.ViewModel
     [Required]
     public string Cidade { get; set; }
     [Required]
-    public string Uf { get; set; }
-    [Required]
+    public string Uf { get; set; }   
     public string Complemento { get; set; }
     [Required]
     public string Email { get; set; }
