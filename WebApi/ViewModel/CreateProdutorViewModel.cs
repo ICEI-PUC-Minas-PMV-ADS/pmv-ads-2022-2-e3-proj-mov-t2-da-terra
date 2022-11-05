@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Build.Framework;
-using WebApi.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.ViewModel
 {
-  public class CreateProdutorViewModels
+  public class CreateProdutorViewModel
   {
     public int Id { get; set; }
 
@@ -38,9 +33,9 @@ namespace WebApi.ViewModel
     [Required]
     public string Senha { get; set; }
     [Required]
-    public string NomeLoja { get; set; }
-    [Required]
     public string TipoUsuario { get; set; }
+    [Required]
+    public string NomeLoja { get; set; }
 
     public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
   }

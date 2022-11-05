@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Data;
@@ -60,8 +55,7 @@ namespace WebApi.Controllers
       try
       {
         var cliente = new Cliente()
-        {
-          //Ver como vai ficar o Produto e ProdutoId
+        {          
           Nome = model.Nome,
           DataNascimento = model.DataNascimento,
           Cpf = model.Cpf,
