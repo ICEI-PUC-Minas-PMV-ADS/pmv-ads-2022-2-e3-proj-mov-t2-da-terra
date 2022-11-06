@@ -25,5 +25,10 @@
   <ItemGroup>
     <Folder Include="Arquitetura Banco" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="teste.cs" />
+    <Compile Remove="Models\Venda.cs" />
+  </ItemGroup>
   
 </Project>
