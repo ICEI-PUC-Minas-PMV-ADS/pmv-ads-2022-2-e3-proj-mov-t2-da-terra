@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [idLogado, setIdLogado] = useState();
 
   const postLogin = async (param) => {
-    console.log("AQUI: " + param.senha);
+  //  console.log("AQUI: " + param.senha);
     return await fetch(`${url}/login/`, {
       method: 'POST',
       headers: {

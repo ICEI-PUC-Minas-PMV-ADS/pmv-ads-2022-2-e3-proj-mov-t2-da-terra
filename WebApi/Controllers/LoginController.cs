@@ -27,45 +27,46 @@ namespace WebApi.Controllers
 
       var cliente = await context.Clientes
       .FirstOrDefaultAsync(x => x.Email == model.Email);
-     
-
-
-     // TESTE--------------------------
-     // O Verify não funciona
-      var senhaOk = BCrypt.Net.BCrypt.Verify(model.Senha, cliente.Senha);
-      return Ok(new { message = $"{model.Senha}, {cliente.Senha}" });
-      // TESTE-------------------------
-
-
 
       if (produtor == null && cliente == null)
       {
-        return NotFound(new { message = "Usuário ou senha inválidos" });
+        return NotFound(new { message = "Usuário não cadastrado" });
       }
 
+      // EM ANDAMENTO
       try
       {
-        if (produtor != null) // Funcionando
+        if (produtor != null) // Funcionando PARCIALMENTE
         {
-          var token = TokenServices.GenerateToken(produtor, null);
-          produtor.Senha = "";  // Ocultar Senha
-
-          return new
+          if (BCrypt.Net.BCrypt.Verify(model.Senha, produtor.Senha))
           {
-            produtor = produtor,
-            token = token
-          };
+            var token = TokenServices.GenerateToken(produtor, null);
+            produtor.Senha = "";  // Ocultar Senha
+
+            return new
+            {
+              produtor = produtor,
+              token = token
+            };
+          }
         }
-        else  // Funcionando
+        else  // Funcionando PARCIALMENTE
         {
-          var token = TokenServices.GenerateToken(null, cliente);
-          cliente.Senha = ""; // Ocultar Senha
-
-          return new
+          if (BCrypt.Net.BCrypt.Verify(model.Senha, cliente.Senha))
           {
-            cliente = cliente,
-            token = token
-          };
+            var token = TokenServices.GenerateToken(null, cliente);
+            cliente.Senha = ""; // Ocultar Senha
+
+            return new
+            {
+              cliente = cliente,
+              token = token
+            };
+          }
+          else
+          {
+            BadRequest(new { message = "System Exception" });
+          }
         }
       }
       catch (System.Exception)

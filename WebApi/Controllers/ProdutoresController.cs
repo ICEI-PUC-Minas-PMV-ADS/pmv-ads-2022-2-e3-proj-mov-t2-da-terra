@@ -19,7 +19,7 @@ namespace WebApi.Controllers
         [FromServices] AppDbContext context)
     {
       var produtor = await context.Produtores.ToListAsync();
-      
+
       return Ok(produtor);
     }
 
@@ -71,8 +71,7 @@ namespace WebApi.Controllers
           Uf = model.Uf,
           Complemento = model.Complemento,
           Email = model.Email,
-          Senha = JsonSerializer.Serialize(
-            BCrypt.Net.BCrypt.HashPassword(model.Senha)),
+          Senha = BCrypt.Net.BCrypt.HashPassword(model.Senha),
           TipoUsuario = model.TipoUsuario,
           NomeLoja = model.NomeLoja,
           DataCadastro = model.DataCadastro
@@ -141,7 +140,7 @@ namespace WebApi.Controllers
     public async Task<IActionResult> DeleteProdutores(
       [FromServices] AppDbContext context,
       [FromRoute] int id)
-    { 
+    {
       var produtor = await context.Produtores
       .FirstOrDefaultAsync(x => x.Id == id);
 
