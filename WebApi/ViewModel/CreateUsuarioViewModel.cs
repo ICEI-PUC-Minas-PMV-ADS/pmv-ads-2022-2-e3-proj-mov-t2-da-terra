@@ -34,8 +34,7 @@ namespace WebApi.ViewModel
     [Required]
     public string Senha { get; set; }
     [Required]
-    public string TipoUsuario { get; set; }
-    [Required]
+    public string TipoUsuario { get; set; }    
     public string NomeLoja { get; set; } // É null quando cliente
     public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
   }

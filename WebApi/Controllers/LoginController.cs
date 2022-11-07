@@ -1,7 +1,9 @@
 using System.Text.Json;
+using BCrypt.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Data;
+using WebApi.Services;
 using WebApi.ViewModel;
 
 namespace WebApi.Controllers
@@ -10,24 +12,10 @@ namespace WebApi.Controllers
   [Route(template: "v1")]
   public class LoginController : ControllerBase
   {
-
-    // [HttpGet(template: "login/{id}")]
-    // public async Task<IActionResult> GetLogin(
-    //   [FromServices] AppDbContext context,
-    //   [FromRoute] int id)
-    // {
-    //   var usuario = await context.Usuarios
-    //   .AsNoTracking()
-    //   .FirstOrDefaultAsync(x => x.Id == id);
-
-    //   string usuarioJson = JsonSerializer.Serialize(usuario);
-
-    //   return usuario == null ? NotFound() : Ok(usuarioJson);
-
-    // }
+    // Token está gerando ok, retorna usuário ok. Problema no VERIFY
 
     [HttpPost(template: "login")]
-    public async Task<IActionResult> PostLogin(
+    public async Task<ActionResult<dynamic>> Login(
         [FromServices] AppDbContext context,
         [FromBody] CreateLoginViewModel model)
     {
@@ -39,38 +27,52 @@ namespace WebApi.Controllers
 
       var cliente = await context.Clientes
       .FirstOrDefaultAsync(x => x.Email == model.Email);
+     
 
-      // SENHA RETORNANDO INVÁLIDA , pois é preciso fazer outro tipo de comparação da senha model com a a senha do banco, pq a senha do banco está criptografa - Verificar uso de ClaimsIdentity
+
+     // TESTE--------------------------
+     // O Verify não funciona
+      var senhaOk = BCrypt.Net.BCrypt.Verify(model.Senha, cliente.Senha);
+      return Ok(new { message = $"{model.Senha}, {cliente.Senha}" });
+      // TESTE-------------------------
+
+
+
+      if (produtor == null && cliente == null)
+      {
+        return NotFound(new { message = "Usuário ou senha inválidos" });
+      }
+
       try
       {
-        if (produtor != null)
+        if (produtor != null) // Funcionando
         {
-          if (produtor.Senha != model.Senha)
+          var token = TokenServices.GenerateToken(produtor, null);
+          produtor.Senha = "";  // Ocultar Senha
+
+          return new
           {
-            return BadRequest(new { message = "Senha Inválida (Produtor)" });
-          }
-          // Em testes, depois tirar Create e colocar OK
-          return Created($"v1/login/{produtor.Id}", produtor.Id);
+            produtor = produtor,
+            token = token
+          };
         }
-        else if (cliente != null)
-        {         
-          if (cliente.Senha != model.Senha)
-          {
-            return BadRequest(new { message = $"Senha Inválida (Cliente)" });
-          }
-          // Em testes, depois tirar Create e colocar OK
-          return Created($"v1/login/{cliente.Id}", cliente.Id);
-        }
-        else
+        else  // Funcionando
         {
-          return NotFound(new { message = "Email não cadastrado" });
+          var token = TokenServices.GenerateToken(null, cliente);
+          cliente.Senha = ""; // Ocultar Senha
+
+          return new
+          {
+            cliente = cliente,
+            token = token
+          };
         }
       }
       catch (System.Exception)
       {
-        return BadRequest(new { message = "System.Exception" });
+        BadRequest(new { message = "System Exception" });
       }
+      return Ok();
     }
   }
 }
-
