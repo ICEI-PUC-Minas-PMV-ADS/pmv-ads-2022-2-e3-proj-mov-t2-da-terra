@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -158,6 +159,7 @@ namespace WebApi.Controllers
     
     
     // GET 
+    [Authorize]
     [HttpGet(template: "produtos")]
     public async Task<IActionResult> GetAllProdutoAsync(
         [FromServices] AppDbContext context)
