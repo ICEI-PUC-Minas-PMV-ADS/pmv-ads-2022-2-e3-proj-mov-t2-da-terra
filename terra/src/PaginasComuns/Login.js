@@ -68,7 +68,7 @@ export default function Login() {
       postLogin({
         email: email,
         senha: senha
-      }).then();  
+      }).then();  // Tratar Retorno e direcionar telas
     }
   };
 
