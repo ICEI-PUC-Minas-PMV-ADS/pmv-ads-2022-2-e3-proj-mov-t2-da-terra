@@ -132,7 +132,7 @@ namespace WebApi.Controllers
     }
 
     // GET 
-    //[Authorize]
+    [Authorize]
     [HttpGet(template: "produtos")]
     public async Task<IActionResult> GetAllProdutoAsync(
         [FromServices] AppDbContext context)
