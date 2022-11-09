@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
-import { TextInput } from "react-native-paper";
+import { TextInput, Snackbar } from "react-native-paper";
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -17,12 +17,15 @@ import { AuthContext } from "../contexts/AuthProvider";
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 
 export default function Login() {
+
   const navigation = useNavigation();
   const { idLogado, postLogin } = useContext(AuthContext);
-
-  // Aviso de erro para dados incompletos ou incorretos
-  const [aviso, setAviso] = useState("");
+  
+  // SnackBar e falta informação
   const [missInfo, setMissInfo] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const onToggleSnackBar = () => setVisible(!visible);
+  const onDismissSnackBar = () => setVisible(false);
 
   // Email / Senha / Ícone Senha
   const [email, setEmail] = useState("");
@@ -58,16 +61,14 @@ export default function Login() {
   // COM API .net
   const validarLogin = () => {
     if (!email || !senha) {
-      setMissInfo(true); // Falta Informação 
-      setAviso("Por favor, insira o email e a senha")
+      setMissInfo(true); // Falta Informação
+      onToggleSnackBar();      
     }
-    else {  // Terminar Validação (recuperando ID ok)
-
-       // SENHA RETORNANDO INVÁLIDA - VERIFICAR API (Temos que implementa o Claims Identity do dotnet)
+    else {      
       postLogin({
         email: email,
         senha: senha
-      }).then(response => console.log(response));  // Está retornando o ID
+      }).then();  // Tratar Retorno e direcionar telas
     }
   };
 
@@ -104,10 +105,7 @@ export default function Login() {
               icon={escondeSenha ? 'eye-off' : 'eye'}
             />
           }
-        />
-        {missInfo && (
-          <Text style={styles.aviso}>{aviso}</Text>
-        )}
+        />       
 
         {/* Botão Entrar */}
         <View style={styles.viewBotao}>
@@ -139,6 +137,16 @@ export default function Login() {
             />
           </TouchableOpacity>
         </View>
+
+        {/* Aviso Dados Incompletos */}
+        <Snackbar
+          visible={visible}
+          onDismiss={onDismissSnackBar}          
+          action={{
+            label: 'Ok',
+          }}>
+          Por favor, insira o email e a senha
+        </Snackbar>
       </Body>
     </Container>
   );

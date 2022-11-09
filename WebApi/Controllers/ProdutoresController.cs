@@ -5,6 +5,7 @@ using WebApi.Data;
 using WebApi.Models;
 using BCrypt.Net;
 using WebApi.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
@@ -14,6 +15,7 @@ namespace WebApi.Controllers
   {
 
     // GET: Todos
+    // Colocar Authorize 
     [HttpGet(template: "produtores")]
     public async Task<IActionResult> GetAllProdutores(
         [FromServices] AppDbContext context)
@@ -24,6 +26,7 @@ namespace WebApi.Controllers
     }
 
     // GET: Por ID
+    // Colocar Authorize 
     [HttpGet(template: "produtores/{id}")]
     public async Task<IActionResult> GetProdutores(
       [FromServices] AppDbContext context,
@@ -46,8 +49,9 @@ namespace WebApi.Controllers
       }
     }
 
-    // POST
+    // POST    
     [HttpPost(template: "produtores")]
+    [AllowAnonymous]
     public async Task<IActionResult> PostProdutores(
       [FromServices] AppDbContext context,
       [FromBody] CreateProdutorViewModel model)
@@ -80,6 +84,8 @@ namespace WebApi.Controllers
         await context.AddAsync(produtor);
         await context.SaveChangesAsync();
 
+        produtor.Senha = "";
+
         return Created($"v1/produtores/{produtor.Id}", produtor);
       }
       catch (System.Exception)
@@ -88,8 +94,9 @@ namespace WebApi.Controllers
       }
     }
 
-    // PUT
+    // PUT    
     [HttpPut(template: "produtores/{id}")]
+    [Authorize]
     public async Task<IActionResult> PutProdutores(
           [FromServices] AppDbContext context,
           [FromBody] CreateProdutorViewModel model,
@@ -118,14 +125,15 @@ namespace WebApi.Controllers
         produtor.Uf = model.Uf;
         produtor.Complemento = model.Complemento;
         produtor.Email = model.Email;
-        produtor.Senha = JsonSerializer.Serialize(
-            BCrypt.Net.BCrypt.HashPassword(model.Senha));
+        produtor.Senha = BCrypt.Net.BCrypt.HashPassword(model.Senha);
         produtor.TipoUsuario = model.TipoUsuario;
         produtor.NomeLoja = model.NomeLoja;
         produtor.DataCadastro = model.DataCadastro;
 
         context.Produtores.Update(produtor);
         await context.SaveChangesAsync();
+
+        produtor.Senha = "";
 
         return Ok(produtor);
       }
@@ -135,14 +143,14 @@ namespace WebApi.Controllers
       }
     }
 
-    // DELETE
+    // DELETE    
     [HttpDelete(template: "produtores/{id}")]
+    [Authorize]
     public async Task<IActionResult> DeleteProdutores(
       [FromServices] AppDbContext context,
       [FromRoute] int id)
     {
-      var produtor = await context.Produtores
-      .FirstOrDefaultAsync(x => x.Id == id);
+      var produtor = await context.Produtores.FindAsync(id);
 
       if (produtor == null)
         return NotFound(new { message = "Produtor não encontrado" });

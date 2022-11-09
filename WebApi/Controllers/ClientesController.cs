@@ -5,6 +5,7 @@ using WebApi.Data;
 using WebApi.Models;
 using BCrypt.Net;
 using WebApi.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
@@ -13,6 +14,7 @@ namespace WebApi.Controllers
   public class ClientesController : ControllerBase
   {
     // GET: Todos produtores
+    // Incluir autorize
     [HttpGet(template: "clientes")]
     public async Task<IActionResult> GetAllCliente(
       [FromServices] AppDbContext context)
@@ -22,6 +24,7 @@ namespace WebApi.Controllers
     }
 
     // GET : Por ID
+    // Incluir autorize
     [HttpGet(template: "clientes/{id}")]
     public async Task<IActionResult> GetCliente(
         [FromServices] AppDbContext context,
@@ -43,8 +46,9 @@ namespace WebApi.Controllers
       }
     }
 
-    // POST   
+    // POST       
     [HttpPost(template: "clientes")]
+    [AllowAnonymous]
     public async Task<IActionResult> PostCliente(
         [FromServices] AppDbContext context,
         [FromBody] CreateClienteViewModel model)
@@ -76,6 +80,8 @@ namespace WebApi.Controllers
         await context.AddAsync(cliente);
         await context.SaveChangesAsync();
 
+        cliente.Senha = "";
+
         return Created($"v1/clientes/{cliente.Id}", cliente);
       }
       catch
@@ -85,7 +91,9 @@ namespace WebApi.Controllers
     }
 
     // PUT
+
     [HttpPut(template: "clientes/{id}")]
+    [Authorize]
     public async Task<IActionResult> PutCliente(
             [FromServices] AppDbContext context,
             [FromBody] CreateClienteViewModel model,
@@ -114,13 +122,14 @@ namespace WebApi.Controllers
         cliente.Uf = model.Uf;
         cliente.Complemento = model.Complemento;
         cliente.Email = model.Email;
-        cliente.Senha = JsonSerializer.Serialize(
-          BCrypt.Net.BCrypt.HashPassword(model.Senha));
+        cliente.Senha = BCrypt.Net.BCrypt.HashPassword(model.Senha);
         cliente.TipoUsuario = model.TipoUsuario;
         cliente.DataCadastro = model.DataCadastro;
 
         context.Clientes.Update(cliente);
         await context.SaveChangesAsync();
+        
+        cliente.Senha = "";
 
         return Ok(cliente);
       }
@@ -130,8 +139,9 @@ namespace WebApi.Controllers
       }
     }
 
-    // DELETE: api/Usuarios/5
+    // DELETE: api/Usuarios/5    
     [HttpDelete(template: "clientes/{id}")]
+    [Authorize]
     public async Task<IActionResult> DeleteCliente(
         [FromServices] AppDbContext context,
         [FromRoute] int id)

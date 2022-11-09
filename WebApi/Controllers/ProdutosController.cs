@@ -17,7 +17,7 @@ namespace WebApi.Controllers
     {
       _context = context;
     }
-    
+
 
     // GET 
     /*
@@ -37,171 +37,160 @@ namespace WebApi.Controllers
     */
 
     // GET 
-    [HttpGet(template: "produtos")]
+    [HttpGet(template: "produtos/busca")]
     public async Task<IActionResult> BuscaAsync(string nomeProduto, string categoria)
     {
-      var queryProduto =  from query in
+      var queryProduto = from query in
           _context.Produtos.Include(a => a.Produtos)
-        select query;
+                         select query;
       //Caso todas os filtros estejam vazios,retorna não encontrado
       if (String.IsNullOrEmpty(nomeProduto) && String.IsNullOrEmpty(categoria))
       {
         return NotFound(new { message = "Produto não encontrado" });
 
       }
-     
-        //Caso possua o Somente o nome do produto e não tiver categoria
-        if (!String.IsNullOrEmpty(nomeProduto) && String.IsNullOrEmpty(categoria))
-        {
 
-          queryProduto =  queryProduto.Where(s =>  s.Nome.Contains(nomeProduto));
-          
-          //Converte para um Lista do tipo de produtos para ser possivel retornar
-          var produtosEncontrados = await queryProduto.ToListAsync();
-          
-           return produtosEncontrados!=null ? Ok(produtosEncontrados):NotFound();
+      //Caso possua o Somente o nome do produto e não tiver categoria
+      if (!String.IsNullOrEmpty(nomeProduto) && String.IsNullOrEmpty(categoria))
+      {
 
-        }
-        //Se Não tiver nome nem categoria,mas tiver preçoMax
-       
-        //Se tiver categoria e não tiver nome do produto
-        else if (!String.IsNullOrEmpty(categoria) && String.IsNullOrEmpty(nomeProduto))
-        {
-          queryProduto = queryProduto.Where(s => s.Categoria.Contains(categoria));
-          
-          //Converte para um Lista do tipo de produtos para ser possivel retornar
-          var produtosEncontrados = await queryProduto.ToListAsync();
+        queryProduto = queryProduto.Where(s => s.Nome.Contains(nomeProduto));
 
-          return produtosEncontrados != null ? Ok(produtosEncontrados) : NotFound();
-        }
-        //Se tiver Nome e categoria 
-        else if (!String.IsNullOrEmpty(nomeProduto) && !String.IsNullOrEmpty(categoria))
-        {
-          queryProduto = queryProduto.Where(s => s.Nome.Contains(nomeProduto) && 
-                                                 s.Categoria.Contains(categoria) );
-          
-          //Converte para um Lista do tipo de produtos para ser possivel retornar
-          var produtosEncontrados = await queryProduto.ToListAsync();
+        //Converte para um Lista do tipo de produtos para ser possivel retornar
+        var produtosEncontrados = await queryProduto.ToListAsync();
 
-          return produtosEncontrados != null ? Ok(produtosEncontrados) : NotFound();
-          
-        }
-        
-        //Tendo todos os filtros,Nome produto categoria e Preço máximo
-        else if (!String.IsNullOrEmpty(nomeProduto) &&!String.IsNullOrEmpty(categoria))
-        {
-          queryProduto = queryProduto.Where(s => s.Nome.Contains(nomeProduto)
-                                                 && s.Categoria.Contains(categoria));
-          
-          //Converte para um Lista do tipo de produtos para ser possivel retornar
-          var produtosEncontrados = await queryProduto.ToListAsync();
-          
-          return produtosEncontrados != null ? Ok(produtosEncontrados) : NotFound();
-          
-          
-        }
-      
-      return BadRequest();
+        return produtosEncontrados != null ? Ok(produtosEncontrados) : NotFound();
+
+      }
+      //Se Não tiver nome nem categoria,mas tiver preçoMax
+
+      //Se tiver categoria e não tiver nome do produto
+      else if (!String.IsNullOrEmpty(categoria) && String.IsNullOrEmpty(nomeProduto))
+      {
+        queryProduto = queryProduto.Where(s => s.Categoria.Contains(categoria));
+
+        //Converte para um Lista do tipo de produtos para ser possivel retornar
+        var produtosEncontrados = await queryProduto.ToListAsync();
+
+        return produtosEncontrados != null ? Ok(produtosEncontrados) : NotFound();
+      }
+      //Se tiver Nome e categoria 
+      else
+      {
+        queryProduto = queryProduto.Where(s => s.Nome.Contains(nomeProduto) &&
+                                               s.Categoria.Contains(categoria));
+
+        //Converte para um Lista do tipo de produtos para ser possivel retornar
+        var produtosEncontrados = await queryProduto.ToListAsync();
+
+        return produtosEncontrados != null ? Ok(produtosEncontrados) : NotFound();
+      }
+
+
     }
 
+    
     [HttpPost(template: "produtos")]
-    public async Task<IActionResult> PostProdutoAsync([FromBody]CreateProdutoViewModel model)
+    public async Task<IActionResult> PostProdutoAsync([FromBody] CreateProdutoViewModel model)
     {
-      int id = 2;//Este id é apra fins de simulação,quando a parte de claims ficar pronta
-      //Trocar essa parte pela ID do usuario logado
-      var produtor = await _context.Produtores.FirstOrDefaultAsync(s => s.Id == id);       
+      int id = 14;//Este id é apra fins de simulação,quando a parte de claims ficar pronta
+      // //Trocar essa parte pela ID do usuario logado
+      // var produtor = await _context.Produtores.FirstOrDefaultAsync(s => s.Id == id);#1#
       if (!ModelState.IsValid)
       {
         return BadRequest();
       }
-
-      
-      
+    
+    
+    
       try
       {
-
+    
         var produto = new Produto()
         {
-          
-         ProdutorId = model.ProdutorId,//Aqui vai entrar o ID do usuario que esta autenticado
-         Produtor = produtor,
-         Nome = model.Nome,
-         Preco = model.Preco,
-         Embalagem = model.Embalagem,
-         Estoque = model.Estoque,
-         Categoria = model.Categoria,
-         Descricao = model.Descricao,
-         DataCadastro = model.DataCadastro,
-         
-         
-
-
+    
+          ProdutorId = id,//Aqui vai entrar o ID do usuario que esta autenticado
+          Nome = model.Nome,
+          Preco = model.Preco,
+          Embalagem = model.Embalagem,
+          Estoque = model.Estoque,
+          Categoria = model.Categoria,
+          Descricao = model.Descricao,
+          DataCadastro = model.DataCadastro,
+    
+    
+    
+    
         };
         await _context.AddAsync(produto);
         await _context.SaveChangesAsync();
-
+    
         return Created($"v1/produtos/{produto.Id}", produto);
-
-
+    
+    
       }
       catch
       {
-
-         return BadRequest();
-
+    
+        return BadRequest();
+    
       }
-      
-      
+    
+    
     }
     
-    
-    
+
+
+
     // GET 
     [HttpGet(template: "produtos")]
     public async Task<IActionResult> GetAllProdutoAsync(
-        [FromServices] AppDbContext context)
+      [FromServices] AppDbContext context)
     {
-      var produto = await context.Produtos.ToListAsync();
-
-      // string produtoJson = JsonSerializer.Serialize(produto);
-
-      return produto == null ? NotFound() : Ok(produto);
+      var produtor =  await _context.Produtores.FirstOrDefaultAsync(s => s.Nome == User.Identity.Name);
+      //Acha os produtos de acordo com a Id do usuário logado,aonde pega a a chave FK na tabela Produtor
+      var produtosFind = context.Produtos.Where(a=>a.ProdutorId==produtor.Id);
+      /*"Tranforma" o tipo IQueryaable acima, que é o retorno dos produtos achados de tal usuário logado,para uma lista
+      De produtos a serem retornados*/
+      var produtos =  await produtosFind.ToListAsync();
+      //Retorna os produtos achados para a API,para ser consumida na aplicação REACT
+      return produtos == null ? NotFound() : Ok(produtos);
     }
 
     // POST
-    [HttpPost(template: "produtos")]
-    public async Task<IActionResult> PostProdutoAsync(
-      [FromServices] AppDbContext context,
-      [FromBody] CreateProdutoViewModel model)
-    {
-      if (!ModelState.IsValid)
-        return BadRequest();
-
-      var produto = new Produto()
-      {
-        Nome = model.Nome,
-        Preco = model.Preco,
-        Embalagem = model.Embalagem,
-        Estoque = model.Estoque,
-        Categoria = model.Categoria,
-        Descricao = model.Descricao,
-        ProdutorId = model.ProdutorId,
-        DataCadastro = model.DataCadastro
-      };
-
-      try
-      {
-        // aqui context.AddAsync(produto);
-        await context.AddAsync(produto);
-        await context.SaveChangesAsync();
-
-        return Created($"v1/produtos/{produto.Id}", produto);
-      }
-      catch (System.Exception)
-      {
-        return BadRequest();
-      }
-    }
+    // [HttpPost(template: "produtos")]
+    // public async Task<IActionResult> PostProdutoAsync(
+    //   [FromServices] AppDbContext context,
+    //   [FromBody] CreateProdutoViewModel model)
+    // {
+    //   if (!ModelState.IsValid)
+    //     return BadRequest();
+    //
+    //   var produto = new Produto()
+    //   {
+    //     Nome = model.Nome,
+    //     Preco = model.Preco,
+    //     Embalagem = model.Embalagem,
+    //     Estoque = model.Estoque,
+    //     Categoria = model.Categoria,
+    //     Descricao = model.Descricao,
+    //     ProdutorId = model.ProdutorId,
+    //     DataCadastro = model.DataCadastro
+    //   };
+    //
+    //   try
+    //   {
+    //     // aqui context.AddAsync(produto);
+    //     await context.AddAsync(produto);
+    //     await context.SaveChangesAsync();
+    //
+    //     return Created($"v1/produtos/{produto.Id}", produto);
+    //   }
+    //   catch (System.Exception)
+    //   {
+    //     return BadRequest();
+    //   }
+    // }
 
 
     // PUT
