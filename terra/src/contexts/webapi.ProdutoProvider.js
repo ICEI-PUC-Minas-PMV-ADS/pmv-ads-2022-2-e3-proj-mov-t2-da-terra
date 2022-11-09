@@ -21,6 +21,19 @@ const ProdutoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
+  //GET ALL - ok
+  const BuscaProdutos = async (nome) => {
+    console.log(`${url}/produtos/busca`)
+    return await fetch(`${url}/produtos/busca`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => setProduto(json))
+      .catch(error => console.error(error));
+  }
   // GET - OK
   const getProduto = async (id) => {
     console.log(`${url}/produtos/${id}`)
@@ -85,7 +98,8 @@ const ProdutoProvider = ({ children }) => {
         postProduto,
         putProduto,
         deleteProduto,
-        getAllProduto
+        getAllProduto,
+        BuscaProdutos,
       }}
     >
       {children}

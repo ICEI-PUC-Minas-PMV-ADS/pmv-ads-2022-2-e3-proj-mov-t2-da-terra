@@ -82,7 +82,7 @@ const CadastarProduto = ({ route }) => {
           estoque: estoque.trim(),
           categoria: categoria,
           descricao: descricao.trim(),
-          usuarioLogado: usuarioLogado.trim() // PARA TESTE
+          // usuarioLogado: usuarioLogado.trim() // PARA TESTE
         }).then();
       } else {
         putProduto({ // TESTE OK

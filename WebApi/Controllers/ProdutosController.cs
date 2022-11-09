@@ -37,7 +37,7 @@ namespace WebApi.Controllers
     */
 
     // GET 
-    [HttpGet(template: "produtos")]
+    [HttpGet(template: "produtos/busca")]
     public async Task<IActionResult> BuscaAsync(string nomeProduto, string categoria)
     {
       var queryProduto = from query in
@@ -89,27 +89,27 @@ namespace WebApi.Controllers
 
     }
 
+    
     [HttpPost(template: "produtos")]
     public async Task<IActionResult> PostProdutoAsync([FromBody] CreateProdutoViewModel model)
     {
-      int id = 2;//Este id é apra fins de simulação,quando a parte de claims ficar pronta
-      //Trocar essa parte pela ID do usuario logado
-      var produtor = await _context.Produtores.FirstOrDefaultAsync(s => s.Id == id);
+      int id = 14;//Este id é apra fins de simulação,quando a parte de claims ficar pronta
+      // //Trocar essa parte pela ID do usuario logado
+      // var produtor = await _context.Produtores.FirstOrDefaultAsync(s => s.Id == id);#1#
       if (!ModelState.IsValid)
       {
         return BadRequest();
       }
-
-
-
+    
+    
+    
       try
       {
-
+    
         var produto = new Produto()
         {
-
-          ProdutorId = model.ProdutorId,//Aqui vai entrar o ID do usuario que esta autenticado
-          Produtor = produtor,
+    
+          ProdutorId = id,//Aqui vai entrar o ID do usuario que esta autenticado
           Nome = model.Nome,
           Preco = model.Preco,
           Embalagem = model.Embalagem,
@@ -117,27 +117,28 @@ namespace WebApi.Controllers
           Categoria = model.Categoria,
           Descricao = model.Descricao,
           DataCadastro = model.DataCadastro,
-
-
-
-
+    
+    
+    
+    
         };
         await _context.AddAsync(produto);
         await _context.SaveChangesAsync();
-
+    
         return Created($"v1/produtos/{produto.Id}", produto);
-
-
+    
+    
       }
       catch
       {
-
+    
         return BadRequest();
-
+    
       }
-
-
+    
+    
     }
+    
 
 
 
@@ -157,39 +158,39 @@ namespace WebApi.Controllers
     }
 
     // POST
-    [HttpPost(template: "produtos")]
-    public async Task<IActionResult> PostProdutoAsync(
-      [FromServices] AppDbContext context,
-      [FromBody] CreateProdutoViewModel model)
-    {
-      if (!ModelState.IsValid)
-        return BadRequest();
-
-      var produto = new Produto()
-      {
-        Nome = model.Nome,
-        Preco = model.Preco,
-        Embalagem = model.Embalagem,
-        Estoque = model.Estoque,
-        Categoria = model.Categoria,
-        Descricao = model.Descricao,
-        ProdutorId = model.ProdutorId,
-        DataCadastro = model.DataCadastro
-      };
-
-      try
-      {
-        // aqui context.AddAsync(produto);
-        await context.AddAsync(produto);
-        await context.SaveChangesAsync();
-
-        return Created($"v1/produtos/{produto.Id}", produto);
-      }
-      catch (System.Exception)
-      {
-        return BadRequest();
-      }
-    }
+    // [HttpPost(template: "produtos")]
+    // public async Task<IActionResult> PostProdutoAsync(
+    //   [FromServices] AppDbContext context,
+    //   [FromBody] CreateProdutoViewModel model)
+    // {
+    //   if (!ModelState.IsValid)
+    //     return BadRequest();
+    //
+    //   var produto = new Produto()
+    //   {
+    //     Nome = model.Nome,
+    //     Preco = model.Preco,
+    //     Embalagem = model.Embalagem,
+    //     Estoque = model.Estoque,
+    //     Categoria = model.Categoria,
+    //     Descricao = model.Descricao,
+    //     ProdutorId = model.ProdutorId,
+    //     DataCadastro = model.DataCadastro
+    //   };
+    //
+    //   try
+    //   {
+    //     // aqui context.AddAsync(produto);
+    //     await context.AddAsync(produto);
+    //     await context.SaveChangesAsync();
+    //
+    //     return Created($"v1/produtos/{produto.Id}", produto);
+    //   }
+    //   catch (System.Exception)
+    //   {
+    //     return BadRequest();
+    //   }
+    // }
 
 
     // PUT

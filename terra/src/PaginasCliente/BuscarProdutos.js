@@ -6,12 +6,14 @@ import { useNavigation,useRoute} from "@react-navigation/native";
 // import { getProdutos, getSearchProduto } from "../DBService/DBProduto";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
+import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 
 const BuscarProdutos = () => {
   //Abaixo seria no caso aonde pegaria os dados da busca no banco
   //const {} = useContext(ProdutoProvider);
 const navigation = useNavigation();
 const route = useRoute();
+const {BuscaProdutos,produto } = useContext(ProdutoContext);
 const [searchQuery, setSearchQuery] = useState();
 const [resultados, setResultados] = useState([]);
  
@@ -39,18 +41,19 @@ const [resultados, setResultados] = useState([]);
 
   
   useEffect(()=>{
-    // getSearchProduto(searchQuery).then((prod)=>{   
-    //     setResultados(prod)  
-    // })
+    BuscaProdutos(searchQuery,"Verduras").then((prod)=>{   
+        setResultados(prod)
+        console.log(produto)  
+    })
   },[searchQuery])
   
   const onChangeSearch = (query) => {
     setSearchQuery(query);  
-    for (let i = 0; i < searchQuery.length; i++) {      
-      if (searchQuery[i].title == query) {
-        // console.log(data[i].title);        
-      }
-    }
+    // for (let i = 0; i < searchQuery.length; i++) {      
+    //   if (searchQuery[i].title == query) {
+    //     // console.log(data[i].title);        
+    //   }
+    // }
   };
 
   const renderItem = ({ item }) => (
