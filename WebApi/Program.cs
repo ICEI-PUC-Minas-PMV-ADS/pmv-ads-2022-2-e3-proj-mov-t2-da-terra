@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using WebApi.Data;
 using WebApi.Services;
+using WebApi.Controllers;
+using WebApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,7 @@ builder.Services.AddAuthentication(x =>
   };
 
 });
+
 // Fim validação TOKEN
 
 var app = builder.Build();
