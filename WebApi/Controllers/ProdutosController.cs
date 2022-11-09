@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,10 +17,7 @@ namespace WebApi.Controllers
     {
       _context = context;
     }
-    public ProdutosController()
-    {
-      
-    }
+
 
     // GET 
     /*
@@ -103,9 +99,12 @@ namespace WebApi.Controllers
       {
         return BadRequest();
       }
-      
+
+
+
       try
       {
+
         var produto = new Produto()
         {
 
@@ -118,33 +117,40 @@ namespace WebApi.Controllers
           Categoria = model.Categoria,
           Descricao = model.Descricao,
           DataCadastro = model.DataCadastro,
-        };
 
+
+
+
+        };
         await _context.AddAsync(produto);
         await _context.SaveChangesAsync();
 
         return Created($"v1/produtos/{produto.Id}", produto);
+
+
       }
       catch
       {
+
         return BadRequest();
+
       }
+
+
     }
 
+
+
     // GET 
-    [Authorize]
     [HttpGet(template: "produtos")]
     public async Task<IActionResult> GetAllProdutoAsync(
         [FromServices] AppDbContext context)
     {
-      var produtor =  await _context.Produtores.FirstOrDefaultAsync(s => s.Nome == User.Identity.Name);
-      //Acha os produtos de acordo com a Id do usuário logado,aonde pega a a chave FK na tabela Produtor
-      var produtosFind = context.Produtos.Where(a=>a.ProdutorId==produtor.Id);
-      /*"Tranforma" o tipo IQueryaable acima, que é o retorno dos produtos achados de tal usuário logado,para uma lista
-      De produtos a serem retornados*/
-      var produtos =  await produtosFind.ToListAsync();
-      //Retorna os produtos achados para a API,para ser consumida na aplicação REACT
-      return produtos == null ? NotFound() : Ok(produtos);
+      var produto = await context.Produtos.ToListAsync();
+
+      // string produtoJson = JsonSerializer.Serialize(produto);
+
+      return produto == null ? NotFound() : Ok(produto);
     }
 
     // POST

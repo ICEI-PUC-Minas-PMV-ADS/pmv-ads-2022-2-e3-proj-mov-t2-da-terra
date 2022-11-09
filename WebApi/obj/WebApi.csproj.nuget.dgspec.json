@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj": {}
+    "C:\\Users\\carlo\\Downloads\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra-d7aa6e5c8711449d10249e6af4d9c76f1a79a952\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra-d7aa6e5c8711449d10249e6af4d9c76f1a79a952\\WebApi\\WebApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj": {
+    "C:\\Users\\carlo\\Downloads\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra-d7aa6e5c8711449d10249e6af4d9c76f1a79a952\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra-d7aa6e5c8711449d10249e6af4d9c76f1a79a952\\WebApi\\WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj",
+        "projectUniqueName": "C:\\Users\\carlo\\Downloads\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra-d7aa6e5c8711449d10249e6af4d9c76f1a79a952\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra-d7aa6e5c8711449d10249e6af4d9c76f1a79a952\\WebApi\\WebApi.csproj",
         "projectName": "WebApi",
-        "projectPath": "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\WebApi.csproj",
+        "projectPath": "C:\\Users\\carlo\\Downloads\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra-d7aa6e5c8711449d10249e6af4d9c76f1a79a952\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra-d7aa6e5c8711449d10249e6af4d9c76f1a79a952\\WebApi\\WebApi.csproj",
         "packagesPath": "C:\\Users\\carlo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\carlo\\Documents\\PUC\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\\WebApi\\obj\\",
+        "outputPath": "C:\\Users\\carlo\\Downloads\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra-d7aa6e5c8711449d10249e6af4d9c76f1a79a952\\pmv-ads-2022-2-e3-proj-mov-t2-da-terra-d7aa6e5c8711449d10249e6af4d9c76f1a79a952\\WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\carlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
