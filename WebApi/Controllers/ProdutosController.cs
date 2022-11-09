@@ -144,13 +144,16 @@ namespace WebApi.Controllers
     // GET 
     [HttpGet(template: "produtos")]
     public async Task<IActionResult> GetAllProdutoAsync(
-        [FromServices] AppDbContext context)
+      [FromServices] AppDbContext context)
     {
-      var produto = await context.Produtos.ToListAsync();
-
-      // string produtoJson = JsonSerializer.Serialize(produto);
-
-      return produto == null ? NotFound() : Ok(produto);
+      var produtor =  await _context.Produtores.FirstOrDefaultAsync(s => s.Nome == User.Identity.Name);
+      //Acha os produtos de acordo com a Id do usuário logado,aonde pega a a chave FK na tabela Produtor
+      var produtosFind = context.Produtos.Where(a=>a.ProdutorId==produtor.Id);
+      /*"Tranforma" o tipo IQueryaable acima, que é o retorno dos produtos achados de tal usuário logado,para uma lista
+      De produtos a serem retornados*/
+      var produtos =  await produtosFind.ToListAsync();
+      //Retorna os produtos achados para a API,para ser consumida na aplicação REACT
+      return produtos == null ? NotFound() : Ok(produtos);
     }
 
     // POST
