@@ -12,8 +12,11 @@ const MinhaConta = () => {
     return (
         <Body>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <Text>TELA MINHA CONTA </Text>        
 =======
+=======
+>>>>>>> 03d13e4710a245bd63b655b0acf40dad2f3be9a2
             {/* FotoDoUsuário */}
         <Image
           style={styles.foto}
