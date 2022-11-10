@@ -18,10 +18,11 @@ namespace WebApi.Services
 
       if (produtor != null)     // PRODUTOR
       {
+        var id = produtor.Id.ToString();
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-          Subject = new ClaimsIdentity(new[]{
-          new Claim(ClaimTypes.Name, produtor.Nome),	// User.Identy.Name                  
+          Subject = new ClaimsIdentity(new[]{       
+          new Claim(ClaimTypes.Name, produtor.Nome),	// User.Identy.Name   
         }),
           Expires = DateTime.UtcNow.AddDays(8),   // Tempo de expiração do token
           SigningCredentials = new SigningCredentials(
@@ -33,10 +34,13 @@ namespace WebApi.Services
       }
       else        // CLIENTE
       {
+        var id = cliente.Id.ToString();
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-          Subject = new ClaimsIdentity(new[]{
+          Subject = new ClaimsIdentity(new[]{         
           new Claim(ClaimTypes.Name, cliente.Nome),
+         // new Claim(ClaimTypes.Role, cliente.TipoUsuario) // User.Identy.Name
+        //  new Claim(ClaimTypes.Email, cliente.Email),
         }),
           Expires = DateTime.UtcNow.AddDays(8),
           SigningCredentials = new SigningCredentials(

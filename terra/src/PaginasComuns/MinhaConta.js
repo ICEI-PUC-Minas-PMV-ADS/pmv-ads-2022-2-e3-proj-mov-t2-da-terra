@@ -11,12 +11,7 @@ const MinhaConta = () => {
     const {user,setUser} = useContext(AuthContext)//Provider com as informações do usuário logado
     return (
         <Body>
-            <Text>Nome: {user.nome}</Text>
-
-            <Text>Email: {user.email}</Text>
-            
-
-  
+            <Text>TELA MINHA CONTA </Text>        
         </Body>
     );
 }
