@@ -1,84 +1,114 @@
-import React,{useContext} from 'react';
-import { Text, StyleSheet } from "react-native";
+import React, { Component } from 'react';
+import Botao from "../Componentes/Botao";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity
+} from 'react-native';
 
-import Body from "../Componentes/Body";
-import Container from '../Componentes/Container';
+export default class Profile extends Component {
 
-import { AuthContext } from '../contexts/AuthProvider';
-
-const MinhaConta = () => {
-
-    const {user,setUser} = useContext(AuthContext)//Provider com as informações do usuário logado
+  render() {
     return (
-        <Body>
-            {/* FotoDoUsuário */}
-        <Image
-          style={styles.foto}
-          source={require("../assets/DATERRA-COMPLETO-800X1050.png")} //inserção da foto do usuário
-        />
-            <Text style={styles.viewTexto}>Nome: {user.nome}</Text>
-
-            <Text style={styles.viewTexto}>Email: {user.email}</Text>
-            
-
-  
-        </Body>
+      <View style={styles.container}>
+          <View style={styles.header}></View>
+          <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+          <View style={styles.body}>
+            <View style={styles.bodyContent}>
+              <Text style={styles.name}>John Doe</Text>
+              <Text style={styles.info}>UX Designer / Mobile developer</Text>
+              <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
+              
+              <TouchableOpacity style={styles.buttonContainer}>
+              <Botao
+              style={styles.textoBotao}
+              buttonColor={"#3d9d74"}
+              textoBotao="Privacidade"
+              mode="contained"
+            />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer}>
+             <Botao
+              style={styles.textoBotao}
+              buttonColor={"#3d9d74"}
+              textoBotao="Notificações"
+              mode="contained"
+            />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer}>
+             <Botao
+              style={styles.textoBotao}
+              buttonColor={"#3d9d74"}
+              textoBotao="Pagamento"
+              mode="contained"
+            />
+            </TouchableOpacity>     
+            </View>
+        </View>
+      </View>
     );
+  }
 }
 
 const styles = StyleSheet.create({
-    containerProdutos: {
-      borderRadius: 10,
-      padding: 10,
-      margin: 5,
-      backgroundColor: "#fff",
-      elevation: 5,
-    },
-    foto: {
-        height: 190,
-        width: 145,
-        padding: 10,
-        marginBottom: 30,
-        alignSelf: "center",
-      },
-    viewTexto: {
-        width: 350,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: -11,
-      },
-    // Imagem
-    viewImg: {
-      flexDirection: "row",
-      justifyContent: "center",
-    },
-    textoCard: {
-      marginVertical: 3,
-      fontSize: 13,
-      fontWeight: "bold",
-      letterSpacing: 0.75,
-    },
-    viewVerMaisProdutos: {
-      marginVertical: 15,
-      flexDirection: "row",
-      justifyContent: "space-evenly",
-    },
-    imgPlus: {
-      width: 101,
-      height: 83,
-      borderTopLeftRadius: 7,
-      borderTopRightRadius: 7,
-    },
-    img: {
-      maxWidth: 228,
-      maxHeight: 175,
-      flexGrow: 1,
-      flexShrink: 1,
-      borderTopLeftRadius: 12,
-      borderTopRightRadius: 12,
-      marginRight: 10,
-      alignSelf: "center",
-    }
+  header:{
+    backgroundColor: "#3d9d74",
+    height:200,
+  },
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom:10,
+    alignSelf:'center',
+    position: 'absolute',
+    marginTop:130
+  },
+  name:{
+    fontSize:22,
+    color:"#FFFFFF",
+    fontWeight:'600',
+  },
+  body:{
+    marginTop:40,
+  },
+  bodyContent: {
+    flex: 1,
+    alignItems: 'center',
+    padding:30,
+  },
+  name:{
+    fontSize:28,
+    color: "#696969",
+    fontWeight: "600"
+  },
+  info:{
+    fontSize:16,
+    color: "#00BFFF",
+    marginTop:10
+  },
+  description:{
+    fontSize:16,
+    color: "#696969",
+    marginTop:10,
+    textAlign: 'center'
+  },
+  buttonContainer: {
+    marginTop:10,
+    height:45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:250,
+    borderRadius:30,
+  },
+  textoBotao: {
+    textAlign: "center",
+    fontSize: 18,
+  }
 });
-
-export default MinhaConta;
