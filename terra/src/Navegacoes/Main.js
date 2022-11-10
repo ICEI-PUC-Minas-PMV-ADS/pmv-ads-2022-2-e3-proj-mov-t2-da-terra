@@ -20,7 +20,11 @@ const Stack = createNativeStackNavigator();
 
 const Main = () => {
   return (
+<<<<<<< HEAD
     <Stack.Navigator initialRouteName="CadastroProduto">
+=======
+    <Stack.Navigator initialRouteName="HomeCliente">
+>>>>>>> 03d13e4710a245bd63b655b0acf40dad2f3be9a2
       <Stack.Screen
         name="Login"
         component={Login}
