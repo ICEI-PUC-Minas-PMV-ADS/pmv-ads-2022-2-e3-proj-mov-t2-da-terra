@@ -44,14 +44,14 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date());
 
   // Dados Pessoais dos Usuário
-  const [nome, setNome] = useState("Amanda");
-  const [cpf, setCpf] = useState("1234567814");
-  const [telefone, setTelefone] = useState("27999888555");
+  const [nome, setNome] = useState("Carlos");
+  const [cpf, setCpf] = useState("22222222222");
+  const [telefone, setTelefone] = useState("2733321245");
 
   // Endereço do Usuário
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
-  const [numeroCasa, setNumeroCasa] = useState("33");
+  const [numeroCasa, setNumeroCasa] = useState("3");
   const [cep, setCep] = useState("03511000");
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
@@ -62,7 +62,7 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [nomeLoja, setNomeLoja] = useState("");
 
   // Email e Senha
-  const [email, setEmail] = useState("amanda@gmail.com");
+  const [email, setEmail] = useState("carlos@gmail.com");
   const [senha, setSenha] = useState("123456");
   const [confirmarSenha, setConfirmarSenha] = useState("123456");
 

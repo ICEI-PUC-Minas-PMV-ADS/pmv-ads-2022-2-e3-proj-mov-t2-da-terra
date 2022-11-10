@@ -6,6 +6,7 @@ using WebApi.Models;
 using BCrypt.Net;
 using WebApi.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace WebApi.Controllers
 {
@@ -14,7 +15,7 @@ namespace WebApi.Controllers
   public class ClientesController : ControllerBase
   {
     // GET: Todos produtores
-    // Incluir autorize
+    // OCULTAR APÓS TESTES
     [HttpGet(template: "clientes")]
     public async Task<IActionResult> GetAllCliente(
       [FromServices] AppDbContext context)
@@ -24,20 +25,22 @@ namespace WebApi.Controllers
     }
 
     // GET : Por ID
-    // Incluir autorize
     [HttpGet(template: "clientes/{id}")]
+    [Authorize(Roles = "cliente")]
     public async Task<IActionResult> GetCliente(
         [FromServices] AppDbContext context,
         [FromRoute] int id)
     {
+      // Usuário tem acesso somente aos próprios dados
       var cliente = await context.Clientes
-        .FirstOrDefaultAsync(x => x.Id == id);
+        .FirstOrDefaultAsync(x => x.Id == id && x.Nome == User.Identity.Name);
 
       if (cliente == null)
         return NotFound(new { message = "Cliente não encontrado" });
 
       try
       {
+        cliente.Senha = "";
         return Ok(cliente);
       }
       catch (System.Exception)
@@ -91,7 +94,6 @@ namespace WebApi.Controllers
     }
 
     // PUT
-
     [HttpPut(template: "clientes/{id}")]
     [Authorize]
     public async Task<IActionResult> PutCliente(
@@ -103,7 +105,7 @@ namespace WebApi.Controllers
         return BadRequest(new { message = "Model Invalid" });
 
       var cliente = await context.Clientes
-      .FirstOrDefaultAsync(x => x.Id == id);
+          .FirstOrDefaultAsync(x => x.Id == id && x.Nome == User.Identity.Name);
 
       if (cliente == null)
         return NotFound(new { message = "Cliente não encontrado" });
@@ -128,7 +130,7 @@ namespace WebApi.Controllers
 
         context.Clientes.Update(cliente);
         await context.SaveChangesAsync();
-        
+
         cliente.Senha = "";
 
         return Ok(cliente);
@@ -162,3 +164,18 @@ namespace WebApi.Controllers
     }
   }
 }
+
+
+/*  // User Logado
+        var clienteLogado = await context.Clientes
+          .FirstOrDefaultAsync(x => x.Nome == User.Identity.Name);
+        cliente.Senha = "";
+
+        return Ok(clienteLogado.Id);
+        */
+
+/*    public async Task<IActionResult> Logout()
+{
+    await HttpContext.SignOutAsync();
+    return RedirectToAction("Index", "Home");
+}*/
