@@ -4,10 +4,10 @@
     "slug": "app-projeto-puc",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "src/assets/DATERRA-LOGO-800X797.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "src/assets/logo_da_terra_transparente.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,7 +22,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "src/assets/DATERRA-LOGO-800X797.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.anonymous.appprojetopuc"

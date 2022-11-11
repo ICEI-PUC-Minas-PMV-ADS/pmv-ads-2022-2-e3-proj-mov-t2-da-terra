@@ -19,7 +19,7 @@ import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 export default function Login() {
 
   const navigation = useNavigation();
-  const { idLogado, postLogin } = useContext(AuthContext);
+  const { idLogado, postLogin,user,setUser } = useContext(AuthContext);
   
   // SnackBar e falta informação
   const [missInfo, setMissInfo] = useState(false);
@@ -68,8 +68,29 @@ export default function Login() {
       postLogin({
         email: email,
         senha: senha
-      }).then();  // Tratar Retorno e direcionar telas
-      navigation.navigate('HomeVendedor')
+      }).then(response=>{
+        if(response.cliente.tipoUsuario=="cliente" && response.cliente!=undefined){
+          //Meio redudante,tentar refatorar depois
+          console.log("É cliente")
+          navigation.navigate("HomeCliente")
+        
+      }
+      else if (response.produtor.tipoUsuario=="produtor"&& response.produtor!=undefined){
+        console.log("É produtor")
+        navigation.navigate("HomeProdutor")
+  
+      }  
+     
+      }
+        
+      ).catch(e=>console.log(e))
+    
+   
+      
+      
+      
+      // Tratar Retorno e direcionar telas
+      // navigation.navigate('HomeVendedor')
     }
   };
 

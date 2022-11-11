@@ -4,7 +4,7 @@ import { url } from "./webapi.url";
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [usuario, setUsuario] = useState([]);
+  const [user, setUser] = useState();
   const [idLogado, setIdLogado] = useState();
 
   const postLogin = async (param) => {
@@ -18,7 +18,12 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify(param)
       })
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => {
+        
+        // console.log(json)
+        setUser(json)
+      
+      })
       //.then(json => setIdLogado(json))  // Retorna ID       
       .catch(error => console.error(error));
   }
@@ -38,7 +43,8 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{
-      usuario,
+      user,
+      setUser,
       idLogado,
       postLogin
     }}>

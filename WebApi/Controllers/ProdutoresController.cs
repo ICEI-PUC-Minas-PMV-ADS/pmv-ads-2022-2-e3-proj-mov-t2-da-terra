@@ -24,6 +24,7 @@ namespace WebApi.Controllers
 
       return Ok(produtor);
     }
+    
 
     // GET: Por ID
     // Colocar Authorize 
