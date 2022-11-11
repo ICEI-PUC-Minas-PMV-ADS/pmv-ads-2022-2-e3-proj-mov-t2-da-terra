@@ -26,7 +26,7 @@ namespace WebApi.Controllers
 
     // GET : Por ID
     [HttpGet(template: "clientes/{id}")]
-    [Authorize(Roles = "cliente")]
+    //[Authorize(Roles = "cliente")]
     public async Task<IActionResult> GetCliente(
         [FromServices] AppDbContext context,
         [FromRoute] int id)

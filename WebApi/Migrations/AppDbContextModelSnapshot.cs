@@ -69,7 +69,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("Clientes", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.Pedido", b =>
@@ -98,7 +98,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pedidos");
+                    b.ToTable("Pedidos", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.Produto", b =>
@@ -135,7 +135,7 @@ namespace WebApi.Migrations
 
                     b.HasIndex("ProdutorId");
 
-                    b.ToTable("Produtos");
+                    b.ToTable("Produtos", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.Produtor", b =>
@@ -194,7 +194,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Produtores");
+                    b.ToTable("Produtores", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.Usuario", b =>
@@ -253,7 +253,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Usuarios", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.Produto", b =>

@@ -34,7 +34,7 @@ const Loja = () => {
   useEffect(() => {   
     // Pega todos os itens no banco
     // tem que ajsuta para pegar somente os itens do user x
-    getAllProduto();  
+    //getAllProduto();  
   }, [isFocused])
 
 
@@ -59,7 +59,7 @@ const Loja = () => {
 
   return (
     <Container>
-      <Header title={user.nomeLoja}></Header>
+      <Header/>
       <Body>
         <FlatList
           data={produto}

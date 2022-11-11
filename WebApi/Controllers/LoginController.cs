@@ -1,5 +1,6 @@
 using System.Text.Json;
 using BCrypt.Net;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace WebApi.Controllers
   [ApiController]
   [Route(template: "v1")]
   public class LoginController : ControllerBase
-  {  
+  {
     [AllowAnonymous]
     [HttpPost(template: "login")]
     public async Task<ActionResult<dynamic>> Login(
@@ -32,8 +33,8 @@ namespace WebApi.Controllers
       if (produtor == null && cliente == null)
       {
         return NotFound(new { message = "Usuário não cadastrado" });
-      }      
-      
+      }
+
       // Validação senha e geração TOKEN
       if (produtor != null)   // PRODUTOR
       {
@@ -54,7 +55,7 @@ namespace WebApi.Controllers
         if (BCrypt.Net.BCrypt.Verify(model.Senha, cliente.Senha))
         {
           var token = TokenServices.GenerateToken(null, cliente);
-          cliente.Senha = "";     
+          cliente.Senha = "";
 
           return new
           {
@@ -66,5 +67,16 @@ namespace WebApi.Controllers
       // Se nenhuma senha é correta, então BadRequest
       return BadRequest(new { message = "Senha Inválida" });
     }
+
+
+    // Remover token para o LOGOUT - Em estudo
+    // [HttpPost("logout")]
+    // public async Task<IActionResult> Logout()
+    // {
+    //  // Response.Headers.Remove("Authorization");
+    // //  return Ok();     
+    //   return Ok(Response.Headers.Remove("Authorization")
+    //     ? new { message = "Removido" } : new { message = "Não Removido" });
+    // }
   }
 }

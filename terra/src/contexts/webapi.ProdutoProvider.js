@@ -50,8 +50,8 @@ const ProdutoProvider = ({ children }) => {
   }
 
   // POST - OK
-  const postProduto = async (param = {}) => {
-    console.log(`${url}/produtos/`);
+  const postProduto = async (param) => {
+    console.log(param);
     return await fetch(`${url}/produtos/`,
       {
         method: 'POST',

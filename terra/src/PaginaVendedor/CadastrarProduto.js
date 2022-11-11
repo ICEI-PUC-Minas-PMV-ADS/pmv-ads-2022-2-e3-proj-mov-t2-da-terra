@@ -32,7 +32,7 @@ const CadastarProduto = ({ route }) => {
   const showDialogEmbalagem = () => setVisibleEmbalagem(true);
   const hideDialogEmbalagem = () => setVisibleEmbalagem(false);
 
-  const [nome, setNome] = useState("Pera");
+  const [nome, setNome] = useState("Mamão");
   const [preco, setPreco] = useState(7.98);
   const [estoque, setEstoque] = useState(25);
   const [descricao, setDescricao] = useState("Top de Linha");
@@ -51,8 +51,6 @@ const CadastarProduto = ({ route }) => {
   // Context Produto
   const { postProduto, putProduto, deleteProduto } = useContext(ProdutoContext);
 
-  // Está estática para testes, mas vai vir da api com o ID do usuário logado para setar na tabela Produtos no DB
-  const usuarioLogado = 5;
 
   // Para exibir dados quando clica no card do produto (editar)
   useEffect(() => {
@@ -73,16 +71,16 @@ const CadastarProduto = ({ route }) => {
       !estoque || !categoria || !descricao) {
       setMissInfo(true);  // Faltam dados
     } else {
-      setMissInfo(false); // Seta FALSE, pois o usuário já preencheu o restante dos dados
+      // Seta false (todos dados preenchidos)
+      setMissInfo(false); 
       if (!item) {
-        postProduto({ // TESTE OK
+        postProduto({ // POST OK
           nome: nome.trim(),
-          preco: preco.trim(),
+          preco: preco,
           embalagem: embalagem,
-          estoque: estoque.trim(),
+          estoque: estoque,
           categoria: categoria,
-          descricao: descricao.trim(),
-          // usuarioLogado: usuarioLogado.trim() // PARA TESTE
+          descricao: descricao.trim(),         
         }).then();
       } else {
         putProduto({ // TESTE OK

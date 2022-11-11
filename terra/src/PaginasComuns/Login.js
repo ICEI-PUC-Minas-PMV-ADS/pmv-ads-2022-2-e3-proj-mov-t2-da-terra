@@ -69,7 +69,7 @@ export default function Login() {
         email: email,
         senha: senha
       }).then();  // Tratar Retorno e direcionar telas
-      navigation.navigate('HomeCliente')
+      navigation.navigate('HomeVendedor')
     }
   };
 

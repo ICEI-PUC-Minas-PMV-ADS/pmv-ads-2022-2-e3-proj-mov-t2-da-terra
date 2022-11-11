@@ -6,7 +6,7 @@ namespace WebApi.ViewModel
 {
   public class CreateProdutoViewModel
   {
-    [Required]
+    public int Id { get; set; }    
     public int ProdutorId { get; set; }
 
     [Required]
@@ -21,7 +21,7 @@ namespace WebApi.ViewModel
     public string Categoria { get; set; }
     [Required]
     public string Descricao { get; set; }
-    // [Required]
+
     public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
   }
 }
