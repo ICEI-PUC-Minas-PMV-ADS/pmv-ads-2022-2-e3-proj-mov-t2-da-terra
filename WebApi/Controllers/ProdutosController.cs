@@ -31,7 +31,7 @@ namespace WebApi.Controllers
 
      
         var produto = await context.Produtos
-              .Include(prod)
+           // .Include(prod)
              .AsNoTracking()
              .FirstOrDefaultAsync(x => x.Id == id);
       
