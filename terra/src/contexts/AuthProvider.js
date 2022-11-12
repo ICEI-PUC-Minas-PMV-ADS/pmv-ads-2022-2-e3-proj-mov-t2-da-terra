@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
         // console.log(json)
       
       })
-      //.then(json => setIdLogado(json))  // Retorna ID       
+      .then(json => setIdLogado(json))  // Retorna ID       
       .catch(error => console.error(error));
   }
 

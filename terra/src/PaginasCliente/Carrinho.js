@@ -13,7 +13,7 @@ import { List } from "react-native-paper";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../contexts/AuthProvider";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
-import { getCarrinho } from "../DBService/DBCarrinho";
+import { getCarrinho,insertCarrinho } from "../DBService/DBCarrinho";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -25,26 +25,51 @@ const Carrinho = () => {
   const { idLogado, user } = useContext(AuthContext);
   const { produto, getAllProduto } = useContext(ProdutoContext);
   const [valorTotal, setPrecoTotal] = useState(0);
-
+  
+ 
   const precoTotal = () => {
     let soma = 0;
-
-    for (let item of produto) {
-      soma += item.preco;
-    }
-    console.log(soma);
-    if (soma > 0) {
+    if(produto!=undefined){
+      for (let item of produto) {
+        soma += item.preco;
+      }
+      
       setPrecoTotal(soma.toFixed(2));
+      
+     
     }
-  };
-
+     
+    
+  }
   useEffect(() => {
-    getAllProduto();
+   getCarrinho(idLogado)
     console.log(valorTotal);
+    precoTotal()
+
 
     // console.log(user.cliente.nome)
-  }, [useIsFocused]);
+  }, []);
+const add = ()=>{
+insertCarrinho(
+  {
+    idCliente:1,
+    idProdutor:1,
+    idProduto:5,
+    quantidadeProduto:1,
+    precoTotal:7.98
 
+
+  }
+
+
+).then()
+.catch(e=>console.log(e))
+
+
+}
+  
+  
+  
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
@@ -104,6 +129,16 @@ const Carrinho = () => {
             <Botao
               style={styles.textoBotao}
               textoBotao="Enviar Pedido"
+              mode="contained"
+              buttonColor="#3d9d74"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={add}
+          >
+            <Botao
+              style={styles.textoBotao}
+              textoBotao="ADD CARRINHO"
               mode="contained"
               buttonColor="#3d9d74"
             />
