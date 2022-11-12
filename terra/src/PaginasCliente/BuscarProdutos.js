@@ -1,23 +1,24 @@
-import React, { useContext, useState,useEffect, } from "react";
-import { FlatList, Image, StyleSheet, View, TouchableOpacity, Text,BackHandler,Alert,} from "react-native";
-import { List, Searchbar,FAB } from "react-native-paper";
+import React, { useContext, useState, useEffect } from "react";
+import { FlatList, Image, StyleSheet, View, TouchableOpacity, Text, BackHandler, Alert, } from "react-native";
+import { List, Searchbar, FAB } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation,useRoute} from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 // import { getProdutos, getSearchProduto } from "../DBService/DBProduto";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const BuscarProdutos = () => {
   //Abaixo seria no caso aonde pegaria os dados da busca no banco
   //const {} = useContext(ProdutoProvider);
-const navigation = useNavigation();
-const route = useRoute();
-const {BuscaProdutos,produto } = useContext(ProdutoContext);
-const [searchQuery, setSearchQuery] = useState();
-const [resultados, setResultados] = useState([]);
- 
-// useEffect(() => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { BuscaProdutos, produto } = useContext(ProdutoContext);
+  const [searchQuery, setSearchQuery] = useState();
+  const [resultados, setResultados] = useState([]);
+
+  // useEffect(() => {
   //   if(route.name=="HomeCliente"){
   //   const backAction = () => {
   //     Alert.alert("Espere!", "Você tem certeza que deseja sair do aplicativo?", [
@@ -30,25 +31,29 @@ const [resultados, setResultados] = useState([]);
   //     ]);
   //     return true;
   //   };
-  
+
   //   const backHandler = BackHandler.addEventListener(
   //     "hardwareBackPress",
   //     backAction
   //   );
-    
+
   //   return () => backHandler.remove();}
   // }, []);
 
-  
-  useEffect(()=>{
-    BuscaProdutos(searchQuery,"Verduras").then((prod)=>{   
+
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (searchQuery) {
+      BuscaProdutos(searchQuery, "Verduras").then((prod) => {
         setResultados(prod)
-        console.log(produto)  
-    })
-  },[searchQuery])
-  
+        console.log(produto)
+      })
+    }
+  }, [searchQuery])
+
   const onChangeSearch = (query) => {
-    setSearchQuery(query);  
+    setSearchQuery(query);
     // for (let i = 0; i < searchQuery.length; i++) {      
     //   if (searchQuery[i].title == query) {
     //     // console.log(data[i].title);        
@@ -59,7 +64,7 @@ const [resultados, setResultados] = useState([]);
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
-       onPress={() => navigation.navigate("ComprarProduto", { item })}
+        onPress={() => navigation.navigate("ComprarProduto", { item })}
       >
         <List.Item
           title={`${item.nome}`}
@@ -73,7 +78,7 @@ const [resultados, setResultados] = useState([]);
           description={`Estoque: ${item.estoque} ${item.embalagem}`}
         />
       </TouchableOpacity >
-      
+
     </View>
   );
 

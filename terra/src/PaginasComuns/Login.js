@@ -9,19 +9,17 @@ import {
 } from "react-native";
 import { TextInput, Snackbar } from "react-native-paper";
 
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import Input from "../Componentes/Input";
 import Container from "../Componentes/Container";
 import Body from "../Componentes/Body";
 import Botao from "../Componentes/Botao";
-
-//import { getUsuario } from "../DBService/DBUsuario";
-//import { getLogin } from "../DBService/DBUsuario";
-//import { getLogin } from "../JsonServer/webapi.usuarios";
+import HomeVendedor from "../PaginaVendedor/HomeVendedor";
 
 import { AuthContext } from "../contexts/AuthProvider";
-import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
+import { ValidarCadastroContext } from "../contexts/webapi.ValidarCadastro";
+
 
 export default function Login() {
   const navigation = useNavigation();
@@ -38,67 +36,41 @@ export default function Login() {
   const [senha, setSenha] = useState("123456");
   const [escondeSenha, setEscondeSenha] = useState(true);
 
-  // const validarLogin = () => {
-  //   if (!email || !senha) {
-  //     setMissInfo(true); // Falta Informação
-  //     setAviso("Por favor, insira o email e a senha")
-  //   }
-  //   else { // FAZER A VALIDAÇÃO SE É CLIENTE OU PRODUTOR
-  //     login({
-  //       email: email.trim(),
-  //       password: senha.trim()
-  //     }).then(res => {
-  //       if (typeof (res) != "null" && res.user.tipoUsuario == "cliente") {
-  //         navigation.navigate("HomeCliente");
-  //       }
-  //       else if (typeof (res) != "null" && res.user.tipoUsuario == "produtor") {
-  //         navigation.navigate("HomeVendedor");
-  //       }
-  //       else {
-  //         //Significa que ou o usuario digitou os dados erros ou esse meliante não existe
-  //         setMissInfo(true)
-  //         setAviso("Email ou senha incorretos")
-  //       }
-  //     });
-  //   }
-  // };
-  
+  // Validar Login
+  const {
+    idCadastrado,
+    postValidarCadastro
+  } = useContext(ValidarCadastroContext);
 
-  // COM API .net
+  // Validação login
   const validarLogin = () => {
     if (!email || !senha) {
       setMissInfo(true); // Falta Informação
       onToggleSnackBar();
-    } else {
-       postLogin({
+    } else {     
+      postLogin({
         email: email,
         senha: senha,
       })
-         .then()
-        //  
+        .then(() => {
+         // console.log('entrou:' +  user);
+          for (let i in user) {
+            console.log('entrou:' +  user);
+            
+            const tipoUser = user[i].tipoUsuario;
 
-        //   console.log(typeof(user.cliente))
-        //   if (typeof(user.cliente.tipoUsuario) != "undefined" && user.cliente.tipoUsuario == "cliente") {
-        //     //Meio redudante,tentar refatorar depois
-        //     console.log("É cliente");
-        //     navigation.navigate("HomeCliente");
-        //   } else if (
-        //     typeof(user.produtor.tipoUsuario) != "undefined" &&
-        //     user.produtor.tipoUsuario == "produtor"
-        //   ) {
-        //     console.log("É produtor");
-        //     navigation.navigate("HomeVendedor");
-        //   } else {
-        //     setMissInfo(true);
-        //     setAviso("Email ou senha incorretos");
-        //   }
+            if (tipoUser != undefined) {
+              if (tipoUser == 'cliente') {
+                navigation.navigate("HomeCliente");
+              }
+              else if (tipoUser == 'produtor') {
+                navigation.navigate("HomeVendedor");
+              }
+            }
+          }
+        })
+    
 
-
-        // })
-        .catch((e) => console.log(e));
-        navigation.navigate("Carrinho")
-
-      
     }
   };
 
@@ -229,13 +201,5 @@ const styles = StyleSheet.create({
     color: "#72E6FF",
   },
 
-  // Aviso de dados incompletos
-  aviso: {
-    marginTop: 10,
-    marginLeft: 10,
-    color: "#D32F2F",
-    fontStyle: "italic",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
+
 });

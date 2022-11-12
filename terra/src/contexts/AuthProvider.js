@@ -17,15 +17,15 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify(param)
       })
-      .then(response => response.json())
-      .then(json => {
-        console.log(json.cliente.bairro)
-        setUser(json)
-        // console.log(user)
-        // console.log(json)
-      
+      .then(response => {
+        if (response.status) {
+         console.error(response.status);
+        }
+        response.json()
       })
-      //.then(json => setIdLogado(json))  // Retorna ID       
+      .then(json => {       
+        setUser(json); 
+      })
       .catch(error => console.error(error));
   }
 

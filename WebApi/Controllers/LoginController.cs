@@ -45,7 +45,7 @@ namespace WebApi.Controllers
 
           return new
           {
-            produtor = produtor,
+            produtor = produtor.TipoUsuario,
             token = token
           };
         }
@@ -59,7 +59,7 @@ namespace WebApi.Controllers
 
           return new
           {
-            cliente = cliente,
+            cliente = cliente.TipoUsuario,
             token = token
           };
         }

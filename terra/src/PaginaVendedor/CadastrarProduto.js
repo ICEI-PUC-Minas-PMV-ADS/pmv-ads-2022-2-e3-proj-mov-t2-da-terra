@@ -72,7 +72,7 @@ const CadastarProduto = ({ route }) => {
       setMissInfo(true);  // Faltam dados
     } else {
       // Seta false (todos dados preenchidos)
-      setMissInfo(false); 
+      setMissInfo(false);
       if (!item) {
         postProduto({ // POST OK
           nome: nome.trim(),
@@ -80,7 +80,7 @@ const CadastarProduto = ({ route }) => {
           embalagem: embalagem,
           estoque: estoque,
           categoria: categoria,
-          descricao: descricao.trim(),         
+          descricao: descricao.trim(),
         }).then();
       } else {
         putProduto({ // TESTE OK

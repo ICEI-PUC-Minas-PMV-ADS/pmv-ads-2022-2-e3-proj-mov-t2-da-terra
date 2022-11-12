@@ -42,7 +42,7 @@ namespace WebApi.Controllers
         [FromServices] AppDbContext context)
     {
       var produto = await context.Produtos.ToListAsync();
-      ;
+      
 
       return produto == null ? NotFound() : Ok(produto);
     }
