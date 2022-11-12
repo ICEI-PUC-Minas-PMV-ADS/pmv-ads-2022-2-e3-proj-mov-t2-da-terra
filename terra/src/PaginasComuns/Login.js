@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import { TextInput, Snackbar } from "react-native-paper";
 
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 import Input from "../Componentes/Input";
 import Container from "../Componentes/Container";
@@ -17,10 +24,9 @@ import { AuthContext } from "../contexts/AuthProvider";
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 
 export default function Login() {
-
   const navigation = useNavigation();
-  const { idLogado, postLogin,user,setUser } = useContext(AuthContext);
-  
+  const { idLogado, postLogin, user, setUser } = useContext(AuthContext);
+
   // SnackBar e falta informação
   const [missInfo, setMissInfo] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -34,10 +40,10 @@ export default function Login() {
 
   // const validarLogin = () => {
   //   if (!email || !senha) {
-  //     setMissInfo(true); // Falta Informação 
+  //     setMissInfo(true); // Falta Informação
   //     setAviso("Por favor, insira o email e a senha")
   //   }
-  //   else { // FAZER A VALIDAÇÃO SE É CLIENTE OU PRODUTOR      
+  //   else { // FAZER A VALIDAÇÃO SE É CLIENTE OU PRODUTOR
   //     login({
   //       email: email.trim(),
   //       password: senha.trim()
@@ -56,41 +62,38 @@ export default function Login() {
   //     });
   //   }
   // };
-
+  
 
   // COM API .net
   const validarLogin = () => {
     if (!email || !senha) {
       setMissInfo(true); // Falta Informação
-      onToggleSnackBar();      
-    }
-    else {      
-      postLogin({
+      onToggleSnackBar();
+    } else {
+       postLogin({
         email: email,
-        senha: senha
-      }).then(response=>{
-        if(response.cliente.tipoUsuario=="cliente" && response.cliente!=undefined){
-          //Meio redudante,tentar refatorar depois
-          console.log("É cliente")
-          navigation.navigate("HomeCliente")
-        
+        senha: senha,
+      })
+        .then()
+        .catch((e) => console.log(e));
+      console.log(user)
+
+
+      //Não esta repondendo de forma assincrona
+      if (typeof(user.cliente.tipoUsuario) != "undefined" && user.cliente.tipoUsuario == "cliente") {
+        //Meio redudante,tentar refatorar depois
+        console.log("É cliente");
+        navigation.navigate("HomeCliente");
+      } else if (
+        typeof(user.produtor.tipoUsuario) != "undefined" &&
+        user.produtor.tipoUsuario == "produtor"
+      ) {
+        console.log("É produtor");
+        navigation.navigate("HomeVendedor");
+      } else {
+        setMissInfo(true);
+        setAviso("Email ou senha incorretos");
       }
-      else if (response.produtor.tipoUsuario=="produtor"&& response.produtor!=undefined){
-        console.log("É produtor")
-        navigation.navigate("HomeProdutor")
-  
-      }  
-     
-      }
-        
-      ).catch(e=>console.log(e))
-    
-   
-      
-      
-      
-      // Tratar Retorno e direcionar telas
-      // navigation.navigate('HomeVendedor')
     }
   };
 
@@ -124,10 +127,10 @@ export default function Login() {
               onPress={() =>
                 escondeSenha ? setEscondeSenha(false) : setEscondeSenha(true)
               }
-              icon={escondeSenha ? 'eye-off' : 'eye'}
+              icon={escondeSenha ? "eye-off" : "eye"}
             />
           }
-        />       
+        />
 
         {/* Botão Entrar */}
         <View style={styles.viewBotao}>
@@ -163,10 +166,11 @@ export default function Login() {
         {/* Aviso Dados Incompletos */}
         <Snackbar
           visible={visible}
-          onDismiss={onDismissSnackBar}          
+          onDismiss={onDismissSnackBar}
           action={{
-            label: 'Ok',
-          }}>
+            label: "Ok",
+          }}
+        >
           Por favor, insira o email e a senha
         </Snackbar>
       </Body>
@@ -184,7 +188,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 
-  // Botão 
+  // Botão
   viewBotao: {
     marginTop: 20,
     marginBottom: 25,
@@ -224,6 +228,6 @@ const styles = StyleSheet.create({
     color: "#D32F2F",
     fontStyle: "italic",
     fontWeight: "bold",
-    textAlign: 'center'
+    textAlign: "center",
   },
 });
