@@ -15,15 +15,13 @@ import Input from "../Componentes/Input";
 import Container from "../Componentes/Container";
 import Body from "../Componentes/Body";
 import Botao from "../Componentes/Botao";
-import HomeVendedor from "../PaginaVendedor/HomeVendedor";
 
 import { AuthContext } from "../contexts/AuthProvider";
-import { ValidarCadastroContext } from "../contexts/webapi.ValidarCadastro";
 
 
 export default function Login() {
   const navigation = useNavigation();
-  const { idLogado, postLogin, user, setUser } = useContext(AuthContext);
+  const { postLogin, user, setUser } = useContext(AuthContext);
 
   // SnackBar e falta informação
   const [missInfo, setMissInfo] = useState(false);
@@ -36,27 +34,18 @@ export default function Login() {
   const [senha, setSenha] = useState("123456");
   const [escondeSenha, setEscondeSenha] = useState(true);
 
-  // Validar Login
-  const {
-    idCadastrado,
-    postValidarCadastro
-  } = useContext(ValidarCadastroContext);
-
   // Validação login
   const validarLogin = () => {
     if (!email || !senha) {
       setMissInfo(true); // Falta Informação
       onToggleSnackBar();
-    } else {     
+    } else {
       postLogin({
         email: email,
         senha: senha,
       })
         .then(() => {
-         // console.log('entrou:' +  user);
           for (let i in user) {
-            console.log('entrou:' +  user);
-            
             const tipoUser = user[i].tipoUsuario;
 
             if (tipoUser != undefined) {
@@ -68,9 +57,7 @@ export default function Login() {
               }
             }
           }
-        })
-    
-
+        }) // Implementar quando o user ou senha forem inválidos
     }
   };
 

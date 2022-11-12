@@ -17,15 +17,9 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify(param)
       })
-      .then(response => {
-        if (response.status) {
-         console.error(response.status);
-        }
-        response.json()
-      })
-      .then(json => {       
-        setUser(json); 
-      })
+      .then(response => response.json())
+      .then(json => setUser(json))
+
       .catch(error => console.error(error));
   }
 

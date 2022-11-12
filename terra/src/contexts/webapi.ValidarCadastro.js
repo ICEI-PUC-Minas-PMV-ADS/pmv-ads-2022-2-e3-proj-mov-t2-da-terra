@@ -7,7 +7,7 @@ export const ValidarCadastroProvider = ({ children }) => {
   const [idCadastrado, setIdCadastrado] = useState([]);
 
   const postValidarCadastro = async (param) => {
-    console.log(param);
+   console.log(param);
     return await fetch(`${url}/validarcadastro/`, {
       method: 'POST',
       headers: {
