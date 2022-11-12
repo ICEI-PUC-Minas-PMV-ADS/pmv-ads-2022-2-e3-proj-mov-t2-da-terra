@@ -22,13 +22,13 @@ const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
     <Stack.Navigator initialRouteName="Loja">
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Login"
         component={Login}
         options={{
           header: () => null,
         }}
-      />
+      /> */}
       <Stack.Screen
         name="HomeCliente"
         component={HomeCliente}

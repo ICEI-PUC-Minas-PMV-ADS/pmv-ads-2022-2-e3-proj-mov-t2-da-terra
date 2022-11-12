@@ -18,7 +18,6 @@ public class Produto
   public string Categoria { get; set; }
   public string Descricao { get; set; }
   public string DataCadastro { get; set; }
-
   public ICollection<Produto> Produtos;
-  
+
 }

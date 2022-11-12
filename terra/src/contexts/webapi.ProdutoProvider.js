@@ -7,10 +7,10 @@ const ProdutoProvider = ({ children }) => {
 
   const [produto, setProduto] = useState();
 
-  //GET ALL - ok
-  const getAllProduto = async () => {
-    console.log(`${url}/produtos/all`)
-    return await fetch(`${url}/produtos/`, {
+  //GET ALL - OK
+  const getBuscaProdutoCliente = async () => {
+    console.log(`${url}/produtos/todos`)
+    return await fetch(`${url}/produtos/todos`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ const ProdutoProvider = ({ children }) => {
   }
 
   //GET ALL - ok
-  const BuscaProdutos = async (nome) => {
+  const BuscaProdutos = async () => {
     console.log(`${url}/produtos/busca`)
     return await fetch(`${url}/produtos/busca`, {
       method: 'GET',
@@ -34,9 +34,11 @@ const ProdutoProvider = ({ children }) => {
       }
     })
       .then(response => response.json())
-      .then(json => setProduto(json))
+      //.then(json => setProduto(json))
+      .then(json => console.log(json))
       .catch(error => console.error(error));
   }
+
   // GET - OK
   const getProduto = async (id) => {
     console.log(`${url}/produtos/${id}`)
@@ -101,7 +103,7 @@ const ProdutoProvider = ({ children }) => {
         postProduto,
         putProduto,
         deleteProduto,
-        getAllProduto,
+        getBuscaProdutoCliente,
         BuscaProdutos,
       }}
     >

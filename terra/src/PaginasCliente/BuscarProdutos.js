@@ -14,7 +14,7 @@ const BuscarProdutos = () => {
   //const {} = useContext(ProdutoProvider);
   const navigation = useNavigation();
   const route = useRoute();
-  const { BuscaProdutos, produto } = useContext(ProdutoContext);
+  const { BuscaProdutos, produto, getBuscaProdutoCliente } = useContext(ProdutoContext);
   const [searchQuery, setSearchQuery] = useState();
   const [resultados, setResultados] = useState([]);
 
@@ -52,8 +52,18 @@ const BuscarProdutos = () => {
     }
   }, [searchQuery])
 
+  
+  // OK: Todos os produtos. Padrão (Ver se vamos deixar assim)
+  // useEffect(() => {
+  //   getBuscaProdutoCliente()
+  //     .then(() => setResultados(produto));      
+  //    // console.log(resultados);    
+  // }, [])
+
+
+  // Primeira Versão para testes
   const onChangeSearch = (query) => {
-    setSearchQuery(query);
+    //setSearchQuery(query);
     // for (let i = 0; i < searchQuery.length; i++) {      
     //   if (searchQuery[i].title == query) {
     //     // console.log(data[i].title);        
@@ -104,7 +114,7 @@ const BuscarProdutos = () => {
 
 const styles = StyleSheet.create({
   searchBar: {
-    // Estilizar
+    // estilizar
   },
   containerProdutos: {
     justifyContent: "center",

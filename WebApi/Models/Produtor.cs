@@ -23,5 +23,7 @@ namespace WebApi.Models
     public string TipoUsuario { get; set; }
     public string NomeLoja { get; set; }
     public string DataCadastro { get; set; }
+
+    public ICollection<Produto> Produtos;
   }
 }
