@@ -37,8 +37,8 @@ const Database = {
           "idCliente` INTEGER NOT NULL,"+
           "idProdutor` INTEGER NOT NULL,"+
           "idProduto`INTEGER NOT NULL"+
-          "quantidadeProdutos INTEGER NULL"+
-          "precoTotal` REAL NULL,"
+          "quantidadeProduto INTEGER NULL"+
+          "precoTotal` REAL NOT NULL,"
          
       );
     //   tx.executeSql(

@@ -7,17 +7,18 @@ const DB_EXEC = Database.getConnection();
 export const insertCarrinho = async (carrinho) => {
   let results = await DB_EXEC(
     "INSERT INTO Carrinho" +
-    "(idCliente,idProdutor,quantidadeProdutos,precoTotal) VALUES(?,?,?,?,?,?);",
+    "(idCliente,idProdutor,idProduto,quantidadeProduto,precoTotal) VALUES(?,?,?,?,?);",
     [
     carrinho.idCliente,
     carrinho.idProdutor,
     carrinho.idProduto,
-    carrinho.quantidadeProdutos,
+    carrinho.quantidadeProduto,
     carrinho.precoTotal
 
     ]
   );
   // console.log(results); //TESTE OK
+  console.log(results)
   return results.rowsAffected;
 };
 
