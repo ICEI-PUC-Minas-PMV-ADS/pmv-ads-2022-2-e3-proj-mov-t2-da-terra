@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import {
   FlatList,
@@ -10,69 +10,40 @@ import {
 } from "react-native";
 
 import { List } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../contexts/AuthProvider";
+import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
+import { getCarrinho } from "../DBService/DBCarrinho";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import Botao from "../Componentes/Botao";
 
-const DATA = [
-  {
-    id: 1,
-    nome: "Laranja Capeta",
-    preco: 6.0,
-    embalagem: "Kg",
-  },
-  {
-    id: 2,
-    nome: "Pera",
-    preco: 12.0,
-    embalagem: "Kg",
-  },
-  {
-    id: 3,
-    nome: "Abacate RUIM",
-    preco: 12.0,
-    embalagem: "Unidade",
-  },
-  {
-    id: 4,
-    nome: "Manga de fios",
-    preco: 12.0,
-    embalagem: "Unidade",
-  },
-  {
-    id: 5,
-    nome: "Abobora moranga",
-    preco: 7.0,
-    embalagem: "Kg",
-  },
-  {
-    id: 6,
-    nome: "Jáca",
-    preco: 13.0,
-    embalagem: "Kg",
-  },
-];
-
 const Carrinho = () => {
   const navigation = useNavigation();
-  const [valorTotal, setPrecoTotal] = useState();
-  
+  const { idLogado, user } = useContext(AuthContext);
+  const { produto, getAllProduto } = useContext(ProdutoContext);
+  const [valorTotal, setPrecoTotal] = useState(0);
+
   const precoTotal = () => {
     let soma = 0;
-    
-    for(let item of DATA){
-      soma+=item.preco;
+
+    for (let item of produto) {
+      soma += item.preco;
     }
-     setPrecoTotal(soma.toFixed(2));
+    console.log(soma);
+    if (soma > 0) {
+      setPrecoTotal(soma.toFixed(2));
+    }
   };
 
   useEffect(() => {
-    precoTotal();
+    getAllProduto();
+    console.log(valorTotal);
 
-  }, []);
+    // console.log(user.cliente.nome)
+  }, [useIsFocused]);
 
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
@@ -81,8 +52,9 @@ const Carrinho = () => {
       >
         <View style={{ width: 500 }}>
           <List.Item
-            title={`${item.nome} (${item.embalagem})`}
-            
+            title={`${item.nome != undefined ? item.nome : ""} (${
+              item.embalagem ? item.embalagem : ""
+            })`}
             left={() => (
               <Image
                 style={styles.img}
@@ -91,14 +63,16 @@ const Carrinho = () => {
             )}
             right={() => (
               <View style={{ flexDirection: "row" }}>
-                <Text>R$ {item.preco.toFixed(2)}</Text>
+                <Text>
+                  R$ {item.preco != undefined ? item.preco.toFixed(2) : 0}
+                </Text>
               </View>
             )}
-            description={`R$ ${item.preco}  / ${item.embalagem}
+            description={`R$ ${item.preco != undefined ? item.preco : 0}  / ${
+              item.embalagem != undefined ? item.embalagem : ""
+            }
             `}
-            
           />
-          
         </View>
       </TouchableOpacity>
     </View>
@@ -113,12 +87,14 @@ const Carrinho = () => {
       />
       <Body>
         <FlatList
-          data={DATA}
+          data={produto}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
         <View style={styles.containerResultado}>
-          <Text style={styles.textoResultado}>{DATA.length} Itens</Text>
+          <Text style={styles.textoResultado}>
+            {produto != undefined ? produto.length : 0} Itens
+          </Text>
           <Text style={styles.textoResultado}>Total: R$ {valorTotal}</Text>
         </View>
         <View style={styles.viewBotao}>
@@ -129,7 +105,7 @@ const Carrinho = () => {
               style={styles.textoBotao}
               textoBotao="Enviar Pedido"
               mode="contained"
-              buttonColor='#3d9d74'
+              buttonColor="#3d9d74"
             />
           </TouchableOpacity>
         </View>
@@ -147,7 +123,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   viewBotao: {
-    marginBottom:20
+    marginBottom: 20,
   },
   botaoSeletor: {
     alignItems: "center",
@@ -173,7 +149,7 @@ const styles = StyleSheet.create({
 
   textoResultado: {
     fontSize: 18,
-    fontWeight:"bold",
+    fontWeight: "bold",
   },
   img: {
     width: 105,
@@ -181,7 +157,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginRight: 10,
   },
- 
+
   fab: {
     position: "absolute",
     margin: 12,

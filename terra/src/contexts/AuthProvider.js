@@ -19,8 +19,10 @@ export const AuthProvider = ({ children }) => {
       })
       .then(response => response.json())
       .then(json => {
-        
-        console.log(json)
+        console.log(json.cliente.bairro)
+        setUser(json)
+        // console.log(user)
+        // console.log(json)
       
       })
       //.then(json => setIdLogado(json))  // Retorna ID       

@@ -13,6 +13,7 @@ import CadastrarProduto from "../PaginaVendedor/CadastrarProduto";
 import ComprarProduto from "../PaginasCliente/ComprarProduto";
 import PedidoEnviado from "../PaginasCliente/PedidoEnviado";
 import MeusPedidos from "../PaginasCliente/MeusPedidos";
+import Carrinho from "../PaginasCliente/Carrinho"
 
 import { AuthProvider } from "../contexts/AuthProvider";
 
@@ -73,6 +74,13 @@ const Main = () => {
       <Stack.Screen
         name="PedidoEnviado"
         component={PedidoEnviado}
+        options={{
+          header: () => null,
+        }}
+      />
+       <Stack.Screen
+        name="Carrinho"
+        component={Carrinho}
         options={{
           header: () => null,
         }}

@@ -9,7 +9,7 @@ const ProdutoProvider = ({ children }) => {
 
   //GET ALL - ok
   const getAllProduto = async () => {
-    console.log(`${url}/produtos/`)
+    console.log(`${url}/produtos/all`)
     return await fetch(`${url}/produtos/`, {
       method: 'GET',
       headers: {
@@ -17,7 +17,10 @@ const ProdutoProvider = ({ children }) => {
       }
     })
       .then(response => response.json())
-      .then(json => setProduto(json))
+      .then(json => {
+        // console.log(json)
+        setProduto(json)
+      })
       .catch(error => console.error(error));
   }
 

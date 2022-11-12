@@ -34,8 +34,8 @@ export default function Login() {
   const onDismissSnackBar = () => setVisible(false);
 
   // Email / Senha / Ícone Senha
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [email, setEmail] = useState("m@gmail.com");
+  const [senha, setSenha] = useState("123456");
   const [escondeSenha, setEscondeSenha] = useState(true);
 
   // const validarLogin = () => {
@@ -74,30 +74,29 @@ export default function Login() {
         email: email,
         senha: senha,
       })
-        .then(res=>{
-          setUser(res)
+         .then()
+        //  
 
-          console.log(typeof(user.cliente))
-          if (typeof(user.cliente.tipoUsuario) != "undefined" && user.cliente.tipoUsuario == "cliente") {
-            //Meio redudante,tentar refatorar depois
-            console.log("É cliente");
-            navigation.navigate("HomeCliente");
-          } else if (
-            typeof(user.produtor.tipoUsuario) != "undefined" &&
-            user.produtor.tipoUsuario == "produtor"
-          ) {
-            console.log("É produtor");
-            navigation.navigate("HomeVendedor");
-          } else {
-            setMissInfo(true);
-            setAviso("Email ou senha incorretos");
-          }
+        //   console.log(typeof(user.cliente))
+        //   if (typeof(user.cliente.tipoUsuario) != "undefined" && user.cliente.tipoUsuario == "cliente") {
+        //     //Meio redudante,tentar refatorar depois
+        //     console.log("É cliente");
+        //     navigation.navigate("HomeCliente");
+        //   } else if (
+        //     typeof(user.produtor.tipoUsuario) != "undefined" &&
+        //     user.produtor.tipoUsuario == "produtor"
+        //   ) {
+        //     console.log("É produtor");
+        //     navigation.navigate("HomeVendedor");
+        //   } else {
+        //     setMissInfo(true);
+        //     setAviso("Email ou senha incorretos");
+        //   }
 
 
-        })
+        // })
         .catch((e) => console.log(e));
-      console.log(user)
-
+        navigation.navigate("Carrinho")
 
       
     }
@@ -115,15 +114,18 @@ export default function Login() {
         {/* Email */}
         <Input
           label={"Email"}
+          value={email}
           onChangeText={(text) => setEmail(text)}
           activeOutlineColor={"#3d9d74"}
           error={missInfo && !email ? true : false}
-          right={<TextInput.Icon icon="email-outline" />}
+          right={<TextInput.Icon icon="email-outline" />
+          }
         />
 
         {/* Senha */}
         <Input
           label={"Senha"}
+          value={senha}
           onChangeText={(text) => setSenha(text)}
           secureTextEntry={escondeSenha}
           error={missInfo && !senha ? true : false}

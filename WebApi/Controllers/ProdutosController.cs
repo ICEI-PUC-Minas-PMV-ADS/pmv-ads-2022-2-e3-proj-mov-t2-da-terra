@@ -101,7 +101,7 @@ namespace WebApi.Controllers
 
 
     // GET 
-    [HttpGet(template: "produtos")]
+    [HttpGet(template: "produtos/all")]
     public async Task<IActionResult> GetAllProdutoAsync(
       [FromServices] AppDbContext context)
     {
