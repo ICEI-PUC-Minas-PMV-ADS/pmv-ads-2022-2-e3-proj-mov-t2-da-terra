@@ -20,32 +20,38 @@ namespace WebApi.Controllers
     }
 
     // GET 
-    /*
+    // Implementar o get para pegar somente do usuário logado  para exibir na LOJA do produtor
     [HttpGet(template: "produtos/{id}")]
     public async Task<IActionResult> GetProdutoAsync(
         [FromServices] AppDbContext context,
         [FromRoute] int id)
-    {     
-      var produto = await context.Produtos
-      .AsNoTracking()
-      .FirstOrDefaultAsync(x => x.Id == id);
-
-      string produtoJson = JsonSerializer.Serialize(produto);
-
-      return produto == null ? NotFound() : Ok(produtoJson);
-    }
-    */
-
-		// Implementar o get para pegar somente do usuário logado  para exibir na LOJA do produtor
-    [HttpGet(template: "produtos")]
-    public async Task<IActionResult> GetProdutoAsync(
-        [FromServices] AppDbContext context)
     {
-      var produto = await context.Produtos.ToListAsync();
+      var produtor = await context.Produtores
+      .FirstOrDefaultAsync(x => x.Nome == User.Identity.Name);
+
+     
+        var produto = await context.Produtos
+              .Include(prod)
+             .AsNoTracking()
+             .FirstOrDefaultAsync(x => x.Id == id);
       
+
+
 
       return produto == null ? NotFound() : Ok(produto);
     }
+
+
+
+    // [HttpGet(template: "produtos")]
+    // public async Task<IActionResult> GetProdutoAsync(
+    //     [FromServices] AppDbContext context)
+    // {
+    //   var produto = await context.Produtos.ToListAsync();
+
+
+    //   return produto == null ? NotFound() : Ok(produto);
+    // }
 
 
     // GET 
@@ -118,10 +124,10 @@ namespace WebApi.Controllers
     // POST OK
     [HttpPost(template: "produtos")]
     //[Authorize] // Authorize no react dar Json Error EOF
-    public async Task<IActionResult> 	PostProdutoAsync(
+    public async Task<IActionResult> PostProdutoAsync(
       [FromServices] AppDbContext context,
       [FromBody] CreateProdutoViewModel model)
-    {			
+    {
       if (!ModelState.IsValid)
         return BadRequest(new { message = "Model Invalid" });
 
