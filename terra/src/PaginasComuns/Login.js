@@ -74,26 +74,32 @@ export default function Login() {
         email: email,
         senha: senha,
       })
-        .then()
+        .then(res=>{
+          setUser(res)
+
+          console.log(typeof(user.cliente))
+          if (typeof(user.cliente.tipoUsuario) != "undefined" && user.cliente.tipoUsuario == "cliente") {
+            //Meio redudante,tentar refatorar depois
+            console.log("É cliente");
+            navigation.navigate("HomeCliente");
+          } else if (
+            typeof(user.produtor.tipoUsuario) != "undefined" &&
+            user.produtor.tipoUsuario == "produtor"
+          ) {
+            console.log("É produtor");
+            navigation.navigate("HomeVendedor");
+          } else {
+            setMissInfo(true);
+            setAviso("Email ou senha incorretos");
+          }
+
+
+        })
         .catch((e) => console.log(e));
       console.log(user)
 
 
-      //Não esta repondendo de forma assincrona
-      if (typeof(user.cliente.tipoUsuario) != "undefined" && user.cliente.tipoUsuario == "cliente") {
-        //Meio redudante,tentar refatorar depois
-        console.log("É cliente");
-        navigation.navigate("HomeCliente");
-      } else if (
-        typeof(user.produtor.tipoUsuario) != "undefined" &&
-        user.produtor.tipoUsuario == "produtor"
-      ) {
-        console.log("É produtor");
-        navigation.navigate("HomeVendedor");
-      } else {
-        setMissInfo(true);
-        setAviso("Email ou senha incorretos");
-      }
+      
     }
   };
 
