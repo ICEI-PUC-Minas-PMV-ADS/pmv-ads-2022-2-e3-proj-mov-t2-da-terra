@@ -1,10 +1,41 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect, useContext } from "react";
+
+import {
+  FlatList,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../contexts/AuthProvider";
+
+import Body from "../Componentes/Body";
+import Container from "../Componentes/Container";
+import Header from "../Componentes/Header";
+import Botao from "../Componentes/Botao";
+
 
 export default function EditarMinhaConta() {
-  return (
+const navigation = useNavigation();
+  
+  
+  
+  
+  
+    return (
     <View>
-      <Text>EditarMinhaConta</Text>
+      <Header
+        title={"Editar Meus dados"}
+        // Só se houver tela empilhada
+        goBack={() => navigation.goBack()}
+
+
+
+
+      />
     </View>
   )
 }
@@ -25,5 +56,5 @@ const styles = StyleSheet.create({
 
 
 
-    
+
 })
