@@ -56,24 +56,41 @@ namespace WebApi.Controllers
     [Route("")]
     public async Task<IActionResult> BuscaAsync(
       [FromServices] AppDbContext context,
-      [FromQuery] string nomeproduto, string categoria
-      )
+      [FromQuery] string nomeproduto, string categoria)
     {
       // Ajustar essa query para não pegar todos dados do produtor e sim somente o ID
       var queryProduto = from query in context.Produtos
-                         .Include(x => x.Produtor)
-                         select query;                      
+                           //.Include(x => x.Produtor)
+                         select query;
 
-     // queryProduto = queryProduto.Where(x => x.Nome.Contains(nomeproduto));
-      queryProduto = queryProduto.Where(x => x.Categoria.Contains(categoria));
-
-      if (categoria == null)
+      // nomeProduto false - Categoria false: Retorna tudo 
+      if (String.IsNullOrEmpty(nomeproduto) && String.IsNullOrEmpty(categoria))
       {
-        //var prod = (IActionResult) await queryProduto.ToListAsync();
-        return NotFound(new { message = "Produto não encontrado" });
+        return Ok(await queryProduto.ToListAsync());
       }
-
-      return Ok(await queryProduto.ToListAsync());
+      else if (!String.IsNullOrEmpty(nomeproduto))  // nomeProduto true
+      {
+        if (!String.IsNullOrEmpty(categoria))       // categoria true
+        {
+          queryProduto = queryProduto.Where(
+          x => x.Nome.Contains(nomeproduto)
+          && x.Categoria.Contains(categoria));
+        }
+        else                                        // categoria false
+        {
+          queryProduto = queryProduto.Where(x => x.Nome.Contains(nomeproduto));
+        }
+        return queryProduto != null
+               ? Ok(await queryProduto.ToListAsync())
+               : NotFound(new { message = "Produto não encontrado." });
+      }
+      else                          // nomeProduto false - categoria true
+      {
+        queryProduto = queryProduto.Where(x => x.Categoria.Contains(categoria));
+        return queryProduto != null
+                     ? Ok(await queryProduto.ToListAsync())
+                     : NotFound(new { message = "Produto não encontrado." });
+      }
     }
 
 
