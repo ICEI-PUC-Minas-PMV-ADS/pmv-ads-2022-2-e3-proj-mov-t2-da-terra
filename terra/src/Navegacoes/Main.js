@@ -14,7 +14,7 @@ import ComprarProduto from "../PaginasCliente/ComprarProduto";
 import PedidoEnviado from "../PaginasCliente/PedidoEnviado";
 import MeusPedidos from "../PaginasCliente/MeusPedidos";
 import Carrinho from "../PaginasCliente/Carrinho"
-
+import EditarMinhaConta from "../PaginasComuns/EditarMinhaConta";
 import { AuthProvider } from "../contexts/AuthProvider";
 
 const Stack = createNativeStackNavigator();
@@ -88,6 +88,13 @@ const Main = () => {
        <Stack.Screen
         name="MinhaConta"
         component={MinhaConta}
+        options={{
+          header: () => null,
+        }}
+      />
+       <Stack.Screen
+        name="EditarMinhaConta"
+        component={EditarMinhaConta}
         options={{
           header: () => null,
         }}

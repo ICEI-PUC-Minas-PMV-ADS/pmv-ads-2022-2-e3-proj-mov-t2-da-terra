@@ -1,12 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import Botao from "../Componentes/Botao";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import { AuthContext } from "../contexts/AuthProvider";
 const MinhaConta = () => {
   const { user,tipoUsuario } = useContext(AuthContext);
+  const navigation = useNavigation();
+
+
+
+
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
@@ -22,11 +28,11 @@ const MinhaConta = () => {
           
           </Text>
 
-          <TouchableOpacity style={styles.buttonContainer}>
+          <TouchableOpacity onPress={()=>navigation.navigate("EditarMinhaConta")}style={styles.buttonContainer}>
             <Botao
               style={styles.textoBotao}
               buttonColor={"#3d9d74"}
-              textoBotao="Privacidade"
+              textoBotao="Editar meu Perfil"
               mode="contained"
             />
           </TouchableOpacity>
@@ -35,14 +41,6 @@ const MinhaConta = () => {
               style={styles.textoBotao}
               buttonColor={"#3d9d74"}
               textoBotao="Notificações"
-              mode="contained"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Botao
-              style={styles.textoBotao}
-              buttonColor={"#3d9d74"}
-              textoBotao="Pagamento"
               mode="contained"
             />
           </TouchableOpacity>
@@ -55,7 +53,7 @@ const MinhaConta = () => {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#3d9d74",
-    height: 80,
+    height: 90,
   },
   avatar: {
     width: 110,
@@ -97,8 +95,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     height: 60,
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
     marginBottom: 20,
     borderRadius: 30,
   },
