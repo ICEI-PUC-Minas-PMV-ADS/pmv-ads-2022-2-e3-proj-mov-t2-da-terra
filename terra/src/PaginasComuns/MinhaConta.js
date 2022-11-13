@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import Botao from "../Componentes/Botao";
 import {
   StyleSheet,
@@ -10,10 +10,9 @@ import {
 
 import Body from '../Componentes/Body';
 import Container from '../Componentes/Container';
+import { AuthContext } from '../contexts/AuthProvider';
+ const MinhaConta=()=>{
 
-export default class Profile extends Component {
-
-  render() {
     return (
       <Container>
         <Body>
@@ -56,7 +55,6 @@ export default class Profile extends Component {
         </Body>
       </Container>
     );
-  }
 }
 
 const styles = StyleSheet.create({
@@ -119,3 +117,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
   }
 });
+export default MinhaConta()

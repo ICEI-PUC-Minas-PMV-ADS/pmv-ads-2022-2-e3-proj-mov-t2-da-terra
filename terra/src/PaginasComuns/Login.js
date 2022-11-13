@@ -25,6 +25,7 @@ export default function Login() {
 
   // SnackBar e falta informação
   const [missInfo, setMissInfo] = useState(false);
+  const[aviso,setAviso]=useState("")
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
@@ -35,19 +36,20 @@ export default function Login() {
   const [escondeSenha, setEscondeSenha] = useState(true);
 
   // Validação login
-  const validarLogin = () => {
+  async function validarLogin  (){
     if (!email || !senha) {
       setMissInfo(true); // Falta Informação
       onToggleSnackBar();
     } else {
-      postLogin({
+     await postLogin({
         email: email,
         senha: senha,
       })
         .then(() => {
+
           for (let i in user) {
             const tipoUser = user[i].tipoUsuario;
-
+            console.log(user[i].tipoUsuario)
             if (tipoUser != undefined) {
               if (tipoUser == 'cliente') {
                 navigation.navigate("HomeCliente");
@@ -55,7 +57,14 @@ export default function Login() {
               else if (tipoUser == 'produtor') {
                 navigation.navigate("HomeVendedor");
               }
+              else{
+
+                setMissInfo(true)
+                setAviso("Email ou senha incorretos")
+              
             }
+            }
+            
           }
         }) // Implementar quando o user ou senha forem inválidos
     }
@@ -98,6 +107,9 @@ export default function Login() {
             />
           }
         />
+  {missInfo && (
+          <Text style={styles.aviso}>{aviso}</Text>
+        )}
 
         {/* Botão Entrar */}
         <View style={styles.viewBotao}>
@@ -187,6 +199,13 @@ const styles = StyleSheet.create({
   textoEsqsenha: {
     color: "#72E6FF",
   },
-
+  aviso: {
+    marginTop: 10,
+    marginLeft: 10,
+    color: "#D32F2F",
+    fontStyle: "italic",
+    fontWeight: "bold",
+    textAlign: 'center'
+  },
 
 });
