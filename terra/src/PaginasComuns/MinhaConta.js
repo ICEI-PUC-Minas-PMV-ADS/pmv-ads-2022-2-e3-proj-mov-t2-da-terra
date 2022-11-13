@@ -79,13 +79,13 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 25,
-
+    marginTop:-12,
     fontWeight: "600",
   },
   info: {
     fontSize: 20,
     color: "#6cc438",
-    marginTop: 10,
+    marginTop: 8,
   },
   description: {
     fontSize: 16,
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonContainer: {
-    marginTop: 20,
-    height: 45,
+    marginTop: 5,
+    height: 60,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
