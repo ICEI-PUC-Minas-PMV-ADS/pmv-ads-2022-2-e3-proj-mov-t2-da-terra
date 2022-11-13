@@ -21,7 +21,7 @@ const Stack = createNativeStackNavigator();
 
 const Main = () => {
   return (
-    <Stack.Navigator initialRouteName="MinhaConta">
+    <Stack.Navigator initialRouteName="Login">
       { <Stack.Screen
         name="Login"
         component={Login}
