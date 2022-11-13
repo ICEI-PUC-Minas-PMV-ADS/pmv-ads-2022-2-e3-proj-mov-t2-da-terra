@@ -6,7 +6,7 @@ import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import { AuthContext } from "../contexts/AuthProvider";
 const MinhaConta = () => {
-  const { user } = useContext(AuthContext);
+  const { user,tipoUsuario } = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
@@ -16,11 +16,10 @@ const MinhaConta = () => {
       />
       <View style={styles.body}>
         <View style={styles.bodyContent}>
-          <Text style={styles.name}>{user.cliente.nome}</Text>
-          <Text style={styles.info}>UX Designer / Mobile developer</Text>
+          <Text style={styles.name}>{tipoUsuario=="Cliente"?user.cliente.nome:user.produtor.nome}</Text>
+          <Text style={styles.info}>{tipoUsuario}</Text>
           <Text style={styles.description}>
-            Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum
-            electram expetendis, omittam deseruisse consequuntur ius an,
+          
           </Text>
 
           <TouchableOpacity style={styles.buttonContainer}>
@@ -59,8 +58,8 @@ const styles = StyleSheet.create({
     height: 80,
   },
   avatar: {
-    width: 130,
-    height: 120,
+    width: 110,
+    height: 100,
     borderRadius: 63,
     borderWidth: 4,
     borderColor: "white",
@@ -70,7 +69,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 22,
     color: "#9fd09d",
-    fontWeight: "600",
+    
   },
   body: {
     marginTop: 20,
@@ -80,12 +79,12 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 25,
-   
+
     fontWeight: "600",
   },
   info: {
-    fontSize: 16,
-    color: "#00BFFF",
+    fontSize: 20,
+    color: "#6cc438",
     marginTop: 10,
   },
   description: {

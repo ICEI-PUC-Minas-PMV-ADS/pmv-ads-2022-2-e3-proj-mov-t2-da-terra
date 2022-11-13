@@ -21,7 +21,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 export default function Login() {
   const navigation = useNavigation();
-  const { postLogin, user, setUser } = useContext(AuthContext);
+  const { postLogin, user, setUser,setTipoUsuario } = useContext(AuthContext);
 
   // SnackBar e falta informação
   const [missInfo, setMissInfo] = useState(false);
@@ -52,9 +52,11 @@ export default function Login() {
             console.log(user[i].tipoUsuario)
             if (tipoUser != undefined) {
               if (tipoUser == 'cliente') {
+                setTipoUsuario("Cliente")
                 navigation.navigate("HomeCliente");
               }
               else if (tipoUser == 'produtor') {
+                setTipoUsuario("Produtor")
                 navigation.navigate("HomeVendedor");
               }
               else{
