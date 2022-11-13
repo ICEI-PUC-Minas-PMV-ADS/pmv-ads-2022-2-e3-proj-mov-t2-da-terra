@@ -22,26 +22,26 @@ import Botao from "../Componentes/Botao";
 
 export default function EditarMinhaConta() {
   const navigation = useNavigation();
-  const { tipoUsuario,} = useContext(AuthContext);
+  const { tipoUsuario,idLogado} = useContext(AuthContext);
 
   //Dados pessoais do usuario que seram editador
 
-  const [telefone, setTelefone] = useState();
+  const [telefone, setTelefone] = useState(3241234123);
 
   // Endereço do Usuário
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
-  const [numeroCasa, setNumeroCasa] = useState("");
+  const [numeroCasa, setNumeroCasa] = useState("222");
   const [cep, setCep] = useState();
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
-  const [complemento, setComplemento] = useState("");
+  const [complemento, setComplemento] = useState("asd");
 
   const [nomeLoja, setNomeLoja] = useState("");
 
   // Email e Senha
-  const [email, setEmail] = useState();
-  const [senha, setSenha] = useState();
+  const [email, setEmail] = useState("maria@gmail.com");
+  const [senha, setSenha] = useState(1234);
   const [escondeSenha, setEscondeSenha] = useState(true);
   
   const {
@@ -52,7 +52,7 @@ export default function EditarMinhaConta() {
   
   //Sempre que houver mudança no cep,consulta a API para atualizar os endereços
   useEffect(() => {
-    
+    console.log(idLogado)
     buscarEndereco(); // Busca CEP
     
   }, [cep]);
@@ -73,19 +73,18 @@ export default function EditarMinhaConta() {
         });
     }
   };
-//Implementar
-  const atualizarUsuario=()=>{
-    putUsuario({
-        email:email,
-        senha:senha,
-        telefone:telefone,
-        cep:cep,
-        rua:rua,
-        numeroCasa:numeroCasa,
-        bairro:bairro,
-        complemento:complemento,
-        cidade:cidade,
-        uf:uf
+  const atualizarUsuario=async ()=>{
+    await putUsuario({
+        email:email.trim(),
+        senha:senha.trim(),
+        telefone:telefone.trim(),
+        cep:cep.trim(),
+        rua:rua.trim(),
+        numeroCasa:numeroCasa.trim(),
+        bairro:bairro.trim(),
+        complemento:complemento.trim(),
+        cidade:cidade.trim(),
+        uf:uf.trim()
 
 
     }).then(a=>console.log(a)).catch(a=>console.log(a))

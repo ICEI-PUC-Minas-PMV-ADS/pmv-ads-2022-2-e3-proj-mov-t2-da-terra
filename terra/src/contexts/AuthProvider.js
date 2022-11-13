@@ -6,7 +6,7 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const[tipoUsuario,setTipoUsuario]=useState(""); 
   const [user, setUser] = useState();
-  const [idLogado, setIdLogado] = useState();
+  let [idLogado, setIdLogado] = useState();
 
   const postLogin = async (param) => {
     //  console.log("AQUI: " + param.senha);
@@ -19,7 +19,17 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify(param)
       })
       .then(response => response.json())      
-      .then(json =>  setUser(json))
+      .then(json =>  {
+        setUser(json)
+        if(json.cliente!=undefined){
+
+          setIdLogado(json.cliente.id)
+        }
+        else if (json.produtor!=undefined){
+
+          setIdLogado(json.produtor.id)
+        }
+      })
       .catch(error => console.error(error));
   }
 
@@ -42,6 +52,7 @@ export const AuthProvider = ({ children }) => {
       tipoUsuario,
       setTipoUsuario,
       setUser,
+      setIdLogado,
       idLogado,
       postLogin
     }}>
