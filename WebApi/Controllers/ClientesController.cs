@@ -112,22 +112,17 @@ namespace WebApi.Controllers
 
       try
       {
-        cliente.Nome = model.Nome;
-        cliente.DataNascimento = model.DataNascimento;
-        cliente.Cpf = model.Cpf;
-        cliente.Telefone = model.Telefone;
-        cliente.Rua = model.Rua;
-        cliente.Bairro = model.Bairro;
-        cliente.NumeroCasa = model.NumeroCasa;
-        cliente.Cep = model.Cep;
-        cliente.Cidade = model.Cidade;
-        cliente.Uf = model.Uf;
-        cliente.Complemento = model.Complemento;
         cliente.Email = model.Email;
         cliente.Senha = BCrypt.Net.BCrypt.HashPassword(model.Senha);
-        cliente.TipoUsuario = model.TipoUsuario;
-        cliente.DataCadastro = model.DataCadastro;
-
+        cliente.Telefone = model.Telefone;
+        cliente.Cep = model.Cep;
+        cliente.Rua = model.Rua;
+        cliente.NumeroCasa = model.NumeroCasa;
+        cliente.Bairro = model.Bairro;
+        cliente.Complemento = model.Complemento;
+        cliente.Cidade = model.Cidade;
+        cliente.Uf = model.Uf;
+        
         context.Clientes.Update(cliente);
         await context.SaveChangesAsync();
 
