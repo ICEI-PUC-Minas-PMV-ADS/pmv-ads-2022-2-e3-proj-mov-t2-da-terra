@@ -31,7 +31,7 @@ export default function EditarMinhaConta() {
   // Endereço do Usuário
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
-  const [numeroCasa, setNumeroCasa] = useState("3");
+  const [numeroCasa, setNumeroCasa] = useState("");
   const [cep, setCep] = useState();
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
@@ -76,10 +76,19 @@ export default function EditarMinhaConta() {
 //Implementar
   const atualizarUsuario=()=>{
     putUsuario({
+        email:email,
+        senha:senha,
+        telefone:telefone,
+        cep:cep,
+        rua:rua,
+        numeroCasa:numeroCasa,
+        bairro:bairro,
+        complemento:complemento,
+        cidade:cidade,
+        uf:uf
 
 
-
-    })
+    }).then(a=>console.log(a)).catch(a=>console.log(a))
 
 
 
