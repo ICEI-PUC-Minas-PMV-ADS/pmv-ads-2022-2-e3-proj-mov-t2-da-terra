@@ -51,18 +51,18 @@ namespace WebApi.Controllers
     }
 
     // GET 
-    [HttpGet(template: "produtos/busca")]
+    [HttpGet(template: "produtos/busca/{nomeProduto}")]
     public async Task<IActionResult> BuscaAsync(
       [FromServices] AppDbContext context,
-      string nomeProduto,
-      string categoria)
+      string nomeProduto)
     {
       var queryProduto = from query in
           context.Produtos select query;
 
       if (!String.IsNullOrEmpty(nomeProduto))
       {
-        return (IActionResult)await queryProduto.ToListAsync();
+        var prod = (IActionResult)await queryProduto.ToListAsync();
+        return Ok(prod);
       }
 
       return NoContent();

@@ -25,9 +25,9 @@ const ProdutoProvider = ({ children }) => {
   }
 
   //GET ALL - ok
-  const BuscaProdutos = async () => {
-    console.log(`${url}/produtos/busca`)
-    return await fetch(`${url}/produtos/busca`, {
+  const BuscaProdutos = async (param={}) => {
+    console.log(`${url}/produtos/busca/${param}`)
+    return await fetch(`${url}/produtos/busca${param}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

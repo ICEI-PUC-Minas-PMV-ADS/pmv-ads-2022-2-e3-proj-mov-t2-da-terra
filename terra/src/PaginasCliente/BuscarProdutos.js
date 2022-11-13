@@ -43,16 +43,28 @@ const BuscarProdutos = () => {
 
   const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (searchQuery) {
-      BuscaProdutos(searchQuery, "Verduras").then((prod) => {
-        setResultados(prod)
-        console.log(produto)
-      })
-    }
-  }, [searchQuery])
+  // useEffect(() => {
+  //   if (searchQuery) {
+  //     console.log('Tem query')
+  //     BuscaProdutos(searchQuery).then((prod) => {
+  //       setResultados(prod)
+  //       console.log(produto)
+  //     })
+  //   }
+  // }, [searchQuery])
 
-  
+
+  const onChangeSearch = (query) => {
+    setSearchQuery(query);
+
+    BuscaProdutos(searchQuery).then((prod) => {
+     // setResultados(prod)
+      console.log(searchQuery)
+    })
+  };
+
+
+
   // OK: Todos os produtos. Padrão (Ver se vamos deixar assim)
   // useEffect(() => {
   //   getBuscaProdutoCliente()
@@ -62,14 +74,15 @@ const BuscarProdutos = () => {
 
 
   // Primeira Versão para testes
-  const onChangeSearch = (query) => {
-    //setSearchQuery(query);
-    // for (let i = 0; i < searchQuery.length; i++) {      
-    //   if (searchQuery[i].title == query) {
-    //     // console.log(data[i].title);        
-    //   }
-    // }
-  };
+  // const onChangeSearch = (query) => {
+  //   setSearchQuery(query);
+  //   // for (let i = 0; i < searchQuery.length; i++) {      
+  //   //   if (searchQuery[i].title == query) {
+  //   //     // console.log(data[i].title);        
+  //   //   }
+  //   // }
+  // };
+
 
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
