@@ -36,12 +36,11 @@ namespace WebApi.Controllers
     //   : Ok(produto);
     // }
 
-    // GET CLIENTE: 
-    // Esse GET serve para quando o CLIENTE abre o aplicativo 
-    // e a na busca já renderiza os produtos
+    // GET: Para todos os produtos: Tela Busca do Cliente, foi mantido separado por questão de erros
     [HttpGet(template: "produtos/todos")]
     public async Task<IActionResult> GetBuscaProdutoCliente(
-        [FromServices] AppDbContext context)
+        [FromServices] AppDbContext context
+        )
     {
       var produto = await context.Produtos.ToListAsync();
 
@@ -50,35 +49,29 @@ namespace WebApi.Controllers
       : Ok(produto);
     }
 
-    // GET 
-    //[HttpGet(template: "produtos/busca/{nomeproduto?}&{categoria?}")]
+    // GET BUSCA DE PRODUTOS: CLIENTE    
     [HttpGet(template: "produtos/busca/")]
     [Route("")]
     public async Task<IActionResult> BuscaAsync(
       [FromServices] AppDbContext context,
-      [FromQuery] string nomeproduto, string categoria)
+      [FromQuery] string nomeProduto, string categoria)
     {
       // Ajustar essa query para não pegar todos dados do produtor e sim somente o ID
       var queryProduto = from query in context.Produtos
                            //.Include(x => x.Produtor)
                          select query;
-
-      // nomeProduto false - Categoria false: Retorna tudo 
-      if (String.IsNullOrEmpty(nomeproduto) && String.IsNullOrEmpty(categoria))
-      {
-        return Ok(await queryProduto.ToListAsync());
-      }
-      else if (!String.IsNullOrEmpty(nomeproduto))  // nomeProduto true
+  
+      if (!String.IsNullOrEmpty(nomeProduto))  // nomeProduto true
       {
         if (!String.IsNullOrEmpty(categoria))       // categoria true
         {
           queryProduto = queryProduto.Where(
-          x => x.Nome.Contains(nomeproduto)
+          x => x.Nome.Contains(nomeProduto)
           && x.Categoria.Contains(categoria));
         }
         else                                        // categoria false
         {
-          queryProduto = queryProduto.Where(x => x.Nome.Contains(nomeproduto));
+          queryProduto = queryProduto.Where(x => x.Nome.Contains(nomeProduto));
         }
         return queryProduto != null
                ? Ok(await queryProduto.ToListAsync())
@@ -92,23 +85,6 @@ namespace WebApi.Controllers
                      : NotFound(new { message = "Produto não encontrado." });
       }
     }
-
-
-    // // GET 
-
-    // [HttpGet(template: "produtos/all")]
-    // public async Task<IActionResult> GetAllProdutoAsync(
-    //   [FromServices] AppDbContext context)
-    // {
-    //   var produtor = await context.Produtores.FirstOrDefaultAsync(s => s.Nome == User.Identity.Name);
-    //   //Acha os produtos de acordo com a Id do usuário logado,aonde pega a a chave FK na tabela Produtor
-    //   var produtosFind = context.Produtos.Where(a => a.ProdutorId == produtor.Id);
-    //   /*"Tranforma" o tipo IQueryaable acima, que é o retorno dos produtos achados de tal usuário logado,para uma lista
-    //   De produtos a serem retornados*/
-    //   var produtos = await produtosFind.ToListAsync();
-    //   //Retorna os produtos achados para a API,para ser consumida na aplicação REACT
-    //   return produtos == null ? NotFound() : Ok(produtos);
-    // }
 
     // POST OK
     [HttpPost(template: "produtos")]
@@ -208,64 +184,3 @@ namespace WebApi.Controllers
     }
   }
 }
-
-
-/*
-
-    // GET 
-    [HttpGet(template: "produtos/busca")]
-    public async Task<IActionResult> BuscaAsync(
-      [FromServices] AppDbContext context,
-      string nomeProduto,
-      string categoria)
-    {
-      var queryProduto = from query in
-          context.Produtos.Include(a => a.Produtos)
-                         select query;
-
-      //Caso todas os filtros estejam vazios,retorna não encontrado
-      if (String.IsNullOrEmpty(nomeProduto) && String.IsNullOrEmpty(categoria))
-      {
-        return NotFound(new { message = "Produto não encontrado" });
-
-      }
-
-      //Caso possua o Somente o nome do produto e não tiver categoria
-      if (!String.IsNullOrEmpty(nomeProduto) && String.IsNullOrEmpty(categoria))
-      {
-
-        queryProduto = queryProduto.Where(s => s.Nome.Contains(nomeProduto));
-
-        //Converte para um Lista do tipo de produtos para ser possivel retornar
-        var produtosEncontrados = await queryProduto.ToListAsync();
-
-        return produtosEncontrados != null ? Ok(produtosEncontrados) : NotFound();
-
-      }
-      //Se Não tiver nome nem categoria,mas tiver preçoMax
-
-      //Se tiver categoria e não tiver nome do produto
-      else if (!String.IsNullOrEmpty(categoria) && String.IsNullOrEmpty(nomeProduto))
-      {
-        queryProduto = queryProduto.Where(s => s.Categoria.Contains(categoria));
-
-        //Converte para um Lista do tipo de produtos para ser possivel retornar
-        var produtosEncontrados = await queryProduto.ToListAsync();
-
-        return produtosEncontrados != null ? Ok(produtosEncontrados) : NotFound();
-      }
-      //Se tiver Nome e categoria 
-      else
-      {
-        queryProduto = queryProduto.Where(s => s.Nome.Contains(nomeProduto) &&
-                                               s.Categoria.Contains(categoria));
-
-        //Converte para um Lista do tipo de produtos para ser possivel retornar
-        var produtosEncontrados = await queryProduto.ToListAsync();
-
-        return produtosEncontrados != null ? Ok(produtosEncontrados) : NotFound();
-       
-      }
-       return NoContent();
-    }
-*/

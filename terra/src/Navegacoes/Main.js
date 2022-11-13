@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Loja from "../PaginaVendedor/Loja";
 import MinhasVendas from "../PaginaVendedor/MinhasVendas";
- import BuscarProdutos from "../PaginasCliente/BuscarProdutos";
+import BuscarProdutos from "../PaginasCliente/BuscarProdutos";
 import HomeVendedor from "../PaginaVendedor/HomeVendedor";
 import HomeCliente from "../PaginasCliente/HomeCliente";
 import MinhaConta from "../PaginasComuns/MinhaConta";
@@ -22,13 +22,13 @@ const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
     <Stack.Navigator initialRouteName="Login">
-      { <Stack.Screen
+      <Stack.Screen
         name="Login"
         component={Login}
         options={{
           header: () => null,
         }}
-      /> }
+      />
       <Stack.Screen
         name="HomeCliente"
         component={HomeCliente}
@@ -78,21 +78,21 @@ const Main = () => {
           header: () => null,
         }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Carrinho"
         component={Carrinho}
         options={{
           header: () => null,
         }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="MinhaConta"
         component={MinhaConta}
         options={{
           header: () => null,
         }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="EditarMinhaConta"
         component={EditarMinhaConta}
         options={{

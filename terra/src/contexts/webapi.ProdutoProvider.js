@@ -18,24 +18,26 @@ const ProdutoProvider = ({ children }) => {
     })
       .then(response => response.json())
       .then(json => {
-        // console.log(json)
+         //console.log(json)
         setProduto(json)
       })
       .catch(error => console.error(error));
   }
 
   //GET ALL - ok
-  const BuscaProdutos = async (param={}) => {
-    console.log(`${url}/produtos/busca/${param}`)
-    return await fetch(`${url}/produtos/busca${param}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+  const BuscaProdutos = async (param = {}) => {
+    console.log(`${url}/produtos/busca?nomeProduto=${param}`)
+    return await fetch(
+      `${url}/produtos/busca?nomeProduto=${param}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
       .then(response => response.json())
-      //.then(json => setProduto(json))
-      .then(json => console.log(json))
+      .then(json => setProduto(json))
+      //.then(json => console.log(json))
       .catch(error => console.error(error));
   }
 

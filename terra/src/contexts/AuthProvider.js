@@ -4,7 +4,7 @@ import { url } from "./webapi.url";
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const[tipoUsuario,setTipoUsuario]=useState(""); 
+ // const [tipoUsuario, setTipoUsuario] = useState("");
   const [user, setUser] = useState();
   const [idLogado, setIdLogado] = useState();
 
@@ -18,8 +18,9 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify(param)
       })
-      .then(response => response.json())      
-      .then(json =>  setUser(json))
+      .then(response => response.json())
+      //.then(json => console.log(json))      
+      .then(json => setUser(json))
       .catch(error => console.error(error));
   }
 
@@ -39,9 +40,8 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{
       user,
-      tipoUsuario,
-      setTipoUsuario,
-      setUser,
+     // tipoUsuario,
+     // setTipoUsuario,     
       idLogado,
       postLogin
     }}>

@@ -21,11 +21,11 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 export default function Login() {
   const navigation = useNavigation();
-  const { postLogin, user, setUser,setTipoUsuario } = useContext(AuthContext);
+  const { postLogin, user, setUser, setTipoUsuario } = useContext(AuthContext);
 
   // SnackBar e falta informação
   const [missInfo, setMissInfo] = useState(false);
-  const[aviso,setAviso]=useState("")
+  const [aviso, setAviso] = useState("")
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
@@ -36,39 +36,34 @@ export default function Login() {
   const [escondeSenha, setEscondeSenha] = useState(true);
 
   // Validação login
-  async function validarLogin  (){
+  const validarLogin = async () => {
     if (!email || !senha) {
       setMissInfo(true); // Falta Informação
       onToggleSnackBar();
     } else {
-     await postLogin({
+       postLogin({
         email: email,
         senha: senha,
       })
         .then(() => {
-
           for (let i in user) {
             const tipoUser = user[i].tipoUsuario;
-            console.log(user[i].tipoUsuario)
+
             if (tipoUser != undefined) {
               if (tipoUser == 'cliente') {
-                setTipoUsuario("Cliente")
+                //setTipoUsuario("Cliente")
                 navigation.navigate("HomeCliente");
               }
               else if (tipoUser == 'produtor') {
-                setTipoUsuario("Produtor")
+                //  setTipoUsuario("Produtor")
                 navigation.navigate("HomeVendedor");
+              } else {
+                // Implementar quando o user ou senha forem inválidos
+                // Tem que ler no banco
               }
-              else{
-
-                setMissInfo(true)
-                setAviso("Email ou senha incorretos")
-              
             }
-            }
-            
           }
-        }) // Implementar quando o user ou senha forem inválidos
+        })
     }
   };
 
@@ -109,7 +104,7 @@ export default function Login() {
             />
           }
         />
-  {missInfo && (
+        {missInfo && (
           <Text style={styles.aviso}>{aviso}</Text>
         )}
 

@@ -1,87 +1,147 @@
 import React, { useContext, useState, useEffect } from "react";
-import { FlatList, Image, StyleSheet, View, TouchableOpacity, Text, BackHandler, Alert, } from "react-native";
-import { List, Searchbar, FAB } from "react-native-paper";
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  BackHandler,
+  Alert,
+  Text,
+} from "react-native";
+
+import {
+  TextInput,
+  List,
+  Searchbar,
+  Portal,
+  Dialog,
+  Button,
+  RadioButton,
+  Provider
+} from "react-native-paper";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
-// import { getProdutos, getSearchProduto } from "../DBService/DBProduto";
+
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
+
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const BuscarProdutos = () => {
-  //Abaixo seria no caso aonde pegaria os dados da busca no banco
-  //const {} = useContext(ProdutoProvider);
   const navigation = useNavigation();
-  const route = useRoute();
+
   const { BuscaProdutos, produto, getBuscaProdutoCliente } = useContext(ProdutoContext);
+  
   const [searchQuery, setSearchQuery] = useState();
   const [resultados, setResultados] = useState([]);
 
-  // useEffect(() => {
-  //   if(route.name=="HomeCliente"){
-  //   const backAction = () => {
-  //     Alert.alert("Espere!", "Você tem certeza que deseja sair do aplicativo?", [
-  //       {
-  //         text: "Cancel",
-  //         onPress: () => null,
-  //         style: "cancel"
-  //       },
-  //       { text: "YES", onPress: () => BackHandler.exitApp() }
-  //     ]);
-  //     return true;
-  //   };
-
-  //   const backHandler = BackHandler.addEventListener(
-  //     "hardwareBackPress",
-  //     backAction
-  //   );
-
-  //   return () => backHandler.remove();}
-  // }, []);
-
+  // Categoria Portal - Terminar
+  const [visible, setVisible] = useState(false);
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
+  const [categoria, setCategoria] = useState('Verduras');
 
   const { user } = useContext(AuthContext);
+ 
 
-  // useEffect(() => {
-  //   if (searchQuery) {
-  //     console.log('Tem query')
-  //     BuscaProdutos(searchQuery).then((prod) => {
-  //       setResultados(prod)
-  //       console.log(produto)
-  //     })
-  //   }
-  // }, [searchQuery])
+ // Retornando Ok - Não alterar (Não está renderizando "de cara")
+  useEffect(() => {
+    getBuscaProdutoCliente()
+      .then(() => setResultados(produto));
+  }, [])
 
 
+  // Retornando OK - Não alterar
   const onChangeSearch = (query) => {
-    setSearchQuery(query);
+    setSearchQuery(searchQuery);
 
-    BuscaProdutos(searchQuery).then((prod) => {
-     // setResultados(prod)
-      console.log(searchQuery)
-    })
+    BuscaProdutos(query)
+      .then(() => setResultados(produto));
   };
 
+  // Terminar Filtro
+  const portalBuscaCategoria = (click = true) => {
+    return (
+      <>
+        {/* {
+          click &&
+          console.log(click)
 
-
-  // OK: Todos os produtos. Padrão (Ver se vamos deixar assim)
-  // useEffect(() => {
-  //   getBuscaProdutoCliente()
-  //     .then(() => setResultados(produto));      
-  //    // console.log(resultados);    
-  // }, [])
-
-
-  // Primeira Versão para testes
-  // const onChangeSearch = (query) => {
-  //   setSearchQuery(query);
-  //   // for (let i = 0; i < searchQuery.length; i++) {      
-  //   //   if (searchQuery[i].title == query) {
-  //   //     // console.log(data[i].title);        
-  //   //   }
-  //   // }
-  // };
+        } */}
+        <View style={styles.viewPrecoEmbalagem}>
+          {/* <Text style={styles.textTitulos}>Categoria</Text>
+          <TouchableOpacity onPress={showDialog}>
+            <TextInput
+              style={styles.inputEspecial}
+              editable={false}
+              value={categoria}
+              onChangeText={(text) => setCategoria(text)}
+              left={<TextInput.Icon icon='segment' />}
+            />
+          </TouchableOpacity> */}
+        </View>
+        <View>
+          <Portal>
+            <Dialog style={styles.dialog}
+              visible={visible}
+              onDismiss={hideDialog}>
+              <Dialog.Title>Selecione a Categoria</Dialog.Title>
+              <Dialog.Content>
+                <View style={styles.radioItem}>
+                  <RadioButton
+                    value="Verduras"
+                    status={categoria === 'Verduras' ? 'checked' : 'unchecked'}
+                    onPress={() => setCategoria('Verduras')}
+                  /><Text>Verduras</Text>
+                </View>
+                <View style={styles.radioItem}>
+                  <RadioButton
+                    value="Frutas"
+                    status={categoria === 'Frutas' ? 'checked' : 'unchecked'}
+                    onPress={() => setCategoria('Frutas')}
+                  /><Text>Frutas</Text>
+                </View>
+                <View style={styles.radioItem}>
+                  <RadioButton
+                    value="Hortaliças"
+                    status={categoria === 'Hortaliças' ? 'checked' : 'unchecked'}
+                    onPress={() => setCategoria('Hortaliças')}
+                  /><Text >Hortaliças</Text>
+                </View>
+                <View style={styles.radioItem}>
+                  <RadioButton
+                    value="Folhagens"
+                    status={categoria === 'Folhagens' ? 'checked' : 'unchecked'}
+                    onPress={() => setCategoria('Folhagens')}
+                  /><Text>Folhagens</Text>
+                </View>
+                <View style={styles.radioItem}>
+                  <RadioButton
+                    value="Bebidas"
+                    status={categoria === 'Bebidas' ? 'checked' : 'unchecked'}
+                    onPress={() => setCategoria('Bebidas')}
+                  /><Text>Bebidas</Text>
+                </View>
+                <View style={styles.radioItem}>
+                  <RadioButton
+                    value="Outros"
+                    status={categoria === 'Outros' ? 'checked' : 'unchecked'}
+                    onPress={() => setCategoria('Outros')}
+                  /><Text>Outros</Text>
+                </View>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button onPress={hideDialog}>OK</Button>
+              </Dialog.Actions>
+            </Dialog>
+          </Portal>
+        </View>
+      </>
+    );
+  }
 
 
   const renderItem = ({ item }) => (
@@ -106,22 +166,26 @@ const BuscarProdutos = () => {
   );
 
   return (
-    <Container>
-      <SafeAreaView>
-        <Searchbar
-          placeholder="Buscar Produto"
-          onChangeText={onChangeSearch}
-          value={searchQuery}
-        />
-      </SafeAreaView>
-      <Body>
-        <FlatList
-          data={resultados}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
-      </Body>
-    </Container>
+   // <Provider>
+      <Container>
+        <SafeAreaView>
+          <Searchbar
+            placeholder="Buscar Produto"
+            onChangeText={onChangeSearch}
+          //value={searchQuery}
+          //  icon={'filter'}
+          //onIconPress={(showDialog) => { portalBuscaCategoria() }}
+          />
+        </SafeAreaView>
+        <Body>
+          <FlatList
+            data={resultados}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+        </Body>
+      </Container>
+ //   </Provider>
   );
 };
 
@@ -137,6 +201,59 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     elevation: 5,
   },
+
+  // Categoria Portal
+  dialog: {
+    backgroundColor: '#FFFAFA',
+  },
+  radioItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  viewPrecoEmbalagem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  inputEspecial: {
+    height: 48,
+    width: 160,
+    fontSize: 16,
+    backgroundColor: "#FFFAFA",
+    margin: 3,
+    marginRight: 11
+  },
+  textTitulos: {
+    marginTop: 14,
+    textAlignVertical: 'center',
+    marginLeft: 14,
+    fontSize: 20,
+    fontWeight: 'bold'
+  }
 });
 
 export default BuscarProdutos;
+
+
+
+
+// useEffect(() => {
+  //   if(route.name=="HomeCliente"){
+  //   const backAction = () => {
+  //     Alert.alert("Espere!", "Você tem certeza que deseja sair do aplicativo?", [
+  //       {
+  //         text: "Cancel",
+  //         onPress: () => null,
+  //         style: "cancel"
+  //       },
+  //       { text: "YES", onPress: () => BackHandler.exitApp() }
+  //     ]);
+  //     return true;
+  //   };
+
+  //   const backHandler = BackHandler.addEventListener(
+  //     "hardwareBackPress",
+  //     backAction
+  //   );
+
+  //   return () => backHandler.remove();}
+  // }, []);
