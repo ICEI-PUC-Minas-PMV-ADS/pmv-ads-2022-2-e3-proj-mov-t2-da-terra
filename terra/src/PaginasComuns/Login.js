@@ -21,7 +21,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 export default function Login() {
   const navigation = useNavigation();
-  const { postLogin, user, setUser, setTipoUsuario } = useContext(AuthContext);
+  const { postLogin, user, setUser,setTipoUsuario } = useContext(AuthContext);
 
   // SnackBar e falta informação
   const [missInfo, setMissInfo] = useState(false);
@@ -48,7 +48,7 @@ export default function Login() {
         .then(() => {
           for (let i in user) {
             const tipoUser = user[i].tipoUsuario;
-
+            console.log(user[i].tipoUsuario)
             if (tipoUser != undefined) {
               if (tipoUser == 'cliente') {
                 //setTipoUsuario("Cliente")

@@ -6,7 +6,7 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
  // const [tipoUsuario, setTipoUsuario] = useState("");
   const [user, setUser] = useState();
-  const [idLogado, setIdLogado] = useState();
+  let [idLogado, setIdLogado] = useState();
 
   const postLogin = async (param) => {
     //  console.log("AQUI: " + param.senha);

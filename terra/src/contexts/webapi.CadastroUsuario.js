@@ -1,10 +1,11 @@
 import React, { useState, useContext, createContext } from "react";
 import { url } from "./webapi.url";
-
 export const UsuarioContext = createContext({});
+import { AuthContext } from "../contexts/AuthProvider";
 
 const UsuarioProvider = ({ children }) => {
-
+ 
+  const { postLogin, user, setUser,tipoUsuario,setTipoUsuario,setIdLogado,idLogado } = useContext(AuthContext);
   const [usuario, setUsuario] = useState();
 
   // CRUD - Produtor e Cliente  
@@ -43,9 +44,9 @@ const UsuarioProvider = ({ children }) => {
   // POST (Cliente e Produtor)
   const postUsuario = async (param) => {
     return await fetch(
-      param.tipoUsuario == 'produtor'
-        ? `${url}/produtores/`
-        : `${url}/clientes/`,
+      tipoUsuario == 'Produtor'
+        ? `${url}/produtores/${param.id}`
+        : `${url}/clientes/${param.id}`,
       {
         method: 'POST',
         headers: {
@@ -61,9 +62,9 @@ const UsuarioProvider = ({ children }) => {
   // PUT (Cliente e Produtor)
   const putUsuario = async (param) => {
     return await fetch(
-      param.tipoUsuario == 'produtor'
-        ? `${url}/produtores/${param.id}`
-        : `${url}/clientes/${param.id}`,
+      tipoUsuario == 'Produtor'
+        ? `${url}/produtores/${idLogado}`
+        : `${url}/clientes/${idLogado}`,
       {
         method: 'PUT',
         headers: {
