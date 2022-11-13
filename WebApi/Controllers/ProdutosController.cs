@@ -51,25 +51,34 @@ namespace WebApi.Controllers
     }
 
     // GET 
-    [HttpGet(template: "produtos/busca/{nomeProduto}")]
+    //[HttpGet(template: "produtos/busca/{nomeproduto?}&{categoria?}")]
+    [HttpGet(template: "produtos/busca/")]
+    [Route("")]
     public async Task<IActionResult> BuscaAsync(
       [FromServices] AppDbContext context,
-      string nomeProduto)
+      [FromQuery] string nomeproduto, string categoria
+      )
     {
-      var queryProduto = from query in
-          context.Produtos select query;
+      // Ajustar essa query para não pegar todos dados do produtor e sim somente o ID
+      var queryProduto = from query in context.Produtos
+                         .Include(x => x.Produtor)
+                         select query;                      
 
-      if (!String.IsNullOrEmpty(nomeProduto))
+     // queryProduto = queryProduto.Where(x => x.Nome.Contains(nomeproduto));
+      queryProduto = queryProduto.Where(x => x.Categoria.Contains(categoria));
+
+      if (categoria == null)
       {
-        var prod = (IActionResult)await queryProduto.ToListAsync();
-        return Ok(prod);
+        //var prod = (IActionResult) await queryProduto.ToListAsync();
+        return NotFound(new { message = "Produto não encontrado" });
       }
 
-      return NoContent();
+      return Ok(await queryProduto.ToListAsync());
     }
 
 
     // // GET 
+
     // [HttpGet(template: "produtos/all")]
     // public async Task<IActionResult> GetAllProdutoAsync(
     //   [FromServices] AppDbContext context)
