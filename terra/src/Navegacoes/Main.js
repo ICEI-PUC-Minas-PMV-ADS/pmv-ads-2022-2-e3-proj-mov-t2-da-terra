@@ -14,21 +14,21 @@ import ComprarProduto from "../PaginasCliente/ComprarProduto";
 import PedidoEnviado from "../PaginasCliente/PedidoEnviado";
 import MeusPedidos from "../PaginasCliente/MeusPedidos";
 import Carrinho from "../PaginasCliente/Carrinho"
-
+import EditarMinhaConta from "../PaginasComuns/EditarMinhaConta";
 import { AuthProvider } from "../contexts/AuthProvider";
 
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
   return (
-    <Stack.Navigator initialRouteName="Loja">
-      {/* <Stack.Screen
+    <Stack.Navigator initialRouteName="Login">
+      { <Stack.Screen
         name="Login"
         component={Login}
         options={{
           header: () => null,
         }}
-      /> */}
+      /> }
       <Stack.Screen
         name="HomeCliente"
         component={HomeCliente}
@@ -81,6 +81,20 @@ const Main = () => {
        <Stack.Screen
         name="Carrinho"
         component={Carrinho}
+        options={{
+          header: () => null,
+        }}
+      />
+       <Stack.Screen
+        name="MinhaConta"
+        component={MinhaConta}
+        options={{
+          header: () => null,
+        }}
+      />
+       <Stack.Screen
+        name="EditarMinhaConta"
+        component={EditarMinhaConta}
         options={{
           header: () => null,
         }}

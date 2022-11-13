@@ -4,6 +4,7 @@ import { url } from "./webapi.url";
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
+  const[tipoUsuario,setTipoUsuario]=useState(""); 
   const [user, setUser] = useState();
   const [idLogado, setIdLogado] = useState();
 
@@ -38,6 +39,8 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{
       user,
+      tipoUsuario,
+      setTipoUsuario,
       setUser,
       idLogado,
       postLogin

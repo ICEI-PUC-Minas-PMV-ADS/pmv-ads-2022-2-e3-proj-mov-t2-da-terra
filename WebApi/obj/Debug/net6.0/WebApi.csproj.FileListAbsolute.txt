@@ -700,3 +700,4 @@ C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.dll
 C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\ref\WebApi.dll
 C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.pdb
 C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.genruntimeconfig.cache
+C:\Users\carlo\Documents\PUC\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\Microsoft.CodeAnalysis.Features.dll
