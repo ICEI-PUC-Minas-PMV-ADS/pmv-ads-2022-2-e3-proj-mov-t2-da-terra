@@ -33,7 +33,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 const BuscarProdutos = () => {
   const navigation = useNavigation();
 
-  const { BuscaProdutos, produto, getBuscaProdutoCliente } = useContext(ProdutoContext);
+  const { BuscaProdutos, produto, getBuscaProdutoCliente,setProduto } = useContext(ProdutoContext);
   
   const [searchQuery, setSearchQuery] = useState();
   const [resultados, setResultados] = useState([]);
@@ -61,6 +61,16 @@ const BuscarProdutos = () => {
     BuscaProdutos(query)
       .then(() => setResultados(produto));
   };
+  const passProdutoRota=(produto)=>{
+    //Vai passar produto clicado para o contexto,este,esta passando pelas
+    // rotas
+    setProduto([produto])
+      navigation.navigate("ComprarProduto")
+
+    
+
+
+  }
 
   // Terminar Filtro
   const portalBuscaCategoria = (click = true) => {
@@ -147,7 +157,9 @@ const BuscarProdutos = () => {
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("ComprarProduto", { item })}
+        onPress={() =>passProdutoRota(item)}
+        
+       
       >
         <List.Item
           title={`${item.nome}`}

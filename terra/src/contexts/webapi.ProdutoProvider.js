@@ -5,7 +5,7 @@ export const ProdutoContext = createContext({});
 
 const ProdutoProvider = ({ children }) => {
 
-  const [produto, setProduto] = useState();
+  const [produto, setProduto] = useState([]);
 
   //GET ALL - OK
   const getBuscaProdutoCliente = async () => {
@@ -101,6 +101,7 @@ const ProdutoProvider = ({ children }) => {
     <ProdutoContext.Provider
       value={{
         produto,
+        setProduto,
         getProduto,
         postProduto,
         putProduto,

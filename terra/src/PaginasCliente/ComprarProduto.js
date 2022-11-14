@@ -27,12 +27,12 @@ const ComprarProduto = ({ route }) => {
   const isFocused = useIsFocused();
 
   // Alterar Rota para provider
-  const { item } = route.params ? route.params : {};
+  // const { item } = route.params ? route.params : {};
   const { produto } = useContext(ProdutoContext);  
     
   const [resultado, setResultado] = useState([]);
 
-  console.log(item);
+  console.log(produto);
 
   useEffect(() => {
     // getProdutosCompras(1)
@@ -76,7 +76,6 @@ const ComprarProduto = ({ route }) => {
       <View style={styles.textEntreDivider}>
         <Text style={styles.textDescricao}>{item.descricao}</Text>
 
-        {/* <Text style={styles.textDescricao}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac efficitur urna, a ultricies metus. Fusce ut mauris feugiat tellus scelerisque elementum sed quis purus. In eu risus bibendum, eleifend mi in, consequat quam. Etiam non est quis odio ornare porta. Vivamus sagittis neque ut tellus facilisis, eu aliquam erat ornare. Nullam pulvinar cursus dapibus. Nam facilisis felis nec consequat feugiat. Mauris dignissim dignissim tortor id euismod. Sed vitae pharetra sem, vel aliquam libero. Praesent laoreet, nunc varius ultrices euismod, mi ipsum aliquet mauris, id vehicula lacus leo sed neque. Praesent tristique enim a maximus sodales. Morbi fringilla vitae ante eget semper.</Text> */}
       </View>
       <Divider style={{ marginVertical: 5 }} />
       <View style={styles.textEntreDivider}>
@@ -134,11 +133,12 @@ const ComprarProduto = ({ route }) => {
         <Appbar.Action
           style={{marginRight: 10}}
           icon="cart" onPress={() => navigation.navigate("Carrinho")} />
+          
       </Header>
 
       <Body>
         <FlatList
-          data={resultado}
+          data={produto}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
