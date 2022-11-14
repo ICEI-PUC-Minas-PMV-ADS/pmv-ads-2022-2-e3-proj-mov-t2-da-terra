@@ -34,7 +34,23 @@ const ComprarProduto = ({ route }) => {
     
   const [resultado, setResultado] = useState([]);
 
-  console.log(produto);
+  const [quantidade, setQuantidade] = useState(1);
+  let contador = quantidade;
+  let precoTotal= quantidade*produto[0].preco
+  
+
+  const upQtd = () => {
+    setQuantidade(contador += 1);
+  };
+
+  const downQtd = () => {
+    if (contador == 1) {
+      setQuantidade(contador = 1);
+    }
+    else {
+      setQuantidade(contador -= 1);
+    }
+  };
 
   useEffect(() => {
     // getProdutosCompras(1)
@@ -45,16 +61,14 @@ const ComprarProduto = ({ route }) => {
   }, [isFocused]);
   const addProdutoCarrinho = ()=>{
     
-    console.log("oifsd")
     onToggleSnackBar();
-    
     // insertCarrinho(
     //   {
     //     idCliente:user.id,
     //     idProdutor:produto.produtorId,
     //     idProduto:produto.id,
-    //     quantidadeProduto:1,
-    //     precoTotal:7.98
+    //     quantidadeProduto:quantidade,
+    //     precoTotal:precoTotal
     
     
     //   }
@@ -71,7 +85,7 @@ const ComprarProduto = ({ route }) => {
         <Text style={styles.textNomeProduto}>
           {item.nome} {item.embalagem}
         </Text>
-        <Text style={styles.textPreco}>R$ {item.preco.toFixed(2)}</Text>
+        <Text style={styles.textPreco}>R$ {item.preco.toFixed(2)}, TOTAL R$ {precoTotal.toFixed(2)}</Text>
       </View>
 
       {/*Imagem*/}
@@ -81,7 +95,30 @@ const ComprarProduto = ({ route }) => {
       </View>
 
       {/* Seletor quantidade mais e menos */}
-      <Seletor />
+      <>
+    < View style={styles.viewBotaoSeletorQtd} >
+      {/* Botão Menos */}
+      < TouchableOpacity
+        style={styles.botaoSeletorQtd}
+        onPress={() => downQtd()}
+      >
+        <Text style={styles.textBotaoSeletorQtd}> - </Text>
+      </TouchableOpacity >
+
+      {/* Quantidade Dinâmica */}
+      < View style={styles.viewTextDinamicoSeletorQtd} >
+        <Text style={styles.textDinamicoSeletorQtd}>{contador}</Text>
+      </View >
+
+      {/* Botão Mais */}
+      <TouchableOpacity
+        style={styles.botaoSeletorQtd}
+        onPress={() => upQtd()}
+      >
+        <Text style={styles.textBotaoSeletorQtd}>+</Text>
+      </TouchableOpacity >
+    </View >
+  </>
 
       {/*Botão Comprar*/}
       <View style={styles.viewBotaoComprar}>
@@ -303,6 +340,37 @@ const styles = StyleSheet.create({
   textEntreDivider: {
     marginHorizontal: 5,
     marginVertical: 2,
+  },
+  viewBotaoSeletorQtd: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 20,
+  },
+  botaoSeletorQtd: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    backgroundColor: '#5f9846',
+    elevation: 2,
+  },
+  textBotaoSeletorQtd: {
+    color: '#FFF',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  viewTextDinamicoSeletorQtd: {
+    padding: 10,
+    flexGrow: 1,
+    flexShrink: 1,
+    maxWidth: 80
+  },
+  textDinamicoSeletorQtd: {
+    fontSize: 23,
+    fontWeight: 'bold',
+    lineHeight: 24,
+    textAlign: 'center',
   },
 });
 
