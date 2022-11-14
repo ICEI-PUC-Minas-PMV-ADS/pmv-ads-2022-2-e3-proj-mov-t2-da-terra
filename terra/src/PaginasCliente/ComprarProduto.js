@@ -10,13 +10,13 @@ import {
 
 } from "react-native";
 
-import { Divider, Button, Appbar } from "react-native-paper";
+import { Divider, Button, Appbar,Snackbar } from "react-native-paper";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import Seletor from "../Componentes/Seletor";
-
+import { insertCarrinho } from "../DBService/DBCarrinho";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { ProdutoContext  } from "../contexts/webapi.ProdutoProvider";
 // import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
@@ -25,7 +25,9 @@ const ComprarProduto = ({ route }) => {
 
   const navigation = useNavigation();
   const isFocused = useIsFocused();
-
+  const [visible, setVisible] = useState(false);
+  const onToggleSnackBar = () => setVisible(!visible);
+  const onDismissSnackBar = () => setVisible(false);
   // Alterar Rota para provider
   // const { item } = route.params ? route.params : {};
   const { produto } = useContext(ProdutoContext);  
@@ -41,7 +43,28 @@ const ComprarProduto = ({ route }) => {
     //   })
     //   .catch((error) => console.log(error));
   }, [isFocused]);
-
+  const addProdutoCarrinho = ()=>{
+    
+    console.log("oifsd")
+    onToggleSnackBar();
+    
+    // insertCarrinho(
+    //   {
+    //     idCliente:user.id,
+    //     idProdutor:produto.produtorId,
+    //     idProduto:produto.id,
+    //     quantidadeProduto:1,
+    //     precoTotal:7.98
+    
+    
+    //   }
+    
+    
+    // ).then()
+    // .catch(e=>console.log(e))
+    
+    
+    }
   const renderItem = ({ item }) => (
     <View>
       <View style={{ marginVertical: 10 }}>
@@ -83,7 +106,7 @@ const ComprarProduto = ({ route }) => {
           Mais produto de NOME_DA_LOJA
         </Text>
       </View>
-
+     
       <View style={styles.viewVerMaisProdutos}>
         <View style={styles.cards}>
           <TouchableOpacity>
@@ -132,7 +155,7 @@ const ComprarProduto = ({ route }) => {
       <Header title={"Anúncio"} goBack={() => navigation.goBack()}>
         <Appbar.Action
           style={{marginRight: 10}}
-          icon="cart" onPress={() => navigation.navigate("Carrinho")} />
+          icon="cart" onPress={addProdutoCarrinho} />
           
       </Header>
 
@@ -142,6 +165,17 @@ const ComprarProduto = ({ route }) => {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
+         <Snackbar
+          visible={visible}
+          duration={2000}
+          elevation={4}
+          onDismiss={onDismissSnackBar}
+          action={{
+            label: "Ok",
+          }}
+        >
+          Produto adicionado ao seu carrinho
+        </Snackbar>
       </Body>
     </Container>
   );
@@ -206,7 +240,7 @@ const styles = StyleSheet.create({
   textNomeProduto: {
     textAlignVertical: "center",
     marginLeft: 14,
-    fontSize: 31,
+    fontSize: 28,
     lineHeight: 34,
     // fontWeight: 'bold',
     alignSelf: "center",
@@ -215,7 +249,7 @@ const styles = StyleSheet.create({
   textPreco: {
     marginTop: 10,
     marginLeft: 20,
-    fontSize: 24,
+    fontSize: 21,
     lineHeight: 26,
     alignSelf: "flex-start",
   },
