@@ -19,6 +19,8 @@ import Seletor from "../Componentes/Seletor";
 import { insertCarrinho } from "../DBService/DBCarrinho";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { ProdutoContext  } from "../contexts/webapi.ProdutoProvider";
+import Database from "../DBService/DBService";
+import { AuthContext } from "../contexts/AuthProvider";
 // import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
 
 const ComprarProduto = ({ route }) => {
@@ -31,7 +33,7 @@ const ComprarProduto = ({ route }) => {
   // Alterar Rota para provider
   // const { item } = route.params ? route.params : {};
   const { produto } = useContext(ProdutoContext);  
-    
+  const{user}=useContext(AuthContext)
   const [resultado, setResultado] = useState([]);
 
   const [quantidade, setQuantidade] = useState(1);
@@ -53,29 +55,26 @@ const ComprarProduto = ({ route }) => {
   };
 
   useEffect(() => {
-    // getProdutosCompras(1)
-    //   .then((dados) => {
-    //     setResultado(dados);
-    //   })
-    //   .catch((error) => console.log(error));
-  }, [isFocused]);
+    Database.getConnection();
+  }, []);
   const addProdutoCarrinho = ()=>{
     
     onToggleSnackBar();
-    // insertCarrinho(
-    //   {
-    //     idCliente:user.id,
-    //     idProdutor:produto.produtorId,
-    //     idProduto:produto.id,
-    //     quantidadeProduto:quantidade,
-    //     precoTotal:precoTotal
+    
+    insertCarrinho(
+      {
+        idCliente:user.cliente.id,
+        idProdutor:produto[0].produtorId,
+        idProduto:produto[0].id,
+        quantidadeProduto:quantidade,
+        precoTotal:precoTotal
     
     
-    //   }
+      }
     
     
-    // ).then()
-    // .catch(e=>console.log(e))
+    ).then()
+    .catch(e=>console.log(e))
     
     
     }

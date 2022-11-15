@@ -33,12 +33,13 @@ const Database = {
       //   "descricao TEXT NOT NULL)"
       // );
       tx.executeSql(
-       "CREATE TABLE IF NOT EXISTS Carrinho (id INTEGER PRIMARY KEY," +
+       "CREATE TABLE IF NOT EXISTS Carrinho"+ 
+       "(id INTEGER PRIMARY KEY," +
           "idCliente` INTEGER NOT NULL,"+
           "idProdutor` INTEGER NOT NULL,"+
           "idProduto`INTEGER NOT NULL"+
-          "quantidadeProduto INTEGER NULL"+
-          "precoTotal` REAL NOT NULL,"
+          "quantidadeProduto INTEGER NOT NULL"+
+          "precoTotal` REAL NOT NULL),"
          
       );
     //   tx.executeSql(
