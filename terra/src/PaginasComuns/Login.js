@@ -21,7 +21,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 export default function Login() {
   const navigation = useNavigation();
-  const { postLogin, user, setUser,setTipoUsuario } = useContext(AuthContext);
+  const { postLogin, user, setUser, setTipoUsuario } = useContext(AuthContext);
 
   // SnackBar e falta informação
   const [missInfo, setMissInfo] = useState(false);
@@ -35,37 +35,98 @@ export default function Login() {
   const [senha, setSenha] = useState("123456");
   const [escondeSenha, setEscondeSenha] = useState(true);
 
-  // Validação login
+
+//----------------------INICIO TESTES------------------------
+  // TESTES
+  const [state, setState] = useState();
+
+  // TESTES
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+  // TESTES
+  useEffect(() => {   
+    // console.log("----- USER useEffect -----");
+     //console.log(state);
+    // console.log("--------------------------");
+  }, [])
+
+  // Validação login - VERSÃO DE  TESTES
   const validarLogin = async () => {
     if (!email || !senha) {
       setMissInfo(true); // Falta Informação
       onToggleSnackBar();
-    } else {
-       postLogin({
+    } else {    
+      await postLogin({
         email: email,
         senha: senha,
       })
+        // .then(() => delay(1000))
         .then(() => {
-          for (let i in user) {
-            const tipoUser = user[i].tipoUsuario;
-            console.log(user[i].tipoUsuario)
-            if (tipoUser != undefined) {
-              if (tipoUser == 'cliente') {
-                //setTipoUsuario("Cliente")
-                navigation.navigate("HomeCliente");
-              }
-              else if (tipoUser == 'produtor') {
-                //  setTipoUsuario("Produtor")
-                navigation.navigate("HomeVendedor");
-              } else {
-                // Implementar quando o user ou senha forem inválidos
-                // Tem que ler no banco
-              }
-            }
-          }
+          console.log("----- USER LOGIN -----");
+          console.log(user);
+          console.log("----------------------");
+
+          // Parte "ok"
+          // for (let i in user) {
+          //   const tipoUser = user[i].tipoUsuario;
+          //   console.log(user[i].tipoUsuario)
+          //   if (tipoUser != undefined) {
+          //     if (tipoUser == 'cliente') {
+          //       //setTipoUsuario("Cliente")
+          //       navigation.navigate("HomeCliente");
+          //     }
+          //     else if (tipoUser == 'produtor') {
+          //       //  setTipoUsuario("Produtor")
+          //       navigation.navigate("HomeVendedor");
+          //     } else {
+          //       // Implementar quando o user ou senha forem inválidos
+          //       // Tem que ler no banco
+          //     }
+          //   }
+          // }
         })
+        .catch((e) => console.log('ERROR'))
+      // console.log("----- USER LOGIN -----");
+      // console.log(user);
+      // console.log("----------------------");
     }
   };
+
+  //----------------------FIM TESTES---------------------------------
+
+  // Não apagar - Primeira versão
+  // const validarLogin = async () => {
+  //   if (!email || !senha) {
+  //     setMissInfo(true); // Falta Informação
+  //     onToggleSnackBar();
+  //   } else {    
+  //     await postLogin({
+  //       email: email,
+  //       senha: senha,
+  //     })
+  //       .then(() => {
+  //         for (let i in user) {
+  //           const tipoUser = user[i].tipoUsuario;
+  //           console.log(user[i].tipoUsuario)
+  //           if (tipoUser != undefined) {
+  //             if (tipoUser == 'cliente') {
+  //               //setTipoUsuario("Cliente")
+  //               navigation.navigate("HomeCliente");
+  //             }
+  //             else if (tipoUser == 'produtor') {
+  //               //  setTipoUsuario("Produtor")
+  //               navigation.navigate("HomeVendedor");
+  //             } else {
+  //               // Implementar quando o user ou senha forem inválidos
+  //               // Tem que ler no banco
+  //             }
+  //           }
+  //         }
+  //       })
+  //       .catch((e) => console.log('ERROR'));
+  //   }
+  // };
+
 
   return (
     <Container>

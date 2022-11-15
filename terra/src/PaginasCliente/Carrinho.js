@@ -13,7 +13,7 @@ import { List } from "react-native-paper";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../contexts/AuthProvider";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
-import { getCarrinho,insertCarrinho } from "../DBService/DBCarrinho";
+import { getCarrinho, insertCarrinho } from "../DBService/DBCarrinho";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -25,51 +25,51 @@ const Carrinho = () => {
   const { idLogado, user } = useContext(AuthContext);
   const { produto, getAllProduto } = useContext(ProdutoContext);
   const [valorTotal, setPrecoTotal] = useState(0);
-  
- 
+
+
   const precoTotal = () => {
     let soma = 0;
-    if(produto!=undefined){
+    if (produto != undefined) {
       for (let item of produto) {
         soma += item.preco;
       }
-      
+
       setPrecoTotal(soma.toFixed(2));
-      
-     
+
+
     }
-     
-    
+
+
   }
   useEffect(() => {
-   getCarrinho(idLogado)
+    getCarrinho(idLogado)
     console.log(valorTotal);
     precoTotal()
 
 
     // console.log(user.cliente.nome)
   }, []);
-const add = ()=>{
-insertCarrinho(
-  {
-    idCliente:1,
-    idProdutor:1,
-    idProduto:5,
-    quantidadeProduto:1,
-    precoTotal:7.98
+  const add = () => {
+    insertCarrinho(
+      {
+        idCliente: 1,
+        idProdutor: 1,
+        idProduto: 5,
+        quantidadeProduto: 1,
+        precoTotal: 7.98
+
+
+      }
+
+
+    ).then()
+      .catch(e => console.log(e))
 
 
   }
 
 
-).then()
-.catch(e=>console.log(e))
 
-
-}
-  
-  
-  
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
@@ -77,9 +77,8 @@ insertCarrinho(
       >
         <View style={{ width: 500 }}>
           <List.Item
-            title={`${item.nome != undefined ? item.nome : ""} (${
-              item.embalagem ? item.embalagem : ""
-            })`}
+            title={`${item.nome != undefined ? item.nome : ""} (${item.embalagem ? item.embalagem : ""
+              })`}
             left={() => (
               <Image
                 style={styles.img}
@@ -93,9 +92,8 @@ insertCarrinho(
                 </Text>
               </View>
             )}
-            description={`R$ ${item.preco != undefined ? item.preco : 0}  / ${
-              item.embalagem != undefined ? item.embalagem : ""
-            }
+            description={`R$ ${item.preco != undefined ? item.preco : 0}  / ${item.embalagem != undefined ? item.embalagem : ""
+              }
             `}
           />
         </View>
