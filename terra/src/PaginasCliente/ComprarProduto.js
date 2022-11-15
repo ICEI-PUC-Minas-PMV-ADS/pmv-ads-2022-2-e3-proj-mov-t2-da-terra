@@ -10,7 +10,7 @@ import {
 
 } from "react-native";
 
-import { Divider, Button, Appbar,Snackbar } from "react-native-paper";
+import { Divider, Button, Appbar, Snackbar } from "react-native-paper";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -18,7 +18,7 @@ import Header from "../Componentes/Header";
 import Seletor from "../Componentes/Seletor";
 import { insertCarrinho } from "../DBService/DBCarrinho";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-import { ProdutoContext  } from "../contexts/webapi.ProdutoProvider";
+import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 import Database from "../DBService/DBService";
 import { AuthContext } from "../contexts/AuthProvider";
 // import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
@@ -32,14 +32,14 @@ const ComprarProduto = ({ route }) => {
   const onDismissSnackBar = () => setVisible(false);
   // Alterar Rota para provider
   // const { item } = route.params ? route.params : {};
-  const { produto } = useContext(ProdutoContext);  
-  const{user}=useContext(AuthContext)
+  const { produto } = useContext(ProdutoContext);
+  const { user } = useContext(AuthContext)
   const [resultado, setResultado] = useState([]);
 
   const [quantidade, setQuantidade] = useState(1);
   let contador = quantidade;
-  let precoTotal= quantidade*produto[0].preco
-  
+  let precoTotal = quantidade * produto[0].preco
+
 
   const upQtd = () => {
     setQuantidade(contador += 1);
@@ -57,27 +57,20 @@ const ComprarProduto = ({ route }) => {
   useEffect(() => {
     Database.getConnection();
   }, []);
-  const addProdutoCarrinho = ()=>{
-    
+
+  const addProdutoCarrinho = () => {
     onToggleSnackBar();
-    
     insertCarrinho(
       {
-        idCliente:user.cliente.id,
-        idProdutor:produto[0].produtorId,
-        idProduto:produto[0].id,
-        quantidadeProduto:quantidade,
-        precoTotal:precoTotal
-    
-    
+        idCliente: user.cliente.id,
+        idProdutor: produto[0].produtorId,
+        idProduto: produto[0].id,
+        quantidadeProduto: quantidade,
+        precoTotal: precoTotal
       }
-    
-    
-    ).then()
-    .catch(e=>console.log(e))
-    
-    
-    }
+    ).then().catch()
+  }
+
   const renderItem = ({ item }) => (
     <View>
       <View style={{ marginVertical: 10 }}>
@@ -95,29 +88,29 @@ const ComprarProduto = ({ route }) => {
 
       {/* Seletor quantidade mais e menos */}
       <>
-    < View style={styles.viewBotaoSeletorQtd} >
-      {/* Botão Menos */}
-      < TouchableOpacity
-        style={styles.botaoSeletorQtd}
-        onPress={() => downQtd()}
-      >
-        <Text style={styles.textBotaoSeletorQtd}> - </Text>
-      </TouchableOpacity >
+        < View style={styles.viewBotaoSeletorQtd} >
+          {/* Botão Menos */}
+          < TouchableOpacity
+            style={styles.botaoSeletorQtd}
+            onPress={() => downQtd()}
+          >
+            <Text style={styles.textBotaoSeletorQtd}> - </Text>
+          </TouchableOpacity >
 
-      {/* Quantidade Dinâmica */}
-      < View style={styles.viewTextDinamicoSeletorQtd} >
-        <Text style={styles.textDinamicoSeletorQtd}>{contador}</Text>
-      </View >
+          {/* Quantidade Dinâmica */}
+          < View style={styles.viewTextDinamicoSeletorQtd} >
+            <Text style={styles.textDinamicoSeletorQtd}>{contador}</Text>
+          </View >
 
-      {/* Botão Mais */}
-      <TouchableOpacity
-        style={styles.botaoSeletorQtd}
-        onPress={() => upQtd()}
-      >
-        <Text style={styles.textBotaoSeletorQtd}>+</Text>
-      </TouchableOpacity >
-    </View >
-  </>
+          {/* Botão Mais */}
+          <TouchableOpacity
+            style={styles.botaoSeletorQtd}
+            onPress={() => upQtd()}
+          >
+            <Text style={styles.textBotaoSeletorQtd}>+</Text>
+          </TouchableOpacity >
+        </View >
+      </>
 
       {/*Botão Comprar*/}
       <View style={styles.viewBotaoComprar}>
@@ -125,7 +118,7 @@ const ComprarProduto = ({ route }) => {
           icon="cart"
           mode="contained"
           buttonColor="#FF8919"
-          onPress={() => console.log('Pressed')}>
+          onPress={addProdutoCarrinho}>
           <Text style={styles.labelBotao}>Comprar</Text>
         </Button>
       </View>
@@ -142,7 +135,7 @@ const ComprarProduto = ({ route }) => {
           Mais produto de NOME_DA_LOJA
         </Text>
       </View>
-     
+
       <View style={styles.viewVerMaisProdutos}>
         <View style={styles.cards}>
           <TouchableOpacity>
@@ -190,9 +183,9 @@ const ComprarProduto = ({ route }) => {
     <Container>
       <Header title={"Anúncio"} goBack={() => navigation.goBack()}>
         <Appbar.Action
-          style={{marginRight: 10}}
+          style={{ marginRight: 10 }}
           icon="cart" onPress={addProdutoCarrinho} />
-          
+
       </Header>
 
       <Body>
@@ -201,7 +194,7 @@ const ComprarProduto = ({ route }) => {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
-         <Snackbar
+        <Snackbar
           visible={visible}
           duration={2000}
           elevation={4}

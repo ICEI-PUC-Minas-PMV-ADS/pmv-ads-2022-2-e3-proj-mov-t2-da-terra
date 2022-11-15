@@ -2,7 +2,10 @@ import * as SQLite from "expo-sqlite";
 
 const Database = {
   getConnection: () => {
-    const db = SQLite.openDatabase("DaTerra.db");
+    const db = SQLite.openDatabase("DaTerraSqLite.db",
+      (error) => {
+        if (error) return console.log(error);
+      });
 
     db.transaction((tx) => {
       // tx.executeSql(
@@ -33,80 +36,80 @@ const Database = {
       //   "descricao TEXT NOT NULL)"
       // );
       tx.executeSql(
-       "CREATE TABLE IF NOT EXISTS Carrinho"+ 
-       "(id INTEGER PRIMARY KEY," +
-          "idCliente` INTEGER NOT NULL,"+
-          "idProdutor` INTEGER NOT NULL,"+
-          "idProduto`INTEGER NOT NULL"+
-          "quantidadeProduto INTEGER NOT NULL"+
-          "precoTotal` REAL NOT NULL),"
-         
+        "CREATE TABLE IF NOT EXISTS Carrinho" +
+        "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
+        "idCliente INTEGER NOT NULL," +
+        "idProdutor INTEGER NOT NULL," +
+        "idProduto INTEGER NOT NULL," +
+        "quantidadeProduto INTEGER NOT NULL," +
+        "precoTotal REAL NOT NULL);"
+
       );
-    //   tx.executeSql(
-    //     "CREATE TABLE IF NOT EXISTS Pedido (idPedido INTEGER PRIMARY KEY,"+
-    //       "idPedido INT NOT NULL,"+
-    //       "status  VARCHAR(10) NOT NULL,"+
-    //       "dataPedido DATE NOT NULL,"+
-    //       "idCliente INT NULL,"+
-    //       "idProdutor INT NULL,"+
-    //       "INDEX `FK_Pedido_Produtor_idx` (`idProdutor` ASC) VISIBLE,,"+
-    //       "CONSTRAINT `FK_Pedido_Produtor`,"+
-    //       "FOREIGN KEY (`idProdutor`),"+
-    //       "REFERENCES `Usuario` (`idUsuario`),"+
-    //       "ON DELETE NO ACTION,"+
-    //       " ON UPDATE NO ACTION,"+
-    //       "CONSTRAINT `FK_Pedido_Cliente`,"+
-    //       " FOREIGN KEY (idCliente),"+
-    //       " REFERENCES Usuario (idUsuario),"+
-    //       " ON DELETE NO ACTION,"+
-    //       " ON UPDATE NO ACTION)"
-    //   );
-    //   tx.executeSql(
-    //     "CREATE TABLE IF NOT EXISTS Item (idItem INTEGER PRIMARY KEY,"+
-    //       "idItem INT NOT NULL,"+
-    //       "idProduto INT NOT NULL,"+
-    //       "idPedido INT NOT NULL,"+
-    //       "idCarrinho INT NOT NULL,"+
-    //       "precoUnitario DOUBLE NOT NULL,"+
-    //       "qtdUnitario DOUBLE NOT NULL,"+
-    //       "INDEX `FK_Item_Produto_idx` (`idProduto` ASC) VISIBLE,"+
-    //       "INDEX `FK_Item_Pedido_idx` (`idPedido` ASC) VISIBLE,"+
-    //       "INDEX `FK_Item_Carrinho_idx` (`idCarrinho` ASC) VISIBLE,"+
-    //       "CONSTRAINT `FK_Item_Produto`,"+
-    //       " FOREIGN KEY (`idProduto`),"+
-    //       " REFERENCES `produto` (`idProduto`),"+
-    //       " ON DELETE NO ACTION,"+
-    //       " ON UPDATE NO ACTION,"+
-    //       "CONSTRAINT `FK_Item_Pedido`,"+
-    //       " FOREIGN KEY (idPedido),"+
-    //       " REFERENCES pedido (idPedido),"+
-    //       " ON DELETE NO ACTION,"+
-    //       " ON UPDATE NO ACTION,"+
-    //       "CONSTRAINT `FK_Item_Carrinho`,"+
-    //       " FOREIGN KEY (idCarrinho),"+
-    //       " REFERENCES carrinho (idCarrinho),"+
-    //       " ON DELETE NO ACTION,"+
-    //       " ON UPDATE NO ACTION)"
-    //   );
-     });
+      //   tx.executeSql(
+      //     "CREATE TABLE IF NOT EXISTS Pedido (idPedido INTEGER PRIMARY KEY,"+
+      //       "idPedido INT NOT NULL,"+
+      //       "status  VARCHAR(10) NOT NULL,"+
+      //       "dataPedido DATE NOT NULL,"+
+      //       "idCliente INT NULL,"+
+      //       "idProdutor INT NULL,"+
+      //       "INDEX `FK_Pedido_Produtor_idx` (`idProdutor` ASC) VISIBLE,,"+
+      //       "CONSTRAINT `FK_Pedido_Produtor`,"+
+      //       "FOREIGN KEY (`idProdutor`),"+
+      //       "REFERENCES `Usuario` (`idUsuario`),"+
+      //       "ON DELETE NO ACTION,"+
+      //       " ON UPDATE NO ACTION,"+
+      //       "CONSTRAINT `FK_Pedido_Cliente`,"+
+      //       " FOREIGN KEY (idCliente),"+
+      //       " REFERENCES Usuario (idUsuario),"+
+      //       " ON DELETE NO ACTION,"+
+      //       " ON UPDATE NO ACTION)"
+      //   );
+      //   tx.executeSql(
+      //     "CREATE TABLE IF NOT EXISTS Item (idItem INTEGER PRIMARY KEY,"+
+      //       "idItem INT NOT NULL,"+
+      //       "idProduto INT NOT NULL,"+
+      //       "idPedido INT NOT NULL,"+
+      //       "idCarrinho INT NOT NULL,"+
+      //       "precoUnitario DOUBLE NOT NULL,"+
+      //       "qtdUnitario DOUBLE NOT NULL,"+
+      //       "INDEX `FK_Item_Produto_idx` (`idProduto` ASC) VISIBLE,"+
+      //       "INDEX `FK_Item_Pedido_idx` (`idPedido` ASC) VISIBLE,"+
+      //       "INDEX `FK_Item_Carrinho_idx` (`idCarrinho` ASC) VISIBLE,"+
+      //       "CONSTRAINT `FK_Item_Produto`,"+
+      //       " FOREIGN KEY (`idProduto`),"+
+      //       " REFERENCES `produto` (`idProduto`),"+
+      //       " ON DELETE NO ACTION,"+
+      //       " ON UPDATE NO ACTION,"+
+      //       "CONSTRAINT `FK_Item_Pedido`,"+
+      //       " FOREIGN KEY (idPedido),"+
+      //       " REFERENCES pedido (idPedido),"+
+      //       " ON DELETE NO ACTION,"+
+      //       " ON UPDATE NO ACTION,"+
+      //       "CONSTRAINT `FK_Item_Carrinho`,"+
+      //       " FOREIGN KEY (idCarrinho),"+
+      //       " REFERENCES carrinho (idCarrinho),"+
+      //       " ON DELETE NO ACTION,"+
+      //       " ON UPDATE NO ACTION)"
+      //   );
+    });
 
     const ExecuteQuery = (sql, params = []) =>
       new Promise((resolve, reject) => {
         db.transaction((tx) => {
           tx.executeSql(
             sql,
-            params,        
+            params,
             (__, results) => {
               resolve(results);
-              console.log('RESOLVE: ' + sql, params)  
+              console.log('RESOLVE: ' + sql, params)
             },
             (error) => {
               reject(error);
               console.log('REJECT: ' + sql, params)
             }
           ); // tx.executeSql        
-        }); //db.transactiom
-      }); // Promise
+        }); //db.transaction
+      }); // Promise    
     return ExecuteQuery;
   } // getConnection
 };
