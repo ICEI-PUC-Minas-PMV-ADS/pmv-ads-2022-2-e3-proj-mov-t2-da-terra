@@ -18,6 +18,17 @@ const MinhaConta = () => {
   const [idUser, setIdUser] = useState();
   const [userLogado, setUserLogado] = useState();
 
+  useEffect(() => {
+    for (let i in user) {
+      //setTipoUser(user[i].tipoUsuario)
+      const tipoUser = user[i].tipoUsuario;
+      setTipoUserLogado(tipoUser);
+
+      if (tipoUser != undefined)
+        console.log(tipoUser);
+    }
+    //console.log(user);
+  }, [])
 
   useEffect(() => {
     for (let i in user) {
@@ -58,7 +69,7 @@ const MinhaConta = () => {
               mode="contained"
             />
           </TouchableOpacity>
-
+          
           <TouchableOpacity style={styles.buttonContainer}>
             <Botao
               style={styles.textoBotao}

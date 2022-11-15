@@ -37,12 +37,15 @@ namespace WebApi.Controllers
     // }
 
     // GET: Para todos os produtos: Tela Busca do Cliente, foi mantido separado por questão de erros
-    [HttpGet(template: "produtos/todos")]
-    public async Task<IActionResult> GetBuscaProdutoCliente(
-        [FromServices] AppDbContext context
+    [HttpGet(template: "produtos/carrinho/{id}")]
+
+    public async Task<IActionResult> BuscaProduto(
+        [FromServices] AppDbContext context,
+        [FromRoute]int id
         )
     {
-      var produto = await context.Produtos.ToListAsync();
+      var produto = await context.Produtos
+        .FirstOrDefaultAsync(x => x.Id == id);
 
       return produto == null
       ? NotFound(new { message = "Produto não encontrado" })
@@ -51,8 +54,7 @@ namespace WebApi.Controllers
 
     // GET BUSCA DE PRODUTOS: CLIENTE    
     [HttpGet(template: "produtos/busca/")]
-    [Route("")]
-    public async Task<IActionResult> BuscaAsync(
+     public async Task<IActionResult> BuscaAsync(
       [FromServices] AppDbContext context,
       [FromQuery] string nomeProduto, string categoria)
     {

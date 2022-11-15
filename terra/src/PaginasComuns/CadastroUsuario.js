@@ -190,7 +190,7 @@ const CadastroUsuario = ({ navigation, route }) => {
     }
 
   }
-  
+
   // API: Buscar o Cep
   const buscarEndereco = async () => {
     if (String(cep).length == 8) {

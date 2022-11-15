@@ -84,8 +84,8 @@ export default function EditarMinhaConta() {
       bairro: bairro.trim(),
       complemento: complemento.trim(),
       cidade: cidade.trim(),
-      uf: uf.trim(),
-      id: id
+      uf: uf.trim()
+
 
     }).then(a => console.log(a)).catch(a => console.log(a))
 
@@ -123,7 +123,7 @@ export default function EditarMinhaConta() {
             activeOutlineColor={"#3d9d74"}
           />
           <Input
-            label="Nova Senha"
+            label="Novo Senha"
             value={senha}
             secureTextEntry={escondeSenha}
             activeOutlineColor={"#3d9d74"}
