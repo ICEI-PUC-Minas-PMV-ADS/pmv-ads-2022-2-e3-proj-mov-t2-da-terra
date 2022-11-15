@@ -429,6 +429,30 @@ C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\System.Identit
 C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\System.Text.Json.dll
 C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\runtimes\win-x64\native\e_sqlite3.dll
+<<<<<<< HEAD
+=======
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\runtimes\win-x86\native\e_sqlite3.dll
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.csproj.AssemblyReference.cache
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.AssemblyInfoInputs.cache
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.AssemblyInfo.cs
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.csproj.CoreCompileInputs.cache
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.MvcApplicationPartsAssemblyInfo.cache
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\staticwebassets.build.json
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\staticwebassets.development.json
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\scopedcss\bundle\WebApi.styles.css
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.csproj.CopyComplete
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.dll
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\ref\WebApi.dll
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.pdb
+C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.genruntimeconfig.cache
+>>>>>>> c1662c05e64cf9644486b033bd75c42dd1826fbf
 C:\Users\carlo\Documents\PUC\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\carlo\Documents\PUC\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\appsettings.json
 C:\Users\carlo\Documents\PUC\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\WebApi.exe
