@@ -113,7 +113,7 @@ const CadastroUsuario = ({ navigation, route }) => {
         Alert.alert("Confirmação de senha incorreta, verifique")
       }
     }
-
+    
     // Verifica se o user já possui cadastro
     postValidarCadastro({
       email: email,

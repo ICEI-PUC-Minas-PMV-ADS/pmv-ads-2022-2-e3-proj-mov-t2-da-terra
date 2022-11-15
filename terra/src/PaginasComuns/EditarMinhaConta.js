@@ -22,7 +22,7 @@ import Botao from "../Componentes/Botao";
 
 export default function EditarMinhaConta() {
   const navigation = useNavigation();
-  const { tipoUsuario,idLogado} = useContext(AuthContext);
+  const { tipoUsuario, idLogado } = useContext(AuthContext);
 
   //Dados pessoais do usuario que seram editador
 
@@ -43,18 +43,18 @@ export default function EditarMinhaConta() {
   const [email, setEmail] = useState("maria@gmail.com");
   const [senha, setSenha] = useState(1234);
   const [escondeSenha, setEscondeSenha] = useState(true);
-  
+
   const {
 
     putUsuario,
-    
+
   } = useContext(UsuarioContext);
-  
+
   //Sempre que houver mudança no cep,consulta a API para atualizar os endereços
   useEffect(() => {
     console.log(idLogado)
     buscarEndereco(); // Busca CEP
-    
+
   }, [cep]);
   const buscarEndereco = async () => {
     if (String(cep).length == 8) {
@@ -73,21 +73,21 @@ export default function EditarMinhaConta() {
         });
     }
   };
-  const atualizarUsuario=async ()=>{
-    await putUsuario({
-        email:email.trim(),
-        senha:senha.trim(),
-        telefone:telefone.trim(),
-        cep:cep.trim(),
-        rua:rua.trim(),
-        numeroCasa:numeroCasa.trim(),
-        bairro:bairro.trim(),
-        complemento:complemento.trim(),
-        cidade:cidade.trim(),
-        uf:uf.trim()
+  const atualizarUsuario = () => {
+    putUsuario({
+      email: email.trim(),
+      senha: senha.trim(),
+      telefone: telefone.trim(),
+      cep: cep.trim(),
+      rua: rua.trim(),
+      numeroCasa: numeroCasa.trim(),
+      bairro: bairro.trim(),
+      complemento: complemento.trim(),
+      cidade: cidade.trim(),
+      uf: uf.trim()
 
 
-    }).then(a=>console.log(a)).catch(a=>console.log(a))
+    }).then(a => console.log(a)).catch(a => console.log(a))
 
 
 
@@ -106,124 +106,124 @@ export default function EditarMinhaConta() {
       />
       <Container>
         <Body>
-          
-            {tipoUsuario == "Produtor" && (
-              <Input
-                style={styles.textInput}
-                label="Novo Nome da Loja"
-                onChangeText={setNomeLoja}
-                value={nomeLoja}
-                activeOutlineColor={"#3d9d74"}
-              />
-            )}
-            <Input
-              label="Novo Email"
-              onChangeText={setEmail}
-              value={email}
-              activeOutlineColor={"#3d9d74"}
-            />
-            <Input
-              label="Novo Senha"
-              value={senha}
-              secureTextEntry={escondeSenha}
-              activeOutlineColor={"#3d9d74"}
-              right={
-                <TextInput.Icon
-                  onPress={() =>
-                    escondeSenha
-                      ? setEscondeSenha(false)
-                      : setEscondeSenha(true)
-                  }
-                  icon={escondeSenha ? "eye-off" : "eye"}
-                />
-              }
-              onChangeText={setSenha}
-            />
-            <TextInput
-              style={styles.textInput}
-              mode="outlined"
-              label="Novo Telefone"
-              keyboardType="decimal-pad"
-              onChangeText={setTelefone}
-              value={telefone}
-              activeOutlineColor={"#3d9d74"}
-            />
-            <TextInput
-              style={styles.textInput}
-              mode="outlined"
-              label="Novo CEP"
-              keyboardType="decimal-pad"
-              onChangeText={setCep}
-              value={cep}
-              activeOutlineColor={"#3d9d74"}
-            />
-            <View style={{ flexDirection: 'row' }}>
-                <TextInput
-                  style={styleCompose}
-                  mode="outlined"
-                  label="Nova Rua"
-                  activeOutlineColor={"#3d9d74"}
-                  onChangeText={setRua}
-                  value={rua}
-                />
-                <TextInput
-                  style={styles.textInput}
-                  mode="outlined"
-                  label="Nº"
-                  keyboardType="decimal-pad"
-                  activeOutlineColor={"#3d9d74"}
-                  value={numeroCasa}
-                  onChangeText={setNumeroCasa}
-                />
-                 </View>
 
-                <View style={{ flexDirection: 'row' }}>
-                    <TextInput
-                      style={styleCompose}
-                      mode="outlined"
-                      label="Novo Bairro"
-                      activeOutlineColor={"#3d9d74"}
-                      onChangeText={setBairro}
-                      value={bairro}
-                    />
-                    <TextInput
-                      style={styles.textInput}
-                      label= "Apt"
-                      mode="outlined"
-                      activeOutlineColor={"#3d9d74"}
-                      onChangeText={setComplemento}
-                      value={complemento}
-                    />
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <TextInput
-                      style={styleCompose}
-                      mode="outlined"
-                      label="Nova Cidade"
-                      activeOutlineColor={"#3d9d74"}
-                      onChangeText={setCidade}
-                      value={cidade}
-                    />
-                    <TextInput
-                      style={styles.textInput}
-                      mode="outlined"
-                      label="UF"
-                      value={uf}
-                      activeOutlineColor={"#3d9d74"}
-                      onChangeText={setUf}
-                    />
-                </View>
-           <View style={styles.viewBotao}>
-          <TouchableOpacity onPress={atualizarUsuario}>
-            <Botao
-              style={styles.textoBotao}
-              buttonColor={"#3d9d74"}
-              textoBotao="Editar"
-              mode="contained"
+          {tipoUsuario == "Produtor" && (
+            <Input
+              style={styles.textInput}
+              label="Novo Nome da Loja"
+              onChangeText={setNomeLoja}
+              value={nomeLoja}
+              activeOutlineColor={"#3d9d74"}
             />
-          </TouchableOpacity>
-        </View>
-          
+          )}
+          <Input
+            label="Novo Email"
+            onChangeText={setEmail}
+            value={email}
+            activeOutlineColor={"#3d9d74"}
+          />
+          <Input
+            label="Novo Senha"
+            value={senha}
+            secureTextEntry={escondeSenha}
+            activeOutlineColor={"#3d9d74"}
+            right={
+              <TextInput.Icon
+                onPress={() =>
+                  escondeSenha
+                    ? setEscondeSenha(false)
+                    : setEscondeSenha(true)
+                }
+                icon={escondeSenha ? "eye-off" : "eye"}
+              />
+            }
+            onChangeText={setSenha}
+          />
+          <TextInput
+            style={styles.textInput}
+            mode="outlined"
+            label="Novo Telefone"
+            keyboardType="decimal-pad"
+            onChangeText={setTelefone}
+            value={telefone}
+            activeOutlineColor={"#3d9d74"}
+          />
+          <TextInput
+            style={styles.textInput}
+            mode="outlined"
+            label="Novo CEP"
+            keyboardType="decimal-pad"
+            onChangeText={setCep}
+            value={cep}
+            activeOutlineColor={"#3d9d74"}
+          />
+          <View style={{ flexDirection: 'row' }}>
+            <TextInput
+              style={styleCompose}
+              mode="outlined"
+              label="Nova Rua"
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setRua}
+              value={rua}
+            />
+            <TextInput
+              style={styles.textInput}
+              mode="outlined"
+              label="Nº"
+              keyboardType="decimal-pad"
+              activeOutlineColor={"#3d9d74"}
+              value={numeroCasa}
+              onChangeText={setNumeroCasa}
+            />
+          </View>
+
+          <View style={{ flexDirection: 'row' }}>
+            <TextInput
+              style={styleCompose}
+              mode="outlined"
+              label="Novo Bairro"
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setBairro}
+              value={bairro}
+            />
+            <TextInput
+              style={styles.textInput}
+              label="Apt"
+              mode="outlined"
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setComplemento}
+              value={complemento}
+            />
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <TextInput
+              style={styleCompose}
+              mode="outlined"
+              label="Nova Cidade"
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setCidade}
+              value={cidade}
+            />
+            <TextInput
+              style={styles.textInput}
+              mode="outlined"
+              label="UF"
+              value={uf}
+              activeOutlineColor={"#3d9d74"}
+              onChangeText={setUf}
+            />
+          </View>
+          <View style={styles.viewBotao}>
+            <TouchableOpacity onPress={atualizarUsuario}>
+              <Botao
+                style={styles.textoBotao}
+                buttonColor={"#3d9d74"}
+                textoBotao="Editar"
+                mode="contained"
+              />
+            </TouchableOpacity>
+          </View>
+
         </Body>
       </Container>
     </>
