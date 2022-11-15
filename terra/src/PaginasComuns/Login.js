@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
-  Image,
-  Alert,
+  Image
 } from "react-native";
 import { TextInput, Snackbar } from "react-native-paper";
 
@@ -21,7 +20,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 export default function Login() {
   const navigation = useNavigation();
-  const { postLogin, user, setUser, setTipoUsuario } = useContext(AuthContext);
+  const { postLogin, user } = useContext(AuthContext);
 
   // SnackBar e falta informação
   const [missInfo, setMissInfo] = useState(false);
@@ -35,98 +34,21 @@ export default function Login() {
   const [senha, setSenha] = useState("123456");
   const [escondeSenha, setEscondeSenha] = useState(true);
 
-
-//----------------------INICIO TESTES------------------------
-  // TESTES
-  const [state, setState] = useState();
-
-  // TESTES
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-  // TESTES
-  useEffect(() => {   
-    // console.log("----- USER useEffect -----");
-     //console.log(state);
-    // console.log("--------------------------");
-  }, [])
-
-  // Validação login - VERSÃO DE  TESTES
-  const validarLogin = async () => {
+  // Validação login
+  const validarLogin = () => {
+    // userEffect(() => {
     if (!email || !senha) {
-      setMissInfo(true); // Falta Informação
+      setMissInfo(true); // Falta info no form
       onToggleSnackBar();
-    } else {    
-      await postLogin({
+    } else {
+      postLogin({
         email: email,
         senha: senha,
       })
-        // .then(() => delay(1000))
-        .then(() => {
-          console.log("----- USER LOGIN -----");
-          console.log(user);
-          console.log("----------------------");
-
-          // Parte "ok"
-          // for (let i in user) {
-          //   const tipoUser = user[i].tipoUsuario;
-          //   console.log(user[i].tipoUsuario)
-          //   if (tipoUser != undefined) {
-          //     if (tipoUser == 'cliente') {
-          //       //setTipoUsuario("Cliente")
-          //       navigation.navigate("HomeCliente");
-          //     }
-          //     else if (tipoUser == 'produtor') {
-          //       //  setTipoUsuario("Produtor")
-          //       navigation.navigate("HomeVendedor");
-          //     } else {
-          //       // Implementar quando o user ou senha forem inválidos
-          //       // Tem que ler no banco
-          //     }
-          //   }
-          // }
-        })
-        .catch((e) => console.log('ERROR'))
-      // console.log("----- USER LOGIN -----");
-      // console.log(user);
-      // console.log("----------------------");
-    }
+        .then()
+        .catch((e) => console.log(e));
+    } // Implementar quando o usuário não for cadastrado
   };
-
-  //----------------------FIM TESTES---------------------------------
-
-  // Não apagar - Primeira versão
-  // const validarLogin = async () => {
-  //   if (!email || !senha) {
-  //     setMissInfo(true); // Falta Informação
-  //     onToggleSnackBar();
-  //   } else {    
-  //     await postLogin({
-  //       email: email,
-  //       senha: senha,
-  //     })
-  //       .then(() => {
-  //         for (let i in user) {
-  //           const tipoUser = user[i].tipoUsuario;
-  //           console.log(user[i].tipoUsuario)
-  //           if (tipoUser != undefined) {
-  //             if (tipoUser == 'cliente') {
-  //               //setTipoUsuario("Cliente")
-  //               navigation.navigate("HomeCliente");
-  //             }
-  //             else if (tipoUser == 'produtor') {
-  //               //  setTipoUsuario("Produtor")
-  //               navigation.navigate("HomeVendedor");
-  //             } else {
-  //               // Implementar quando o user ou senha forem inválidos
-  //               // Tem que ler no banco
-  //             }
-  //           }
-  //         }
-  //       })
-  //       .catch((e) => console.log('ERROR'));
-  //   }
-  // };
-
 
   return (
     <Container>

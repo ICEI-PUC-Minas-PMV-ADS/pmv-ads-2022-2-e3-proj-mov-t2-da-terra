@@ -33,7 +33,9 @@ import { AuthContext } from "../contexts/AuthProvider";
 const BuscarProdutos = () => {
   const navigation = useNavigation();
 
-  const { BuscaProdutos, produto, getBuscaProdutoCliente,setProduto } = useContext(ProdutoContext);
+  const { BuscaProdutos, produto, getBuscaProdutoCliente, setProduto } = useContext(ProdutoContext);
+
+  const { user } = useContext(AuthContext)
   
   const [searchQuery, setSearchQuery] = useState();
   const [resultados, setResultados] = useState([]);
@@ -44,12 +46,10 @@ const BuscarProdutos = () => {
   const hideDialog = () => setVisible(false);
   const [categoria, setCategoria] = useState('Verduras');
 
-  const { user } = useContext(AuthContext);
- 
-
- // Retornando Ok - Não alterar (Não está renderizando "de cara")
+  // Retornando Ok - Não alterar (Não está renderizando "de cara")
   useEffect(() => {
-    getBuscaProdutoCliente()
+    //console.log(user);
+    getBuscaProdutoCliente()  // Todos Produtos
       .then(() => setResultados(produto));
   }, [])
 
@@ -61,15 +61,13 @@ const BuscarProdutos = () => {
     BuscaProdutos(query)
       .then(() => setResultados(produto));
   };
-  const passProdutoRota=(produto)=>{
+
+  const passProdutoRota = (produto) => {
     //Vai passar produto clicado para o contexto,este,esta passando pelas
     // rotas
+
     setProduto([produto])
-      navigation.navigate("ComprarProduto")
-
-    
-
-
+    navigation.navigate("ComprarProduto")
   }
 
   // Terminar Filtro
@@ -157,9 +155,9 @@ const BuscarProdutos = () => {
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
-        onPress={() =>passProdutoRota(item)}
-        
-       
+        onPress={() => passProdutoRota(item)}
+
+
       >
         <List.Item
           title={`${item.nome}`}
@@ -178,26 +176,26 @@ const BuscarProdutos = () => {
   );
 
   return (
-   // <Provider>
-      <Container>
-        <SafeAreaView>
-          <Searchbar
-            placeholder="Buscar Produto"
-            onChangeText={onChangeSearch}
-          //value={searchQuery}
-          //  icon={'filter'}
-          //onIconPress={(showDialog) => { portalBuscaCategoria() }}
-          />
-        </SafeAreaView>
-        <Body>
-          <FlatList
-            data={resultados}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-        </Body>
-      </Container>
- //   </Provider>
+    // <Provider>
+    <Container>
+      <SafeAreaView>
+        <Searchbar
+          placeholder="Buscar Produto"
+          onChangeText={onChangeSearch}
+        //value={searchQuery}
+        //  icon={'filter'}
+        //onIconPress={(showDialog) => { portalBuscaCategoria() }}
+        />
+      </SafeAreaView>
+      <Body>
+        <FlatList
+          data={resultados}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      </Body>
+    </Container>
+    //   </Provider>
   );
 };
 
