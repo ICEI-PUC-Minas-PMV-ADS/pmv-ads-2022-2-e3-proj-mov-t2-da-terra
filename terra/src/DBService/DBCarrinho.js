@@ -20,8 +20,7 @@ export const insertCarrinho = async (carrinho) => {
 
 // Get 
 export const getCarrinho = async (id) => {
-  let results = await DB_EXEC("SELECT * FROM Carrinho WHERE idCliente = ?;", [id]);
-  //console.log(id)
+  let results = await DB_EXEC("SELECT * FROM Carrinho WHERE idCliente=?;", [id]);
 
   return results.rows._array;
 };

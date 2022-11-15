@@ -14,7 +14,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../contexts/AuthProvider";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 import { getCarrinho, insertCarrinho } from "../DBService/DBCarrinho";
-
+import Database from "../DBService/DBService";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
@@ -23,7 +23,8 @@ import Botao from "../Componentes/Botao";
 const Carrinho = () => {
   const navigation = useNavigation();
   const { idLogado, user } = useContext(AuthContext);
-  const { produto, getAllProduto } = useContext(ProdutoContext);
+  const { produto, getAllProduto,getProduto } = useContext(ProdutoContext);
+  const cartProdutos=[];
   const [valorTotal, setPrecoTotal] = useState(0);
 
 
@@ -41,9 +42,29 @@ const Carrinho = () => {
 
 
   }
+ 
   useEffect(() => {
-    getCarrinho(idLogado)
-    console.log(valorTotal);
+    //Abre conexão com banco sqlite do app
+    Database.getConnection();
+   //Vai iterar sobre o resultados da get do carrinho
+    getCarrinho(user.cliente.id).then((resultado)=>{
+      
+      for(let i in resultado){
+        cartProdutos.push(resultado[i])
+
+      }
+      for(let a in cartProdutos){
+        
+        console.log(cartProdutos[a].idProduto)
+         getProduto(cartProdutos[a].idProduto).then()
+
+
+      }
+
+
+
+      // console.log(cartProdutos.length)
+    }).catch(e=>console.log(e))
     precoTotal()
 
 
@@ -110,7 +131,7 @@ const Carrinho = () => {
       />
       <Body>
         <FlatList
-          data={produto}
+          data={cartProdutos}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
