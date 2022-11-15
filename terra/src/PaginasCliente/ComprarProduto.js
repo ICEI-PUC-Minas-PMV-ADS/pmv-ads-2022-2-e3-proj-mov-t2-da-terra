@@ -19,6 +19,8 @@ import Seletor from "../Componentes/Seletor";
 import { insertCarrinho } from "../DBService/DBCarrinho";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { ProdutoContext  } from "../contexts/webapi.ProdutoProvider";
+import Database from "../DBService/DBService";
+import { AuthContext } from "../contexts/AuthProvider";
 // import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
 
 const ComprarProduto = ({ route }) => {
@@ -31,37 +33,48 @@ const ComprarProduto = ({ route }) => {
   // Alterar Rota para provider
   // const { item } = route.params ? route.params : {};
   const { produto } = useContext(ProdutoContext);  
-    
+  const{user}=useContext(AuthContext)
   const [resultado, setResultado] = useState([]);
 
-  console.log(produto);
+  const [quantidade, setQuantidade] = useState(1);
+  let contador = quantidade;
+  let precoTotal= quantidade*produto[0].preco
+  
+
+  const upQtd = () => {
+    setQuantidade(contador += 1);
+  };
+
+  const downQtd = () => {
+    if (contador == 1) {
+      setQuantidade(contador = 1);
+    }
+    else {
+      setQuantidade(contador -= 1);
+    }
+  };
 
   useEffect(() => {
-    // getProdutosCompras(1)
-    //   .then((dados) => {
-    //     setResultado(dados);
-    //   })
-    //   .catch((error) => console.log(error));
-  }, [isFocused]);
+    Database.getConnection();
+  }, []);
   const addProdutoCarrinho = ()=>{
     
-    console.log("oifsd")
     onToggleSnackBar();
     
-    // insertCarrinho(
-    //   {
-    //     idCliente:user.id,
-    //     idProdutor:produto.produtorId,
-    //     idProduto:produto.id,
-    //     quantidadeProduto:1,
-    //     precoTotal:7.98
+    insertCarrinho(
+      {
+        idCliente:user.cliente.id,
+        idProdutor:produto[0].produtorId,
+        idProduto:produto[0].id,
+        quantidadeProduto:quantidade,
+        precoTotal:precoTotal
     
     
-    //   }
+      }
     
     
-    // ).then()
-    // .catch(e=>console.log(e))
+    ).then()
+    .catch(e=>console.log(e))
     
     
     }
@@ -71,7 +84,7 @@ const ComprarProduto = ({ route }) => {
         <Text style={styles.textNomeProduto}>
           {item.nome} {item.embalagem}
         </Text>
-        <Text style={styles.textPreco}>R$ {item.preco.toFixed(2)}</Text>
+        <Text style={styles.textPreco}>R$ {item.preco.toFixed(2)}, TOTAL R$ {precoTotal.toFixed(2)}</Text>
       </View>
 
       {/*Imagem*/}
@@ -81,7 +94,30 @@ const ComprarProduto = ({ route }) => {
       </View>
 
       {/* Seletor quantidade mais e menos */}
-      <Seletor />
+      <>
+    < View style={styles.viewBotaoSeletorQtd} >
+      {/* Botão Menos */}
+      < TouchableOpacity
+        style={styles.botaoSeletorQtd}
+        onPress={() => downQtd()}
+      >
+        <Text style={styles.textBotaoSeletorQtd}> - </Text>
+      </TouchableOpacity >
+
+      {/* Quantidade Dinâmica */}
+      < View style={styles.viewTextDinamicoSeletorQtd} >
+        <Text style={styles.textDinamicoSeletorQtd}>{contador}</Text>
+      </View >
+
+      {/* Botão Mais */}
+      <TouchableOpacity
+        style={styles.botaoSeletorQtd}
+        onPress={() => upQtd()}
+      >
+        <Text style={styles.textBotaoSeletorQtd}>+</Text>
+      </TouchableOpacity >
+    </View >
+  </>
 
       {/*Botão Comprar*/}
       <View style={styles.viewBotaoComprar}>
@@ -303,6 +339,37 @@ const styles = StyleSheet.create({
   textEntreDivider: {
     marginHorizontal: 5,
     marginVertical: 2,
+  },
+  viewBotaoSeletorQtd: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 20,
+  },
+  botaoSeletorQtd: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    backgroundColor: '#5f9846',
+    elevation: 2,
+  },
+  textBotaoSeletorQtd: {
+    color: '#FFF',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  viewTextDinamicoSeletorQtd: {
+    padding: 10,
+    flexGrow: 1,
+    flexShrink: 1,
+    maxWidth: 80
+  },
+  textDinamicoSeletorQtd: {
+    fontSize: 23,
+    fontWeight: 'bold',
+    lineHeight: 24,
+    textAlign: 'center',
   },
 });
 

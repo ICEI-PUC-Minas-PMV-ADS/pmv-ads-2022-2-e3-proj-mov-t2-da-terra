@@ -7,7 +7,7 @@ const DB_EXEC = Database.getConnection();
 export const insertCarrinho = async (carrinho) => {
   let results = await DB_EXEC(
     "INSERT INTO Carrinho" +
-    "(idCliente,idProdutor,idProduto,quantidadeProduto,precoTotal) VALUES(?,?,?,?,?);",
+    "(idCliente,idProdutor,idProduto,quantidadeProduto,precoTotal)VALUES(?,?,?,?,?);",
     [
     carrinho.idCliente,
     carrinho.idProdutor,
