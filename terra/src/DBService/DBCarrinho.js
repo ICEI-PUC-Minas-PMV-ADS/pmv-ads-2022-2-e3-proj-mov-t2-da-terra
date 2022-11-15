@@ -25,9 +25,9 @@ export const getCarrinho = async (id) => {
   return results.rows._array;
 };
 
-// Delete
+// Deleta o item do carrinho de acordo com id do produto
 export const deleteCarrinho = async (id) => {
-  let results = await DB_EXEC('DELETE FROM Carrinho WHERE id=?;', [id]);
+  let results = await DB_EXEC('DELETE FROM Carrinho WHERE idProduto=?;', [id]);
 
   return results.rowsAffected;
 }
