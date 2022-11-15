@@ -452,6 +452,9 @@ C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.dll
 C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\ref\WebApi.dll
 C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.pdb
 C:\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\obj\Debug\net6.0\WebApi.genruntimeconfig.cache
+<<<<<<< HEAD
+>>>>>>> c1662c05e64cf9644486b033bd75c42dd1826fbf
+=======
 >>>>>>> c1662c05e64cf9644486b033bd75c42dd1826fbf
 C:\Users\carlo\Documents\PUC\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\carlo\Documents\PUC\pmv-ads-2022-2-e3-proj-mov-t2-da-terra\WebApi\bin\Debug\net6.0\appsettings.json
