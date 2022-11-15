@@ -15,18 +15,22 @@ const MinhaConta = () => {
   const navigation = useNavigation();
 
   const { user } = useContext(AuthContext);
-  const [tipoUserLogado, setTipoUserLogado] = useState();
+  const [idUser, setIdUser] = useState();
+  const [userLogado, setUserLogado] = useState();
+
 
   useEffect(() => {
     for (let i in user) {
-      //setTipoUser(user[i].tipoUsuario)
       const tipoUser = user[i].tipoUsuario;
-      setTipoUserLogado(tipoUser);
 
-      if (tipoUser != undefined)
-        console.log(tipoUser);
+      if (tipoUser != undefined) {
+        console.log(tipoUser);      
+        const novoUser = Object.values(user);
+        console.log(novoUser[0].id);
+      }
     }
-    //console.log(user);
+    //const novoUser = Object.values(user);
+    //  console.log(novoUser[0].id);
   }, [])
 
 
@@ -37,6 +41,7 @@ const MinhaConta = () => {
         style={styles.avatar}
         source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
       />
+      {/* <Text>aqui: {userLogado.nome}</Text> */}
       <View style={styles.body}>
         <View style={styles.bodyContent}>
           {/* <Text style={styles.name}>{tipoUsuario == "cliente" ? user.cliente.nome : user.produtor.nome}</Text> */}
@@ -53,7 +58,7 @@ const MinhaConta = () => {
               mode="contained"
             />
           </TouchableOpacity>
-          
+
           <TouchableOpacity style={styles.buttonContainer}>
             <Botao
               style={styles.textoBotao}
