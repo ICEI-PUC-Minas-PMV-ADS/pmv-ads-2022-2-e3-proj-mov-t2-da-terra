@@ -1,16 +1,33 @@
 import React, { useState, useEffect, useContext } from "react";
-import Botao from "../Componentes/Botao";
+
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+
 import { useNavigation } from "@react-navigation/native";
 
+import Botao from "../Componentes/Botao";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
+import CadastroUsuario from "./CadastroUsuario";
+
 import { AuthContext } from "../contexts/AuthProvider";
+
 const MinhaConta = () => {
-  const { user,tipoUsuario } = useContext(AuthContext);
   const navigation = useNavigation();
 
+  const { user } = useContext(AuthContext);
+  const [tipoUserLogado, setTipoUserLogado] = useState();
 
+  useEffect(() => {
+    for (let i in user) {
+      //setTipoUser(user[i].tipoUsuario)
+      const tipoUser = user[i].tipoUsuario;
+      setTipoUserLogado(tipoUser);
+
+      if (tipoUser != undefined)
+        console.log(tipoUser);
+    }
+    //console.log(user);
+  }, [])
 
 
   return (
@@ -22,13 +39,13 @@ const MinhaConta = () => {
       />
       <View style={styles.body}>
         <View style={styles.bodyContent}>
-          <Text style={styles.name}>{tipoUsuario=="Cliente"?user.cliente.nome:user.produtor.nome}</Text>
-          <Text style={styles.info}>{tipoUsuario}</Text>
+          {/* <Text style={styles.name}>{tipoUsuario == "cliente" ? user.cliente.nome : user.produtor.nome}</Text> */}
+          <Text style={styles.info}>{ }</Text>
           <Text style={styles.description}>
-          
+
           </Text>
 
-          <TouchableOpacity onPress={()=>navigation.navigate("EditarMinhaConta")}style={styles.buttonContainer}>
+          <TouchableOpacity onPress={() => navigation.navigate("CadastroUsuario")} style={styles.buttonContainer}>
             <Botao
               style={styles.textoBotao}
               buttonColor={"#3d9d74"}
@@ -36,6 +53,7 @@ const MinhaConta = () => {
               mode="contained"
             />
           </TouchableOpacity>
+          
           <TouchableOpacity style={styles.buttonContainer}>
             <Botao
               style={styles.textoBotao}
@@ -67,7 +85,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 22,
     color: "#9fd09d",
-    
+
   },
   body: {
     marginTop: 20,
@@ -77,7 +95,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 25,
-    marginTop:-12,
+    marginTop: -12,
     fontWeight: "600",
   },
   info: {
