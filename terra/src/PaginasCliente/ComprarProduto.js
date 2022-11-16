@@ -30,6 +30,7 @@ const ComprarProduto = ({ route }) => {
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
+  const [avisoSnack,setAvisoSnack]= useState();
   // Alterar Rota para provider
   // const { item } = route.params ? route.params : {};
   const { produto } = useContext(ProdutoContext);
@@ -42,24 +43,40 @@ const ComprarProduto = ({ route }) => {
 
 
   const upQtd = () => {
-    setQuantidade(contador += 1);
+    if(contador<produto[0].estoque){
+
+      setQuantidade(contador += 1);
+
+    }
+   else if(quantidade+1>produto[0].estoque){ 
+    setAvisoSnack(" Você não poder pedir mais do que o estoque do Vendedor")
+     onToggleSnackBar()
+      contador--
+   }
+    
+
   };
 
   const downQtd = () => {
     if (contador == 1) {
+       onToggleSnackBar()
+      setAvisoSnack(`Peça pelo menos 1 ${produto[0].embalagem} do Produto`)
       setQuantidade(contador = 1);
     }
     else {
+     
+
       setQuantidade(contador -= 1);
     }
   };
 
   useEffect(() => {
+    console.log(produto.estoque)
     Database.getConnection();
   }, []);
 
   const addProdutoCarrinho = () => {
-    onToggleSnackBar();
+    // onToggleSnackBar();
     insertCarrinho(
       {
         idCliente: user.cliente.id,
@@ -185,7 +202,7 @@ const ComprarProduto = ({ route }) => {
         <Appbar.Action
           style={{ marginRight: 10 }}
           icon="cart" onPress={addProdutoCarrinho} />
-
+   
       </Header>
 
       <Body>
@@ -203,7 +220,7 @@ const ComprarProduto = ({ route }) => {
             label: "Ok",
           }}
         >
-          Produto adicionado ao seu carrinho
+          {avisoSnack}
         </Snackbar>
       </Body>
     </Container>
