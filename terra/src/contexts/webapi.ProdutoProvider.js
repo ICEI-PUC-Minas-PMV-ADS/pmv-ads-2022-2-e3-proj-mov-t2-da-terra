@@ -18,7 +18,7 @@ const ProdutoProvider = ({ children }) => {
     })
       .then(response => response.json())
       .then(json => {
-         //console.log(json)
+        //console.log(json)
         setProduto(json)
       })
       .catch(error => console.error(error));
@@ -53,7 +53,7 @@ const ProdutoProvider = ({ children }) => {
       })
       .then(response => response.json())
       .then(json => {
-       return json
+        return json
       })
       .catch(error => console.error(error));
   }

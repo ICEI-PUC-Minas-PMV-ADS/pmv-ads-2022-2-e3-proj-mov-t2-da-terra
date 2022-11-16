@@ -22,7 +22,7 @@ const MinhaConta = () => {
     for (let i in user) {
       //setTipoUser(user[i].tipoUsuario)
       const tipoUser = user[i].tipoUsuario;
-      setTipoUserLogado(tipoUser);
+     // setTipoUserLogado(tipoUser);
 
       if (tipoUser != undefined)
         console.log(tipoUser);

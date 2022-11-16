@@ -36,12 +36,12 @@ namespace WebApi.Controllers
     //   : Ok(produto);
     // }
 
-    // GET: Para todos os produtos: Tela Busca do Cliente, foi mantido separado por questão de erros
+
     [HttpGet(template: "produtos/carrinho/{id}")]
 
     public async Task<IActionResult> BuscaProduto(
         [FromServices] AppDbContext context,
-        [FromRoute]int id
+        [FromRoute] int id
         )
     {
       var produto = await context.Produtos
@@ -52,9 +52,21 @@ namespace WebApi.Controllers
       : Ok(produto);
     }
 
+    // GET: Para todos os produtos: Tela Busca do Cliente, foi mantido separado por questão de erros
+    [HttpGet(template: "produtos/todos")]
+    public async Task<IActionResult> GetBuscaProdutoCliente(
+       [FromServices] AppDbContext context)
+    {
+      var produto = await context.Produtos.ToListAsync();
+
+      return produto == null
+      ? NotFound(new { message = "Produto não encontrado" })
+      : Ok(produto);
+    }
+
     // GET BUSCA DE PRODUTOS: CLIENTE    
     [HttpGet(template: "produtos/busca/")]
-     public async Task<IActionResult> BuscaAsync(
+    public async Task<IActionResult> BuscaAsync(
       [FromServices] AppDbContext context,
       [FromQuery] string nomeProduto, string categoria)
     {
@@ -62,7 +74,7 @@ namespace WebApi.Controllers
       var queryProduto = from query in context.Produtos
                            //.Include(x => x.Produtor)
                          select query;
-  
+
       if (!String.IsNullOrEmpty(nomeProduto))  // nomeProduto true
       {
         if (!String.IsNullOrEmpty(categoria))       // categoria true
