@@ -6,6 +6,7 @@ export const ProdutoContext = createContext({});
 const ProdutoProvider = ({ children }) => {
 
   const [produto, setProduto] = useState([]);
+  const [produtoCarrinho, setProdutoCarrinho] = useState([]);
 
   //GET ALL - OK
   const getBuscaProdutoCliente = async () => {
@@ -43,7 +44,7 @@ const ProdutoProvider = ({ children }) => {
 
   // GET - OK
   const getProduto = async (id) => {
-    console.log(id)
+    console.log(`${url}/produtos/carrinho/${id}`);
     return await fetch(`${url}/produtos/carrinho/${id}`,
       {
         method: 'GET',
@@ -53,7 +54,8 @@ const ProdutoProvider = ({ children }) => {
       })
       .then(response => response.json())
       .then(json => {
-        return json
+        console.log("json", json)
+        setProdutoCarrinho(json);
       })
       .catch(error => console.error(error));
   }
@@ -110,6 +112,7 @@ const ProdutoProvider = ({ children }) => {
         deleteProduto,
         getBuscaProdutoCliente,
         BuscaProdutos,
+        produtoCarrinho
       }}
     >
       {children}

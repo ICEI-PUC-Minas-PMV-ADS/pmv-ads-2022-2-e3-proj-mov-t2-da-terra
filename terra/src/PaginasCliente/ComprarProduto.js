@@ -71,10 +71,11 @@ const ComprarProduto = ({ route }) => {
   };
 
   useEffect(() => {
-    console.log(produto.estoque)
+    //console.log(produto.estoque)
     Database.getConnection();
   }, []);
 
+  // Dessa forma está criando um carrinho para cada produto inserido
   const addProdutoCarrinho = () => {
     // onToggleSnackBar();
     insertCarrinho(

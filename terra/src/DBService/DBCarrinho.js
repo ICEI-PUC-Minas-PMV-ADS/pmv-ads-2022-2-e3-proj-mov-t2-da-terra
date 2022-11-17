@@ -14,6 +14,7 @@ export const insertCarrinho = async (carrinho) => {
       carrinho.precoTotal
     ]
   ); 
+
   console.log(results)
   return results.rowsAffected;
 };
@@ -21,7 +22,8 @@ export const insertCarrinho = async (carrinho) => {
 // Get 
 export const getCarrinho = async (id) => {
   let results = await DB_EXEC("SELECT * FROM Carrinho WHERE idCliente=?;", [id]);
-
+  
+  //console.log(results);
   return results.rows._array;
 };
 

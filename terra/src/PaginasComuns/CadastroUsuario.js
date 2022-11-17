@@ -28,12 +28,12 @@ import Header from "../Componentes/Header";
 import { register, login } from '../JsonServer/webapi.usuarios'
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 import { ValidarCadastroContext } from "../contexts/webapi.ValidarCadastro";
+import { AuthContext } from '../contexts/AuthProvider';
 
 const CadastroUsuario = ({ navigation, route }) => {
 
   // Esconde Senha, Avisos e Falta Info
   const [escondeSenha, setEscondeSenha] = useState(true);
-  const [user, setUser] = useState([]);
   const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true);
   const [missInfo, setMissInfo] = useState(false);
   const [userAlredyRegister, setUserAlredyRegister] = useState(false);
@@ -44,15 +44,15 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date());
 
   // Dados Pessoais dos Usuário
-  const [nome, setNome] = useState("Carlos");
-  const [cpf, setCpf] = useState("22222222222");
-  const [telefone, setTelefone] = useState("2733321245");
+  const [nome, setNome] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [telefone, setTelefone] = useState("");
 
   // Endereço do Usuário
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
-  const [numeroCasa, setNumeroCasa] = useState("3");
-  const [cep, setCep] = useState("03511000");
+  const [numeroCasa, setNumeroCasa] = useState("");
+  const [cep, setCep] = useState("");
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
   const [complemento, setComplemento] = useState("");
@@ -62,9 +62,9 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [nomeLoja, setNomeLoja] = useState("");
 
   // Email e Senha
-  const [email, setEmail] = useState("carlos@gmail.com");
-  const [senha, setSenha] = useState("123456");
-  const [confirmarSenha, setConfirmarSenha] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
 
   const {
     getProdutor,
@@ -80,15 +80,21 @@ const CadastroUsuario = ({ navigation, route }) => {
     postValidarCadastro
   } = useContext(ValidarCadastroContext);
 
+  // Usuário logado: Para usar em Meus Dados
+  const { user } = useContext(AuthContext);
+  const userLogado = (user ? Object.values(user) : undefined);
+  //console.log(userLogado);
+
   useEffect(() => {
     // deleteProdutor(7); // OK
-    // deleteCliente(7); // OK
+    // deleteCliente(6); // OK
     // getCliente(3); // OK
     // getProdutor(2); // OK
     buscarEndereco(); // Busca CEP
     DataBase.getConnection();
   }, [cep]);
 
+  // Aceitando cadastrar email igual, verificar
   // Cadastrar Usuário, Validação de Dados e senha
   // CRUD OK - Falta testar o PUT
   const handleCadastrar = () => {
@@ -109,121 +115,79 @@ const CadastroUsuario = ({ navigation, route }) => {
       !confirmarSenha
     ) {
       setMissInfo(true);  // Falta Informação      
+    }
+
+    // Verifica se o user já possui cadastro
+    postValidarCadastro({
+      email: email,
+    }).then();
+    console.log(idCadastrado);
+
+    // Se retornar number, então retornou ID, pois o error é objeto
+    if (typeof (idCadastrado) === "number") {
+      Alert.alert("Esse email já está cadastrado");
+    } else
+
       if (senha != confirmarSenha) {
         Alert.alert("Confirmação de senha incorreta, verifique")
+      } else if (tipoUsuario == 'produtor') {
+        // PRODUTOR
+        postUsuario({
+          nome: nome.trim(),
+          dataNascimento: data.trim(),
+          cpf: cpf.trim(),
+          telefone: telefone.trim(),
+          rua: rua.trim(),
+          bairro: bairro.trim(),
+          numeroCasa: numeroCasa.trim(),
+          cep: cep.trim(),
+          cidade: cidade.trim(),
+          uf: uf.trim(),
+          complemento: complemento.trim(),
+          tipoUsuario: tipoUsuario.trim(),
+          nomeLoja: nomeLoja.trim(),   // Somente produtor
+          email: email.trim(),
+          senha: senha.trim()
+        }).then();
+      } else {
+        // CLIENTE
+        postUsuario({
+          nome: nome.trim(),
+          dataNascimento: data.trim(),
+          cpf: cpf.trim(),
+          telefone: telefone.trim(),
+          rua: rua.trim(),
+          bairro: bairro.trim(),
+          numeroCasa: numeroCasa,
+          cep: cep.trim(),
+          cidade: cidade.trim(),
+          uf: uf.trim(),
+          complemento: complemento.trim(),
+          tipoUsuario: tipoUsuario.trim(),
+          email: email.trim(),
+          senha: senha.trim()
+        }).then();
       }
-    }
-
-    // // Verifica se o user já possui cadastro
-    // postValidarCadastro({
-    //   email: email,
-    // }).then();
-
-    // // Se retornar number, então retornou ID, pois o error é objeto
-    // if (typeof (idCadastrado) === "number") {
-    //   Alert.alert("Esse email já está cadastrado");
-
-    // } else
-      if (tipoUsuario == 'produtor') {
-      // PRODUTOR
-      postUsuario({
-        nome: nome.trim(),
-        dataNascimento: data.trim(),
-        cpf: cpf.trim(),
-        telefone: telefone.trim(),
-        rua: rua.trim(),
-        bairro: bairro.trim(),
-        numeroCasa: numeroCasa.trim(),
-        cep: cep.trim(),
-        cidade: cidade.trim(),
-        uf: uf.trim(),
-        complemento: complemento.trim(),
-        tipoUsuario: tipoUsuario.trim(),
-        nomeLoja: nomeLoja.trim(),   // Somente produtor
-        email: email.trim(),
-        senha: senha.trim()
-      }).then();
-    } else {
-      // CLIENTE
-      postUsuario({
-        nome: nome.trim(),
-        dataNascimento: data.trim(),
-        cpf: cpf.trim(),
-        telefone: telefone.trim(),
-        rua: rua.trim(),
-        bairro: bairro.trim(),
-        numeroCasa: numeroCasa.trim(),
-        cep: cep.trim(),
-        cidade: cidade.trim(),
-        uf: uf.trim(),
-        complemento: complemento.trim(),
-        tipoUsuario: tipoUsuario.trim(),
-        email: email.trim(),
-        senha: senha.trim()
-      }).then();
-    }
     navigation.goBack();
   }
 
-  // // Cadastrar Usuário, Validação de Dados e senha
-  // const handleCadastrar = () => {
-  //   // Verificar se tem algo incompleto no formulário
-  //   if (!nome ||
-  //     !cpf ||
-  //     cpf.length < 11 ||
-  //     !email ||
-  //     !telefone ||
-  //     !rua ||
-  //     !bairro ||
-  //     !numeroCasa ||
-  //     !cidade ||
-  //     !uf ||
-  //     !cep ||
-  //     cep.length < 8 ||
-  //     !senha ||
-  //     !confirmarSenha
-  //   ) {
-  //     setMissInfo(true);  // Falta Informação
-  //     if (senha != confirmarSenha) {
-  //       Alert.alert("Confirmação de senha incorreta, verifique")
-  //     }
-  //   } else {
-  //     login({
-  //       email: email.trim(),
-  //       password: senha.trim() //Ver se precisa de senha pra validar
-  //     }).then(res => {
-  //       if (typeof (res) != "null") {
-  //         //Siginifica que o usuario já esta cadastrado
-  //         setUserAlredyRegister(true);
-  //         Alert.alert("Esse usuário já possui cadastro")
-  //       }
-  //       else {
-  //         setMissInfo(false);
-  //         //Vai registrar o usuario
-  //         register({
-  //           nome: nome.trim(),
-  //           dataNascimento: data,
-  //           cpf: cpf.trim(),
-  //           telefone: telefone.trim(),
-  //           rua: rua.trim(),
-  //           bairro: bairro.trim(),
-  //           numeroCasa: numeroCasa.trim(),
-  //           cep: cep.trim(),
-  //           cidade: cidade.trim(),
-  //           uf: uf.trim(),
-  //           complemento: complemento.trim(),
-  //           tipoUsuario: tipoUsuario,
-  //           email: email.trim(),
-  //           password: senha.trim(),
-  //         }).then(res => console.log(res));
-
-  //         //Usuario foi cadastrado
-  //         navigation.navigate("Login");
-  //       }
-  //     })
-  //   }
-  // };
-
+  /*  putUsuario({    // Aqui foi incluído
+        nome: userLogado[0].nome,
+        cpf: userLogado[0].cpf,
+        dataNascimento: userLogado[0].data,
+        email: email.trim(),
+        senha: senha.trim(),
+        telefone: telefone.trim(),
+        cep: cep.trim(),
+        rua: rua.trim(),
+        numeroCasa: numeroCasa.trim(),
+        bairro: bairro.trim(),
+        complemento: complemento.trim(),
+        cidade: cidade.trim(),
+        uf: uf.trim(),
+        id: id
+      }).then();
+       */
 
   // API: Buscar o Cep
   const buscarEndereco = async () => {
@@ -247,7 +211,7 @@ const CadastroUsuario = ({ navigation, route }) => {
   return (
     <Container>
       <Header
-        title={"Cadastro"}
+        title={userLogado ? "Meus Dados" : "Cadastro"}
         goBack={() => navigation.goBack()} // Só se houver tela empilhada
       >
         <Appbar.Action
@@ -270,30 +234,33 @@ const CadastroUsuario = ({ navigation, route }) => {
           />
 
           {/* RadioButton Cliente ou Produtor */}
-          <View style={styles.radioContainer}>
-            <View style={styles.radioItem}>
-              <RadioButton
-                color={'#3d9d74'}
-                value="cliente"
-                status={tipoUsuario === "cliente" ? "checked" : "unchecked"}
-                onPress={() => setTipoUsuario("cliente")}
-              />
-              <Text style={{ fontSize: 18 }}>Cliente</Text>
-            </View>
-            <View style={styles.radioItem}>
-              <RadioButton
-                color={'#3d9d74'}
-                value="produtor"
-                status={tipoUsuario === "produtor" ? "checked" : "unchecked"}
-                onPress={() => setTipoUsuario("produtor")}
-              />
-              <Text style={{ fontSize: 18 }}>Produtor</Text>
-            </View>
-          </View>
+          {
+            !userLogado && (
+              < View style={styles.radioContainer}>
+                <View style={styles.radioItem}>
+                  <RadioButton
+                    color={'#3d9d74'}
+                    value="cliente"
+                    status={tipoUsuario === "cliente" ? "checked" : "unchecked"}
+                    onPress={() => setTipoUsuario("cliente")}
+                  />
+                  <Text style={{ fontSize: 18 }}>Cliente</Text>
+                </View>
+                <View style={styles.radioItem}>
+                  <RadioButton
+                    color={'#3d9d74'}
+                    value="produtor"
+                    status={tipoUsuario === "produtor" ? "checked" : "unchecked"}
+                    onPress={() => setTipoUsuario("produtor")}
+                  />
+                  <Text style={{ fontSize: 18 }}>Produtor</Text>
+                </View>
+              </View>
+            )}
 
           {/* Nome da Loja (Somente para Produtor) */}
           {
-            tipoUsuario == "produtor" && (
+            !userLogado && tipoUsuario == "produtor" && (
               <Input
                 label="Nome da Loja"
                 onChangeText={setNomeLoja}
@@ -308,8 +275,9 @@ const CadastroUsuario = ({ navigation, route }) => {
           <Input
             label="Nome"
             onChangeText={setNome}
-            value={nome}
-            error={missInfo && !nome ? true : false}
+            value={userLogado ? userLogado[0].nome : nome}
+            disabled={userLogado ? true : false}
+            error={!userLogado && (missInfo && !nome) ? true : false}
             activeOutlineColor={"#3d9d74"}
           />
 
@@ -323,8 +291,9 @@ const CadastroUsuario = ({ navigation, route }) => {
               maxLength={11}
               onChangeText={setCpf}
               keyboardType="decimal-pad"
-              value={cpf}
-              error={missInfo && !cpf ? true : false}
+              value={userLogado ? userLogado[0].cpf : cpf}
+              disabled={userLogado ? true : false}
+              error={!userLogado && (missInfo && !cpf) ? true : false}
               activeOutlineColor={"#3d9d74"}
             />
 
@@ -345,12 +314,15 @@ const CadastroUsuario = ({ navigation, route }) => {
                 />
               )
             }
-            <TouchableOpacity onPress={() => setShow(true)}>
+            <TouchableOpacity
+              disabled={userLogado ? true : false}
+              onPress={() => setShow(true)}>
               <TextInput
                 style={styles.textInput}
                 label="Data Nascimento"
                 mode="outlined"
                 value={data}
+                disabled={userLogado ? true : false}
                 left={<TextInput.Icon icon="calendar" />}
                 editable={false}
               />
@@ -484,27 +456,28 @@ const CadastroUsuario = ({ navigation, route }) => {
           />
 
           {/* Confirmar Senha */}
-          <Input
-            label="Confirmar Senha"
-            value={confirmarSenha}
-            secureTextEntry={escondeConfirmarSenha}
-            error={missInfo && !confirmarSenha ? true : false}
-            activeOutlineColor={"#3d9d74"}
-            right={
-              <TextInput.Icon
-                onPress={() =>
-                  escondeConfirmarSenha
-                    ? setEscondeConfirmarSenha(false)
-                    : setEscondeConfirmarSenha(true)
-                }
-                icon={escondeConfirmarSenha ? 'eye-off' : 'eye'}
-              />
-            }
-            onChangeText={setConfirmarSenha}
-          />
+          {!userLogado && (
+            <Input
+              label="Confirmar Senha"
+              value={confirmarSenha}
+              secureTextEntry={escondeConfirmarSenha}
+              error={missInfo && !confirmarSenha ? true : false}
+              activeOutlineColor={"#3d9d74"}
+              right={
+                <TextInput.Icon
+                  onPress={() =>
+                    escondeConfirmarSenha
+                      ? setEscondeConfirmarSenha(false)
+                      : setEscondeConfirmarSenha(true)
+                  }
+                  icon={escondeConfirmarSenha ? 'eye-off' : 'eye'}
+                />
+              }
+              onChangeText={setConfirmarSenha}
+            />
+          )}
 
-          {/* Verifica se email já tem cadastro */}
-          {userAlredyRegister && (
+          {!userLogado && userAlredyRegister && (
             <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>
           )}
 
@@ -512,7 +485,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           <View style={styles.viewBotaoCadastrar}>
             <Botao
               style={styles.textoBotao}
-              textoBotao="Cadastrar"
+              textoBotao={userLogado ? "Atualizar" : "Cadastrar"}
               buttonColor='#3d9d74'
               onPress={handleCadastrar}
             />
