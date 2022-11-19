@@ -6,7 +6,7 @@ export const ProdutoContext = createContext({});
 const ProdutoProvider = ({ children }) => {
 
   const [produto, setProduto] = useState([]);
-  const [produtoCarrinho, setProdutoCarrinho] = useState([]);
+  const [produtoCarrinhoApi = [], setprodutoCarrinhoApi] = useState(); // aqui não funciona pq só seta o ultimo
 
   //GET ALL - OK
   const getBuscaProdutoCliente = async () => {
@@ -43,7 +43,7 @@ const ProdutoProvider = ({ children }) => {
   }
 
   // GET - OK
-  const getProduto = async (id) => {
+  const getProdutoCarrinho = async (id) => {
     console.log(`${url}/produtos/carrinho/${id}`);
     return await fetch(`${url}/produtos/carrinho/${id}`,
       {
@@ -54,8 +54,8 @@ const ProdutoProvider = ({ children }) => {
       })
       .then(response => response.json())
       .then(json => {
-        console.log("json", json)
-        setProdutoCarrinho(json);
+      //  console.log("json", json)
+      setprodutoCarrinhoApi(json);
       })
       .catch(error => console.error(error));
   }
@@ -106,13 +106,13 @@ const ProdutoProvider = ({ children }) => {
       value={{
         produto,
         setProduto,
-        getProduto,
+        getProdutoCarrinho,
         postProduto,
         putProduto,
         deleteProduto,
         getBuscaProdutoCliente,
         BuscaProdutos,
-        produtoCarrinho
+        produtoCarrinhoApi
       }}
     >
       {children}

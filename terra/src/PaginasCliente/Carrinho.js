@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { List, Button, Snackbar } from "react-native-paper";
+import { List, Button, Snackbar, TextInput } from "react-native-paper";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../contexts/AuthProvider";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
@@ -27,13 +27,15 @@ import Botao from "../Componentes/Botao";
 const Carrinho = () => {
   const navigation = useNavigation();
   const { user } = useContext(AuthContext);
-  const { produto, getAllProduto, getProduto, produtoCarrinho } = useContext(ProdutoContext);
+  const { produto, getAllProduto, getProdutoCarrinho, produtoCarrinhoApi } = useContext(ProdutoContext);
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
   //Produtos do carrinho
   const [cartProdutos, setCartProdutos] = useState([]);
   const [valorTotal, setPrecoTotal] = useState(0);
+
+  const [resultados, setResultados] = useState([]);
 
   const precoTotal = () => {
     let soma = 0;
@@ -45,28 +47,39 @@ const Carrinho = () => {
     }
   };
 
+  // TESTE CARLOS TOTAL
+  // const Total = () => {
+  //   let soma = 0;
+  //   for (let i in resultados) {
+  //     soma += resultados[i].preco;
+  //     console.log(resultados[i].preco);
+  //   }
+  //   setPrecoTotal(soma);
+  //   console.log("soma: ", soma)
+  // }
+
   // TESTES CARLOS
   useEffect(() => {
-    //deleteCarrinho(4)
     Database.getConnection();
 
-
     getCarrinho(user.cliente.id)
-      //.then(res => console.log(res)); // Tudo
       .then((res) => {
-        for (let i in res) {
-          // console.log(res[i]); // Todo objeto
-          console.log(res[i].idProduto); // ID
-          //let resId = res[i].idProduto;
-
-          getProduto(res[i].idProduto)
-            .then()
-        }
-        // console.log("aqui", produtoCarrinho); // pega somente o últmo no context
-      })
-
-
+        console.log(res);
+        setResultados(res);
+      })   
+    .then(() => {
+      let soma = 0;
+      for (let i in resultados) {
+        soma += resultados[i].preco;
+        console.log(resultados[i].preco);
+      }
+      setPrecoTotal(soma);
+      console.log("soma: ", soma)
+    })
   }, []);
+
+
+
 
   // TESTES GABRIEL
   // useEffect(() => {
@@ -90,7 +103,7 @@ const Carrinho = () => {
   //       }
   //       setCartProdutos(b); // Pega os ID
   //       // console.log(cartProdutos)      
-        
+
   //     })
   //     .catch((e) => console.log(e));
   //   console.log(cartProdutos); // os ID
@@ -117,7 +130,7 @@ const Carrinho = () => {
 
     onToggleSnackBar();
 
-    // deleteCarrinho(idProduto)
+    deleteCarrinho(idProduto)
     //   .then((resposta) => console.log(resposta))
     //   .catch((e) => console.log(e));
   };
@@ -125,7 +138,7 @@ const Carrinho = () => {
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("CadastrarProduto", { item })}
+      // onPress={() => navigation.navigate("CadastrarProduto", { item })}
       >
         <View style={{ width: 500 }}>
           <List.Item
@@ -141,7 +154,7 @@ const Carrinho = () => {
               <>
                 <View style={styles.viewRemover}>
                   <Text>
-                    <TouchableOpacity onPress={deleteItemCarrinho}>
+                    <TouchableOpacity onPress={() => deleteItemCarrinho(item.id)}>
                       <Text style={styles.removerCarrinho}>Remover</Text>
                     </TouchableOpacity>
                   </Text>
@@ -160,7 +173,6 @@ const Carrinho = () => {
 
   return (
     <Container>
-
       <Header
         title={"Carrinho"}
         // Só se houver tela empilhada
@@ -169,17 +181,23 @@ const Carrinho = () => {
 
       <Body>
         <FlatList
-          data={produto}
+          data={resultados}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
 
         <View style={styles.containerResultado}>
           <Text style={styles.textoResultado}>
-            {produto != undefined ? produto.length : 0} Itens
+            {resultados != undefined ? resultados.length : 0} Itens
           </Text>
-          <Text style={styles.textoResultado}>Total: R$ {valorTotal}</Text>
+
+          <Text
+            style={styles.textoResultado}
+          >Total: R$ {valorTotal ? valorTotal.toFixed(2) : 0}
+          </Text>
+
         </View>
+
 
         <View style={styles.viewBotao}>
 

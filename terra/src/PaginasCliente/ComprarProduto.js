@@ -83,6 +83,9 @@ const ComprarProduto = ({ route }) => {
         idCliente: user.cliente.id,
         idProdutor: produto[0].produtorId,
         idProduto: produto[0].id,
+        nome: produto[0].nome,
+        embalagem: produto[0].embalagem,
+        preco: produto[0].preco,
         quantidadeProduto: quantidade,
         precoTotal: precoTotal
       }
