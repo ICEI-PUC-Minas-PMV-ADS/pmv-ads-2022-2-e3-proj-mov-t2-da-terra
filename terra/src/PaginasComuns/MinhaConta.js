@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { Avatar } from 'react-native-paper';
+//import { launchImageLibrary } from 'react-native-image-picker';
+
+import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ToastAndroid, Alert } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -13,6 +16,43 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 const MinhaConta = () => {
   const navigation = useNavigation();
+
+  const [Pic, SetPic] = React.useState('');
+
+  const setToastMsg = msg=> {
+    ToastAndroid.showWithGravity(
+      msg,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
+  };
+
+    const removeImage = () => {
+      SetPic(' ')
+      setToastMsg('Imagem removida');
+    };
+    
+    const uploadImage = () => {
+      let options = {
+        mediaType: 'photo',
+        quality: 1,
+        includeBase64: true,
+      };
+
+      launchImageLibrary(options, response => {
+        if(response.didCancel) {
+          setToastMsg('Seleção de imagem cancelada')
+        } else if(response.errorCode=='permissao') {
+          setToastMsg('Permissão náo satisfeita') 
+        } else if(response.errorCode=='others') {
+          setToastMsg(response.errorMessage);
+        } else if(response.assets[0].fileSize > 2097152) {
+          Alert.alert('Tamanho máximo excedido', 'Favor escolher imagem abaixo de 2 MB', [{text: 'OK'}]);
+        } else {
+          SetPic(response.assets[0].base64);
+        }
+      });
+    };
 
   const { user } = useContext(AuthContext);
   const [idUser, setIdUser] = useState();
@@ -48,10 +88,17 @@ const MinhaConta = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
-      <Image
-        style={styles.avatar}
-        source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
-      />
+      <View style={styles.photoButtonContainer}>       
+      <TouchableHighlight 
+      onPress={() => uploadImage()}
+      underlayColor='rgba(0,0,0,0)'>
+
+        <Avatar.Image
+        size={250}
+        source={{uri:'https://bootdey.com/img/Content/avatar/avatar6.png,' +Pic}}
+        />
+      </TouchableHighlight>
+        </View>
       {/* <Text>aqui: {userLogado.nome}</Text> */}
       <View style={styles.body}>
         <View style={styles.bodyContent}>
@@ -61,6 +108,22 @@ const MinhaConta = () => {
 
           </Text>
 
+        <View style={[styles.photoButtonContainer, {marginTop:25, flexDirection: 'row'}]}>
+            <Botao
+              onPress={() => uploadImage()}
+              style={styles.textoBotao}
+              buttonColor={"#3d9d74"}
+              textoBotao="Upload da Imagem"
+              mode="contained"
+              />
+            <Botao
+              onPress={() => removeImage()}
+              style={[styles.textoBotao, {marginLeft: 20}]}
+              buttonColor={"#3d9d74"}
+              textoBotao="Remover imagem"
+              mode="contained"
+              />
+        </View>
           <TouchableOpacity onPress={() => navigation.navigate("CadastroUsuario")} style={styles.buttonContainer}>
             <Botao
               style={styles.textoBotao}
@@ -131,6 +194,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 20,
     borderRadius: 30,
+  },
+  photoButtonContainer: {
+    marginTop: 100,
+    flexDirection: "row",
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   textoBotao: {
     textAlign: "center",
