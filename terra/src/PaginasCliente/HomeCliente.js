@@ -16,14 +16,13 @@ const HomeCliente = () => {
     { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
     { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },    
     { key: "carrinho", title: "Carrinho", focusedIcon: "cart" },
-    { key: "minhaConta", title: "Minha Conta", focusedIcon: "account" },
+    
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
     buscarProdutos: BuscarProdutos,
     meusPedidos: MeusPedidos,
     minhaConta: MinhaConta,
-    carrinho: Carrinho
   });
 
   return (

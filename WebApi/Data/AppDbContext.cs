@@ -13,6 +13,8 @@ namespace WebApi.Data
     public DbSet<Pedido> Pedidos { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Produtor> Produtores { get; set; }
+    // public DbSet<ItemPedido> ItemPedidos { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
