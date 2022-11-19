@@ -47,6 +47,10 @@ namespace WebApi.Controllers
       var produto = await context.Produtos
         .FirstOrDefaultAsync(x => x.Id == id);
 
+      produto.Descricao = "";
+      produto.Categoria = "";
+      produto.DataCadastro = "";
+
       return produto == null
       ? NotFound(new { message = "Produto não encontrado" })
       : Ok(produto);

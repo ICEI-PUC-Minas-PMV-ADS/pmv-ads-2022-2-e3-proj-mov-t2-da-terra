@@ -18,7 +18,8 @@ import {
   Dialog,
   Button,
   RadioButton,
-  Provider
+  Provider,
+  FAB
 } from "react-native-paper";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -65,99 +66,96 @@ const BuscarProdutos = () => {
   const passProdutoRota = (produto) => {
     //Vai passar produto clicado para o contexto,este,esta passando pelas
     // rotas
-
     setProduto([produto])
     navigation.navigate("ComprarProduto")
   }
 
-  // Terminar Filtro
-  const portalBuscaCategoria = (click = true) => {
-    return (
-      <>
-        {/* {
-          click &&
-          console.log(click)
+  // // Terminar Filtro
+  // const portalBuscaCategoria = (click = true) => {
+  //   return (
+  //     <>
+  //       {/* {
+  //         click &&
+  //         console.log(click)
 
-        } */}
-        <View style={styles.viewPrecoEmbalagem}>
-          {/* <Text style={styles.textTitulos}>Categoria</Text>
-          <TouchableOpacity onPress={showDialog}>
-            <TextInput
-              style={styles.inputEspecial}
-              editable={false}
-              value={categoria}
-              onChangeText={(text) => setCategoria(text)}
-              left={<TextInput.Icon icon='segment' />}
-            />
-          </TouchableOpacity> */}
-        </View>
-        <View>
-          <Portal>
-            <Dialog style={styles.dialog}
-              visible={visible}
-              onDismiss={hideDialog}>
-              <Dialog.Title>Selecione a Categoria</Dialog.Title>
-              <Dialog.Content>
-                <View style={styles.radioItem}>
-                  <RadioButton
-                    value="Verduras"
-                    status={categoria === 'Verduras' ? 'checked' : 'unchecked'}
-                    onPress={() => setCategoria('Verduras')}
-                  /><Text>Verduras</Text>
-                </View>
-                <View style={styles.radioItem}>
-                  <RadioButton
-                    value="Frutas"
-                    status={categoria === 'Frutas' ? 'checked' : 'unchecked'}
-                    onPress={() => setCategoria('Frutas')}
-                  /><Text>Frutas</Text>
-                </View>
-                <View style={styles.radioItem}>
-                  <RadioButton
-                    value="Hortaliças"
-                    status={categoria === 'Hortaliças' ? 'checked' : 'unchecked'}
-                    onPress={() => setCategoria('Hortaliças')}
-                  /><Text >Hortaliças</Text>
-                </View>
-                <View style={styles.radioItem}>
-                  <RadioButton
-                    value="Folhagens"
-                    status={categoria === 'Folhagens' ? 'checked' : 'unchecked'}
-                    onPress={() => setCategoria('Folhagens')}
-                  /><Text>Folhagens</Text>
-                </View>
-                <View style={styles.radioItem}>
-                  <RadioButton
-                    value="Bebidas"
-                    status={categoria === 'Bebidas' ? 'checked' : 'unchecked'}
-                    onPress={() => setCategoria('Bebidas')}
-                  /><Text>Bebidas</Text>
-                </View>
-                <View style={styles.radioItem}>
-                  <RadioButton
-                    value="Outros"
-                    status={categoria === 'Outros' ? 'checked' : 'unchecked'}
-                    onPress={() => setCategoria('Outros')}
-                  /><Text>Outros</Text>
-                </View>
-              </Dialog.Content>
-              <Dialog.Actions>
-                <Button onPress={hideDialog}>OK</Button>
-              </Dialog.Actions>
-            </Dialog>
-          </Portal>
-        </View>
-      </>
-    );
-  }
+  //       } */}
+  //       <View style={styles.viewPrecoEmbalagem}>
+  //         {/* <Text style={styles.textTitulos}>Categoria</Text>
+  //         <TouchableOpacity onPress={showDialog}>
+  //           <TextInput
+  //             style={styles.inputEspecial}
+  //             editable={false}
+  //             value={categoria}
+  //             onChangeText={(text) => setCategoria(text)}
+  //             left={<TextInput.Icon icon='segment' />}
+  //           />
+  //         </TouchableOpacity> */}
+  //       </View>
+  //       <View>
+  //         <Portal>
+  //           <Dialog style={styles.dialog}
+  //             visible={visible}
+  //             onDismiss={hideDialog}>
+  //             <Dialog.Title>Selecione a Categoria</Dialog.Title>
+  //             <Dialog.Content>
+  //               <View style={styles.radioItem}>
+  //                 <RadioButton
+  //                   value="Verduras"
+  //                   status={categoria === 'Verduras' ? 'checked' : 'unchecked'}
+  //                   onPress={() => setCategoria('Verduras')}
+  //                 /><Text>Verduras</Text>
+  //               </View>
+  //               <View style={styles.radioItem}>
+  //                 <RadioButton
+  //                   value="Frutas"
+  //                   status={categoria === 'Frutas' ? 'checked' : 'unchecked'}
+  //                   onPress={() => setCategoria('Frutas')}
+  //                 /><Text>Frutas</Text>
+  //               </View>
+  //               <View style={styles.radioItem}>
+  //                 <RadioButton
+  //                   value="Hortaliças"
+  //                   status={categoria === 'Hortaliças' ? 'checked' : 'unchecked'}
+  //                   onPress={() => setCategoria('Hortaliças')}
+  //                 /><Text >Hortaliças</Text>
+  //               </View>
+  //               <View style={styles.radioItem}>
+  //                 <RadioButton
+  //                   value="Folhagens"
+  //                   status={categoria === 'Folhagens' ? 'checked' : 'unchecked'}
+  //                   onPress={() => setCategoria('Folhagens')}
+  //                 /><Text>Folhagens</Text>
+  //               </View>
+  //               <View style={styles.radioItem}>
+  //                 <RadioButton
+  //                   value="Bebidas"
+  //                   status={categoria === 'Bebidas' ? 'checked' : 'unchecked'}
+  //                   onPress={() => setCategoria('Bebidas')}
+  //                 /><Text>Bebidas</Text>
+  //               </View>
+  //               <View style={styles.radioItem}>
+  //                 <RadioButton
+  //                   value="Outros"
+  //                   status={categoria === 'Outros' ? 'checked' : 'unchecked'}
+  //                   onPress={() => setCategoria('Outros')}
+  //                 /><Text>Outros</Text>
+  //               </View>
+  //             </Dialog.Content>
+  //             <Dialog.Actions>
+  //               <Button onPress={hideDialog}>OK</Button>
+  //             </Dialog.Actions>
+  //           </Dialog>
+  //         </Portal>
+  //       </View>
+  //     </>
+  //   );
+  // }
 
 
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
         onPress={() => passProdutoRota(item)}
-
-
       >
         <List.Item
           title={`${item.nome}`}
@@ -171,7 +169,7 @@ const BuscarProdutos = () => {
           description={`Estoque: ${item.estoque} ${item.embalagem}`}
         />
       </TouchableOpacity >
-
+      
     </View>
   );
 
@@ -188,13 +186,22 @@ const BuscarProdutos = () => {
         />
       </SafeAreaView>
       <Body>
+      
         <FlatList
           data={resultados}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
+        <FAB
+          style={styles.fab}
+          small
+          icon="cart"
+          onPress={() => navigation.navigate("Carrinho")}
+        />
       </Body>
+      
     </Container>
+   
     //   </Provider>
   );
 };
@@ -238,7 +245,15 @@ const styles = StyleSheet.create({
     marginLeft: 14,
     fontSize: 20,
     fontWeight: 'bold'
-  }
+  },
+  fab: {
+    position: "absolute",
+    margin: 12,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#FF8919'
+  },
+
 });
 
 export default BuscarProdutos;

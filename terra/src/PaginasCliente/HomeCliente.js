@@ -15,7 +15,7 @@ const HomeCliente = () => {
   const [routes] = useState([
     { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
     { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },    
-    { key: "carrinho", title: "Carrinho", focusedIcon: "cart" },
+    { key: "minhaConta", title: "Minha Conta", focusedIcon: "account" },
     
   ]);
 

@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { List, Button, Snackbar } from "react-native-paper";
+import { List, Button, Snackbar, TextInput } from "react-native-paper";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../contexts/AuthProvider";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
@@ -27,14 +27,16 @@ import Botao from "../Componentes/Botao";
 const Carrinho = () => {
   const navigation = useNavigation();
   const { user } = useContext(AuthContext);
-  const { produto, getAllProduto, getProduto, produtoCarrinho } = useContext(ProdutoContext);
+  const { produto, getAllProduto, getProdutoCarrinho, produtoCarrinhoApi } =
+    useContext(ProdutoContext);
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
   //Produtos do carrinho
   const [cartProdutos, setCartProdutos] = useState([]);
   const [valorTotal, setPrecoTotal] = useState(0);
-
+  const [removed, setRemoved] = useState(false);
+  const [resultados, setResultados] = useState([]);
   const precoTotal = () => {
     let soma = 0;
     if (cartProdutos != undefined) {
@@ -44,29 +46,62 @@ const Carrinho = () => {
       setPrecoTotal(soma.toFixed(2));
     }
   };
+  const enviarPedido = () => {
+    navigation.navigate("PedidoEnviado");
+    //VAI TER COISA AQUI DEPOIS
+  };
+  // TESTE CARLOS TOTAL
+  // const Total = () => {
+  //   let soma = 0;
+  //   for (let i in resultados) {
+  //     soma += resultados[i].preco;
+  //     console.log(resultados[i].preco);
+  //   }
+  //   setPrecoTotal(soma);
+  //   console.log("soma: ", soma)
+  // }
 
   // TESTES CARLOS
   useEffect(() => {
-    //deleteCarrinho(4)
     Database.getConnection();
 
+    getCarrinho(user.cliente.id)
+      .then((res) => {
+        console.log(res);
+        setResultados(res);
+      })
+      .then(() => {
+        let soma = 0;
+        for (let i in resultados) {
+          soma += resultados[i].preco;
+          console.log(resultados[i].preco);
+        }
+
+        setPrecoTotal(soma);
+
+        console.log("soma: ", soma);
+      });
+  }, []);
+  useEffect(() => {
+    Database.getConnection();
 
     getCarrinho(user.cliente.id)
-      //.then(res => console.log(res)); // Tudo
       .then((res) => {
-        for (let i in res) {
-          // console.log(res[i]); // Todo objeto
-          console.log(res[i].idProduto); // ID
-          //let resId = res[i].idProduto;
-
-          getProduto(res[i].idProduto)
-            .then()
-        }
-        // console.log("aqui", produtoCarrinho); // pega somente o últmo no context
+        console.log(res);
+        setResultados(res);
       })
+      .then(() => {
+        let soma = 0;
+        for (let i in resultados) {
+          soma += resultados[i].preco;
+          console.log(resultados[i].preco);
+        }
 
+        setPrecoTotal(soma);
 
-  }, []);
+        console.log("soma: ", soma);
+      });
+  }, [visible]);
 
   // TESTES GABRIEL
   // useEffect(() => {
@@ -89,8 +124,8 @@ const Carrinho = () => {
   //           .catch((e) => console.log(e));
   //       }
   //       setCartProdutos(b); // Pega os ID
-  //       // console.log(cartProdutos)      
-        
+  //       // console.log(cartProdutos)
+
   //     })
   //     .catch((e) => console.log(e));
   //   console.log(cartProdutos); // os ID
@@ -114,23 +149,25 @@ const Carrinho = () => {
   //     .catch((e) => console.log(e));
   // };
   const deleteItemCarrinho = (idProduto) => {
-
     onToggleSnackBar();
 
-    // deleteCarrinho(idProduto)
-    //   .then((resposta) => console.log(resposta))
-    //   .catch((e) => console.log(e));
+    deleteCarrinho(idProduto)
+      .then((resposta) => {
+        setRemoved(true);
+      })
+      .catch((e) => console.log(e));
   };
 
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("CadastrarProduto", { item })}
+      // onPress={() => navigation.navigate("CadastrarProduto", { item })}
       >
         <View style={{ width: 500 }}>
           <List.Item
-            title={`${item.nome != undefined ? item.nome : ""} (${item.embalagem ? item.embalagem : ""
-              })`}
+            title={`${item.nome != undefined ? item.nome : ""} (${
+              item.embalagem ? item.embalagem : ""
+            })`}
             left={() => (
               <Image
                 style={styles.img}
@@ -141,26 +178,27 @@ const Carrinho = () => {
               <>
                 <View style={styles.viewRemover}>
                   <Text>
-                    <TouchableOpacity onPress={deleteItemCarrinho}>
+                    <TouchableOpacity
+                      onPress={() => deleteItemCarrinho(item.id)}
+                    >
                       <Text style={styles.removerCarrinho}>Remover</Text>
                     </TouchableOpacity>
                   </Text>
                 </View>
               </>
             )}
-            description={`R$ ${item.preco != undefined ? item.preco : 0} / ${item.embalagem != undefined ? item.embalagem : ""
-              }
+            description={`R$ ${item.preco != undefined ? item.preco : 0} / ${
+              item.embalagem != undefined ? item.embalagem : ""
+            }
             `}
           />
         </View>
-        {/* <Text style={styles.removerCarrinho}>asdasda</Text> */}
       </TouchableOpacity>
     </View>
   );
 
   return (
     <Container>
-
       <Header
         title={"Carrinho"}
         // Só se houver tela empilhada
@@ -168,33 +206,48 @@ const Carrinho = () => {
       />
 
       <Body>
+      {resultados.length == 0 && (
+        <View style={styles.viewCarrinhoVazio}>
+          <Image
+            style={styles.imgCarrinho}
+            source={require("../assets/Carrinho_vazio.png")}
+          />
+          <Text style={styles.textAvisoCarrinhoVazio}>
+            Ops...Carrinho Vazio
+          </Text>
+          <Text style={styles.textAvisoCarrinhoVazio}>
+            Adicione alguns produtos para aparecer aqui
+          </Text>
+        </View>
+      )}
         <FlatList
-          data={produto}
+          data={resultados}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
 
         <View style={styles.containerResultado}>
           <Text style={styles.textoResultado}>
-            {produto != undefined ? produto.length : 0} Itens
+            {resultados != undefined ? resultados.length : 0} Itens
           </Text>
-          <Text style={styles.textoResultado}>Total: R$ {valorTotal}</Text>
+
+          <Text style={styles.textoResultado}>
+            Total: R$ {valorTotal ? valorTotal.toFixed(2) : 0}
+          </Text>
         </View>
 
         <View style={styles.viewBotao}>
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate("PedidoEnviado")}
-          >
-
-            <Botao
-              style={styles.textoBotao}
-              textoBotao="Enviar Pedido"
-              mode="contained"
-              buttonColor="#3d9d74"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { }}>
+          {resultados.length > 0 && (
+            <TouchableOpacity onPress={() => enviarPedido()}>
+              <Botao
+                style={styles.textoBotao}
+                textoBotao="Enviar Pedido"
+                mode="contained"
+                buttonColor="#3d9d74"
+              />
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity onPress={() => {}}>
             <Snackbar
               visible={visible}
               duration={2000}
@@ -233,6 +286,21 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: "#fff",
     elevation: 5,
+  },
+  imgCarrinho: {
+    width: 90,
+    height: 90,
+    alignSelf:"center"
+  },
+  viewCarrinhoVazio: {
+    alignSelf: "center",
+    marginTop:180,
+  
+  },
+  textAvisoCarrinhoVazio: {
+    fontSize: 22,
+    textAlign: "center",
+    letterSpacing: 1.7,
   },
   viewBotao: {
     marginBottom: 20,
@@ -279,15 +347,15 @@ const styles = StyleSheet.create({
   },
   removerCarrinho: {
     marginRight: 180,
-    fontSize: 17,
-    letterSpacing: 1.7
+    fontSize: 16,
+    letterSpacing: 1.7,
   },
   viewRemover: {
     flexDirection: "row",
     marginTop: 70,
     marginRight: 50,
-    width: 200
-  }
+    width: 200,
+  },
 });
 
 export default Carrinho;

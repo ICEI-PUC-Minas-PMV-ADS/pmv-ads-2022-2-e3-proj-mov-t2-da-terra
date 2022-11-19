@@ -122,7 +122,7 @@ namespace WebApi.Controllers
         cliente.Complemento = model.Complemento;
         cliente.Cidade = model.Cidade;
         cliente.Uf = model.Uf;
-        
+
         context.Clientes.Update(cliente);
         await context.SaveChangesAsync();
 
@@ -138,7 +138,7 @@ namespace WebApi.Controllers
 
     // DELETE: api/Usuarios/5    
     [HttpDelete(template: "clientes/{id}")]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> DeleteCliente(
         [FromServices] AppDbContext context,
         [FromRoute] int id)

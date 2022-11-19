@@ -83,6 +83,9 @@ const ComprarProduto = ({ route }) => {
         idCliente: user.cliente.id,
         idProdutor: produto[0].produtorId,
         idProduto: produto[0].id,
+        nome: produto[0].nome,
+        embalagem: produto[0].embalagem,
+        preco: produto[0].preco,
         quantidadeProduto: quantidade,
         precoTotal: precoTotal
       }
@@ -91,7 +94,7 @@ const ComprarProduto = ({ route }) => {
 
   const renderItem = ({ item }) => (
     <View>
-      <View style={{ marginVertical: 10 }}>
+      <View style={{ marginVertical: 5 }}>
         <Text style={styles.textNomeProduto}>
           {item.nome} {item.embalagem}
         </Text>
@@ -260,19 +263,18 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 7,
   },
   img: {
-    maxWidth: 228,
-    maxHeight: 175,
+    maxWidth: 218,
+    maxHeight: 155,
     flexGrow: 1,
     flexShrink: 1,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderRadius: 12,
     marginRight: 10,
     alignSelf: "center",
   },
 
   // Botão Adicionar ao Carrinho
   viewBotaoComprar: {
-    marginVertical: 5,
+    marginVertical: 2,
     alignSelf: 'center',
   },
   labelBotao: {
@@ -296,7 +298,7 @@ const styles = StyleSheet.create({
   textPreco: {
     marginTop: 10,
     marginLeft: 20,
-    fontSize: 21,
+    fontSize: 18,
     lineHeight: 26,
     alignSelf: "flex-start",
   },

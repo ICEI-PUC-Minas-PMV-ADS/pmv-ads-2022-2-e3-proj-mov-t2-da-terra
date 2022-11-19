@@ -33,15 +33,16 @@ const PedidoEnviado = () => {
         source={require("../assets/green-checked.png")}
       />
       <View style={styles.qrcode} >
+        {/* Ou deixar o repositório ou colocar o value como o cpf do vendedor,simulando um pix */}
         <QRCode
         size={240}
         logo={logo}
         logoSize={70}
-        value={"dzfsd"}/>
+        value="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2022-2-e3-proj-mov-t2-da-terra"/>
       </View>
 
       <Text style={styles.aviso}>
-          Você tem ate as {horas+1}:{minutos}:{segundos<10?"0"+segundos:segundos} do {date} para realizar o pagemento,caso exceda o tempo,o pedido será cancelado
+          Você tem ate as {horas+1}:{minutos<10?"0"+minutos:minutos}:{segundos<10?"0"+segundos:segundos} do {date} para realizar o pagamento,caso exceda o tempo,o pedido será cancelado
       </Text>
 
       <View style={{ marginTop: 10 }}>
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginTop: 30,
-    letterSpacing: 3,
+    letterSpacing: 1.8,
     padding:10
   },
   textoBotao: {
