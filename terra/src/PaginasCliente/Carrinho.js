@@ -225,7 +225,7 @@ const Carrinho = () => {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
-
+ {resultados.length != 0 && (
         <View style={styles.containerResultado}>
           <Text style={styles.textoResultado}>
             {resultados != undefined ? resultados.length : 0} Itens
@@ -235,7 +235,7 @@ const Carrinho = () => {
             Total: R$ {valorTotal ? valorTotal.toFixed(2) : 0}
           </Text>
         </View>
-
+ )}
         <View style={styles.viewBotao}>
           {resultados.length > 0 && (
             <TouchableOpacity onPress={() => enviarPedido()}>
