@@ -30,7 +30,7 @@ const ComprarProduto = ({ route }) => {
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
-  const [avisoSnack,setAvisoSnack]= useState();
+  const [avisoSnack, setAvisoSnack] = useState();
   // Alterar Rota para provider
   // const { item } = route.params ? route.params : {};
   const { produto } = useContext(ProdutoContext);
@@ -41,31 +41,24 @@ const ComprarProduto = ({ route }) => {
   let contador = quantidade;
   let precoTotal = quantidade * produto[0].preco
 
-
   const upQtd = () => {
-    if(contador<produto[0].estoque){
-
+    if (contador < produto[0].estoque) {
       setQuantidade(contador += 1);
-
     }
-   else if(quantidade+1>produto[0].estoque){ 
-    setAvisoSnack(" Você não poder pedir mais do que o estoque do Vendedor")
-     onToggleSnackBar()
+    else if (quantidade + 1 > produto[0].estoque) {
+      setAvisoSnack(" Você não poder pedir mais do que o estoque do Vendedor")
+      onToggleSnackBar()
       contador--
-   }
-    
-
+    }
   };
 
   const downQtd = () => {
     if (contador == 1) {
-       onToggleSnackBar()
+      onToggleSnackBar()
       setAvisoSnack(`Peça pelo menos 1 ${produto[0].embalagem} do Produto`)
       setQuantidade(contador = 1);
     }
     else {
-     
-
       setQuantidade(contador -= 1);
     }
   };
@@ -98,7 +91,10 @@ const ComprarProduto = ({ route }) => {
         <Text style={styles.textNomeProduto}>
           {item.nome} {item.embalagem}
         </Text>
-        <Text style={styles.textPreco}>R$ {item.preco.toFixed(2)}, TOTAL R$ {precoTotal.toFixed(2)}</Text>
+        <Text
+          style={styles.textPreco}>
+          R$ {item.preco.toFixed(2)}, TOTAL R$ {precoTotal.toFixed(2)}
+        </Text>
       </View>
 
       {/*Imagem*/}
@@ -205,8 +201,7 @@ const ComprarProduto = ({ route }) => {
       <Header title={"Anúncio"} goBack={() => navigation.goBack()}>
         <Appbar.Action
           style={{ marginRight: 10 }}
-          icon="cart" onPress={addProdutoCarrinho} />
-   
+          icon="cart" onPress={() => navigation.navigate("Carrinho")} />
       </Header>
 
       <Body>

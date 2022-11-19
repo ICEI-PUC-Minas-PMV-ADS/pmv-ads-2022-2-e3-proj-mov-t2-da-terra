@@ -4,18 +4,23 @@ namespace WebApi.Models;
 
 public class Pedido
 {
-    [Key]
-    public int Id { get; set; }
-    public int ProdutorId { get; set; }
-    [ForeignKey("ProdutorId")]//Seria o ID do Vendedor no caso
-    public Usuario Produtor;
-    public int ClienteId { get; set; }
-    [ForeignKey("ClienteId")]//Seria o ID do Vendedor no caso
-    public Cliente Cliente;
-    
-    public string DataPedido { get; set; }
-    public int QuantidadeProduto { get; set; }
-    public decimal PrecoTotal  { get; set; }
-    public string Status { get; set; }
-  
+  public int Id { get; set; }
+
+  public int ClienteId { get; set; }
+  [ForeignKey("ClienteId")]
+  public Cliente Cliente;
+
+  public int ProdutorId { get; set; }
+  [ForeignKey("ProdutorId")]
+  public Produtor Produtor;
+
+  public int ProdutoId { get; set; }
+  [ForeignKey("ProdutoId")]
+  public Produto Produto;
+
+  public decimal PrecoTotalPedido { get; set; }
+  // Enviado, Pendente, Finalizado
+  public string Status { get; set; }
+  public string DataPedido { get; set; }
+
 }

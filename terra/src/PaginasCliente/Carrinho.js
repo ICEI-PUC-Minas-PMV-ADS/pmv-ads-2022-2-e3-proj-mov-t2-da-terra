@@ -23,6 +23,7 @@ import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import Botao from "../Componentes/Botao";
+import { PedidoContext } from "../contexts/webapi.PedidoProvider";
 
 const Carrinho = () => {
   const navigation = useNavigation();
@@ -32,122 +33,67 @@ const Carrinho = () => {
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
-  //Produtos do carrinho
-  const [cartProdutos, setCartProdutos] = useState([]);
+
+  // Produtos do carrinho
   const [valorTotal, setPrecoTotal] = useState(0);
   const [removed, setRemoved] = useState(false);
   const [resultados, setResultados] = useState([]);
-  const precoTotal = () => {
-    let soma = 0;
-    if (cartProdutos != undefined) {
-      for (let item of cartProdutos) {
-        soma += item.preco;
-      }
-      setPrecoTotal(soma.toFixed(2));
-    }
-  };
+
+  // Pedido
+  const { postPedido } = useContext(PedidoContext);
+
   const enviarPedido = () => {
-    navigation.navigate("PedidoEnviado");
+    for (let i in resultados) {
+      postPedido({
+        clienteId: resultados[i].idCliente,
+        produtorId: resultados[i].idProdutor,
+        produtoId: resultados[i].idProduto,
+        precoTotalPedido: valorTotal,
+        status: "Pedido Enviado",
+      }).then(res => console.log(res));
+
+    }
+    //navigation.navigate("PedidoEnviado");
     //VAI TER COISA AQUI DEPOIS
   };
-  // TESTE CARLOS TOTAL
-  // const Total = () => {
-  //   let soma = 0;
-  //   for (let i in resultados) {
-  //     soma += resultados[i].preco;
-  //     console.log(resultados[i].preco);
-  //   }
-  //   setPrecoTotal(soma);
-  //   console.log("soma: ", soma)
-  // }
 
-  // TESTES CARLOS
-  useEffect(() => {
-    Database.getConnection();
 
-    getCarrinho(user.cliente.id)
-      .then((res) => {
-        console.log(res);
-        setResultados(res);
-      })
-      .then(() => {
-        let soma = 0;
-        for (let i in resultados) {
-          soma += resultados[i].preco;
-          console.log(resultados[i].preco);
-        }
-
-        setPrecoTotal(soma);
-
-        console.log("soma: ", soma);
-      });
-  }, []);
-  useEffect(() => {
-    Database.getConnection();
-
-    getCarrinho(user.cliente.id)
-      .then((res) => {
-        console.log(res);
-        setResultados(res);
-      })
-      .then(() => {
-        let soma = 0;
-        for (let i in resultados) {
-          soma += resultados[i].preco;
-          console.log(resultados[i].preco);
-        }
-
-        setPrecoTotal(soma);
-
-        console.log("soma: ", soma);
-      });
-  }, [visible]);
-
-  // TESTES GABRIEL
   // useEffect(() => {
-  //   // deleteCarrinho(2)
-  //   //Abre conexão com banco sqlite do app
   //   Database.getConnection();
-  //   //Vai iterar sobre o resultados da get do carrinho e buscar o produto ,mas essa merd não vai
-  //   //de primeira
+
   //   getCarrinho(user.cliente.id)
   //     .then((res) => {
-  //       //Pega o id de cada produto de cada item do carrinho e busca na api
-  //       let b = [];
-
-  //       for (let i of res) {
-  //         getProduto(i.idProduto)
-  //           .then((produto) => {
-  //             b.push(produto);
-  //             // console.log(b)
-  //           })
-  //           .catch((e) => console.log(e));
-  //       }
-  //       setCartProdutos(b); // Pega os ID
-  //       // console.log(cartProdutos)
-
+  //       console.log(res);
+  //       setResultados(res);
   //     })
-  //     .catch((e) => console.log(e));
-  //   console.log(cartProdutos); // os ID
+  //     .then(() => {
+  //       let soma = 0;
+  //       for (let i in resultados) {
+  //         soma += resultados[i].preco;
+  //         console.log(resultados[i].preco);
+  //       }
 
-  //   // for (let i in produtoCarrinho) {
-  //   //   console.log("aqui", i + " = " + Object.values(produtoCarrinho));
-  //   // }
+  //       setPrecoTotal(soma);
 
-  //   precoTotal();
+  //       console.log("soma: ", soma);
+  //     });
   // }, []);
 
-  // const add = () => {
-  //   insertCarrinho({
-  //     idCliente: 1,
-  //     idProdutor: 1,
-  //     idProduto: 5,
-  //     quantidadeProduto: 1,
-  //     precoTotal: 7.98,
-  //   })
-  //     .then()
-  //     .catch((e) => console.log(e));
-  // };
+  useEffect(() => {
+    Database.getConnection();
+
+    getCarrinho(user.cliente.id)
+      .then((res) => {
+        console.log(res);
+        setResultados(res);
+        let soma = 0
+        for (let i in res) {
+          soma += res[i].preco;
+          setPrecoTotal(soma);
+        }
+      })   
+  }, []);
+
   const deleteItemCarrinho = (idProduto) => {
     onToggleSnackBar();
 
@@ -165,9 +111,8 @@ const Carrinho = () => {
       >
         <View style={{ width: 500 }}>
           <List.Item
-            title={`${item.nome != undefined ? item.nome : ""} (${
-              item.embalagem ? item.embalagem : ""
-            })`}
+            title={`${item.nome != undefined ? item.nome : ""} (${item.embalagem ? item.embalagem : ""
+              })`}
             left={() => (
               <Image
                 style={styles.img}
@@ -187,9 +132,8 @@ const Carrinho = () => {
                 </View>
               </>
             )}
-            description={`R$ ${item.preco != undefined ? item.preco : 0} / ${
-              item.embalagem != undefined ? item.embalagem : ""
-            }
+            description={`R$ ${item.preco != undefined ? item.preco : 0} / ${item.embalagem != undefined ? item.embalagem : ""
+              }
             `}
           />
         </View>
@@ -206,36 +150,36 @@ const Carrinho = () => {
       />
 
       <Body>
-      {resultados.length == 0 && (
-        <View style={styles.viewCarrinhoVazio}>
-          <Image
-            style={styles.imgCarrinho}
-            source={require("../assets/Carrinho_vazio.png")}
-          />
-          <Text style={styles.textAvisoCarrinhoVazio}>
-            Ops...Carrinho Vazio
-          </Text>
-          <Text style={styles.textAvisoCarrinhoVazio}>
-            Adicione alguns produtos para aparecer aqui
-          </Text>
-        </View>
-      )}
+        {resultados.length == 0 && (
+          <View style={styles.viewCarrinhoVazio}>
+            <Image
+              style={styles.imgCarrinho}
+              source={require("../assets/Carrinho_vazio.png")}
+            />
+            <Text style={styles.textAvisoCarrinhoVazio}>
+              Ops...Carrinho Vazio
+            </Text>
+            <Text style={styles.textAvisoCarrinhoVazio}>
+              Adicione alguns produtos para aparecer aqui
+            </Text>
+          </View>
+        )}
         <FlatList
           data={resultados}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
- {resultados.length != 0 && (
-        <View style={styles.containerResultado}>
-          <Text style={styles.textoResultado}>
-            {resultados != undefined ? resultados.length : 0} Itens
-          </Text>
+        {resultados.length != 0 && (
+          <View style={styles.containerResultado}>
+            <Text style={styles.textoResultado}>
+              {resultados != undefined ? resultados.length : 0} Itens
+            </Text>
 
-          <Text style={styles.textoResultado}>
-            Total: R$ {valorTotal ? valorTotal.toFixed(2) : 0}
-          </Text>
-        </View>
- )}
+            <Text style={styles.textoResultado}>
+              Total: R$ {valorTotal ? valorTotal.toFixed(2) : 0}
+            </Text>
+          </View>
+        )}
         <View style={styles.viewBotao}>
           {resultados.length > 0 && (
             <TouchableOpacity onPress={() => enviarPedido()}>
@@ -247,7 +191,7 @@ const Carrinho = () => {
               />
             </TouchableOpacity>
           )}
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => { }}>
             <Snackbar
               visible={visible}
               duration={2000}
@@ -290,12 +234,12 @@ const styles = StyleSheet.create({
   imgCarrinho: {
     width: 90,
     height: 90,
-    alignSelf:"center"
+    alignSelf: "center"
   },
   viewCarrinhoVazio: {
     alignSelf: "center",
-    marginTop:180,
-  
+    marginTop: 180,
+
   },
   textAvisoCarrinhoVazio: {
     fontSize: 22,

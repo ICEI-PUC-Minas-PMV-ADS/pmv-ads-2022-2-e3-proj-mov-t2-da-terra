@@ -64,8 +64,8 @@ data = [
 ];
 
 const MeusPedidos = () => {
-  // const {user} = useContext(AuthContext)
   const navigation = useNavigation()
+
   const renderItem = ({ item }) => {
     return (
       <View style={{ marginTop: 20 }}>
@@ -126,8 +126,8 @@ const MeusPedidos = () => {
       <Header title={"Meus pedidos"} >
         <Appbar.Action
           style={{ marginRight: 10 }}
-          icon="cart" onPress={()=>navigation.navigate("Carrinho")} />
-   
+          icon="cart" onPress={() => navigation.navigate("Carrinho")} />
+
       </Header>
       <Body>
         <FlatList
