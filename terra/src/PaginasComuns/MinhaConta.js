@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
 import { Avatar } from 'react-native-paper';
-//import { launchImageLibrary } from 'react-native-image-picker';
-
+import * as ImagePicker from 'expo-image-picker';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ToastAndroid, Alert } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
@@ -16,8 +15,9 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 const MinhaConta = () => {
   const navigation = useNavigation();
+  const [imagem, setImagem] = useState(null);
 
-  const [Pic, SetPic] = React.useState('');
+  const [Pic, SetPic] = useState('');
 
   const setToastMsg = msg=> {
     ToastAndroid.showWithGravity(
@@ -32,64 +32,80 @@ const MinhaConta = () => {
       setToastMsg('Imagem removida');
     };
     
-    const uploadImage = () => {
-      let options = {
-        mediaType: 'photo',
-        quality: 1,
-        includeBase64: true,
-      };
+    const uploadImage = async () => {
 
-      launchImageLibrary(options, response => {
-        if(response.didCancel) {
-          setToastMsg('Seleção de imagem cancelada')
-        } else if(response.errorCode=='permissao') {
-          setToastMsg('Permissão náo satisfeita') 
-        } else if(response.errorCode=='others') {
-          setToastMsg(response.errorMessage);
-        } else if(response.assets[0].fileSize > 2097152) {
-          Alert.alert('Tamanho máximo excedido', 'Favor escolher imagem abaixo de 2 MB', [{text: 'OK'}]);
-        } else {
-          SetPic(response.assets[0].base64);
+  
+    //TESTE GABRIEL - OK PARA ABRIR SELETOR DE IMAGEM,TRATAR A IMAGEM 
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        }).then(a=>{
+          return a
+        }).catch(e=>console.log(e));
+    
+        console.log(result);
+        console.log(result);
+    
+        if (!result.cancelled) {
+          setImagem(result.assets[0].uri);
         }
-      });
+
+
+      //TESTES ANA
+    //  const valor = await launchImageLibrary(options
+    //     // if(response.didCancel) {
+    //     //   setToastMsg('Seleção de imagem cancelada')
+    //     // } else if(response.errorCode=='permissao') {
+    //     //   setToastMsg('Permissão náo satisfeita') 
+    //     // } else if(response.errorCode=='others') {
+    //     //   setToastMsg(response.errorMessage);
+    //     // } else if(response.assets[0].fileSize > 2097152) {
+    //     //   Alert.alert('Tamanho máximo excedido', 'Favor escolher imagem abaixo de 2 MB', [{text: 'OK'}]);
+    //     // } else {
+    //     //   SetPic(response.assets[0].base64);
+    //     // }
+    //   );
+    //   console.log(valor)
     };
 
   const { user } = useContext(AuthContext);
   const [idUser, setIdUser] = useState();
   const [userLogado, setUserLogado] = useState();
 
-  useEffect(() => {
-    for (let i in user) {
-      //setTipoUser(user[i].tipoUsuario)
-      const tipoUser = user[i].tipoUsuario;
-      setTipoUserLogado(tipoUser);
+  // useEffect(() => {
+  //   for (let i in user) {
+  //     //setTipoUser(user[i].tipoUsuario)
+  //     const tipoUser = user[i].tipoUsuario;
+  //     setTipoUserLogado(tipoUser);
 
-      if (tipoUser != undefined)
-        console.log(tipoUser);
-    }
-    //console.log(user);
-  }, [])
+  //     if (tipoUser != undefined)
+  //       console.log(tipoUser);
+  //   }
+  //   //console.log(user);
+  // }, [])
 
-  useEffect(() => {
-    for (let i in user) {
-      const tipoUser = user[i].tipoUsuario;
+  // useEffect(() => {
+  //   for (let i in user) {
+  //     const tipoUser = user[i].tipoUsuario;
 
-      if (tipoUser != undefined) {
-        console.log(tipoUser);      
-        const novoUser = Object.values(user);
-        console.log(novoUser[0].id);
-      }
-    }
-    //const novoUser = Object.values(user);
-    //  console.log(novoUser[0].id);
-  }, [])
+  //     if (tipoUser != undefined) {
+  //       console.log(tipoUser);      
+  //       const novoUser = Object.values(user);
+  //       console.log(novoUser[0].id);
+  //     }
+  //   }
+  //   //const novoUser = Object.values(user);
+  //   //  console.log(novoUser[0].id);
+  // }, [])
 
 
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
       <View style={styles.photoButtonContainer}>       
-      <TouchableHighlight 
+      <TouchableOpacity 
       onPress={() => uploadImage()}
       underlayColor='rgba(0,0,0,0)'>
 
@@ -97,7 +113,7 @@ const MinhaConta = () => {
         size={250}
         source={{uri:'https://bootdey.com/img/Content/avatar/avatar6.png,' +Pic}}
         />
-      </TouchableHighlight>
+      </TouchableOpacity>
         </View>
       {/* <Text>aqui: {userLogado.nome}</Text> */}
       <View style={styles.body}>
