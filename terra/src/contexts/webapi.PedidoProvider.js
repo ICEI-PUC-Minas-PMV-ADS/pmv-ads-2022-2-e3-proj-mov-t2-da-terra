@@ -4,8 +4,8 @@ import { url } from "./webapi.url";
 export const PedidoContext = createContext({});
 
 const PedidoProvider = ({ children }) => {
-  const [pedido, setPedido] = useState();
-
+  const [resultados, setResultados] = useState([]);
+  const[pedido,setPedido]=useState();
 
 const getPedido = async (id)=>{
   return await fetch(`${url}/pedidos/${id}`,
@@ -35,7 +35,27 @@ const getPedido = async (id)=>{
         body: JSON.stringify(param)
       })
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => {
+        if (json != undefined) {
+          let idPedidoEnviado = 0;
+          let idResultados = 0;
+          
+          idPedidoEnviado = Object.values(json);
+          console.log('ID', idPedidoEnviado[0])
+
+          for (let key in resultados) {
+            idResultados = Object.values(resultados[key]);
+
+            console.log("\nRESULTADOS: ", resultados[key]);
+            console.log("\nID RESULTADOS: ", idResultados[3]);
+         
+            postItemPedido({
+              pedidoId: idPedidoEnviado[0],
+              produtoId: idResultados[3]  // 3, pq é a posição de idProduto
+            })
+          }
+        }
+      })
       .catch(e => console.error(e));
   }
 
@@ -66,13 +86,14 @@ const getPedido = async (id)=>{
   }
   return (
     <PedidoContext.Provider
-      value={{
-        pedido,
+      value={{  
         postPedido,
         postItemPedido,
         putPedido,
         getPedido,
         setPedido,
+        resultados,
+        setResultados
       }}
     >
       {children}

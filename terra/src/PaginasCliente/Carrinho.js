@@ -9,27 +9,28 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { List, Button, Snackbar, TextInput } from "react-native-paper";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { List, Snackbar } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../contexts/AuthProvider";
-import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
+
 import {
   deleteCarrinho,
   getCarrinho,
-  insertCarrinho,
 } from "../DBService/DBCarrinho";
+
 import Database from "../DBService/DBService";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import Botao from "../Componentes/Botao";
+
 import { PedidoContext } from "../contexts/webapi.PedidoProvider";
 
 const Carrinho = () => {
   const navigation = useNavigation();
   const { user } = useContext(AuthContext);
-  const { produto, getAllProduto, getProdutoCarrinho, produtoCarrinhoApi } =
-    useContext(ProdutoContext);
+
+  // Snack
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
@@ -37,45 +38,26 @@ const Carrinho = () => {
   // Produtos do carrinho
   const [valorTotal, setPrecoTotal] = useState(0);
   const [removed, setRemoved] = useState(false);
-  const [resultados, setResultados] = useState([]);
 
+  // Context do pedido
+  const {
+    postPedido,
+    resultados,
+    setResultados
+  } = useContext(PedidoContext);
 
-  // TESTES CARLOS
-  // INCIO PEDIDOS X ITENS EM ANDAMENTO
-  const { postPedido, postItemPedido } = useContext(PedidoContext);
-  const [numPedido, setNumPedido] = useState();
-
+  // Tabela Pedidos  
   const enviarPedido = () => {
-    // Tabela Pedidos
-    for (let i in resultados) {
-      postPedido({
-        clienteId: resultados[i].idCliente,
-        produtorId: resultados[i].idProdutor,
-        precoTotalPedido: valorTotal,
-        status: "Pedido Enviado",
-      }).then(res => {       
-        let numIdPedido = 0
-        for (let i in res) {  
-          console.log(res[i].id)
-          // numIdPedido = res[i].id;
-          // setNumPedido(numIdPedido);
-        }      
-      });
-    }
-   
-    // Pegando ID dos Produtos que serão inseridos na Tab Itens
-    for (let key in resultados) {
-      console.log("aqui: ", resultados[key]);
-    }
-    //console.log(numPedido);
+    postPedido({
+      clienteId: resultados[0].idCliente,
+      produtorId: resultados[0].idProdutor,
+      precoTotalPedido: valorTotal,
+      status: "Pedido Enviado",
+    }).then(res => console.log(res));
+    // Itens rodando no webapi.PedidosProvider
 
-    //navigation.navigate("PedidoEnviado");
-    //VAI TER COISA AQUI DEPOIS
+    navigation.navigate("PedidoEnviado");
   };
-
-  // FIM PEDIDOS X ITENS EM ANDAMENTO
-
-
 
   useEffect(() => {
     Database.getConnection();
@@ -146,7 +128,6 @@ const Carrinho = () => {
         // Só se houver tela empilhada
         goBack={() => navigation.goBack()}
       />
-
       <Body>
         {resultados.length == 0 && (
           <View style={styles.viewCarrinhoVazio}>
@@ -201,19 +182,6 @@ const Carrinho = () => {
             >
               Produto removido do seu carrinho
             </Snackbar>
-
-            {/* {visible==false &&(
-
-            
-            <View style={{ marginTop: 20 }}>
-              <Botao
-                style={styles.textoBotao}
-                textoBotao="Adicionar produto ao carrinho"
-                mode="contained"
-                buttonColor="#3d9d74"
-              />
-            </View>
-            )} */}
           </TouchableOpacity>
         </View>
       </Body>
@@ -268,7 +236,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
   },
-
   textoResultado: {
     fontSize: 18,
     fontWeight: "bold",

@@ -1,4 +1,5 @@
-import React, { useState,useEffect,useContext} from "react";
+
+import React, { useState, useContext, useEffect } from "react";
 import { BottomNavigation } from "react-native-paper";
 import { StyleSheet } from "react-native";
 
@@ -9,11 +10,12 @@ import Carrinho from "../PaginasCliente/Carrinho"
 import { AuthContext } from "../contexts/AuthProvider";
 import { PedidoContext } from "../contexts/webapi.PedidoProvider";
 
+import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
+
 const HomeCliente = () => {
-  //  const {} = useContext(AuthContext);
   const [index, setIndex] = useState(0);
   const{user}=useContext(AuthContext)
-  const{pedido,setPedido,getPedido}= useContext(PedidoContext)
+  const{setPedido,getPedido}= useContext(PedidoContext)
 
 
   useEffect(()=>{
@@ -26,13 +28,29 @@ const HomeCliente = () => {
 
 
   },[])
+  // Renderizar na tela busca
+  useEffect(() => {
+    //console.log(user);
+    getBuscaProdutoCliente()  // Todos Produtos
+      .then((res) => {
+        setResultados(produto)
+      });
+  }, [])
 
   const [routes] = useState([
     { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
-    { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },    
+    { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },
     { key: "minhaConta", title: "Minha Conta", focusedIcon: "account" },
-    
+
   ]);
+
+  const {
+    produto,
+    getBuscaProdutoCliente,
+    setResultados
+  } = useContext(ProdutoContext);
+
+  
 
   const renderScene = BottomNavigation.SceneMap({
     buscarProdutos: BuscarProdutos,
