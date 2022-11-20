@@ -93,7 +93,7 @@ const ComprarProduto = ({ route }) => {
         </Text>
         <Text
           style={styles.textPreco}>
-          R$ {item.preco.toFixed(2)}, TOTAL R$ {precoTotal.toFixed(2)}
+          R$ {item.preco.toFixed(2)} - Total R$ {precoTotal.toFixed(2)}
         </Text>
       </View>
 
