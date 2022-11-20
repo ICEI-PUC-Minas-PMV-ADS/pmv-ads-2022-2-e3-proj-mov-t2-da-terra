@@ -39,45 +39,43 @@ const Carrinho = () => {
   const [removed, setRemoved] = useState(false);
   const [resultados, setResultados] = useState([]);
 
-  // Pedido
-  const { postPedido } = useContext(PedidoContext);
+
+  // TESTES CARLOS
+  // INCIO PEDIDOS X ITENS EM ANDAMENTO
+  const { postPedido, postItemPedido } = useContext(PedidoContext);
+  const [numPedido, setNumPedido] = useState();
 
   const enviarPedido = () => {
+    // Tabela Pedidos
     for (let i in resultados) {
       postPedido({
         clienteId: resultados[i].idCliente,
         produtorId: resultados[i].idProdutor,
-        produtoId: resultados[i].idProduto,
         precoTotalPedido: valorTotal,
         status: "Pedido Enviado",
-      }).then(res => console.log(res));
-
+      }).then(res => {       
+        let numIdPedido = 0
+        for (let i in res) {  
+          console.log(res[i].id)
+          // numIdPedido = res[i].id;
+          // setNumPedido(numIdPedido);
+        }      
+      });
     }
+   
+    // Pegando ID dos Produtos que serão inseridos na Tab Itens
+    for (let key in resultados) {
+      console.log("aqui: ", resultados[key]);
+    }
+    //console.log(numPedido);
+
     //navigation.navigate("PedidoEnviado");
     //VAI TER COISA AQUI DEPOIS
   };
 
+  // FIM PEDIDOS X ITENS EM ANDAMENTO
 
-  // useEffect(() => {
-  //   Database.getConnection();
 
-  //   getCarrinho(user.cliente.id)
-  //     .then((res) => {
-  //       console.log(res);
-  //       setResultados(res);
-  //     })
-  //     .then(() => {
-  //       let soma = 0;
-  //       for (let i in resultados) {
-  //         soma += resultados[i].preco;
-  //         console.log(resultados[i].preco);
-  //       }
-
-  //       setPrecoTotal(soma);
-
-  //       console.log("soma: ", soma);
-  //     });
-  // }, []);
 
   useEffect(() => {
     Database.getConnection();
@@ -91,8 +89,8 @@ const Carrinho = () => {
           soma += res[i].preco;
           setPrecoTotal(soma);
         }
-      })   
-  }, []);
+      })
+  }, [visible]);
 
   const deleteItemCarrinho = (idProduto) => {
     onToggleSnackBar();

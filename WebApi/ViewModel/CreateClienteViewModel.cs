@@ -36,4 +36,5 @@ public class CreateClienteViewModel
   public string TipoUsuario { get; set; }
 
   public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+  
 }

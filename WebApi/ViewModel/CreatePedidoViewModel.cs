@@ -20,13 +20,8 @@ public class CreatePedidoViewModel
   public Produtor Produtor;
 
   [Required]
-  public int ProdutoId { get; set; }
-  [ForeignKey("ProdutoId")]
-  public Produto Produto;
-
-  [Required]
   public decimal PrecoTotalPedido { get; set; }
   public string Status { get; set; }
   public string DataPedido { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-
+  public ICollection<Produto> Produtos;
 }

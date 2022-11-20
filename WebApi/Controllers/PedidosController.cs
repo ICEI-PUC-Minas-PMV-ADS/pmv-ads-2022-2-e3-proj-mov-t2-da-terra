@@ -21,8 +21,7 @@ namespace WebApi.Controllers
         var pedido = new Pedido()
         {
           ClienteId = model.ClienteId,
-          ProdutorId = model.ProdutorId,
-          ProdutoId = model.ProdutoId,
+          ProdutorId = model.ProdutorId,        
           PrecoTotalPedido = model.PrecoTotalPedido,
           Status = model.Status,
           DataPedido = model.DataPedido
@@ -30,7 +29,7 @@ namespace WebApi.Controllers
 
         await context.AddAsync(pedido);
         await context.SaveChangesAsync();
-
+       
         return Created($"v1/pedidos/{pedido.Id}", pedido);
       }
       catch (System.Exception)
@@ -46,6 +45,8 @@ namespace WebApi.Controllers
     {
       var pedido = await context.Pedidos
         .FirstOrDefaultAsync(x => x.Id == id);
+      
+        
 
       return pedido == null ? BadRequest("Model Inválido") : Ok(pedido);
     }

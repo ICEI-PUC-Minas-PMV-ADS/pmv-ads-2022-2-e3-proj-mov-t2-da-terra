@@ -14,13 +14,11 @@ public class Pedido
   [ForeignKey("ProdutorId")]
   public Produtor Produtor;
 
-  public int ProdutoId { get; set; }
-  [ForeignKey("ProdutoId")]
-  public Produto Produto;
-
   public decimal PrecoTotalPedido { get; set; }
   // Enviado, Pendente, Finalizado
   public string Status { get; set; }
   public string DataPedido { get; set; }
+
+  public ICollection<Produto> Produtos;
 
 }
