@@ -5,6 +5,7 @@ export const PedidoContext = createContext({});
 
 const PedidoProvider = ({ children }) => {
   const [pedido, setPedido] = useState();
+  const [resultados, setResultados] = useState([]);
 
   const postPedido = async (param) => {
     return await fetch(`${url}/pedidos/`,
@@ -14,7 +15,28 @@ const PedidoProvider = ({ children }) => {
         body: JSON.stringify(param)
       })
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => {
+        if (json != undefined) {
+          let idPedidoEnviado = 0;
+          let idResultados = 0;
+          
+          idPedidoEnviado = Object.values(json);
+          console.log('ID', idPedidoEnviado[0])
+
+          for (let key in resultados) {
+            idResultados = Object.values(resultados[key]);
+
+            console.log("\nRESULTADOS: ", resultados[key]);
+            console.log("\nID RESULTADOS: ", idResultados[3]);
+         
+            postItemPedido({
+              pedidoId: idPedidoEnviado[0],
+              produtoId: idResultados[3]  // 3, pq é a posição de idProduto
+            })
+          }
+        }
+      })
+      //.then(json => setPedido(json))
       .catch(e => console.error(e));
   }
 
@@ -34,8 +56,10 @@ const PedidoProvider = ({ children }) => {
     <PedidoContext.Provider
       value={{
         pedido,
+        setPedido,
         postPedido,
         postItemPedido,
+        resultados, setResultados
       }}
     >
       {children}

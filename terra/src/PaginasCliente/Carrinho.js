@@ -37,45 +37,28 @@ const Carrinho = () => {
   // Produtos do carrinho
   const [valorTotal, setPrecoTotal] = useState(0);
   const [removed, setRemoved] = useState(false);
-  const [resultados, setResultados] = useState([]);
+  //const [resultados, setResultados] = useState([]);
 
 
   // TESTES CARLOS
   // INCIO PEDIDOS X ITENS EM ANDAMENTO
-  const { postPedido, postItemPedido } = useContext(PedidoContext);
-  const [numPedido, setNumPedido] = useState();
+  const { postPedido, postItemPedido, pedido, setPedido, resultados, setResultados } = useContext(PedidoContext);
+  const [numPedidoId, setNumPedidoId] = useState();
 
   const enviarPedido = () => {
-    // Tabela Pedidos
-    for (let i in resultados) {
-      postPedido({
-        clienteId: resultados[i].idCliente,
-        produtorId: resultados[i].idProdutor,
-        precoTotalPedido: valorTotal,
-        status: "Pedido Enviado",
-      }).then(res => {       
-        let numIdPedido = 0
-        for (let i in res) {  
-          console.log(res[i].id)
-          // numIdPedido = res[i].id;
-          // setNumPedido(numIdPedido);
-        }      
-      });
-    }
-   
-    // Pegando ID dos Produtos que serão inseridos na Tab Itens
-    for (let key in resultados) {
-      console.log("aqui: ", resultados[key]);
-    }
-    //console.log(numPedido);
+    // Tabela Pedidos   
+    postPedido({
+      clienteId: resultados[0].idCliente,
+      produtorId: resultados[0].idProdutor,
+      precoTotalPedido: valorTotal,
+      status: "Pedido Enviado",
+    }).then(res => console.log(res));
 
-    //navigation.navigate("PedidoEnviado");
-    //VAI TER COISA AQUI DEPOIS
+    navigation.navigate("PedidoEnviado");
+
   };
 
   // FIM PEDIDOS X ITENS EM ANDAMENTO
-
-
 
   useEffect(() => {
     Database.getConnection();
@@ -146,7 +129,6 @@ const Carrinho = () => {
         // Só se houver tela empilhada
         goBack={() => navigation.goBack()}
       />
-
       <Body>
         {resultados.length == 0 && (
           <View style={styles.viewCarrinhoVazio}>
