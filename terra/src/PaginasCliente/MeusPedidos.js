@@ -1,67 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 
 import {
   View,
   Text,
   FlatList,
-  TouchableOpacity,
-  Image,
   StyleSheet,
 } from "react-native";
 
-import { List, Button, Appbar, Divider } from "react-native-paper";
+import { List, Appbar, Divider } from "react-native-paper";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
-import Seletor from "../Componentes/Seletor";
 
-import { useNavigation, useIsFocused } from "@react-navigation/native";
-
-data = [
-  {
-    id: 1,
-    loja: "Shop Deutsch Brothers",
-    produto: "Banana",
-    aprovado: false,
-    dataPedido: "20/02/2023",
-    preco: "20.40",
-  },
-  {
-    id: 2,
-    loja: "Fruits Paradise",
-    produto: "Maça",
-
-    aprovado: true,
-    dataPedido: "12/05/2022",
-    preco: "55.60",
-  },
-  {
-    id: 3,
-    loja: "Loja do tião",
-    produto: "Brócolis",
-
-    aprovado: false,
-    dataPedido: "25/07/2021",
-    preco: "202.20",
-  },
-  {
-    id: 4,
-    loja: "Loja do Calvo",
-    produto: "Alface",
-    aprovado: true,
-    dataPedido: "10/07/2020",
-    preco: "102.01",
-  },
-  {
-    id: 5,
-    loja: "Loja dos irmãos Deustch",
-    produto: "pera",
-    aprovado: false,
-    dataPedido: "02/03/2019",
-    preco: "67.40",
-  },
-];
+import { useNavigation, } from "@react-navigation/native";
 
 const MeusPedidos = () => {
   const navigation = useNavigation()

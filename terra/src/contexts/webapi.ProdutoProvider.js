@@ -4,9 +4,10 @@ import { url } from "./webapi.url";
 export const ProdutoContext = createContext({});
 
 const ProdutoProvider = ({ children }) => {
-
+  const [resultados, setResultados] = useState([]);  
   const [produto, setProduto] = useState([]);
-  const [produtoCarrinhoApi = [], setprodutoCarrinhoApi] = useState(); // aqui não funciona pq só seta o ultimo
+
+  const [resultadoBuscaProduto, setResultadoBuscaProduto] = useState([]); //teste
 
   //GET ALL - OK
   const getBuscaProdutoCliente = async () => {
@@ -38,7 +39,8 @@ const ProdutoProvider = ({ children }) => {
       })
       .then(response => response.json())
       .then(json => setProduto(json))
-      //.then(json => console.log(json))
+      //.then(json => setResultadoBuscaProduto(json)) // teste
+      .then(json => console.log(json))
       .catch(error => console.error(error));
   }
 
@@ -54,8 +56,7 @@ const ProdutoProvider = ({ children }) => {
       })
       .then(response => response.json())
       .then(json => {
-      //  console.log("json", json)
-      setprodutoCarrinhoApi(json);
+      //  console.log("json", json)   
       })
       .catch(error => console.error(error));
   }
@@ -112,7 +113,9 @@ const ProdutoProvider = ({ children }) => {
         deleteProduto,
         getBuscaProdutoCliente,
         BuscaProdutos,
-        produtoCarrinhoApi
+        setResultados,
+        resultadoBuscaProduto,
+        setResultadoBuscaProduto
       }}
     >
       {children}

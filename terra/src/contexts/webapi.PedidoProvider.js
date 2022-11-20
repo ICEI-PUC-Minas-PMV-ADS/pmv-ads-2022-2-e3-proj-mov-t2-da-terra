@@ -4,7 +4,6 @@ import { url } from "./webapi.url";
 export const PedidoContext = createContext({});
 
 const PedidoProvider = ({ children }) => {
-  const [pedido, setPedido] = useState();
   const [resultados, setResultados] = useState([]);
 
   const postPedido = async (param) => {
@@ -36,7 +35,6 @@ const PedidoProvider = ({ children }) => {
           }
         }
       })
-      //.then(json => setPedido(json))
       .catch(e => console.error(e));
   }
 
@@ -54,12 +52,11 @@ const PedidoProvider = ({ children }) => {
 
   return (
     <PedidoContext.Provider
-      value={{
-        pedido,
-        setPedido,
+      value={{  
         postPedido,
         postItemPedido,
-        resultados, setResultados
+        resultados,
+        setResultados
       }}
     >
       {children}

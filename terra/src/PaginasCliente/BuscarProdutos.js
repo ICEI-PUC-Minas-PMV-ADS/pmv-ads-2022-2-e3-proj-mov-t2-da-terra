@@ -23,7 +23,7 @@ import {
 } from "react-native-paper";
 
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -34,12 +34,10 @@ import { AuthContext } from "../contexts/AuthProvider";
 const BuscarProdutos = () => {
   const navigation = useNavigation();
 
-  const { BuscaProdutos, produto, getBuscaProdutoCliente, setProduto } = useContext(ProdutoContext);
 
-  const { user } = useContext(AuthContext)
-  
+  // SeachBar
   const [searchQuery, setSearchQuery] = useState();
-  const [resultados, setResultados] = useState([]);
+  //const [resultados, setResultados] = useState([]);
 
   // Categoria Portal - Terminar
   const [visible, setVisible] = useState(false);
@@ -47,15 +45,25 @@ const BuscarProdutos = () => {
   const hideDialog = () => setVisible(false);
   const [categoria, setCategoria] = useState('Verduras');
 
-  // Retornando Ok - Não alterar (Não está renderizando "de cara")
-  useEffect(() => {
-    //console.log(user);
-    getBuscaProdutoCliente()  // Todos Produtos
-      .then(() => setResultados(produto));
-  }, [])
+  const {
+    BuscaProdutos,
+    produto,
+    getBuscaProdutoCliente,
+    setProduto,
+    setResultados
+  } = useContext(ProdutoContext);
 
+  //Retornando ok: Busca geral
+  // useEffect(() => {
+  //   //console.log(user);
+  //   getBuscaProdutoCliente()  // Todos Produtos
+  //     .then((res) => {
+  //       setResultados(produto)
+  //       console.log(res)
+  //     });
+  // }, [])
 
-  // Retornando OK - Não alterar
+  // Retornando OK
   const onChangeSearch = (query) => {
     setSearchQuery(searchQuery);
 
@@ -64,7 +72,7 @@ const BuscarProdutos = () => {
   };
 
   const passProdutoRota = (produto) => {
-    //Vai passar produto clicado para o contexto,este,esta passando pelas
+    //Vai passar produto clicado para o contexto, está passando pelas
     // rotas
     setProduto([produto])
     navigation.navigate("ComprarProduto")
@@ -169,7 +177,7 @@ const BuscarProdutos = () => {
           description={`Estoque: ${item.estoque} ${item.embalagem}`}
         />
       </TouchableOpacity >
-      
+
     </View>
   );
 
@@ -186,9 +194,9 @@ const BuscarProdutos = () => {
         />
       </SafeAreaView>
       <Body>
-      
+
         <FlatList
-          data={resultados}
+          data={produto}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
@@ -199,9 +207,9 @@ const BuscarProdutos = () => {
           onPress={() => navigation.navigate("Carrinho")}
         />
       </Body>
-      
+
     </Container>
-   
+
     //   </Provider>
   );
 };
