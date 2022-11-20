@@ -13,30 +13,30 @@ namespace WebApi.Controllers
   public class ProdutosController : ControllerBase
   {
 
-    // GET 
-    // TERMINAR ESSE GET
-    // Implementar o get para pegar somente do usuário logado  para exibir na LOJA do produtor
-    // [HttpGet(template: "produtos")]
-    // public async Task<IActionResult> GetProdutoAsync(
-    //     [FromServices] AppDbContext context
-    //     )
-    // {
-    //   var produto = await context.Produtos.ToListAsync();
+   // GET 
+    //TERMINAR ESSE GET
+    //Implementar o get para pegar somente do usuário logado  para exibir na LOJA do produtor
+    [HttpGet(template: "produtos/loja")]    
+    public async Task<IActionResult> GetBuscaProdutoLoja(
+        [FromServices] AppDbContext context )
+    {
+      var produto = await context.Produtos.ToListAsync();
+      
+      // var produtor = await context.Produtores
+      // .FirstOrDefaultAsync(x => x.Nome == User.Identity.Name);
 
-    //   // var produtor = await context.Produtores
-    //   // .FirstOrDefaultAsync(x => x.Nome == User.Identity.Name);
+      // // // Produtos associados aos seus respectivos produtores
+      // var queryProduto = from query in
+      //      context.Produtos.Include(a => a.Produtor)
+      //                    select query;
 
-    //   // // Produtos associados aos seus respectivos produtores
-    //   // var queryProduto = from query in
-    //   //      context.Produtos.Include(a => a.Produtor)
-    //   //                    select query;
-
-    //   return produto == null
-    //   ? NotFound(new { message = "Produto não encontrado" })
-    //   : Ok(produto);
-    // }
+      return produto == null
+      ? NotFound(new { message = "Produto não encontrado" })
+      : Ok(produto);
+    }
 
 
+    // GET: Carrinho - OK
     [HttpGet(template: "produtos/carrinho/{id}")]
 
     public async Task<IActionResult> BuscaProduto(

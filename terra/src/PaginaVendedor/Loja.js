@@ -18,10 +18,8 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { AuthContext } from "../contexts/AuthProvider";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
-import { createIconSetFromFontello } from "react-native-vector-icons";
 
 const Loja = () => {
-
   const navigation = useNavigation();
 
   // Provider com as informações do usuário logado  
@@ -29,12 +27,12 @@ const Loja = () => {
   const isFocused = useIsFocused();
 
   // Pegando dados do contexto
-  const { produto, getAllProduto } = useContext(ProdutoContext);
+  const { produto, getAllProdutoProdutor } = useContext(ProdutoContext);
 
-  useEffect(() => {   
+  useEffect(() => {
     // Pega todos os itens no banco
     // tem que ajsuta para pegar somente os itens do user x
-    //getAllProduto();  
+    getAllProdutoProdutor();
   }, [isFocused])
 
 
@@ -59,7 +57,7 @@ const Loja = () => {
 
   return (
     <Container>
-      <Header/>
+      <Header />
       <Body>
         <FlatList
           data={produto}
@@ -88,8 +86,8 @@ const styles = StyleSheet.create({
 
   // Foto produto
   img: {
-    width: 127,
-    height: 100,
+    width: 120,
+    height: 91,
     borderRadius: 10,
     marginRight: 10,
   },

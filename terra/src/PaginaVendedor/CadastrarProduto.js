@@ -51,7 +51,6 @@ const CadastarProduto = ({ route }) => {
   // Context Produto
   const { postProduto, putProduto, deleteProduto } = useContext(ProdutoContext);
 
-
   // Para exibir dados quando clica no card do produto (editar)
   useEffect(() => {
     if (item) { // Se vier dados da rota

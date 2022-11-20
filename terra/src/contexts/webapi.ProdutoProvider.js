@@ -4,12 +4,13 @@ import { url } from "./webapi.url";
 export const ProdutoContext = createContext({});
 
 const ProdutoProvider = ({ children }) => {
-  const [resultados, setResultados] = useState([]);  
+  const [resultados, setResultados] = useState([]);
   const [produto, setProduto] = useState([]);
 
   const [resultadoBuscaProduto, setResultadoBuscaProduto] = useState([]); //teste
 
-  //GET ALL - OK
+  // CLIENTE ------------------------------------------------------
+  //GET Tela Busca do Cliente - Renderiza todos produtos - OK
   const getBuscaProdutoCliente = async () => {
     console.log(`${url}/produtos/todos`)
     return await fetch(`${url}/produtos/todos`, {
@@ -26,7 +27,7 @@ const ProdutoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  //GET ALL - ok
+  //GET Tela Busca: Produto por nome - OK
   const BuscaProdutos = async (param = {}) => {
     console.log(`${url}/produtos/busca?nomeProduto=${param}`)
     return await fetch(
@@ -44,7 +45,7 @@ const ProdutoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  // GET - OK
+  // GET Carrinho - OK
   const getProdutoCarrinho = async (id) => {
     console.log(`${url}/produtos/carrinho/${id}`);
     return await fetch(`${url}/produtos/carrinho/${id}`,
@@ -56,12 +57,28 @@ const ProdutoProvider = ({ children }) => {
       })
       .then(response => response.json())
       .then(json => {
-      //  console.log("json", json)   
+        //  console.log("json", json)   
       })
       .catch(error => console.error(error));
   }
+  // FIM CLIENTE ---------------------------------------------------
 
-  // POST - OK
+  // PRODUTOR ------------------------------------------------------
+  // POST Tela cadastro de produto - OK
+  // TERMINAR - NA API COLOCAR APENAS PARA USER LOGADO == PRODUTOR
+  const getAllProdutoProdutor = async () => {
+    return await fetch(`${url}/produtos/loja`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(json => console.log(json))
+      .catch(e => console.error(e));
+  }
+
   const postProduto = async (param) => {
     console.log(param);
     return await fetch(`${url}/produtos/`,
@@ -77,7 +94,7 @@ const ProdutoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  // PUT - OK
+  // PUT Tela cadastro de produto - OK
   const putProduto = async (param = {}) => {
     return await fetch(`${url}/produtos/${param.id}`,
       {
@@ -92,7 +109,7 @@ const ProdutoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  // DELETE - OK 
+  // DELETE Tela cadastro de produto - OK 
   const deleteProduto = async (id) => {
     return await fetch(`${url}/produtos/${id}`,
       {
@@ -112,6 +129,7 @@ const ProdutoProvider = ({ children }) => {
         putProduto,
         deleteProduto,
         getBuscaProdutoCliente,
+        getAllProdutoProdutor,
         BuscaProdutos,
         setResultados,
         resultadoBuscaProduto,
