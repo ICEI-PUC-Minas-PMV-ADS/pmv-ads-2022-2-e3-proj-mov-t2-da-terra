@@ -15,28 +15,27 @@ import { Divider, Button, Appbar, Snackbar } from "react-native-paper";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
-import Seletor from "../Componentes/Seletor";
 import { insertCarrinho } from "../DBService/DBCarrinho";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { useNavigation  } from "@react-navigation/native";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 import Database from "../DBService/DBService";
 import { AuthContext } from "../contexts/AuthProvider";
-// import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
+;
 
 const ComprarProduto = ({ route }) => {
 
   const navigation = useNavigation();
-  const isFocused = useIsFocused();
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
   const [avisoSnack, setAvisoSnack] = useState();
+ 
   // Alterar Rota para provider
-  // const { item } = route.params ? route.params : {};
   const { produto } = useContext(ProdutoContext);
   const { user } = useContext(AuthContext)
-  const [resultado, setResultado] = useState([]);
+  //const [resultado, setResultado] = useState([]);
 
+  // Seletor
   const [quantidade, setQuantidade] = useState(1);
   let contador = quantidade;
   let precoTotal = quantidade * produto[0].preco
@@ -46,7 +45,7 @@ const ComprarProduto = ({ route }) => {
       setQuantidade(contador += 1);
     }
     else if (quantidade + 1 > produto[0].estoque) {
-      setAvisoSnack(" Você não poder pedir mais do que o estoque do Vendedor")
+      setAvisoSnack("Estoque insuficiente")
       onToggleSnackBar()
       contador--
     }
@@ -64,7 +63,6 @@ const ComprarProduto = ({ route }) => {
   };
 
   useEffect(() => {
-    //console.log(produto.estoque)
     Database.getConnection();
   }, []);
 
@@ -93,7 +91,7 @@ const ComprarProduto = ({ route }) => {
         </Text>
         <Text
           style={styles.textPreco}>
-          R$ {item.preco.toFixed(2)}, TOTAL R$ {precoTotal.toFixed(2)}
+          R$ {item.preco.toFixed(2)} - Total R$ {precoTotal.toFixed(2)}
         </Text>
       </View>
 

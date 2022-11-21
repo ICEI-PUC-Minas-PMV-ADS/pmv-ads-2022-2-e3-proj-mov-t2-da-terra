@@ -5,6 +5,23 @@ namespace WebApi.Models;
 
 public class Produto
 {
+  public Produto(Produto produto)
+  {
+    this.Id = produto.Id;
+    this.ProdutorId = produto.ProdutorId;
+    this.Nome = produto.Nome;
+    this.Preco = produto.Preco;
+    this.Embalagem = produto.Embalagem;
+    this.Estoque = produto.Estoque;
+    this.Categoria = produto.Categoria;
+    this.Descricao = produto.Descricao;
+    this.DataCadastro = produto.Categoria;
+  }
+
+  public Produto()
+  {    
+  }
+
   [Key]
   public int Id { get; set; }
   public int ProdutorId { get; set; }

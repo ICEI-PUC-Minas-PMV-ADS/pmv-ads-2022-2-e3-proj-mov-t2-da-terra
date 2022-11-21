@@ -1,15 +1,35 @@
-import React, { useState, useContext, useEffect } from "react";
-import { BottomNavigation } from "react-native-paper";
-import { StyleSheet } from "react-native";
 
+import React, { useState, useContext, useEffect } from "react";
+
+import { BottomNavigation } from "react-native-paper";
 import MeusPedidos from "./MeusPedidos";
 import BuscarProdutos from "./BuscarProdutos";
 import MinhaConta from "../PaginasComuns/MinhaConta";
+import { AuthContext } from "../contexts/AuthProvider";
 
+import { PedidoContext } from "../contexts/webapi.PedidoProvider";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 
 const HomeCliente = () => {
   const [index, setIndex] = useState(0);
+  const { user } = useContext(AuthContext)
+  const { setPedido, getPedido } = useContext(PedidoContext)
+  const { getBuscaTodosProdutos } = useContext(ProdutoContext);
+
+  useEffect(() => {
+    getPedido(user.cliente.id).then(res => {
+      setPedido([res])
+    }).catch(e => console.log(e))
+
+
+  }, [])
+  // Renderizar na tela busca
+  useEffect(() => {
+    getBuscaTodosProdutos()  // Todos Produtos
+      .then((res) => {
+        setResultados(produto)
+      });
+  }, [])
 
   const [routes] = useState([
     { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
@@ -24,14 +44,7 @@ const HomeCliente = () => {
     setResultados
   } = useContext(ProdutoContext);
 
-  // Renderizar na tela busca
-  useEffect(() => {
-    //console.log(user);
-    getBuscaProdutoCliente()  // Todos Produtos
-      .then((res) => {
-        setResultados(produto)
-      });
-  }, [])
+
 
   const renderScene = BottomNavigation.SceneMap({
     buscarProdutos: BuscarProdutos,
@@ -48,6 +61,5 @@ const HomeCliente = () => {
     />
   );
 };
-const styles = StyleSheet.create({});
 
 export default HomeCliente;

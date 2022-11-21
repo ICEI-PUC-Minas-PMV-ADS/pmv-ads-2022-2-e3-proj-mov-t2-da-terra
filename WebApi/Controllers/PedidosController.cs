@@ -44,11 +44,52 @@ namespace WebApi.Controllers
       [FromRoute] int id)
     {
       var pedido = await context.Pedidos
-        .FirstOrDefaultAsync(x => x.Id == id);
+        .FirstOrDefaultAsync(x => x.ClienteId == id);
       
         
 
       return pedido == null ? BadRequest("Model Inválido") : Ok(pedido);
     }
+
+    [HttpPut(template: "pedidos/{id}")]
+
+    public async Task<IActionResult> PutPedido(
+      [FromServices] AppDbContext context,
+      [FromBody] CreatePedidoViewModel model,
+      [FromRoute] int id)
+
+    {
+      if (!ModelState.IsValid) return BadRequest();
+      
+      var pedido = await context.Pedidos.FirstOrDefaultAsync(a => a.Id == id);
+
+      if (pedido == null)
+      {
+        return NotFound();
+      }
+
+      try
+      {
+        pedido.ProdutorId = model.ProdutorId;
+        pedido.ClienteId = model.ClienteId;
+        pedido.PrecoTotalPedido = model.PrecoTotalPedido;
+        pedido.DataPedido = model.DataPedido;
+        pedido.Status = model.Status;//Mais importante
+
+        context.Pedidos.Update(pedido);
+        await context.SaveChangesAsync();
+
+        return Ok(pedido);
+      }
+      catch (System.Exception)
+      {
+        return BadRequest();
+      }
+      
+    }
+      
+
+    
   }
 }
+

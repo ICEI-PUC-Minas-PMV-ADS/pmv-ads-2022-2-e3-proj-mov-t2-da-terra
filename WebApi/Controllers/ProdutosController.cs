@@ -12,33 +12,8 @@ namespace WebApi.Controllers
   [Route(template: "v1")]
   public class ProdutosController : ControllerBase
   {
-
-   // GET 
-    //TERMINAR ESSE GET
-    //Implementar o get para pegar somente do usuário logado  para exibir na LOJA do produtor
-    [HttpGet(template: "produtos/loja")]    
-    public async Task<IActionResult> GetBuscaProdutoLoja(
-        [FromServices] AppDbContext context )
-    {
-      var produto = await context.Produtos.ToListAsync();
-      
-      // var produtor = await context.Produtores
-      // .FirstOrDefaultAsync(x => x.Nome == User.Identity.Name);
-
-      // // // Produtos associados aos seus respectivos produtores
-      // var queryProduto = from query in
-      //      context.Produtos.Include(a => a.Produtor)
-      //                    select query;
-
-      return produto == null
-      ? NotFound(new { message = "Produto não encontrado" })
-      : Ok(produto);
-    }
-
-
     // GET: Carrinho - OK
     [HttpGet(template: "produtos/carrinho/{id}")]
-
     public async Task<IActionResult> BuscaProduto(
         [FromServices] AppDbContext context,
         [FromRoute] int id
@@ -56,9 +31,9 @@ namespace WebApi.Controllers
       : Ok(produto);
     }
 
-    // GET: Para todos os produtos: Tela Busca do Cliente, foi mantido separado por questão de erros
+    // GET: Para todos os produtos: Tela Busca do Cliente e Loja do Produtor
     [HttpGet(template: "produtos/todos")]
-    public async Task<IActionResult> GetBuscaProdutoCliente(
+    public async Task<IActionResult> GetBuscaTodosProdutos(
        [FromServices] AppDbContext context)
     {
       var produto = await context.Produtos.ToListAsync();
