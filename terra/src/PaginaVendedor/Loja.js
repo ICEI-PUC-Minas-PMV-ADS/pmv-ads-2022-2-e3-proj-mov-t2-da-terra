@@ -23,7 +23,7 @@ const Loja = () => {
   const navigation = useNavigation();
 
   // Provider com as informações do usuário logado  
-  const { user, setUser } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   const isFocused = useIsFocused();
 
   // Pegando dados do contexto
@@ -57,7 +57,7 @@ const Loja = () => {
 
   return (
     <Container>
-      <Header />
+      <Header title={user.produtor.nomeLoja}/>
       <Body>
         <FlatList
           data={produto}

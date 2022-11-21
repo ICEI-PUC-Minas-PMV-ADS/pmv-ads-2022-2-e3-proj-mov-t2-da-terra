@@ -34,10 +34,8 @@ import { AuthContext } from "../contexts/AuthProvider";
 const BuscarProdutos = () => {
   const navigation = useNavigation();
 
-
   // SeachBar
   const [searchQuery, setSearchQuery] = useState();
-  //const [resultados, setResultados] = useState([]);
 
   // Categoria Portal - Terminar
   const [visible, setVisible] = useState(false);
@@ -46,28 +44,17 @@ const BuscarProdutos = () => {
   const [categoria, setCategoria] = useState('Verduras');
 
   const {
-    BuscaProdutos,
+    buscaProdutos,
     produto,
-    getBuscaProdutoCliente,
     setProduto,
     setResultados
   } = useContext(ProdutoContext);
-
-  //Retornando ok: Busca geral
-  // useEffect(() => {
-  //   //console.log(user);
-  //   getBuscaProdutoCliente()  // Todos Produtos
-  //     .then((res) => {
-  //       setResultados(produto)
-  //       console.log(res)
-  //     });
-  // }, [])
 
   // Retornando OK
   const onChangeSearch = (query) => {
     setSearchQuery(searchQuery);
 
-    BuscaProdutos(query)
+    buscaProdutos(query)
       .then(() => setResultados(produto));
   };
 

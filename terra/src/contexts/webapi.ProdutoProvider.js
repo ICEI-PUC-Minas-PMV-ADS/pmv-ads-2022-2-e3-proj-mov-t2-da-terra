@@ -4,8 +4,8 @@ import { url } from "./webapi.url";
 
 export const ProdutoContext = createContext({});
 
-const ProdutoProvider = ({ children }) => {
-  const [resultados, setResultados] = useState([]);
+const ProdutoProvider = ({ children }) => {   
+  const [resultados, setResultados] = useState([]); // Usado para o carrinho
   const [produto, setProduto] = useState([]);
   const { user } = useContext(AuthContext);
 
@@ -24,7 +24,7 @@ const ProdutoProvider = ({ children }) => {
           let res = []
           for (let p in json) {
             if (json[p].produtorId == user.produtor.id) {
-              console.log([json[p]]);
+             // console.log([json[p]]);
               res.push(json[p]);
             }
           }
@@ -38,7 +38,7 @@ const ProdutoProvider = ({ children }) => {
 
   // CLIENTE ------------------------------------------------------
   //GET Tela Busca: Produto por nome - OK
-  const BuscaProdutos = async (param = {}) => {
+  const buscaProdutos = async (param = {}) => {
     return await fetch(`${url}/produtos/busca?nomeProduto=${param}`,
       {
         method: 'GET',
@@ -48,14 +48,12 @@ const ProdutoProvider = ({ children }) => {
       })
       .then(response => response.json())
       .then(json => setProduto(json))
-      //.then(json => setResultadoBuscaProduto(json)) // teste
       .then(json => console.log(json))
       .catch(error => console.error(error));
   }
 
   // GET Carrinho - OK
-  const getProdutoCarrinho = async (id) => {
-    console.log(`${url}/produtos/carrinho/${id}`);
+  const getProdutoCarrinho = async (id) => {    
     return await fetch(`${url}/produtos/carrinho/${id}`,
       {
         method: 'GET',
@@ -64,12 +62,13 @@ const ProdutoProvider = ({ children }) => {
         }
       })
       .then(response => response.json())
-      .then(json => onsole.log("json", json))
+      .then(json => console.log("json", json))
       .catch(error => console.error(error));
   }
   // FIM CLIENTE ---------------------------------------------------
 
   // PRODUTOR ------------------------------------------------------
+  // POST: Tela Cadastro de Produto
   const postProduto = async (param) => {
     console.log(param);
     return await fetch(`${url}/produtos/`,
@@ -85,8 +84,8 @@ const ProdutoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  // PUT Tela cadastro de produto - OK
-  const putProduto = async (param = {}) => {
+  // PUT: Tela Editar em Cadastro de Produto
+  const putProduto = async (param) => {
     return await fetch(`${url}/produtos/${param.id}`,
       {
         method: 'PUT',
@@ -96,11 +95,10 @@ const ProdutoProvider = ({ children }) => {
         body: JSON.stringify(param)
       })
       .then(response => response.json())
-      .then(json => setProduto(json))
       .catch(error => console.error(error));
   }
 
-  // DELETE Tela cadastro de produto - OK 
+  // DELETE: Tela Deletar em Cadastro de Produto
   const deleteProduto = async (id) => {
     return await fetch(`${url}/produtos/${id}`,
       {
@@ -119,7 +117,7 @@ const ProdutoProvider = ({ children }) => {
         postProduto,
         putProduto,
         deleteProduto,
-        BuscaProdutos,
+        buscaProdutos,
         setResultados,
         getBuscaTodosProdutos
       }}

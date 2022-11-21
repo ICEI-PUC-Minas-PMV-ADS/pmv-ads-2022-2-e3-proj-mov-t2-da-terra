@@ -43,7 +43,7 @@ namespace WebApi.Controllers
       : Ok(produto);
     }
 
-    // GET BUSCA DE PRODUTOS: CLIENTE    
+    // GET: Busca de produtos por nome/categoria do Cliente
     [HttpGet(template: "produtos/busca/")]
     public async Task<IActionResult> BuscaAsync(
       [FromServices] AppDbContext context,
@@ -79,7 +79,7 @@ namespace WebApi.Controllers
       }
     }
 
-    // POST OK
+    // POST: Cadastro de produto do Produtor 
     [HttpPost(template: "produtos")]
     //[Authorize] // Authorize no react dar Json Error EOF
     public async Task<IActionResult> PostProdutoAsync(
@@ -89,8 +89,8 @@ namespace WebApi.Controllers
       if (!ModelState.IsValid)
         return BadRequest(new { message = "Model Invalid" });
 
-      var produtor = context.Produtores
-      .FirstOrDefaultAsync(x => x.Nome == User.Identity.Name);
+      // var produtor = context.Produtores
+      // .FirstOrDefaultAsync(x => x.Nome == User.Identity.Name);
 
       var produto = new Produto()
       {
@@ -100,7 +100,7 @@ namespace WebApi.Controllers
         Estoque = model.Estoque,
         Categoria = model.Categoria,
         Descricao = model.Descricao,
-        ProdutorId = produtor.Id,
+        ProdutorId = model.ProdutorId,
         DataCadastro = model.DataCadastro
       };
 

@@ -20,7 +20,7 @@ import { useNavigation  } from "@react-navigation/native";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 import Database from "../DBService/DBService";
 import { AuthContext } from "../contexts/AuthProvider";
-;
+
 
 const ComprarProduto = ({ route }) => {
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Text, StyleSheet, View, TouchableOpacity, ScrollView } from "react-native";
 import {
   TextInput,
@@ -17,10 +17,15 @@ import Header from "../Componentes/Header";
 
 import { useNavigation } from "@react-navigation/native";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const CadastarProduto = ({ route }) => {
 
   const navigation = useNavigation();
+
+  // Contexts
+  const { postProduto, putProduto, deleteProduto } = useContext(ProdutoContext);
+  const { user } = useContext(AuthContext);
 
   // Categoria Portal
   const [visible, setVisible] = useState(false);
@@ -48,8 +53,7 @@ const CadastarProduto = ({ route }) => {
   // Verificando se tem dados na rota
   const { item } = route.params ? route.params : {};
 
-  // Context Produto
-  const { postProduto, putProduto, deleteProduto } = useContext(ProdutoContext);
+
 
   // Para exibir dados quando clica no card do produto (editar)
   useEffect(() => {
@@ -80,6 +84,7 @@ const CadastarProduto = ({ route }) => {
           estoque: estoque,
           categoria: categoria,
           descricao: descricao.trim(),
+          produtorId: user.produtor.id
         }).then();
       } else {
         putProduto({ // TESTE OK
