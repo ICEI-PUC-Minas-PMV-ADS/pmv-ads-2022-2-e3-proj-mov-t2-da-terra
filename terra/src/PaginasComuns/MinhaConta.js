@@ -49,7 +49,7 @@ const MinhaConta = () => {
         console.log(result);
     
         if (!result.cancelled) {
-          setImagem(result.assets[0].uri);
+          setImagem(result.uri);
         }
 
 
@@ -111,7 +111,7 @@ const MinhaConta = () => {
 
         <Avatar.Image
         size={250}
-        source={{uri:'https://bootdey.com/img/Content/avatar/avatar6.png,' +Pic}}
+        source={{uri:imagem}}
         />
       </TouchableOpacity>
         </View>
