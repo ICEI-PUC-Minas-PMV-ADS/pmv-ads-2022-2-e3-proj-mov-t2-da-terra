@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from 'react' 
 
 import {
   View,
@@ -18,9 +18,7 @@ import { useNavigation, } from "@react-navigation/native";
 
 const MeusPedidos = () => {
   const navigation = useNavigation()
-  const{pedido,putPedido}= useContext(PedidoContext)
-
-
+const {pedido,putPedido} = useContext(PedidoContext)
 
   const renderItem = ({ item }) => {
     return (

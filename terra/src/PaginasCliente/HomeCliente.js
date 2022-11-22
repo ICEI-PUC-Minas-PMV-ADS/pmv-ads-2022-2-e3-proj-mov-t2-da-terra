@@ -13,12 +13,14 @@ import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 const HomeCliente = () => {
   const [index, setIndex] = useState(0);
   const { user } = useContext(AuthContext)
-  const { setPedido, getPedido } = useContext(PedidoContext)
+  const { setPedido, getPedido,pedido } = useContext(PedidoContext)
   const { getBuscaTodosProdutos } = useContext(ProdutoContext);
 
   useEffect(() => {
     getPedido(user.cliente.id).then(res => {
-      setPedido([res])
+        // setPedido(res)
+
+        // console.log(pedido)
     }).catch(e => console.log(e))
 
 
@@ -27,7 +29,7 @@ const HomeCliente = () => {
   useEffect(() => {
     getBuscaTodosProdutos()  // Todos Produtos
       .then((res) => {
-        setResultados(produto)
+        setResultados(produtoQuery)
       });
   }, [])
 
@@ -41,7 +43,8 @@ const HomeCliente = () => {
   const {
     produto,
     getBuscaProdutoCliente,
-    setResultados
+    setResultados,
+    produtoQuery
   } = useContext(ProdutoContext);
 
 
