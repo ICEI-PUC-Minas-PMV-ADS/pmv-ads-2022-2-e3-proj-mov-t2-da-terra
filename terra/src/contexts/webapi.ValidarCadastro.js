@@ -6,17 +6,17 @@ export const ValidarCadastroContext = createContext({});
 export const ValidarCadastroProvider = ({ children }) => {
   const [idCadastrado, setIdCadastrado] = useState([]);
 
-  const postValidarCadastro = async (param) => {
-   console.log(param);
-    return await fetch(`${url}/validarcadastro/`, {
-      method: 'POST',
+  const postValidarCadastro = async (email) => {
+   console.log(`${url}/validarcadastro/${email}`);
+    return await fetch(`${url}/validarcadastro/${email}`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(param)
+      //body: JSON.stringify(param)
     })
       .then(response => response.json())
-      //.then(json => console.log(json))
+      .then(json => console.log("JSON", json))
       .then(json => setIdCadastrado(json))
       .catch(error => console.error(error));
   }

@@ -44,15 +44,15 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date());
 
   // Dados Pessoais dos Usuário
-  const [nome, setNome] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [telefone, setTelefone] = useState("");
+  const [nome, setNome] = useState("Joana");
+  const [cpf, setCpf] = useState("12312312323");
+  const [telefone, setTelefone] = useState("2332323232");
 
   // Endereço do Usuário
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
-  const [numeroCasa, setNumeroCasa] = useState("");
-  const [cep, setCep] = useState("");
+  const [numeroCasa, setNumeroCasa] = useState("32");
+  const [cep, setCep] = useState("03511000");
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
   const [complemento, setComplemento] = useState("");
@@ -62,9 +62,9 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [nomeLoja, setNomeLoja] = useState("");
 
   // Email e Senha
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [email, setEmail] = useState("m@gmail.com");
+  const [senha, setSenha] = useState("123456");
+  const [confirmarSenha, setConfirmarSenha] = useState("123456");
 
   const {
     getProdutor,
@@ -86,10 +86,6 @@ const CadastroUsuario = ({ navigation, route }) => {
   //console.log(userLogado);
 
   useEffect(() => {
-    // deleteProdutor(7); // OK
-    // deleteCliente(6); // OK
-    // getCliente(3); // OK
-    // getProdutor(2); // OK
     buscarEndereco(); // Busca CEP
     DataBase.getConnection();
   }, [cep]);
@@ -115,60 +111,66 @@ const CadastroUsuario = ({ navigation, route }) => {
       !confirmarSenha
     ) {
       setMissInfo(true);  // Falta Informação      
-    }
-
-    // Verifica se o user já possui cadastro
-    postValidarCadastro({
-      email: email,
-    }).then();
-    console.log(idCadastrado);
-
-    // Se retornar number, então retornou ID, pois o error é objeto
-    if (typeof (idCadastrado) === "number") {
-      Alert.alert("Esse email já está cadastrado");
-    } else
-
+      //console.log("missinfo: ", missInfo)
+    } else {
       if (senha != confirmarSenha) {
         Alert.alert("Confirmação de senha incorreta, verifique")
-      } else if (tipoUsuario == 'produtor') {
-        // PRODUTOR
-        postUsuario({
-          nome: nome.trim(),
-          dataNascimento: data.trim(),
-          cpf: cpf.trim(),
-          telefone: telefone.trim(),
-          rua: rua.trim(),
-          bairro: bairro.trim(),
-          numeroCasa: numeroCasa.trim(),
-          cep: cep.trim(),
-          cidade: cidade.trim(),
-          uf: uf.trim(),
-          complemento: complemento.trim(),
-          tipoUsuario: tipoUsuario.trim(),
-          nomeLoja: nomeLoja.trim(),   // Somente produtor
-          email: email.trim(),
-          senha: senha.trim()
-        }).then();
       } else {
-        // CLIENTE
-        postUsuario({
-          nome: nome.trim(),
-          dataNascimento: data.trim(),
-          cpf: cpf.trim(),
-          telefone: telefone.trim(),
-          rua: rua.trim(),
-          bairro: bairro.trim(),
-          numeroCasa: numeroCasa,
-          cep: cep.trim(),
-          cidade: cidade.trim(),
-          uf: uf.trim(),
-          complemento: complemento.trim(),
-          tipoUsuario: tipoUsuario.trim(),
-          email: email.trim(),
-          senha: senha.trim()
-        }).then();
+        //  Verifica se o user já possui cadastro
+        postValidarCadastro(email)
+          .then((res) => {
+            console.log(idCadastrado)            
+          }).catch(e => console.log(e));
+        // console.log(idCadastrado);
+        // Se retornar number, então retornou ID(o error é objeto)
+
+        if (typeof (idCadastrado) === "number") {
+          Alert.alert("Esse email já está cadastrado");
+        }
+        else if (tipoUsuario == 'produtor') {
+          // PRODUTOR
+          console.log('entrou produtor')
+          postUsuario({
+            nome: nome.trim(),
+            dataNascimento: data.trim(),
+            cpf: cpf.trim(),
+            telefone: telefone.trim(),
+            rua: rua.trim(),
+            bairro: bairro.trim(),
+            numeroCasa: numeroCasa.trim(),
+            cep: cep.trim(),
+            cidade: cidade.trim(),
+            uf: uf.trim(),
+            complemento: complemento.trim(),
+            tipoUsuario: tipoUsuario.trim(),
+            nomeLoja: nomeLoja.trim(),   // Somente produtor
+            email: email.trim(),
+            senha: senha.trim()
+          }).then();
+          navigation.goBack();
+        } else {
+          // CLIENTE
+          console.log('entrou cliente')
+          postUsuario({
+            nome: nome.trim(),
+            dataNascimento: data.trim(),
+            cpf: cpf.trim(),
+            telefone: telefone.trim(),
+            rua: rua.trim(),
+            bairro: bairro.trim(),
+            numeroCasa: numeroCasa.trim(),
+            cep: cep.trim(),
+            cidade: cidade.trim(),
+            uf: uf.trim(),
+            complemento: complemento.trim(),
+            tipoUsuario: tipoUsuario.trim(),
+            email: email.trim(),
+            senha: senha.trim()
+          }).then();
+          navigation.goBack();
+        }
       }
-    navigation.goBack();
+    }
   }
 
   /*  putUsuario({    // Aqui foi incluído
@@ -277,7 +279,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             onChangeText={setNome}
             value={userLogado ? userLogado[0].nome : nome}
             disabled={userLogado ? true : false}
-            error={!userLogado && (missInfo && !nome) ? true : false}
+            error={missInfo && !nome ? true : false}
             activeOutlineColor={"#3d9d74"}
           />
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import {
   View,
@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 
-import {PedidoContext} from "../contexts/webapi.PedidoProvider"
+import { PedidoContext } from "../contexts/webapi.PedidoProvider"
 import { List, Appbar, Divider } from "react-native-paper";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -18,15 +18,14 @@ import { useNavigation, } from "@react-navigation/native";
 
 const MeusPedidos = () => {
   const navigation = useNavigation()
-  const{pedido,putPedido}= useContext(PedidoContext)
-
+  const { pedido, putPedido } = useContext(PedidoContext)
 
 
   const renderItem = ({ item }) => {
     return (
       <View style={{ marginTop: 20 }}>
         <List.Item
-           title={`${item.nome}`}
+          title={`${item.nome}`}
           titleStyle={{
             fontSize: 20,
             fontWeight: "bold",
@@ -49,12 +48,12 @@ const MeusPedidos = () => {
 
           description={
             <>
-              <View style={{ flexDirection: "row", alignItems: "center"}}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <List.Icon icon={item.aprovado ? "check" : "clock-outline"} />
-                <Text style={item.status=="Pedido Enviado" ? styles.esperandoAprovacao : styles.aprovado}>{`${item.status=="Pedido Enviado" ? "Aguardando aprovação" : "Aprovado"}`}</Text>
+                <Text style={item.status == "Pedido Enviado" ? styles.esperandoAprovacao : styles.aprovado}>{`${item.status == "Pedido Enviado" ? "Aguardando aprovação" : "Aprovado"}`}</Text>
               </View>
 
-              <View style={{ flexDirection: "row", alignItems: "center"}}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <List.Icon icon="store" />
                 <Text style={{ fontSize: 16 }}>{item.loja}</Text>
               </View>
@@ -100,12 +99,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
 
   },
-  textPrecoTotal:{
+  textPrecoTotal: {
     textAlignVertical: "center",
     fontWeight: "bold",
     fontSize: 16,
     marginTop: 35,
-    marginLeft:55
+    marginLeft: 55
   },
   aprovado: {
     fontSize: 16,
