@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 
 import React, { useState, useContext, useEffect } from 'react' 
 
+=======
+import React, { useContext } from "react";
+>>>>>>> 0b57dcdc66de4678cc7dfe7cb385b5abd0fcf9d4
 
 import {
   View,
@@ -20,7 +24,11 @@ import { useNavigation, } from "@react-navigation/native";
 
 const MeusPedidos = () => {
   const navigation = useNavigation()
+<<<<<<< HEAD
 const {pedido,putPedido} = useContext(PedidoContext)
+=======
+  const { pedido, putPedido } = useContext(PedidoContext)
+>>>>>>> 0b57dcdc66de4678cc7dfe7cb385b5abd0fcf9d4
 
 
   const renderItem = ({ item }) => {
