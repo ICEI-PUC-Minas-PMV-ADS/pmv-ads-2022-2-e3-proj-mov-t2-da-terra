@@ -43,19 +43,22 @@ const BuscarProdutos = () => {
   const hideDialog = () => setVisible(false);
   const [categoria, setCategoria] = useState('Verduras');
 
+
   const {
     buscaProdutos,
     produto,
     setProduto,
-    setResultados
+    setResultados,
+    produtoQuery,
+    setProdutoQuery,
   } = useContext(ProdutoContext);
 
   // Retornando OK
   const onChangeSearch = (query) => {
     setSearchQuery(searchQuery);
-
+    console.log(query)
     buscaProdutos(query)
-      .then(() => setResultados(produto));
+      .then(() => setResultados(produtoQuery));
   };
 
   const passProdutoRota = (produto) => {
@@ -159,7 +162,7 @@ const BuscarProdutos = () => {
           //     style={styles.img}
           //     source={require("../assets/maracuja.jpg")} />}
           right={() =>
-            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco}</Text>
+            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)}</Text>
           }
           description={`Estoque: ${item.estoque} ${item.embalagem}`}
         />
@@ -183,7 +186,7 @@ const BuscarProdutos = () => {
       <Body>
 
         <FlatList
-          data={produto}
+          data={produtoQuery}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />

@@ -19,6 +19,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 
 export default function Login() {
+  //Hook de navegação e metodo vindo da API externa e variável do contexto
   const navigation = useNavigation();
   const { postLogin, user } = useContext(AuthContext);
 
@@ -30,7 +31,7 @@ export default function Login() {
   const onDismissSnackBar = () => setVisible(false);
 
   // Email / Senha / Ícone Senha
-  const [email, setEmail] = useState("carlos@gmail.com");
+  const [email, setEmail] = useState("m@gmail.com");
   const [senha, setSenha] = useState("123456");
   const [escondeSenha, setEscondeSenha] = useState(true);
 
