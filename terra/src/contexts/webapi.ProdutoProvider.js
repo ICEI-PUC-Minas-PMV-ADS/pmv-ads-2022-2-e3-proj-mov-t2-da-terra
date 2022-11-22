@@ -7,6 +7,8 @@ export const ProdutoContext = createContext({});
 const ProdutoProvider = ({ children }) => {   
   const [resultados, setResultados] = useState([]); // Usado para o carrinho
   const [produto, setProduto] = useState([]);
+  const[produtoQuery,setProdutoQuery] = useState([]);
+
   const { user } = useContext(AuthContext);
 
   // PRODUTOR E CLIENTE
@@ -47,7 +49,7 @@ const ProdutoProvider = ({ children }) => {
         }
       })
       .then(response => response.json())
-      .then(json => setProduto(json))
+      .then(json => setProdutoQuery(json))
       .then(json => console.log(json))
       .catch(error => console.error(error));
   }
@@ -119,7 +121,9 @@ const ProdutoProvider = ({ children }) => {
         deleteProduto,
         buscaProdutos,
         setResultados,
-        getBuscaTodosProdutos
+        getBuscaTodosProdutos,
+        produtoQuery,
+        setProdutoQuery
       }}
     >
       {children}

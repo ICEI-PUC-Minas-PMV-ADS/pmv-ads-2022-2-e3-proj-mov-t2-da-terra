@@ -158,7 +158,7 @@ const ComprarProduto = ({ route }) => {
               style={styles.imgPlus}
               source={require("../assets/img-banana.jpg")}
             />
-            <Text style={styles.textoCard}>{item.nome} {item.embalagem}</Text>
+            <Text style={styles.textoCard}>{item.nome}</Text>
             <Text style={styles.textoCard}>
               R$ {item.preco.toFixed(2)}
             </Text>
@@ -171,7 +171,7 @@ const ComprarProduto = ({ route }) => {
               style={styles.imgPlus}
               source={require("../assets/img-laranja.jpg")}
             />
-            <Text style={styles.textoCard}>{item.nome} {item.embalagem}</Text>
+            <Text style={styles.textoCard}>{item.nome}</Text>
             <Text style={styles.textoCard}>
               R$ {item.preco.toFixed(2)}
             </Text>
@@ -184,7 +184,7 @@ const ComprarProduto = ({ route }) => {
               style={styles.imgPlus}
               source={require("../assets/img-brocolis.jpg")}
             />
-            <Text style={styles.textoCard}>{item.nome} {item.embalagem}</Text>
+            <Text style={styles.textoCard}>{item.nome} </Text>
             <Text style={styles.textoCard}>
               R$ {item.preco.toFixed(2)}
             </Text>
