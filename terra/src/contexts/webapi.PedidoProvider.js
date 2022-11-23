@@ -5,7 +5,7 @@ export const PedidoContext = createContext({});
 
 const PedidoProvider = ({ children }) => {
   const [resultados, setResultados] = useState([]);
-  const[pedido,setPedido] = useState();
+  let [pedido,setPedido] = useState([]);
 
 const getPedido = async (id)=>{
   return await fetch(`${url}/pedidos/${id}`,
@@ -17,10 +17,7 @@ const getPedido = async (id)=>{
   })
   .then(response => response.json())
   .then(json => {
-    // console.log(json)
-    setPedido(json)
-console.log(pedido)
-    //  return json
+     return json
 
   })
   .catch(error => console.error(error));

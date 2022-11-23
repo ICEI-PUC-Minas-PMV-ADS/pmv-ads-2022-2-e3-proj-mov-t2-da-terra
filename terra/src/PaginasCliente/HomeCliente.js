@@ -16,11 +16,10 @@ const HomeCliente = () => {
   const { setPedido, getPedido,pedido } = useContext(PedidoContext)
   const { getBuscaTodosProdutos } = useContext(ProdutoContext);
 
-  useEffect(() => {
+  useEffect( ()  => {
     getPedido(user.cliente.id).then(res => {
-        // setPedido(res)
-
-        // console.log(pedido)
+     setPedido(res)
+    //   console.log(pedido)
     }).catch(e => console.log(e))
 
 
