@@ -26,11 +26,11 @@ const ProdutoProvider = ({ children }) => {
           let res = []
           for (let p in json) {
             if (json[p].produtorId == user.produtor.id) {
-              // console.log([json[p]]);
+             // console.log([json[p]]);
               res.push(json[p]);
             }
           }
-          setProdutoQuery(res);
+          setProduto(res);
         } else {
           setProdutoQuery(json);
         }
