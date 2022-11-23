@@ -33,7 +33,7 @@ const HomeCliente = () => {
   useEffect(() => {
     getBuscaTodosProdutos()  // Todos Produtos
       .then((res) => {
-        setResultados(produtoQuery)
+        setResultados(produto)
       });
   }, [])
 
