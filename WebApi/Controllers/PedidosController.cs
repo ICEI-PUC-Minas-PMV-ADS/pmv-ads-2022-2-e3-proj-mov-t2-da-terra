@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         var pedido = new Pedido()
         {
           ClienteId = model.ClienteId,
-          ProdutorId = model.ProdutorId,        
+          ProdutorId = model.ProdutorId,
           PrecoTotalPedido = model.PrecoTotalPedido,
           Status = model.Status,
           DataPedido = model.DataPedido
@@ -29,7 +29,7 @@ namespace WebApi.Controllers
 
         await context.AddAsync(pedido);
         await context.SaveChangesAsync();
-       
+
         return Created($"v1/pedidos/{pedido.Id}", pedido);
       }
       catch (System.Exception)
@@ -43,16 +43,17 @@ namespace WebApi.Controllers
       [FromServices] AppDbContext context,
       [FromRoute] int id)
     {
-      var pedido = await context.Pedidos
-        .FirstOrDefaultAsync(x => x.ClienteId == id);
-      
-        
+      var queryPedido = from query in context.Pedidos
+                        select query;
 
-      return pedido == null ? BadRequest("Model Inválido") : Ok(pedido);
+      queryPedido = queryPedido.Where(x => x.ClienteId == id);
+
+      return queryPedido != null
+                     ? Ok(await queryPedido.ToListAsync())
+                     : NotFound(new { message = "Produto não encontrado." });
     }
 
     [HttpPut(template: "pedidos/{id}")]
-
     public async Task<IActionResult> PutPedido(
       [FromServices] AppDbContext context,
       [FromBody] CreatePedidoViewModel model,
@@ -60,7 +61,7 @@ namespace WebApi.Controllers
 
     {
       if (!ModelState.IsValid) return BadRequest();
-      
+
       var pedido = await context.Pedidos.FirstOrDefaultAsync(a => a.Id == id);
 
       if (pedido == null)
@@ -85,11 +86,11 @@ namespace WebApi.Controllers
       {
         return BadRequest();
       }
-      
-    }
-      
 
-    
+    }
+
+
+
   }
 }
 

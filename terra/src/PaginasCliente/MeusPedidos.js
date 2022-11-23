@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   View,
@@ -13,19 +13,31 @@ import { List, Appbar, Divider } from "react-native-paper";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
+import { AuthContext } from "../contexts/AuthProvider";
 
-import { useNavigation, } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 const MeusPedidos = () => {
   const navigation = useNavigation()
-  const { pedido, putPedido } = useContext(PedidoContext)
+  const { pedido, putPedido, getPedido, setPedido } = useContext(PedidoContext)
+  const { user } = useContext(AuthContext)
+
+  const [resultados, setResultados] = useState([]);
+
+  useEffect(() => {
+    getPedido(user.cliente.id).then(res => {
+      setResultados(res)
+      console.log(res)
+    })
+    //setTimeout(() => console.log(resultados[0]), 1000)  
+  }, [])
 
 
   const renderItem = ({ item }) => {
     return (
       <View style={{ marginTop: 20 }}>
         <List.Item
-          title={`${item.nome}`}
+          title={`Pedido #${item.id}`}
           titleStyle={{
             fontSize: 20,
             fontWeight: "bold",
@@ -81,7 +93,7 @@ const MeusPedidos = () => {
       </Header>
       <Body>
         <FlatList
-          data={pedido}
+          data={resultados}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
