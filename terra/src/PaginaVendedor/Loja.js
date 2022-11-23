@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   Text,
+  BackHandler
 } from "react-native";
 
 import { FAB, List } from "react-native-paper";
@@ -14,14 +15,14 @@ import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 
-import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { useNavigation, useIsFocused,useRoute } from "@react-navigation/native";
 
 import { AuthContext } from "../contexts/AuthProvider";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 
 const Loja = () => {
   const navigation = useNavigation();
-
+  const route = useRoute();
   // Provider com as informações do usuário logado  
   const { user } = useContext(AuthContext)
   const isFocused = useIsFocused();
@@ -34,7 +35,25 @@ const Loja = () => {
     getBuscaTodosProdutos().then();
   }, [isFocused])
 
+  useEffect(() => {
+    if (route.name==="HomeVendedor") {
+      console.log(route.name)
+      const backAction = () => {
+       BackHandler.exitApp()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
 
+    
+  }, []);
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity

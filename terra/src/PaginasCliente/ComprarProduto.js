@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  BackHandler
 
 } from "react-native";
 
@@ -16,13 +17,14 @@ import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import { insertCarrinho } from "../DBService/DBCarrinho";
-import { useNavigation  } from "@react-navigation/native";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 import Database from "../DBService/DBService";
 import { AuthContext } from "../contexts/AuthProvider";
+import { useNavigation,useRoute } from "@react-navigation/native";
 
 
-const ComprarProduto = ({ route }) => {
+const ComprarProduto = () => {
+  const route = useRoute();
 
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
@@ -40,6 +42,24 @@ const ComprarProduto = ({ route }) => {
   let contador = quantidade;
   let precoTotal = quantidade * produto[0].preco
 
+  useEffect(() => {
+    if (route.name==="ComprarProduto") {
+      const backAction = () => {
+       navigation.goBack()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
+
+    
+  }, []);
   const upQtd = () => {
     if (contador < produto[0].estoque) {
       setQuantidade(contador += 1);

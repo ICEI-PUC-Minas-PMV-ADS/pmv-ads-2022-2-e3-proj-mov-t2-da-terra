@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity,BackHandler } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation,useRoute } from "@react-navigation/native";
 
 import Botao from "../Componentes/Botao";
 import Body from "../Componentes/Body";
@@ -13,11 +13,29 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 const MinhaConta = () => {
   const navigation = useNavigation();
-
+  const rota=useRoute();
   const { user } = useContext(AuthContext);
   const [idUser, setIdUser] = useState();
   const [userLogado, setUserLogado] = useState();
 
+  useEffect(() => {
+    if (rota.name==="MinhaConta") {
+      const backAction = () => {
+       BackHandler.exitApp()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
+
+    
+  }, []);
   useEffect(() => {
     for (let i in user) {
       //setTipoUser(user[i].tipoUsuario)

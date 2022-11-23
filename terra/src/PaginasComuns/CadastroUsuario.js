@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  BackHandler
 } from "react-native";
 
 
@@ -29,9 +30,11 @@ import { register, login } from '../JsonServer/webapi.usuarios'
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 import { ValidarCadastroContext } from "../contexts/webapi.ValidarCadastro";
 import { AuthContext } from '../contexts/AuthProvider';
+import { useNavigation,useRoute } from "@react-navigation/native";
 
 const CadastroUsuario = ({ navigation, route }) => {
-
+  const navigate = useNavigation()
+  const rota = useRoute()
   // Esconde Senha, Avisos e Falta Info
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true);
@@ -89,7 +92,24 @@ const CadastroUsuario = ({ navigation, route }) => {
     buscarEndereco(); // Busca CEP
     DataBase.getConnection();
   }, [cep]);
+  useEffect(() => {
+    if (route.name==="CadastroUsuario" && userLogado) {
+      const backAction = () => {
+       navigation.goBack()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
 
+    
+  }, []);
   // Aceitando cadastrar email igual, verificar
   // Cadastrar Usuário, Validação de Dados e senha
   // CRUD OK - Falta testar o PUT

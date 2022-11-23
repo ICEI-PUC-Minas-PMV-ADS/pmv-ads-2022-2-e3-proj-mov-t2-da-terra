@@ -1,10 +1,13 @@
 
 import React, { useState, useContext, useEffect } from "react";
-
+import {
+  BackHandler,Alert
+} from "react-native";
 import { BottomNavigation } from "react-native-paper";
 import MeusPedidos from "./MeusPedidos";
 import BuscarProdutos from "./BuscarProdutos";
 import MinhaConta from "../PaginasComuns/MinhaConta";
+import { useNavigation,useRoute } from "@react-navigation/native";
 
 import { AuthContext } from "../contexts/AuthProvider";
 import { PedidoContext } from "../contexts/webapi.PedidoProvider";
@@ -14,6 +17,8 @@ const HomeCliente = () => {
   const [index, setIndex] = useState(0);
   const { user } = useContext(AuthContext)
   const { setPedido, getPedido } = useContext(PedidoContext)
+  const navigation = useNavigation();
+  const route = useRoute();
   const {
     getBuscaTodosProdutos,
     produto,
@@ -21,13 +26,25 @@ const HomeCliente = () => {
   } = useContext(ProdutoContext);
 
   // useEffect(() => {
-  //   getPedido(user.cliente.id).then(res => {
-  //     setPedido(res)
-  //     console.log(res)
-     
-  //   })
-  // }, [])
+  //   if (route.name==="HomeCliente") {
+  //      console.log("Oiiii")
+  //     const backAction = () => {
+  //      BackHandler.exitApp() 
+        
+  //       return true;
+  //     };
   
+  //     const backHandler = BackHandler.addEventListener(
+  //       "hardwareBackPress",
+  //       backAction
+  //     );
+  
+  //     return () => backHandler.remove();
+  
+  // }
+
+    
+  // }, []);
 
   // Renderizar na tela busca
   useEffect(() => {
