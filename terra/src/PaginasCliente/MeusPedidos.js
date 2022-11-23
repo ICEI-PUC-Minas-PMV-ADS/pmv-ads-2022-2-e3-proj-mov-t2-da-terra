@@ -65,7 +65,7 @@ const MeusPedidos = () => {
                 <Text style={item.status == "Pedido Enviado" ? styles.esperandoAprovacao : styles.aprovado}>{`${item.status == "Pedido Enviado" ? "Aguardando aprovação" : "Aprovado"}`}</Text>
               </View>
 
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: "row", alignItems: "center"}}>
                 <List.Icon icon="store" />
                 <Text style={{ fontSize: 16 }}>{item.loja}</Text>
               </View>

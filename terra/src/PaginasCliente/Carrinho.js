@@ -68,7 +68,7 @@ const Carrinho = () => {
         setResultados(res);
         let soma = 0
         for (let i in res) {
-          soma += res[i].preco;
+          soma += res[i].precoTotal;
           setPrecoTotal(soma);
         }
       })
@@ -112,9 +112,7 @@ const Carrinho = () => {
                 </View>
               </>
             )}
-            description={`R$ ${item.preco != undefined ? item.preco : 0} / ${item.embalagem != undefined ? item.embalagem : ""
-              }
-            `}
+            description={`Preço R$ ${item.preco != undefined ? item.precoTotal : 0} `}
           />
         </View>
       </TouchableOpacity>

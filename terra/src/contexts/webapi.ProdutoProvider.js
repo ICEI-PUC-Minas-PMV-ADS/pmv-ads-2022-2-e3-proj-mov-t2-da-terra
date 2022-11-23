@@ -30,9 +30,9 @@ const ProdutoProvider = ({ children }) => {
               res.push(json[p]);
             }
           }
-          setProduto(res);
+          setProdutoQuery(res);
         } else {
-          setProduto(json);
+          setProdutoQuery(json);
         }
       })
       .catch(error => console.error(error));
