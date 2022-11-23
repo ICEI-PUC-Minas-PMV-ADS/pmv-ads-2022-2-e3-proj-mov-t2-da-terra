@@ -1,7 +1,5 @@
 
-
-import React, { useState, useContext, useEffect } from 'react' 
-
+import React, { useContext, useEffect, useState } from "react";
 
 
 import {
@@ -9,6 +7,7 @@ import {
   Text,
   FlatList,
   StyleSheet,
+  Image
 } from "react-native";
 
 
@@ -17,21 +16,31 @@ import { List, Appbar, Divider } from "react-native-paper";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
+import { AuthContext } from "../contexts/AuthProvider";
 
-import { useNavigation, } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 const MeusPedidos = () => {
   const navigation = useNavigation()
+  const { pedido, putPedido, getPedido, setPedido } = useContext(PedidoContext)
+  const { user } = useContext(AuthContext)
 
-const {pedido,putPedido} = useContext(PedidoContext)
+  const [resultados, setResultados] = useState([]);
 
+  useEffect(() => {
+    getPedido(user.cliente.id).then(res => {
+      setResultados(res)
+      console.log(res)
+    })
+    //setTimeout(() => console.log(resultados[0]), 1000)  
+  }, [])
 
 
   const renderItem = ({ item }) => {
     return (
       <View style={{ marginTop: 20 }}>
         <List.Item
-          title={`${item.nome}`}
+          title={`Pedido #${item.id}`}
           titleStyle={{
             fontSize: 20,
             fontWeight: "bold",
@@ -59,7 +68,7 @@ const {pedido,putPedido} = useContext(PedidoContext)
                 <Text style={item.status == "Pedido Enviado" ? styles.esperandoAprovacao : styles.aprovado}>{`${item.status == "Pedido Enviado" ? "Aguardando aprovação" : "Aprovado"}`}</Text>
               </View>
 
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: "row", alignItems: "center"}}>
                 <List.Icon icon="store" />
                 <Text style={{ fontSize: 16 }}>{item.loja}</Text>
               </View>
@@ -86,8 +95,22 @@ const {pedido,putPedido} = useContext(PedidoContext)
 
       </Header>
       <Body>
+      {resultados.length == 0 && (
+          <View style={styles.viewPedidosVazio}>
+            <Image
+              style={styles.imgPedidos}
+              source={require("../assets/Pedido_vazio.png")}
+            />
+            <Text style={styles.textAvisoPedidosVazio}>
+              Parece que você não tem nenhum pedido no momento
+            </Text>
+            <Text style={styles.textAvisoPedidosVazio}>
+              Quando você comprar algum produto,ele aparecerá bem aqui
+            </Text>
+          </View>
+        )}
         <FlatList
-          data={pedido}
+          data={resultados}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
@@ -104,6 +127,23 @@ const styles = StyleSheet.create({
     marginTop: 15,
     fontSize: 16,
 
+  },
+  viewPedidosVazio: {
+    alignSelf: "center",
+    marginTop: 110,
+
+  },
+  textAvisoPedidosVazio: {
+    fontSize: 20,
+    textAlign: "center",
+    letterSpacing: 0.9,
+    paddingLeft:4,
+    paddingRight:4
+  },
+  imgPedidos: {
+    width: 120,
+    height: 120,
+    alignSelf: "center"
   },
   textPrecoTotal: {
     textAlignVertical: "center",

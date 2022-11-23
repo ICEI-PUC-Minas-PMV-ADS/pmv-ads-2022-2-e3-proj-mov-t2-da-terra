@@ -43,7 +43,7 @@ const Carrinho = () => {
   const {
     postPedido,
     resultados,
-    setResultados
+    setResultados,
   } = useContext(PedidoContext);
 
   // Tabela Pedidos  
@@ -59,7 +59,7 @@ const Carrinho = () => {
     navigation.navigate("PedidoEnviado");
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     Database.getConnection();
 
     getCarrinho(user.cliente.id)

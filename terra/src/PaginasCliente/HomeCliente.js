@@ -5,30 +5,35 @@ import { BottomNavigation } from "react-native-paper";
 import MeusPedidos from "./MeusPedidos";
 import BuscarProdutos from "./BuscarProdutos";
 import MinhaConta from "../PaginasComuns/MinhaConta";
-import { AuthContext } from "../contexts/AuthProvider";
 
+import { AuthContext } from "../contexts/AuthProvider";
 import { PedidoContext } from "../contexts/webapi.PedidoProvider";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 
 const HomeCliente = () => {
   const [index, setIndex] = useState(0);
   const { user } = useContext(AuthContext)
-  const { setPedido, getPedido,pedido } = useContext(PedidoContext)
-  const { getBuscaTodosProdutos } = useContext(ProdutoContext);
+  const { setPedido, getPedido } = useContext(PedidoContext)
+  const {
+    getBuscaTodosProdutos,
+    produto,
+    setResultados
+  } = useContext(ProdutoContext);
 
-  useEffect( ()  => {
-    getPedido(user.cliente.id).then(res => {
-     setPedido(res)
-    //   console.log(pedido)
-    }).catch(e => console.log(e))
+  // useEffect(() => {
+  //   getPedido(user.cliente.id).then(res => {
+  //     setPedido(res)
+  //     console.log(res)
+     
+  //   })
+  // }, [])
+  
 
-
-  }, [])
   // Renderizar na tela busca
   useEffect(() => {
     getBuscaTodosProdutos()  // Todos Produtos
       .then((res) => {
-        setResultados(produtoQuery)
+        setResultados(produto)
       });
   }, [])
 
@@ -38,13 +43,6 @@ const HomeCliente = () => {
     { key: "minhaConta", title: "Minha Conta", focusedIcon: "account" },
 
   ]);
-
-  const {
-    produto,
-    getBuscaProdutoCliente,
-    setResultados,
-    produtoQuery
-  } = useContext(ProdutoContext);
 
 
 

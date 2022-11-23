@@ -87,7 +87,7 @@ const ComprarProduto = ({ route }) => {
     <View>
       <View style={{ marginVertical: 5 }}>
         <Text style={styles.textNomeProduto}>
-          {item.nome} {item.embalagem}
+          {item.nome} ({item.embalagem})
         </Text>
         <Text
           style={styles.textPreco}>
@@ -294,6 +294,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 26,
     alignSelf: "flex-start",
+    fontStyle:"italic"
   },
   textDescricao: {
     fontSize: 18,

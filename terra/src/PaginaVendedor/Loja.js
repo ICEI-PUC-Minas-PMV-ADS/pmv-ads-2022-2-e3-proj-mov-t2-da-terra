@@ -26,13 +26,12 @@ const Loja = () => {
   const { user } = useContext(AuthContext)
   const isFocused = useIsFocused();
 
-  // Pegando dados do contexto
+  //Pegando dados do contexto
   const { produto, getBuscaTodosProdutos } = useContext(ProdutoContext);
 
-  useEffect(() => {
-    // Pega todos os itens no banco
-    // tem que ajsuta para pegar somente os itens do user x
-    getBuscaTodosProdutos();
+  // Pega os produtos do produtor logado
+  useEffect(() => {   
+    getBuscaTodosProdutos().then();
   }, [isFocused])
 
 

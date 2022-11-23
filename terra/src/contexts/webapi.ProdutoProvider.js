@@ -4,10 +4,10 @@ import { url } from "./webapi.url";
 
 export const ProdutoContext = createContext({});
 
-const ProdutoProvider = ({ children }) => {   
+const ProdutoProvider = ({ children }) => {
   const [resultados, setResultados] = useState([]); // Usado para o carrinho
   const [produto, setProduto] = useState([]);
-  const[produtoQuery,setProdutoQuery] = useState([]);
+  const [produtoQuery, setProdutoQuery] = useState([]);
 
   const { user } = useContext(AuthContext);
 
@@ -30,7 +30,7 @@ const ProdutoProvider = ({ children }) => {
               res.push(json[p]);
             }
           }
-          setProdutoQuery(res);
+          setProduto(res);
         } else {
           setProdutoQuery(json);
         }
@@ -55,7 +55,7 @@ const ProdutoProvider = ({ children }) => {
   }
 
   // GET Carrinho - OK
-  const getProdutoCarrinho = async (id) => {    
+  const getProdutoCarrinho = async (id) => {
     return await fetch(`${url}/produtos/carrinho/${id}`,
       {
         method: 'GET',
