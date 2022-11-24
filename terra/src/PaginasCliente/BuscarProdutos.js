@@ -23,7 +23,7 @@ import {
 } from "react-native-paper";
 
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation,useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -46,191 +46,192 @@ const BuscarProdutos = () => {
   const [categoria, setCategoria] = useState('Verduras');
   const route = useRoute();
   useEffect(() => {
-    if (route.name==="HomeCliente") {
-       console.log("Oiiii")
+    if (route.name === "HomeCliente") {
+      console.log("Oiiii")
       const backAction = () => {
-       BackHandler.exitApp() 
-        
+        BackHandler.exitApp()
+
         return true;
       };
-  
+
       const backHandler = BackHandler.addEventListener(
         "hardwareBackPress",
         backAction
       );
-  
+
       return () => backHandler.remove();
-  
+
+    }
+
+    const {
+      BuscaProdutos,
+      produto,
+      getBuscaProdutoCliente,
+      setProduto,
+      setResultados
+    } = useContext(ProdutoContext);
+
+    //Retornando ok: Busca geral
+    // useEffect(() => {
+    //   //console.log(user);
+    //   getBuscaProdutoCliente()  // Todos Produtos
+    //     .then((res) => {
+    //       setResultados(produto)
+    //       console.log(res)
+    //     });
+    // }, [])
+
+    // Retornando OK
+    const onChangeSearch = (query) => {
+      setSearchQuery(searchQuery);
+
+      BuscaProdutos(query)
+        .then(() => setResultados(produto));
+    };
+
+    const passProdutoRota = (produto) => {
+      //Vai passar produto clicado para o contexto, está passando pelas
+      // rotas
+      setProduto([produto])
+      navigation.navigate("ComprarProduto")
+    }
+
+    // // Terminar Filtro
+    // const portalBuscaCategoria = (click = true) => {
+    //   return (
+    //     <>
+    //       {/* {
+    //         click &&
+    //         console.log(click)
+
+    //       } */}
+    //       <View style={styles.viewPrecoEmbalagem}>
+    //         {/* <Text style={styles.textTitulos}>Categoria</Text>
+    //         <TouchableOpacity onPress={showDialog}>
+    //           <TextInput
+    //             style={styles.inputEspecial}
+    //             editable={false}
+    //             value={categoria}
+    //             onChangeText={(text) => setCategoria(text)}
+    //             left={<TextInput.Icon icon='segment' />}
+    //           />
+    //         </TouchableOpacity> */}
+    //       </View>
+    //       <View>
+    //         <Portal>
+    //           <Dialog style={styles.dialog}
+    //             visible={visible}
+    //             onDismiss={hideDialog}>
+    //             <Dialog.Title>Selecione a Categoria</Dialog.Title>
+    //             <Dialog.Content>
+    //               <View style={styles.radioItem}>
+    //                 <RadioButton
+    //                   value="Verduras"
+    //                   status={categoria === 'Verduras' ? 'checked' : 'unchecked'}
+    //                   onPress={() => setCategoria('Verduras')}
+    //                 /><Text>Verduras</Text>
+    //               </View>
+    //               <View style={styles.radioItem}>
+    //                 <RadioButton
+    //                   value="Frutas"
+    //                   status={categoria === 'Frutas' ? 'checked' : 'unchecked'}
+    //                   onPress={() => setCategoria('Frutas')}
+    //                 /><Text>Frutas</Text>
+    //               </View>
+    //               <View style={styles.radioItem}>
+    //                 <RadioButton
+    //                   value="Hortaliças"
+    //                   status={categoria === 'Hortaliças' ? 'checked' : 'unchecked'}
+    //                   onPress={() => setCategoria('Hortaliças')}
+    //                 /><Text >Hortaliças</Text>
+    //               </View>
+    //               <View style={styles.radioItem}>
+    //                 <RadioButton
+    //                   value="Folhagens"
+    //                   status={categoria === 'Folhagens' ? 'checked' : 'unchecked'}
+    //                   onPress={() => setCategoria('Folhagens')}
+    //                 /><Text>Folhagens</Text>
+    //               </View>
+    //               <View style={styles.radioItem}>
+    //                 <RadioButton
+    //                   value="Bebidas"
+    //                   status={categoria === 'Bebidas' ? 'checked' : 'unchecked'}
+    //                   onPress={() => setCategoria('Bebidas')}
+    //                 /><Text>Bebidas</Text>
+    //               </View>
+    //               <View style={styles.radioItem}>
+    //                 <RadioButton
+    //                   value="Outros"
+    //                   status={categoria === 'Outros' ? 'checked' : 'unchecked'}
+    //                   onPress={() => setCategoria('Outros')}
+    //                 /><Text>Outros</Text>
+    //               </View>
+    //             </Dialog.Content>
+    //             <Dialog.Actions>
+    //               <Button onPress={hideDialog}>OK</Button>
+    //             </Dialog.Actions>
+    //           </Dialog>
+    //         </Portal>
+    //       </View>
+    //     </>
+    //   );
+    // }
+
+
+    const renderItem = ({ item }) => (
+      <View style={styles.containerProdutos}>
+        <TouchableOpacity
+          onPress={() => passProdutoRota(item)}
+        >
+          <List.Item
+            title={`${item.nome}`}
+            // left={() =>
+            //   <Image
+            //     style={styles.img}
+            //     source={require("../assets/maracuja.jpg")} />}
+            right={() =>
+              <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco}</Text>
+            }
+            description={`Estoque: ${item.estoque} ${item.embalagem}`}
+          />
+        </TouchableOpacity >
+
+      </View>
+    );
+
+    return (
+      // <Provider>
+      <Container>
+        <SafeAreaView>
+          <Searchbar
+            placeholder="Buscar Produto"
+            onChangeText={onChangeSearch}
+          //value={searchQuery}
+          //  icon={'filter'}
+          //onIconPress={(showDialog) => { portalBuscaCategoria() }}
+          />
+        </SafeAreaView>
+        <Body>
+
+          <FlatList
+            data={produto}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+          <FAB
+            style={styles.fab}
+            small
+            icon="cart"
+            onPress={() => navigation.navigate("Carrinho")}
+          />
+        </Body>
+
+      </Container>
+
+      //   </Provider>
+    );
   }
-
-  const {
-    BuscaProdutos,
-    produto,
-    getBuscaProdutoCliente,
-    setProduto,
-    setResultados
-  } = useContext(ProdutoContext);
-
-  //Retornando ok: Busca geral
-  // useEffect(() => {
-  //   //console.log(user);
-  //   getBuscaProdutoCliente()  // Todos Produtos
-  //     .then((res) => {
-  //       setResultados(produto)
-  //       console.log(res)
-  //     });
-  // }, [])
-
-  // Retornando OK
-  const onChangeSearch = (query) => {
-    setSearchQuery(searchQuery);
-
-    BuscaProdutos(query)
-      .then(() => setResultados(produto));
-  };
-
-  const passProdutoRota = (produto) => {
-    //Vai passar produto clicado para o contexto, está passando pelas
-    // rotas
-    setProduto([produto])
-    navigation.navigate("ComprarProduto")
-  }
-
-  // // Terminar Filtro
-  // const portalBuscaCategoria = (click = true) => {
-  //   return (
-  //     <>
-  //       {/* {
-  //         click &&
-  //         console.log(click)
-
-  //       } */}
-  //       <View style={styles.viewPrecoEmbalagem}>
-  //         {/* <Text style={styles.textTitulos}>Categoria</Text>
-  //         <TouchableOpacity onPress={showDialog}>
-  //           <TextInput
-  //             style={styles.inputEspecial}
-  //             editable={false}
-  //             value={categoria}
-  //             onChangeText={(text) => setCategoria(text)}
-  //             left={<TextInput.Icon icon='segment' />}
-  //           />
-  //         </TouchableOpacity> */}
-  //       </View>
-  //       <View>
-  //         <Portal>
-  //           <Dialog style={styles.dialog}
-  //             visible={visible}
-  //             onDismiss={hideDialog}>
-  //             <Dialog.Title>Selecione a Categoria</Dialog.Title>
-  //             <Dialog.Content>
-  //               <View style={styles.radioItem}>
-  //                 <RadioButton
-  //                   value="Verduras"
-  //                   status={categoria === 'Verduras' ? 'checked' : 'unchecked'}
-  //                   onPress={() => setCategoria('Verduras')}
-  //                 /><Text>Verduras</Text>
-  //               </View>
-  //               <View style={styles.radioItem}>
-  //                 <RadioButton
-  //                   value="Frutas"
-  //                   status={categoria === 'Frutas' ? 'checked' : 'unchecked'}
-  //                   onPress={() => setCategoria('Frutas')}
-  //                 /><Text>Frutas</Text>
-  //               </View>
-  //               <View style={styles.radioItem}>
-  //                 <RadioButton
-  //                   value="Hortaliças"
-  //                   status={categoria === 'Hortaliças' ? 'checked' : 'unchecked'}
-  //                   onPress={() => setCategoria('Hortaliças')}
-  //                 /><Text >Hortaliças</Text>
-  //               </View>
-  //               <View style={styles.radioItem}>
-  //                 <RadioButton
-  //                   value="Folhagens"
-  //                   status={categoria === 'Folhagens' ? 'checked' : 'unchecked'}
-  //                   onPress={() => setCategoria('Folhagens')}
-  //                 /><Text>Folhagens</Text>
-  //               </View>
-  //               <View style={styles.radioItem}>
-  //                 <RadioButton
-  //                   value="Bebidas"
-  //                   status={categoria === 'Bebidas' ? 'checked' : 'unchecked'}
-  //                   onPress={() => setCategoria('Bebidas')}
-  //                 /><Text>Bebidas</Text>
-  //               </View>
-  //               <View style={styles.radioItem}>
-  //                 <RadioButton
-  //                   value="Outros"
-  //                   status={categoria === 'Outros' ? 'checked' : 'unchecked'}
-  //                   onPress={() => setCategoria('Outros')}
-  //                 /><Text>Outros</Text>
-  //               </View>
-  //             </Dialog.Content>
-  //             <Dialog.Actions>
-  //               <Button onPress={hideDialog}>OK</Button>
-  //             </Dialog.Actions>
-  //           </Dialog>
-  //         </Portal>
-  //       </View>
-  //     </>
-  //   );
-  // }
-
-
-  const renderItem = ({ item }) => (
-    <View style={styles.containerProdutos}>
-      <TouchableOpacity
-        onPress={() => passProdutoRota(item)}
-      >
-        <List.Item
-          title={`${item.nome}`}
-          // left={() =>
-          //   <Image
-          //     style={styles.img}
-          //     source={require("../assets/maracuja.jpg")} />}
-          right={() =>
-            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco}</Text>
-          }
-          description={`Estoque: ${item.estoque} ${item.embalagem}`}
-        />
-      </TouchableOpacity >
-
-    </View>
-  );
-
-  return (
-    // <Provider>
-    <Container>
-      <SafeAreaView>
-        <Searchbar
-          placeholder="Buscar Produto"
-          onChangeText={onChangeSearch}
-        //value={searchQuery}
-        //  icon={'filter'}
-        //onIconPress={(showDialog) => { portalBuscaCategoria() }}
-        />
-      </SafeAreaView>
-      <Body>
-
-        <FlatList
-          data={produto}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
-        <FAB
-          style={styles.fab}
-          small
-          icon="cart"
-          onPress={() => navigation.navigate("Carrinho")}
-        />
-      </Body>
-
-    </Container>
-
-    //   </Provider>
-  );
-};
+}
 
 const styles = StyleSheet.create({
   searchBar: {
@@ -283,28 +284,3 @@ const styles = StyleSheet.create({
 });
 
 export default BuscarProdutos;
-
-
-
-
-// useEffect(() => {
-  //   if(route.name=="HomeCliente"){
-  //   const backAction = () => {
-  //     Alert.alert("Espere!", "Você tem certeza que deseja sair do aplicativo?", [
-  //       {
-  //         text: "Cancel",
-  //         onPress: () => null,
-  //         style: "cancel"
-  //       },
-  //       { text: "YES", onPress: () => BackHandler.exitApp() }
-  //     ]);
-  //     return true;
-  //   };
-
-  //   const backHandler = BackHandler.addEventListener(
-  //     "hardwareBackPress",
-  //     backAction
-  //   );
-
-  //   return () => backHandler.remove();}
-  // }, []);
