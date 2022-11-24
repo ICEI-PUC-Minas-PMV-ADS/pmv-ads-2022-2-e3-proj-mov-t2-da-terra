@@ -5,26 +5,44 @@ export const PedidoContext = createContext({});
 
 const PedidoProvider = ({ children }) => {
   const [resultados, setResultados] = useState([]);
-  const[pedido,setPedido]=useState();
+  const [pedido, setPedido] = useState();
 
-const getPedido = async (id)=>{
-  return await fetch(`${url}/pedidos/${id}`,
-  {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => response.json())
-  .then(json => {
-     return json
+  const getPedido = async (id) => {
+    return await fetch(`${url}/pedidos/cliente/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(json => {
+        return json
+      })
+      .catch(error => console.error(error));
+  }
 
-  })
-  .catch(error => console.error(error));
 
+  const getPedidoProdutor = async (id) => {
+    return await fetch(`${url}/pedidos/produtor/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application /json'
+        }
+      })
+      .then(response => response.json())
+      .then(json => {
+        // if (json) {
+        //   let idClientePedido = 0;
+        //   idClientePedido = Object.values(json);
+        //   console.log("ID Cliente", idClientePedido[0].clienteId);
 
-}
-
+          return json;
+        //}
+      })
+      .catch(error => console.error(error));
+  }
 
 
   const postPedido = async (param) => {
@@ -39,7 +57,7 @@ const getPedido = async (id)=>{
         if (json != undefined) {
           let idPedidoEnviado = 0;
           let idResultados = 0;
-          
+
           idPedidoEnviado = Object.values(json);
           console.log('ID', idPedidoEnviado[0])
 
@@ -48,7 +66,7 @@ const getPedido = async (id)=>{
 
             console.log("\nRESULTADOS: ", resultados[key]);
             console.log("\nID RESULTADOS: ", idResultados[3]);
-         
+
             postItemPedido({
               pedidoId: idPedidoEnviado[0],
               produtoId: idResultados[3]  // 3, pq é a posição de idProduto
@@ -86,14 +104,15 @@ const getPedido = async (id)=>{
   }
   return (
     <PedidoContext.Provider
-      value={{  
+      value={{
         postPedido,
         postItemPedido,
         putPedido,
         getPedido,
         setPedido,
         resultados,
-        setResultados
+        setResultados,
+        getPedidoProdutor
       }}
     >
       {children}

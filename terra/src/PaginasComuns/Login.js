@@ -17,7 +17,6 @@ import Botao from "../Componentes/Botao";
 
 import { AuthContext } from "../contexts/AuthProvider";
 
-
 export default function Login() {
   const navigation = useNavigation();
   const { postLogin, user } = useContext(AuthContext);

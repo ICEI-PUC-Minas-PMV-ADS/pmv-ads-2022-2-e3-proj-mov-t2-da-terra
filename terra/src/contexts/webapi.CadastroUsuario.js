@@ -26,6 +26,7 @@ const UsuarioProvider = ({ children }) => {
 
   // GET (Cliente)
   const getCliente = async (id) => {
+    console.log(`${url}/clientes/${id}`)  
     return await fetch(`${url}/clientes/${id}`,
       {
         method: 'GET',

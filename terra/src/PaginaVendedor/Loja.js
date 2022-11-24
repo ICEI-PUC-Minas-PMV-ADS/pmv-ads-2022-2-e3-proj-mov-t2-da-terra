@@ -15,7 +15,7 @@ import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 
-import { useNavigation, useIsFocused,useRoute } from "@react-navigation/native";
+import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native";
 
 import { AuthContext } from "../contexts/AuthProvider";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
@@ -24,36 +24,35 @@ const Loja = () => {
   const navigation = useNavigation();
   const route = useRoute();
   // Provider com as informações do usuário logado  
-  const { user, setUser } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   const isFocused = useIsFocused();
 
-  // Pegando dados do contexto
-  const { produto, getAllProdutoProdutor,getBuscaProdutoCliente } = useContext(ProdutoContext);
+  //Pegando dados do contexto
+  const { produto, getBuscaTodosProdutos } = useContext(ProdutoContext);
 
+  // Pega os produtos do produtor logado
   useEffect(() => {
-    // Pega todos os itens no banco
-    // tem que ajsuta para pegar somente os itens do user x
-    getAllProdutoProdutor();
+    getBuscaTodosProdutos().then();
   }, [isFocused])
 
   useEffect(() => {
-    if (route.name==="HomeVendedor") {
+    if (route.name === "HomeVendedor") {
       console.log(route.name)
       const backAction = () => {
-       BackHandler.exitApp()
+        BackHandler.exitApp()
         return true;
       };
-  
+
       const backHandler = BackHandler.addEventListener(
         "hardwareBackPress",
         backAction
       );
-  
-      return () => backHandler.remove();
-  
-  }
 
-    
+      return () => backHandler.remove();
+
+    }
+
+
   }, []);
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
@@ -76,7 +75,7 @@ const Loja = () => {
 
   return (
     <Container>
-      <Header />
+      <Header title={user.produtor.nomeLoja} />
       <Body>
         <FlatList
           data={produto}

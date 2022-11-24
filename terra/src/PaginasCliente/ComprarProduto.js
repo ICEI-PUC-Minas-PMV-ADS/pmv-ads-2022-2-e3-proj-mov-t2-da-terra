@@ -21,7 +21,7 @@ import { insertCarrinho } from "../DBService/DBCarrinho";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 import Database from "../DBService/DBService";
 import { AuthContext } from "../contexts/AuthProvider";
-import { useNavigation,useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
 
 
 const ComprarProduto = () => {
@@ -44,22 +44,22 @@ const ComprarProduto = () => {
   let precoTotal = quantidade * produto[0].preco
 
   useEffect(() => {
-    if (route.name==="ComprarProduto") {
+    if (route.name === "ComprarProduto") {
       const backAction = () => {
-       navigation.goBack()
+        navigation.goBack()
         return true;
       };
-  
+
       const backHandler = BackHandler.addEventListener(
         "hardwareBackPress",
         backAction
       );
-  
-      return () => backHandler.remove();
-  
-  }
 
-    
+      return () => backHandler.remove();
+
+    }
+
+
   }, []);
   const upQtd = () => {
     if (contador < produto[0].estoque) {
@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 26,
     alignSelf: "flex-start",
-    fontStyle:"italic"
+    fontStyle: "italic"
   },
   textDescricao: {
     fontSize: 18,

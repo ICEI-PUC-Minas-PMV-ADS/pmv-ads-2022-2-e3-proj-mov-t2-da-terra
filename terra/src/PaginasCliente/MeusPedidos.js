@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from "react";
 
 
@@ -11,25 +10,36 @@ import {
 } from "react-native";
 
 
-import {PedidoContext} from "../contexts/webapi.PedidoProvider"
+import { PedidoContext } from "../contexts/webapi.PedidoProvider"
 import { List, Appbar, Divider } from "react-native-paper";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
+import { AuthContext } from "../contexts/AuthProvider";
 
-import { useNavigation, } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 const MeusPedidos = () => {
   const navigation = useNavigation()
-  const{pedido,putPedido}= useContext(PedidoContext)
+  const { pedido, putPedido, getPedido, setPedido } = useContext(PedidoContext)
+  const { user } = useContext(AuthContext)
 
+  const [resultados, setResultados] = useState([]);
+
+  useEffect(() => {
+    getPedido(user.cliente.id).then(res => {
+      setResultados(res)
+      console.log(res)
+    })
+    //setTimeout(() => console.log(resultados[0]), 1000)  
+  }, [])
 
 
   const renderItem = ({ item }) => {
     return (
       <View style={{ marginTop: 20 }}>
         <List.Item
-           title={`${item.nome}`}
+          title={`Pedido #${item.id}`}
           titleStyle={{
             fontSize: 20,
             fontWeight: "bold",
@@ -52,9 +62,9 @@ const MeusPedidos = () => {
 
           description={
             <>
-              <View style={{ flexDirection: "row", alignItems: "center"}}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <List.Icon icon={item.aprovado ? "check" : "clock-outline"} />
-                <Text style={item.status=="Pedido Enviado" ? styles.esperandoAprovacao : styles.aprovado}>{`${item.status=="Pedido Enviado" ? "Aguardando aprovação" : "Aprovado"}`}</Text>
+                <Text style={item.status == "Pedido Enviado" ? styles.esperandoAprovacao : styles.aprovado}>{`${item.status == "Pedido Enviado" ? "Aguardando aprovação" : "Aprovado"}`}</Text>
               </View>
 
               <View style={{ flexDirection: "row", alignItems: "center"}}>
@@ -84,7 +94,8 @@ const MeusPedidos = () => {
 
       </Header>
       <Body>
-      {resultados.length == 0 && (
+        {/* ESTÁ DANDO ERRO QUANDO ESTÁ VAZIO */ }
+      {/* {resultados.length == 0 && (
           <View style={styles.viewPedidosVazio}>
             <Image
               style={styles.imgPedidos}
@@ -97,9 +108,9 @@ const MeusPedidos = () => {
               Quando você comprar algum produto,ele aparecerá bem aqui
             </Text>
           </View>
-        )}
+        )} */}
         <FlatList
-          data={pedido}
+          data={resultados}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
@@ -139,7 +150,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     marginTop: 35,
-    marginLeft:55
+    marginLeft: 55
   },
   aprovado: {
     fontSize: 16,
@@ -158,5 +169,3 @@ const styles = StyleSheet.create({
 });
 
 export default MeusPedidos;
-
-

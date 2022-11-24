@@ -33,7 +33,7 @@ namespace WebApi.Controllers
     {
       // Usuário tem acesso somente aos próprios dados
       var cliente = await context.Clientes
-        .FirstOrDefaultAsync(x => x.Id == id && x.Nome == User.Identity.Name);
+        .FirstOrDefaultAsync(x => x.Id == id);
 
       if (cliente == null)
         return NotFound(new { message = "Cliente não encontrado" });

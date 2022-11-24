@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Image,
   Alert,
-  BackHandler
 } from "react-native";
 
 
@@ -30,11 +29,9 @@ import { register, login } from '../JsonServer/webapi.usuarios'
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 import { ValidarCadastroContext } from "../contexts/webapi.ValidarCadastro";
 import { AuthContext } from '../contexts/AuthProvider';
-import { useNavigation,useRoute } from "@react-navigation/native";
 
 const CadastroUsuario = ({ navigation, route }) => {
-  const navigate = useNavigation()
-  const rota = useRoute()
+
   // Esconde Senha, Avisos e Falta Info
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true);
@@ -89,31 +86,10 @@ const CadastroUsuario = ({ navigation, route }) => {
   //console.log(userLogado);
 
   useEffect(() => {
-    // deleteProdutor(7); // OK
-    // deleteCliente(6); // OK
-    // getCliente(3); // OK
-    // getProdutor(2); // OK
     buscarEndereco(); // Busca CEP
     DataBase.getConnection();
   }, [cep]);
-  useEffect(() => {
-    if (route.name==="CadastroUsuario" && userLogado) {
-      const backAction = () => {
-       navigation.goBack()
-        return true;
-      };
-  
-      const backHandler = BackHandler.addEventListener(
-        "hardwareBackPress",
-        backAction
-      );
-  
-      return () => backHandler.remove();
-  
-  }
 
-    
-  }, []);
   // Aceitando cadastrar email igual, verificar
   // Cadastrar Usuário, Validação de Dados e senha
   // CRUD OK - Falta testar o PUT
@@ -135,60 +111,67 @@ const CadastroUsuario = ({ navigation, route }) => {
       !confirmarSenha
     ) {
       setMissInfo(true);  // Falta Informação      
-    }
-
-    // Verifica se o user já possui cadastro
-    postValidarCadastro({
-      email: email,
-    }).then();
-    console.log(idCadastrado);
-
-    // Se retornar number, então retornou ID, pois o error é objeto
-    if (typeof (idCadastrado) === "number") {
-      Alert.alert("Esse email já está cadastrado");
-    } else
-
+      //console.log("missinfo: ", missInfo)
+    } else {
       if (senha != confirmarSenha) {
         Alert.alert("Confirmação de senha incorreta, verifique")
-      } else if (tipoUsuario == 'produtor') {
-        // PRODUTOR
-        postUsuario({
-          nome: nome.trim(),
-          dataNascimento: data.trim(),
-          cpf: cpf.trim(),
-          telefone: telefone.trim(),
-          rua: rua.trim(),
-          bairro: bairro.trim(),
-          numeroCasa: numeroCasa.trim(),
-          cep: cep.trim(),
-          cidade: cidade.trim(),
-          uf: uf.trim(),
-          complemento: complemento.trim(),
-          tipoUsuario: tipoUsuario.trim(),
-          nomeLoja: nomeLoja.trim(),   // Somente produtor
-          email: email.trim(),
-          senha: senha.trim()
-        }).then();
       } else {
-        // CLIENTE
-        postUsuario({
-          nome: nome.trim(),
-          dataNascimento: data.trim(),
-          cpf: cpf.trim(),
-          telefone: telefone.trim(),
-          rua: rua.trim(),
-          bairro: bairro.trim(),
-          numeroCasa: numeroCasa,
-          cep: cep.trim(),
-          cidade: cidade.trim(),
-          uf: uf.trim(),
-          complemento: complemento.trim(),
-          tipoUsuario: tipoUsuario.trim(),
-          email: email.trim(),
-          senha: senha.trim()
-        }).then();
+        //  Verifica se o user já possui cadastro
+        // AINDA COM ERRO AQUI
+        postValidarCadastro(email)
+          .then((res) => {
+            console.log(idCadastrado)            
+          }).catch(e => console.log(e));
+        // console.log(idCadastrado);
+        // Se retornar number, então retornou ID(o error é objeto)
+
+        if (typeof (idCadastrado) === "number") {
+          Alert.alert("Esse email já está cadastrado");
+        }
+        else if (tipoUsuario == 'produtor') {
+          // PRODUTOR
+          console.log('entrou produtor')
+          postUsuario({
+            nome: nome.trim(),
+            dataNascimento: data.trim(),
+            cpf: cpf.trim(),
+            telefone: telefone.trim(),
+            rua: rua.trim(),
+            bairro: bairro.trim(),
+            numeroCasa: numeroCasa.trim(),
+            cep: cep.trim(),
+            cidade: cidade.trim(),
+            uf: uf.trim(),
+            complemento: complemento.trim(),
+            tipoUsuario: tipoUsuario.trim(),
+            nomeLoja: nomeLoja.trim(),   // Somente produtor
+            email: email.trim(),
+            senha: senha.trim()
+          }).then();
+          navigation.goBack();
+        } else {
+          // CLIENTE
+          console.log('entrou cliente')
+          postUsuario({
+            nome: nome.trim(),
+            dataNascimento: data.trim(),
+            cpf: cpf.trim(),
+            telefone: telefone.trim(),
+            rua: rua.trim(),
+            bairro: bairro.trim(),
+            numeroCasa: numeroCasa.trim(),
+            cep: cep.trim(),
+            cidade: cidade.trim(),
+            uf: uf.trim(),
+            complemento: complemento.trim(),
+            tipoUsuario: tipoUsuario.trim(),
+            email: email.trim(),
+            senha: senha.trim()
+          }).then();
+          navigation.goBack();
+        }
       }
-    navigation.goBack();
+    }
   }
 
   /*  putUsuario({    // Aqui foi incluído

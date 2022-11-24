@@ -38,8 +38,9 @@ namespace WebApi.Controllers
       }
     }
 
-    [HttpGet(template: "pedidos/{id}")]
-    public async Task<IActionResult> GetPedido(
+    // GET PEDIDOS: CLIENTE
+    [HttpGet(template: "pedidos/cliente/{id}")]
+    public async Task<IActionResult> GetPedidoCliente(
       [FromServices] AppDbContext context,
       [FromRoute] int id)
     {
@@ -47,6 +48,22 @@ namespace WebApi.Controllers
                         select query;
 
       queryPedido = queryPedido.Where(x => x.ClienteId == id);
+
+      return queryPedido != null
+                     ? Ok(await queryPedido.ToListAsync())
+                     : NotFound(new { message = "Produto não encontrado." });
+    }
+
+    // GET PEDIDOS: PRODUTOR
+    [HttpGet(template: "pedidos/produtor/{id}")]
+    public async Task<IActionResult> GetPedidoProdutor(
+      [FromServices] AppDbContext context,
+      [FromRoute] int id)
+    {
+      var queryPedido = from query in context.Pedidos
+                        select query;
+
+      queryPedido = queryPedido.Where(x => x.ProdutorId == id);
 
       return queryPedido != null
                      ? Ok(await queryPedido.ToListAsync())

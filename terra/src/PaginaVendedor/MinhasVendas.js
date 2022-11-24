@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import { StyleSheet, Text, FlatList, View } from "react-native";
 import { Button, List, Divider } from 'react-native-paper';
@@ -6,6 +6,9 @@ import { Button, List, Divider } from 'react-native-paper';
 import Body from "../Componentes/Body";
 import Container from '../Componentes/Container';
 import Header from '../Componentes/Header';
+import { PedidoContext } from '../contexts/webapi.PedidoProvider';
+import { AuthContext } from "../contexts/AuthProvider";
+import { UsuarioContext } from '../contexts/webapi.CadastroUsuario';
 
 // Para Testes
 const DATA = [
@@ -73,6 +76,54 @@ const DATA = [
 const MinhasVendas = () => {
 
   const [value, setValue] = useState(0);
+  const [resultados, setResultados] = useState([]);
+  const { getPedidoProdutor } = useContext(PedidoContext);
+  const { user } = useContext(AuthContext);
+  const { getCliente } = useContext(UsuarioContext);
+  const [cliente, setCliente] = useState();
+
+
+  // EM TESTES
+  useEffect(() => {
+    let idClientePedido = 0;
+    getPedidoProdutor(user.produtor.id).then(res => {
+      setResultados(res)
+      idClientePedido = Object.values(res);
+      console.log("ID Cliente", idClientePedido[0].clienteId);
+    })
+
+    // getCliente(idClientePedido).then(res => {
+    //   setCliente(res)
+    // })
+    // console.log("Cliente", cliente);
+
+
+  }, [])
+
+
+  // EM TESTES
+  // useEffect(() => {
+  //   let idClientePedido = 0;
+    
+  //   while (idClientePedido == 0) {
+  //     // getPedidoProdutor(user.produtor.id).then(res => {
+  //     //   setResultados(res)
+  //     //   idClientePedido = Object.values(res);
+  //     //   console.log("ID Cliente", idClientePedido[0].clienteId);
+  //     // })
+  //   }
+
+  //   if (idClientePedido != 0) {
+  //     getCliente(idClientePedido).then(res => {
+  //       setCliente(res)
+  //     })
+  //   }
+
+  //   // console.log("Cliente", cliente);
+
+
+  // }, [])
+
 
   const renderItem = ({ item }) => {
     if (value == 0) {
@@ -80,7 +131,7 @@ const MinhasVendas = () => {
         <View>
           {/* Número do Pedido / Preço / Usuário */}
           <List.Item
-            title={`${item.title}`}
+            title={`# ${item.id}`}
             titleStyle={{
               fontSize: 20,
               fontWeight: 'bold',
@@ -90,13 +141,13 @@ const MinhasVendas = () => {
             right={() =>
               <Text
                 style={{ textAlignVertical: 'center', fontWeight: 'bold', marginRight: 10, fontSize: 18 }}>
-                R$ {item.valor}
+                R$ {item.precoTotalPedido}
               </Text>
             }
             description={
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <List.Icon icon="account" />
-                <Text style={{ fontSize: 16 }}>{item.usuario}</Text>
+                <Text style={{ fontSize: 16 }}>{item.clienteId}</Text>
               </View>
             }
           />
@@ -107,9 +158,9 @@ const MinhasVendas = () => {
             titleStyle={{ fontSize: 16 }}
             left={() => <List.Icon icon="fruit-cherries" />}>
             <View>
-              <List.Item title={item.produtos.prod1 + `     R$ ${item.produtos.valor1}`} />
+              {/* <List.Item title={item.produtos.prod1 + `     R$ ${item.produtos.valor1}`} />
               <List.Item title={item.produtos.prod2 + `     R$ ${item.produtos.valor1}`} />
-              <List.Item title={item.produtos.prod3 + `     R$ ${item.produtos.valor1}`} />
+              <List.Item title={item.produtos.prod3 + `     R$ ${item.produtos.valor1}`} /> */}
             </View>
           </List.Accordion>
 
@@ -179,10 +230,10 @@ const MinhasVendas = () => {
         </Button>
       </View>
       <Body>
-      
+
         <View style={styles.viewFlatList}>
           <FlatList
-            data={DATA}
+            data={resultados}
             renderItem={renderItem}
             keyExtractor={item => item.id}
           />
@@ -194,12 +245,12 @@ const MinhasVendas = () => {
 }
 
 const styles = StyleSheet.create({
- /* FlatList */
+  /* FlatList */
   viewFlatList: {
     flexDirection: 'row',
-   // padding: 5,
-  },  
-  
+    // padding: 5,
+  },
+
   // Botões
   viewBotao: {
     flexDirection: 'row',
