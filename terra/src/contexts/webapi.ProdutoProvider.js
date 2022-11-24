@@ -1,19 +1,18 @@
-import React, { createContext, useContext, useState } from "react";
-import { AuthContext } from "./AuthProvider";
+import React, { createContext, useState } from "react";
 import { url } from "./webapi.url";
 
 export const ProdutoContext = createContext({});
 
 const ProdutoProvider = ({ children }) => {
-  const [resultados, setResultados] = useState([]); // Usado para o carrinho
+  const [resultados, setResultados] = useState([]);
   const [produto, setProduto] = useState([]);
-  const [produtoQuery, setProdutoQuery] = useState([]);
 
-  const { user } = useContext(AuthContext);
+  const [resultadoBuscaProduto, setResultadoBuscaProduto] = useState([]); //teste
 
-  // PRODUTOR E CLIENTE
-  // GET: Tela Loja (Produtor) e Busca Produto (Cliente)
-  const getBuscaTodosProdutos = async () => {
+  // CLIENTE ------------------------------------------------------
+  //GET Tela Busca do Cliente - Renderiza todos produtos - OK
+  const getBuscaProdutoCliente = async () => {
+    console.log(`${url}/produtos/todos`)
     return await fetch(`${url}/produtos/todos`, {
       method: 'GET',
       headers: {
@@ -22,26 +21,17 @@ const ProdutoProvider = ({ children }) => {
     })
       .then(response => response.json())
       .then(json => {
-        if (user.produtor) {
-          let res = []
-          for (let p in json) {
-            if (json[p].produtorId == user.produtor.id) {
-             // console.log([json[p]]);
-              res.push(json[p]);
-            }
-          }
-          setProduto(res);
-        } else {
-          setProdutoQuery(json);
-        }
+        //console.log(json)
+        setProduto(json)
       })
       .catch(error => console.error(error));
   }
 
-  // CLIENTE ------------------------------------------------------
   //GET Tela Busca: Produto por nome - OK
-  const buscaProdutos = async (param = {}) => {
-    return await fetch(`${url}/produtos/busca?nomeProduto=${param}`,
+  const BuscaProdutos = async (param = {}) => {
+    console.log(`${url}/produtos/busca?nomeProduto=${param}`)
+    return await fetch(
+      `${url}/produtos/busca?nomeProduto=${param}`,
       {
         method: 'GET',
         headers: {
@@ -49,13 +39,15 @@ const ProdutoProvider = ({ children }) => {
         }
       })
       .then(response => response.json())
-      .then(json => setProdutoQuery(json))
+      .then(json => setProduto(json))
+      //.then(json => setResultadoBuscaProduto(json)) // teste
       .then(json => console.log(json))
       .catch(error => console.error(error));
   }
 
   // GET Carrinho - OK
   const getProdutoCarrinho = async (id) => {
+    console.log(`${url}/produtos/carrinho/${id}`);
     return await fetch(`${url}/produtos/carrinho/${id}`,
       {
         method: 'GET',
@@ -64,13 +56,31 @@ const ProdutoProvider = ({ children }) => {
         }
       })
       .then(response => response.json())
-      .then(json => console.log("json", json))
+      .then(json => {
+        //  console.log("json", json)   
+      })
       .catch(error => console.error(error));
   }
   // FIM CLIENTE ---------------------------------------------------
 
   // PRODUTOR ------------------------------------------------------
-  // POST: Tela Cadastro de Produto
+  // POST Tela cadastro de produto - OK
+  // TERMINAR - NA API COLOCAR APENAS PARA USER LOGADO == PRODUTOR
+  const getAllProdutoProdutor = async () => {
+    return await fetch(`${url}/produtos/loja`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json)
+        //setProduto(json)
+      })
+      .catch(error => console.error(error));
+  }
+
   const postProduto = async (param) => {
     console.log(param);
     return await fetch(`${url}/produtos/`,
@@ -86,8 +96,8 @@ const ProdutoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-  // PUT: Tela Editar em Cadastro de Produto
-  const putProduto = async (param) => {
+  // PUT Tela cadastro de produto - OK
+  const putProduto = async (param = {}) => {
     return await fetch(`${url}/produtos/${param.id}`,
       {
         method: 'PUT',
@@ -97,10 +107,11 @@ const ProdutoProvider = ({ children }) => {
         body: JSON.stringify(param)
       })
       .then(response => response.json())
+      .then(json => setProduto(json))
       .catch(error => console.error(error));
   }
 
-  // DELETE: Tela Deletar em Cadastro de Produto
+  // DELETE Tela cadastro de produto - OK 
   const deleteProduto = async (id) => {
     return await fetch(`${url}/produtos/${id}`,
       {
@@ -119,11 +130,12 @@ const ProdutoProvider = ({ children }) => {
         postProduto,
         putProduto,
         deleteProduto,
-        buscaProdutos,
+        getBuscaProdutoCliente,
+        getAllProdutoProdutor,
+        BuscaProdutos,
         setResultados,
-        getBuscaTodosProdutos,
-        produtoQuery,
-        setProdutoQuery
+        resultadoBuscaProduto,
+        setResultadoBuscaProduto
       }}
     >
       {children}

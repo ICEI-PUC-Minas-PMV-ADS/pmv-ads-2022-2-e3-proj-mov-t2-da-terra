@@ -23,15 +23,16 @@ const Loja = () => {
   const navigation = useNavigation();
 
   // Provider com as informações do usuário logado  
-  const { user } = useContext(AuthContext)
+  const { user, setUser } = useContext(AuthContext)
   const isFocused = useIsFocused();
 
-  //Pegando dados do contexto
-  const { produto, getBuscaTodosProdutos } = useContext(ProdutoContext);
+  // Pegando dados do contexto
+  const { produto, getAllProdutoProdutor,getBuscaProdutoCliente } = useContext(ProdutoContext);
 
-  // Pega os produtos do produtor logado
-  useEffect(() => {   
-    getBuscaTodosProdutos().then();
+  useEffect(() => {
+    // Pega todos os itens no banco
+    // tem que ajsuta para pegar somente os itens do user x
+    getAllProdutoProdutor();
   }, [isFocused])
 
 
@@ -56,7 +57,7 @@ const Loja = () => {
 
   return (
     <Container>
-      <Header title={user.produtor.nomeLoja}/>
+      <Header />
       <Body>
         <FlatList
           data={produto}

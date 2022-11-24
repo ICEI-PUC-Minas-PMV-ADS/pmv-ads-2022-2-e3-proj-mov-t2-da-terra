@@ -43,7 +43,7 @@ const Carrinho = () => {
   const {
     postPedido,
     resultados,
-    setResultados,
+    setResultados
   } = useContext(PedidoContext);
 
   // Tabela Pedidos  
@@ -59,7 +59,7 @@ const Carrinho = () => {
     navigation.navigate("PedidoEnviado");
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     Database.getConnection();
 
     getCarrinho(user.cliente.id)
@@ -68,7 +68,7 @@ const Carrinho = () => {
         setResultados(res);
         let soma = 0
         for (let i in res) {
-          soma += res[i].precoTotal;
+          soma += res[i].preco;
           setPrecoTotal(soma);
         }
       })
@@ -112,7 +112,9 @@ const Carrinho = () => {
                 </View>
               </>
             )}
-            description={`Preço R$ ${item.preco != undefined ? item.precoTotal : 0} `}
+            description={`R$ ${item.preco != undefined ? item.preco : 0} / ${item.embalagem != undefined ? item.embalagem : ""
+              }
+            `}
           />
         </View>
       </TouchableOpacity>

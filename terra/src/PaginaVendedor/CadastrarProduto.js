@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, StyleSheet, View, TouchableOpacity, ScrollView } from "react-native";
 import {
   TextInput,
@@ -17,14 +17,10 @@ import Header from "../Componentes/Header";
 
 import { useNavigation } from "@react-navigation/native";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
-import { AuthContext } from "../contexts/AuthProvider";
 
 const CadastarProduto = ({ route }) => {
-  const navigation = useNavigation();
 
-  // Contexts
-  const { postProduto, putProduto, deleteProduto } = useContext(ProdutoContext);
-  const { user } = useContext(AuthContext);
+  const navigation = useNavigation();
 
   // Categoria Portal
   const [visible, setVisible] = useState(false);
@@ -36,21 +32,24 @@ const CadastarProduto = ({ route }) => {
   const showDialogEmbalagem = () => setVisibleEmbalagem(true);
   const hideDialogEmbalagem = () => setVisibleEmbalagem(false);
 
-  const [nome, setNome] = useState("");
-  const [preco, setPreco] = useState();
-  const [estoque, setEstoque] = useState();
-  const [descricao, setDescricao] = useState("");
+  const [nome, setNome] = useState("Mamão");
+  const [preco, setPreco] = useState(7.98);
+  const [estoque, setEstoque] = useState(25);
+  const [descricao, setDescricao] = useState("Top de Linha");
 
   // Categoria: verduras, hortalicas, frutas, folhagens, bebidas, outros    
   const [categoria, setCategoria] = useState('Verduras');
   const [embalagem, setEmbalagem] = useState("KG")
-  //const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
+  const [foto, setFoto] = useState(); // VER COMO IMPLEMENTAR
 
   // Faltando informação
   const [missInfo, setMissInfo] = useState(false);
 
   // Verificando se tem dados na rota
   const { item } = route.params ? route.params : {};
+
+  // Context Produto
+  const { postProduto, putProduto, deleteProduto } = useContext(ProdutoContext);
 
   // Para exibir dados quando clica no card do produto (editar)
   useEffect(() => {
@@ -76,15 +75,14 @@ const CadastarProduto = ({ route }) => {
       if (!item) {
         postProduto({ // POST OK
           nome: nome.trim(),
-          preco: preco.trim(),
+          preco: preco,
           embalagem: embalagem,
-          estoque: estoque.trim(),
+          estoque: estoque,
           categoria: categoria,
           descricao: descricao.trim(),
-          produtorId: user.produtor.id
         }).then();
       } else {
-        putProduto({ // PUT OK
+        putProduto({ // TESTE OK
           nome: nome.trim(),
           preco: preco.trim(),
           embalagem: embalagem,
@@ -98,7 +96,7 @@ const CadastarProduto = ({ route }) => {
     }
   }
 
-  const handleExcluir = () => { // DELETE OK
+  const handleExcluir = () => { // TESTE OK
     deleteProduto(item.id).then().catch();
     navigation.goBack();
   }

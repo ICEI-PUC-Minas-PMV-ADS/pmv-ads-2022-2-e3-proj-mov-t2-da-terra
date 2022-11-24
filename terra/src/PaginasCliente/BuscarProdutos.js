@@ -34,8 +34,10 @@ import { AuthContext } from "../contexts/AuthProvider";
 const BuscarProdutos = () => {
   const navigation = useNavigation();
 
+
   // SeachBar
   const [searchQuery, setSearchQuery] = useState();
+  //const [resultados, setResultados] = useState([]);
 
   // Categoria Portal - Terminar
   const [visible, setVisible] = useState(false);
@@ -43,22 +45,30 @@ const BuscarProdutos = () => {
   const hideDialog = () => setVisible(false);
   const [categoria, setCategoria] = useState('Verduras');
 
-
   const {
-    buscaProdutos,
+    BuscaProdutos,
     produto,
+    getBuscaProdutoCliente,
     setProduto,
-    setResultados,
-    produtoQuery,
-    setProdutoQuery,
+    setResultados
   } = useContext(ProdutoContext);
+
+  //Retornando ok: Busca geral
+  // useEffect(() => {
+  //   //console.log(user);
+  //   getBuscaProdutoCliente()  // Todos Produtos
+  //     .then((res) => {
+  //       setResultados(produto)
+  //       console.log(res)
+  //     });
+  // }, [])
 
   // Retornando OK
   const onChangeSearch = (query) => {
     setSearchQuery(searchQuery);
-    console.log(query)
-    buscaProdutos(query)
-      .then(() => setResultados(produtoQuery));
+
+    BuscaProdutos(query)
+      .then(() => setResultados(produto));
   };
 
   const passProdutoRota = (produto) => {
@@ -162,7 +172,7 @@ const BuscarProdutos = () => {
           //     style={styles.img}
           //     source={require("../assets/maracuja.jpg")} />}
           right={() =>
-            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)}</Text>
+            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco}</Text>
           }
           description={`Estoque: ${item.estoque} ${item.embalagem}`}
         />
@@ -186,7 +196,7 @@ const BuscarProdutos = () => {
       <Body>
 
         <FlatList
-          data={produtoQuery}
+          data={produto}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
