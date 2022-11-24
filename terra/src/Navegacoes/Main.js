@@ -32,6 +32,7 @@ const Main = () => {
       <Stack.Screen
         name="HomeCliente"
         component={HomeCliente}
+        
         options={{
           header: () => null,
         }}
@@ -80,6 +81,7 @@ const Main = () => {
       />
       <Stack.Screen
         name="Carrinho"
+        goBack={() => navigation.goBack()}
         component={Carrinho}
         options={{
           header: () => null,

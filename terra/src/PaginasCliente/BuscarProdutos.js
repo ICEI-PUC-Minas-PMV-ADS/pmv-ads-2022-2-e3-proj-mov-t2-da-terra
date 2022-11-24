@@ -23,7 +23,7 @@ import {
 } from "react-native-paper";
 
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation,useRoute } from "@react-navigation/native";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -44,6 +44,24 @@ const BuscarProdutos = () => {
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
   const [categoria, setCategoria] = useState('Verduras');
+  const route = useRoute();
+  useEffect(() => {
+    if (route.name==="HomeCliente") {
+       console.log("Oiiii")
+      const backAction = () => {
+       BackHandler.exitApp() 
+        
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
 
   const {
     BuscaProdutos,

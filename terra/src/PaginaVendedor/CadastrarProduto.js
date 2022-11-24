@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, ScrollView } from "react-native";
+import React, { useContext, useEffect, useReducer, useState } from "react";
+import { Text, StyleSheet, View, TouchableOpacity, ScrollView, BackHandler } from "react-native";
 import {
   TextInput,
   Portal,
   Dialog,
   Button,
   Provider,
-  RadioButton
+  RadioButton,
+
 } from "react-native-paper";
 
 import Body from "../Componentes/Body";
@@ -15,12 +16,13 @@ import Container from "../Componentes/Container";
 import Input from "../Componentes/Input";
 import Header from "../Componentes/Header";
 
-import { useNavigation } from "@react-navigation/native";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
+import { AuthContext } from "../contexts/AuthProvider";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const CadastarProduto = ({ route }) => {
-
   const navigation = useNavigation();
+  const rota = useRoute();
 
   // Categoria Portal
   const [visible, setVisible] = useState(false);
@@ -48,8 +50,24 @@ const CadastarProduto = ({ route }) => {
   // Verificando se tem dados na rota
   const { item } = route.params ? route.params : {};
 
-  // Context Produto
-  const { postProduto, putProduto, deleteProduto } = useContext(ProdutoContext);
+  useEffect(() => {
+    if (rota.name === "CadastrarProduto") {
+      const backAction = () => {
+        navigation.goBack()
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+
+      return () => backHandler.remove();
+
+    }
+
+
+  }, []);
 
   // Para exibir dados quando clica no card do produto (editar)
   useEffect(() => {

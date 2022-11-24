@@ -6,17 +6,19 @@ import {
   View,
   TouchableOpacity,
   Text,
+  BackHandler
 } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../contexts/AuthProvider";
 
 import Botao from "../Componentes/Botao";
 import Container from "../Componentes/Container";
+import { useNavigation,useRoute } from "@react-navigation/native";
 
 const PedidoEnviado = () => {
   let logo = require('../assets/logos_alternativas/logo.png');
   const { user } = useContext(AuthContext);
+  const route = useRoute();
 
   const date = new Date().toLocaleDateString('pt-BR', {timeZone: 'UTC'});
 
@@ -25,6 +27,31 @@ const PedidoEnviado = () => {
   const minutos = tempo.getMinutes()
   const segundos = tempo.getSeconds()
   const navigation = useNavigation();
+
+
+
+
+
+
+  useEffect(() => {
+    if (route.name==="PedidoEnviado") {
+      const backAction = () => {
+       navigation.goBack()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
+
+    
+  }, []);
+
   return (
     <Container>
       <Text style={styles.titulo}>Pedido Enviado</Text>

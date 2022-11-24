@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  BackHandler
 
 } from "react-native";
 
@@ -17,13 +18,14 @@ import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import Seletor from "../Componentes/Seletor";
 import { insertCarrinho } from "../DBService/DBCarrinho";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 import Database from "../DBService/DBService";
 import { AuthContext } from "../contexts/AuthProvider";
-// import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
+import { useNavigation,useRoute } from "@react-navigation/native";
 
-const ComprarProduto = ({ route }) => {
+
+const ComprarProduto = () => {
+  const route = useRoute();
 
   const navigation = useNavigation();
   const isFocused = useIsFocused();
@@ -41,6 +43,24 @@ const ComprarProduto = ({ route }) => {
   let contador = quantidade;
   let precoTotal = quantidade * produto[0].preco
 
+  useEffect(() => {
+    if (route.name==="ComprarProduto") {
+      const backAction = () => {
+       navigation.goBack()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
+
+    
+  }, []);
   const upQtd = () => {
     if (contador < produto[0].estoque) {
       setQuantidade(contador += 1);
@@ -89,7 +109,7 @@ const ComprarProduto = ({ route }) => {
     <View>
       <View style={{ marginVertical: 5 }}>
         <Text style={styles.textNomeProduto}>
-          {item.nome} {item.embalagem}
+          {item.nome} ({item.embalagem})
         </Text>
         <Text
           style={styles.textPreco}>
@@ -296,6 +316,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 26,
     alignSelf: "flex-start",
+    fontStyle:"italic"
   },
   textDescricao: {
     fontSize: 18,

@@ -1,10 +1,13 @@
-import React from "react";
+
+import React, { useContext, useEffect, useState } from "react";
+
 
 import {
   View,
   Text,
   FlatList,
   StyleSheet,
+  Image
 } from "react-native";
 
 
@@ -81,6 +84,20 @@ const MeusPedidos = () => {
 
       </Header>
       <Body>
+      {resultados.length == 0 && (
+          <View style={styles.viewPedidosVazio}>
+            <Image
+              style={styles.imgPedidos}
+              source={require("../assets/Pedido_vazio.png")}
+            />
+            <Text style={styles.textAvisoPedidosVazio}>
+              Parece que você não tem nenhum pedido no momento
+            </Text>
+            <Text style={styles.textAvisoPedidosVazio}>
+              Quando você comprar algum produto,ele aparecerá bem aqui
+            </Text>
+          </View>
+        )}
         <FlatList
           data={pedido}
           renderItem={renderItem}
@@ -100,7 +117,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
 
   },
-  textPrecoTotal:{
+  viewPedidosVazio: {
+    alignSelf: "center",
+    marginTop: 110,
+
+  },
+  textAvisoPedidosVazio: {
+    fontSize: 20,
+    textAlign: "center",
+    letterSpacing: 0.9,
+    paddingLeft:4,
+    paddingRight:4
+  },
+  imgPedidos: {
+    width: 120,
+    height: 120,
+    alignSelf: "center"
+  },
+  textPrecoTotal: {
     textAlignVertical: "center",
     fontWeight: "bold",
     fontSize: 16,

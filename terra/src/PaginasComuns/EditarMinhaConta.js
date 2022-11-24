@@ -8,9 +8,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  BackHandler,
 } from "react-native";
 
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation,useRoute } from "@react-navigation/native";
 import { AuthContext } from "../contexts/AuthProvider";
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 import Input from "../Componentes/Input";
@@ -22,6 +23,7 @@ import Botao from "../Componentes/Botao";
 
 export default function EditarMinhaConta() {
   const navigation = useNavigation();
+  const rota = useRoute();
   const { tipoUsuario, idLogado } = useContext(AuthContext);
 
   //Dados pessoais do usuario que seram editador
@@ -92,7 +94,24 @@ export default function EditarMinhaConta() {
 
 
   }
+  useEffect(() => {
+    if (rota.name==="EditarMinhaConta") {
+      const backAction = () => {
+       navigation.goBack()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
 
+    
+  }, []);
 
 
 

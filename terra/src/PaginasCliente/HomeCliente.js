@@ -1,12 +1,16 @@
 
 import React, { useState, useContext, useEffect } from "react";
+import {
+  BackHandler,Alert
+} from "react-native";
 import { BottomNavigation } from "react-native-paper";
 import { StyleSheet } from "react-native";
 
 import MeusPedidos from "./MeusPedidos";
 import BuscarProdutos from "./BuscarProdutos";
 import MinhaConta from "../PaginasComuns/MinhaConta";
-import Carrinho from "../PaginasCliente/Carrinho"
+import { useNavigation,useRoute } from "@react-navigation/native";
+
 import { AuthContext } from "../contexts/AuthProvider";
 import { PedidoContext } from "../contexts/webapi.PedidoProvider";
 
@@ -16,7 +20,34 @@ const HomeCliente = () => {
   const [index, setIndex] = useState(0);
   const { user } = useContext(AuthContext)
   const { setPedido, getPedido } = useContext(PedidoContext)
+  const navigation = useNavigation();
+  const route = useRoute();
+  const {
+    // getBuscaTodosProdutos,
+    // produto,
+    // setResultados
+  } = useContext(ProdutoContext);
 
+  // useEffect(() => {
+  //   if (route.name==="HomeCliente") {
+  //      console.log("Oiiii")
+  //     const backAction = () => {
+  //      BackHandler.exitApp() 
+        
+  //       return true;
+  //     };
+  
+  //     const backHandler = BackHandler.addEventListener(
+  //       "hardwareBackPress",
+  //       backAction
+  //     );
+  
+  //     return () => backHandler.remove();
+  
+  // }
+
+    
+  // }, []);
 
   useEffect(() => {
     getPedido(user.cliente.id).then(res => {

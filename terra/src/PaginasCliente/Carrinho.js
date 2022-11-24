@@ -7,10 +7,10 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  BackHandler
 } from "react-native";
 
 import { List, Snackbar } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../contexts/AuthProvider";
 
 import {
@@ -23,12 +23,14 @@ import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import Botao from "../Componentes/Botao";
+import { useNavigation,useRoute } from "@react-navigation/native";
 
 import { PedidoContext } from "../contexts/webapi.PedidoProvider";
 
 const Carrinho = () => {
   const navigation = useNavigation();
   const { user } = useContext(AuthContext);
+  const route = useRoute();
 
   // Snack
   const [visible, setVisible] = useState(false);
@@ -73,6 +75,24 @@ const Carrinho = () => {
         }
       })
   }, [visible]);
+  useEffect(() => {
+    if (route.name==="Carrinho") {
+      const backAction = () => {
+       navigation.goBack()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
+
+    
+  }, []);
 
   const deleteItemCarrinho = (idProduto) => {
     onToggleSnackBar();
