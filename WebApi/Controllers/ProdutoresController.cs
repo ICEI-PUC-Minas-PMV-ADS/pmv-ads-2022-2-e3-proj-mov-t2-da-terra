@@ -179,7 +179,7 @@ namespace WebApi.Controllers
         pedido.ClienteId = pedido.ClienteId;
         pedido.PrecoTotalPedido = pedido.PrecoTotalPedido;
         pedido.DataPedido = pedido.DataPedido;*/
-        pedido.Status = "Pedido Aceito";//PELO VENDEDOR
+        pedido.AtualizarStatus("Pedido Aceito");//PELO VENDEDOR
         
         produto.RemoverProdutoEstoque(quantidadeProduto);//Tira a quantidade do estoque
 

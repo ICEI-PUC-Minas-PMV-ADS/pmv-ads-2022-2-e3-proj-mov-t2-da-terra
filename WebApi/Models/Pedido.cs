@@ -21,4 +21,11 @@ public class Pedido
 
   public ICollection<Produto> Produtos;
 
+
+  public void AtualizarStatus(string mensagem)
+  {
+    Status = mensagem;
+
+  }
+
 }
