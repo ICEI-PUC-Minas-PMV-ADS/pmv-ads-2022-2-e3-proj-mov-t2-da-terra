@@ -67,31 +67,25 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [confirmarSenha, setConfirmarSenha] = useState("");
 
   const {
-    getProdutor,
-    getCliente,
     postUsuario,
     putUsuario,
     deleteProdutor,
     deleteCliente,
   } = useContext(UsuarioContext);
 
-  const {
-    idCadastrado,
-    postValidarCadastro
-  } = useContext(ValidarCadastroContext);
+  // Validação Email Usuário
+  const { getValidarCadastro } = useContext(ValidarCadastroContext);
 
   // Usuário logado: Para usar em Meus Dados
   const { user } = useContext(AuthContext);
   const userLogado = (user ? Object.values(user) : undefined);
-  //console.log(userLogado);
 
   useEffect(() => {
     buscarEndereco(); // Busca CEP
     DataBase.getConnection();
   }, [cep]);
 
-  // Aceitando cadastrar email igual, verificar
-  // Cadastrar Usuário, Validação de Dados e senha
+  
   // CRUD OK - Falta testar o PUT
   const handleCadastrar = () => {
     // Verifica se tem algo incompleto no formulário
@@ -116,60 +110,57 @@ const CadastroUsuario = ({ navigation, route }) => {
       if (senha != confirmarSenha) {
         Alert.alert("Confirmação de senha incorreta, verifique")
       } else {
-        //  Verifica se o user já possui cadastro
-        // AINDA COM ERRO AQUI
-        postValidarCadastro(email)
-          .then((res) => {
-            console.log(idCadastrado)            
-          }).catch(e => console.log(e));
-        // console.log(idCadastrado);
-        // Se retornar number, então retornou ID(o error é objeto)
-
-        if (typeof (idCadastrado) === "number") {
-          Alert.alert("Esse email já está cadastrado");
-        }
-        else if (tipoUsuario == 'produtor') {
-          // PRODUTOR
-          console.log('entrou produtor')
-          postUsuario({
-            nome: nome.trim(),
-            dataNascimento: data.trim(),
-            cpf: cpf.trim(),
-            telefone: telefone.trim(),
-            rua: rua.trim(),
-            bairro: bairro.trim(),
-            numeroCasa: numeroCasa.trim(),
-            cep: cep.trim(),
-            cidade: cidade.trim(),
-            uf: uf.trim(),
-            complemento: complemento.trim(),
-            tipoUsuario: tipoUsuario.trim(),
-            nomeLoja: nomeLoja.trim(),   // Somente produtor
-            email: email.trim(),
-            senha: senha.trim()
-          }).then();
-          navigation.goBack();
-        } else {
-          // CLIENTE
-          console.log('entrou cliente')
-          postUsuario({
-            nome: nome.trim(),
-            dataNascimento: data.trim(),
-            cpf: cpf.trim(),
-            telefone: telefone.trim(),
-            rua: rua.trim(),
-            bairro: bairro.trim(),
-            numeroCasa: numeroCasa.trim(),
-            cep: cep.trim(),
-            cidade: cidade.trim(),
-            uf: uf.trim(),
-            complemento: complemento.trim(),
-            tipoUsuario: tipoUsuario.trim(),
-            email: email.trim(),
-            senha: senha.trim()
-          }).then();
-          navigation.goBack();
-        }
+        //  Verifica se o user já possui cadastro    
+        getValidarCadastro(email)
+          .then(res => {
+            //console.log(res[0]);
+            if (typeof (res[0]) != "number") {  // Se for number, então retornou ID
+              if (tipoUsuario == 'produtor') {
+                // PRODUTOR
+                console.log('entrou produtor')
+                postUsuario({
+                  nome: nome.trim(),
+                  dataNascimento: data.trim(),
+                  cpf: cpf.trim(),
+                  telefone: telefone.trim(),
+                  rua: rua.trim(),
+                  bairro: bairro.trim(),
+                  numeroCasa: numeroCasa.trim(),
+                  cep: cep.trim(),
+                  cidade: cidade.trim(),
+                  uf: uf.trim(),
+                  complemento: complemento.trim(),
+                  tipoUsuario: tipoUsuario.trim(),
+                  nomeLoja: nomeLoja.trim(),   // Somente produtor
+                  email: email.trim(),
+                  senha: senha.trim()
+                }).then();
+                navigation.goBack();
+              } else {
+                // CLIENTE                
+                postUsuario({
+                  nome: nome.trim(),
+                  dataNascimento: data.trim(),
+                  cpf: cpf.trim(),
+                  telefone: telefone.trim(),
+                  rua: rua.trim(),
+                  bairro: bairro.trim(),
+                  numeroCasa: numeroCasa.trim(),
+                  cep: cep.trim(),
+                  cidade: cidade.trim(),
+                  uf: uf.trim(),
+                  complemento: complemento.trim(),
+                  tipoUsuario: tipoUsuario.trim(),
+                  email: email.trim(),
+                  senha: senha.trim()
+                }).then();
+                navigation.goBack();
+              }
+            } else {
+              Alert.alert("Esse email já está cadastrado");
+            }
+          }
+        )
       }
     }
   }

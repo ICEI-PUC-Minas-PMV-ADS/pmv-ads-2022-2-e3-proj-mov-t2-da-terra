@@ -6,124 +6,40 @@ import { Button, List, Divider } from 'react-native-paper';
 import Body from "../Componentes/Body";
 import Container from '../Componentes/Container';
 import Header from '../Componentes/Header';
+
 import { PedidoContext } from '../contexts/webapi.PedidoProvider';
 import { AuthContext } from "../contexts/AuthProvider";
 import { UsuarioContext } from '../contexts/webapi.CadastroUsuario';
 
-// Para Testes
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Pedido #1',
-    usuario: 'Carlos',
-    produtos:
-    {
-      prod1: 'abobora',
-      valor1: '4,98',
-      prod2: 'tomate',
-      valor2: '14,98',
-      prod3: 'abacate',
-      valor3: '9,98',
-    },
-    valor: "29,94"
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Pedido #2',
-    usuario: 'Joana',
-    produtos: {
-      prod1: 'cenoura',
-      valor1: '4,98',
-      prod2: 'beterraba',
-      valor2: '14,98',
-      prod3: 'maçã',
-      valor3: '9,98',
-    },
-    valor: "29,94"
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Pedido #3',
-    usuario: 'Maria',
-    produtos:
-    {
-      prod1: 'espinafre',
-      valor1: '4,98',
-      prod2: 'pêra',
-      valor2: '14,98',
-      prod3: 'melão',
-      valor3: '9,98',
-    },
-    valor: "29,94"
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d74',
-    title: 'Pedido #4',
-    usuario: 'João',
-    produtos:
-    {
-      prod1: 'espinafre',
-      valor1: '4,98',
-      prod2: 'pêra',
-      valor2: '14,98',
-      prod3: 'melão',
-      valor3: '9,98',
-    },
-    valor: "29,94"
-  },
-];
-
 const MinhasVendas = () => {
 
   const [value, setValue] = useState(0);
-  const [resultados, setResultados] = useState([]);
+  const [resultados, setResultados] = useState([]); // Pedidos
+  const [nomeCliente, setNomeCliente] = useState([]);
+
   const { getPedidoProdutor } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
   const { getCliente } = useContext(UsuarioContext);
-  const [cliente, setCliente] = useState();
-
-
-  // EM TESTES
+  
+  // Funcionando - EM TESTES
   useEffect(() => {
-    let idClientePedido = 0;
-    getPedidoProdutor(user.produtor.id).then(res => {
-      setResultados(res)
-      idClientePedido = Object.values(res);
-      console.log("ID Cliente", idClientePedido[0].clienteId);
-    })
+    let id = 0
+    getPedidoProdutor(user.produtor.id)
+      .then(res => {
+        id = Object.values(res);
+        //console.log(id[0].clienteId)
+        setResultados(res)
 
-    // getCliente(idClientePedido).then(res => {
-    //   setCliente(res)
-    // })
-    // console.log("Cliente", cliente);
-
-
+        if (id != null) {          
+          getCliente(id[0].clienteId)
+            .then(res => {
+              let resNomeCliente = Object.values(res);
+              //console.log(resNomeCliente[1])
+              setNomeCliente(resNomeCliente[1])
+            });
+        }
+      })
   }, [])
-
-
-  // EM TESTES
-  // useEffect(() => {
-  //   let idClientePedido = 0;
-    
-  //   while (idClientePedido == 0) {
-  //     // getPedidoProdutor(user.produtor.id).then(res => {
-  //     //   setResultados(res)
-  //     //   idClientePedido = Object.values(res);
-  //     //   console.log("ID Cliente", idClientePedido[0].clienteId);
-  //     // })
-  //   }
-
-  //   if (idClientePedido != 0) {
-  //     getCliente(idClientePedido).then(res => {
-  //       setCliente(res)
-  //     })
-  //   }
-
-  //   // console.log("Cliente", cliente);
-
-
-  // }, [])
-
 
   const renderItem = ({ item }) => {
     if (value == 0) {
@@ -147,7 +63,7 @@ const MinhasVendas = () => {
             description={
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <List.Icon icon="account" />
-                <Text style={{ fontSize: 16 }}>{item.clienteId}</Text>
+                <Text style={{ fontSize: 16 }}>{nomeCliente}</Text>
               </View>
             }
           />

@@ -144,45 +144,64 @@ namespace WebApi.Controllers
       }
     } 
     
-    [HttpPut(template: "produtores/{id}")]
+    [HttpPut(template: "produtores/pedido/{id}")]
     [Authorize]
-    public async Task<IActionResult> AceitePedido(
+    public async Task<IActionResult> AceitarPedido(
           [FromServices] AppDbContext context,
-          [FromBody] CreateProdutorViewModel modelProdutor,
-          [FromBody] CreateProdutoViewModel modelProduto,
-          [FromBody] CreatePedidoViewModel modelPedido,
-          [FromBody] CreatePedidoViewModel modelItem,
-          [FromRoute] int idProdutor,int idProduto,int idPedido,int idItem,int quantidadeProduto)
+          [FromRoute] int idPedido,int quantidadeProduto)
     {
       if (!ModelState.IsValid)
+      {
         return BadRequest(new { message = "Model Invalid" });
+
+      }
+        
+      var pedido = await context.Pedidos
+        .FirstOrDefaultAsync(x => x.Id == idPedido);
       var item = await context.Itens
-        .FirstOrDefaultAsync(x => x.Id == idProdutor);
-      var produto = await context.Itens
+        .FirstOrDefaultAsync(x => x.Id == pedido.Id);
+      var produto = await context.Produtos
         .FirstOrDefaultAsync(x => x.Id == item.ProdutoId);
-      var produtor = await context.Produtores
-      .FirstOrDefaultAsync(x => x.Id == idProdutor); 
-      var pedido = await context.Produtos
-      .FirstOrDefaultAsync(x => x.Id == item.ProdutoId);
-    
-      
+     
+
+
       if (pedido == null)
+      {
         return NotFound(new { message = "Pedido não encontrado" });
+
+      }
 
       try
       {
-        pedido.ProdutorId = modelPedido.ProdutorId;
-        pedido.ClienteId = modelPedido.ClienteId;
-        pedido.PrecoTotalPedido = modelPedido.PrecoTotalPedido;
-        pedido.DataPedido = modelPedido.DataPedido;
-        pedido.Status = modelPedido.Status;//Mais importante
+        
+        //Como somente vai realizar a atualização dos status/altera-se somente  ele,os demais ficam iguais
+        /*pedido.ProdutorId = pedido.ProdutorId;
+        pedido.ClienteId = pedido.ClienteId;
+        pedido.PrecoTotalPedido = pedido.PrecoTotalPedido;
+        pedido.DataPedido = pedido.DataPedido;*/
+        pedido.Status = "Pedido Aceito";//PELO VENDEDOR
+        
+        produto.RemoverProdutoEstoque(quantidadeProduto);//Tira a quantidade do estoque
 
-        context.Produtores.Update(produtor);
+        /*
+        produto.Nome = produto.Nome;
+        produto.Preco = produto.Preco;
+        produto.Embalagem = produto.Embalagem;
+        produto.Estoque = produto.Estoque;//Como o a quantidade foi removida ,atualiza o estoque
+        produto.Categoria = produto.Categoria;
+        produto.Descricao = produto.Descricao;
+        */
+
+        
+        
+        
+        
+        //Atualiza a tabela pedidos e produtos
+        context.Pedidos.Update(pedido);
+        context.Produtos.Update(produto);
         await context.SaveChangesAsync();
 
-        produtor.Senha = "";
-
-        return Ok(produtor);
+        return Ok(pedido);
       }
       catch (System.Exception)
       {
