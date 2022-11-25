@@ -28,7 +28,7 @@ const MinhaConta = () => {
   };
 
     const removeImage = () => {
-      SetPic(' ')
+      setImagem(' ')
       setToastMsg('Imagem removida');
     };
     
