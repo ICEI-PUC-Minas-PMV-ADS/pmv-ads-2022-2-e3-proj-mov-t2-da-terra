@@ -37,7 +37,7 @@ const UsuarioProvider = ({ children }) => {
     )
       .then(response => response.json())
       //.then(json => setUsuario(json))
-      .then(json => console.log(json))
+      .then(json => json)
       .catch(error => console.error(error));
   }
 
