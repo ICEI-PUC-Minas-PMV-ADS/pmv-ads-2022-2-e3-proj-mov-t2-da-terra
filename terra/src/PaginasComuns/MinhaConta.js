@@ -17,8 +17,6 @@ const MinhaConta = () => {
   const navigation = useNavigation();
   const [imagem, setImagem] = useState(null);
 
-  const [Pic, SetPic] = useState('');
-
   const setToastMsg = msg=> {
     ToastAndroid.showWithGravity(
       msg,
@@ -51,23 +49,6 @@ const MinhaConta = () => {
         if (!result.cancelled) {
           setImagem(result.uri);
         }
-
-
-      //TESTES ANA
-    //  const valor = await launchImageLibrary(options
-    //     // if(response.didCancel) {
-    //     //   setToastMsg('Seleção de imagem cancelada')
-    //     // } else if(response.errorCode=='permissao') {
-    //     //   setToastMsg('Permissão náo satisfeita') 
-    //     // } else if(response.errorCode=='others') {
-    //     //   setToastMsg(response.errorMessage);
-    //     // } else if(response.assets[0].fileSize > 2097152) {
-    //     //   Alert.alert('Tamanho máximo excedido', 'Favor escolher imagem abaixo de 2 MB', [{text: 'OK'}]);
-    //     // } else {
-    //     //   SetPic(response.assets[0].base64);
-    //     // }
-    //   );
-    //   console.log(valor)
     };
 
   const { user } = useContext(AuthContext);
