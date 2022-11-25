@@ -15,7 +15,7 @@ const MinhasVendas = () => {
 
   const [value, setValue] = useState(0);
   const [resultados, setResultados] = useState([]); // Pedidos
-  //const [nomeCliente, setNomeCliente] = useState([]);
+  const [nomeCliente, setNomeCliente] = useState([]);
 
   const { getPedidoProdutor } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
@@ -30,13 +30,12 @@ const MinhasVendas = () => {
         //console.log(id[0].clienteId)
         setResultados(res)
 
-        if (id != null) {
-          let nomeCliente = ''
+        if (id != null) {          
           getCliente(id[0].clienteId)
             .then(res => {
-              nomeCliente = Object.values(res);
-              //console.log(nomeCliente.nome)
-              //setNomeCliente(nome[0].nome)
+              let resNomeCliente = Object.values(res);
+              //console.log(resNomeCliente[1])
+              setNomeCliente(resNomeCliente[1])
             });
         }
       })
@@ -64,7 +63,7 @@ const MinhasVendas = () => {
             description={
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <List.Icon icon="account" />
-                <Text style={{ fontSize: 16 }}>{item.clienteId}</Text>
+                <Text style={{ fontSize: 16 }}>{nomeCliente}</Text>
               </View>
             }
           />
