@@ -142,6 +142,52 @@ namespace WebApi.Controllers
       {
         return BadRequest(new { message = "System Exception" });
       }
+    } 
+    
+    [HttpPut(template: "produtores/{id}")]
+    [Authorize]
+    public async Task<IActionResult> AceitePedido(
+          [FromServices] AppDbContext context,
+          [FromBody] CreateProdutorViewModel modelProdutor,
+          [FromBody] CreateProdutoViewModel modelProduto,
+          [FromBody] CreatePedidoViewModel modelPedido,
+          [FromBody] CreatePedidoViewModel modelItem,
+          [FromRoute] int idProdutor,int idProduto,int idPedido,int idItem,int quantidadeProduto)
+    {
+      if (!ModelState.IsValid)
+        return BadRequest(new { message = "Model Invalid" });
+      var item = await context.Itens
+        .FirstOrDefaultAsync(x => x.Id == idProdutor);
+      var produto = await context.Itens
+        .FirstOrDefaultAsync(x => x.Id == item.ProdutoId);
+      var produtor = await context.Produtores
+      .FirstOrDefaultAsync(x => x.Id == idProdutor); 
+      var pedido = await context.Produtos
+      .FirstOrDefaultAsync(x => x.Id == item.ProdutoId);
+    
+      
+      if (pedido == null)
+        return NotFound(new { message = "Pedido não encontrado" });
+
+      try
+      {
+        pedido.ProdutorId = modelPedido.ProdutorId;
+        pedido.ClienteId = modelPedido.ClienteId;
+        pedido.PrecoTotalPedido = modelPedido.PrecoTotalPedido;
+        pedido.DataPedido = modelPedido.DataPedido;
+        pedido.Status = modelPedido.Status;//Mais importante
+
+        context.Produtores.Update(produtor);
+        await context.SaveChangesAsync();
+
+        produtor.Senha = "";
+
+        return Ok(produtor);
+      }
+      catch (System.Exception)
+      {
+        return BadRequest(new { message = "System Exception" });
+      }
     }
 
     // DELETE    

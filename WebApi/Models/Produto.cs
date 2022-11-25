@@ -21,4 +21,18 @@ public class Produto
   public string DataCadastro { get; set; }
   public ICollection<Produto> Produtos;
 
+
+  public void RemoverProdutoEstoque(int quantidade)
+  {
+    if (quantidade < Estoque)
+    {
+
+      Estoque -= quantidade;
+
+
+    }
+    
+    
+  }
+
 }
