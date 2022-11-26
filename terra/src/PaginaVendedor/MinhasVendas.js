@@ -17,10 +17,26 @@ const MinhasVendas = () => {
   const [resultados, setResultados] = useState([]); // Pedidos
   const [nomeCliente, setNomeCliente] = useState([]);
 
-  const { getPedidoProdutor } = useContext(PedidoContext);
+  const { getPedidoProdutor,aceitePedido } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
   const { getCliente } = useContext(UsuarioContext);
   
+
+
+  const aceitarPedido=(idPedido,quantidadeProduto)=>{
+    //PEGAR A QUANTIDADE DO PRODUTO ATRAVES DE ITENS
+    aceitePedido(idPedido,quantidadeProduto)
+    .then(response=>console.log(response)).
+    catch(e=>console.log(e))
+
+  }
+
+  const recusarPedido=()=>{
+  //implementar
+
+
+  }
+
   // Funcionando - EM TESTES
   useEffect(() => {
     let id = 0
@@ -86,14 +102,14 @@ const MinhasVendas = () => {
               style={styles.botao}
               mode="contained"
               buttonColor={'#D32F2F'}
-              onPress={() => console.log('Pressed')}>
+              onPress={() => recusarPedido}>
               <Text style={styles.textoBotao}>Recusar</Text>
             </Button>
             <Button
               style={styles.botao}
               mode="contained"
               buttonColor={'#3d9d74'}
-              onPress={() => console.log('Pressed')}>
+              onPress={() => aceitarPedido(item.id,10)}>
               <Text style={styles.textoBotao}>Aceitar</Text>
             </Button>
           </View>

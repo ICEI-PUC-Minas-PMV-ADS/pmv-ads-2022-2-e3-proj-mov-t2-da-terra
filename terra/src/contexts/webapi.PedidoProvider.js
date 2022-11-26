@@ -103,6 +103,25 @@ const PedidoProvider = ({ children }) => {
       .then(json => console.log(pedido))
       .catch(error => console.error(error));
   }
+
+//Aceite no ponto de vista do vendedor,na API o método esta no      ProdutoresController
+  const aceitePedido=async(param={})=>{
+    return await fetch(`${url}/produtores/pedido`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(param)
+    })
+    .then(response => response.json())
+    .then(json => console.log(json))
+    .catch(error => console.error(error)
+
+    )
+
+
+  }
   return (
     <PedidoContext.Provider
       value={{
@@ -113,7 +132,8 @@ const PedidoProvider = ({ children }) => {
         setPedido,
         resultados,
         setResultados,
-        getPedidoProdutor
+        getPedidoProdutor,
+        aceitePedido
       }}
     >
       {children}

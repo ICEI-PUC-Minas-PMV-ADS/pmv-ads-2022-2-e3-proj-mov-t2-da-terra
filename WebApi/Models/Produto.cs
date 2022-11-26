@@ -24,7 +24,7 @@ public class Produto
 
   public void RemoverProdutoEstoque(int quantidade)
   {
-    if (quantidade < Estoque)
+    if (quantidade <= Estoque)
     {
 
       Estoque -= quantidade;
