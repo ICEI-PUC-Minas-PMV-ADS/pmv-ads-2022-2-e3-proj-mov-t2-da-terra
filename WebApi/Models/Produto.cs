@@ -22,17 +22,12 @@ public class Produto
   public ICollection<Produto> Produtos;
 
 
-  public void RemoverProdutoEstoque(int quantidade)
+  public void RemoverProdutoEstoque(float quantidade)
   {
-    if (quantidade <= Estoque && Estoque>0)
+    if (quantidade <= Estoque && Estoque > 0)
     {
-
-      Estoque -= quantidade;
-
-
+      this.Estoque -= quantidade;
     }
-    
-    
   }
 
 }

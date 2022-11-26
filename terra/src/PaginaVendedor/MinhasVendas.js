@@ -22,19 +22,11 @@ const MinhasVendas = () => {
   const { getCliente } = useContext(UsuarioContext);
 
 
-
-  const aceitarPedido = (idPedido, quantidadeProduto) => {
-    console.log('aqui', idPedido)
-    console.log('aqui', quantidadeProduto)
-    //PEGAR A QUANTIDADE DO PRODUTO ATRAVES DE ITENS
-    aceitePedido({
-      idPedido: 215,
-      quantidadeProduto: 99,
-    })
+  // Id do pedido (é um GET)
+  const aceitarPedido = (id) => {
+    aceitePedido(id)
       .then(response => console.log(response))
       .catch(e => console.log(e))
-      
-
   }
 
 
@@ -83,7 +75,7 @@ const MinhasVendas = () => {
             right={() =>
               <Text
                 style={{ textAlignVertical: 'center', fontWeight: 'bold', marginRight: 10, fontSize: 18 }}>
-                R$ {item.precoTotalPedido.toFixed(2)} Reais
+                R$ {item.precoTotalPedido.toFixed(2)}
               </Text>
             }
             description={
@@ -107,44 +99,37 @@ const MinhasVendas = () => {
           </List.Accordion>
 
           {/* Botão Recusar / Aceitar */}
-          
+
           <View style={styles.viewBotao}>
-            {item.status=="Pedido Enviado"&&(
-            <>
-            <Button
-              style={styles.botao}
-              mode="contained"
-              buttonColor={'#D32F2F'}
-              onPress={() => recusarPedido}>
-              <Text style={styles.textoBotao}>Recusar</Text>
-            </Button>
-            <Button
-              style={styles.botao}
-              mode="contained"
-              buttonColor={'#3d9d74'}
-              onPress={() => aceitarPedido()}>
-              <Text style={styles.textoBotao}>Aceitar</Text>
-            </Button>
-            </>)}
-            {item.status=="Pedido Aceito" &&(
+            {item.status == "Pedido Enviado" && (
               <>
-              <List.Icon icon={"clock-outline"}   />
-              
+                <Button
+                  style={styles.botao}
+                  mode="contained"
+                  buttonColor={'#D32F2F'}
+                  onPress={() => recusarPedido}>
+                  <Text style={styles.textoBotao}>Recusar</Text>
+                </Button>
+                <Button
+                  style={styles.botao}
+                  mode="contained"
+                  buttonColor={'#3d9d74'}
+                  onPress={() => aceitarPedido(item.id)}>
+                  <Text style={styles.textoBotao}>Aceitar</Text>
+                </Button>
+              </>)}
+            {item.status == "Pedido Aceito" && (
+              <>
+                <List.Icon icon={"clock-outline"} />
+
                 <View style={styles.viewAvisoVendedor}>
-
-                  <Text style={styles.avisoVendedor}>O Cliente esta aguardando você realizar o envio do pedido </Text>
-  
+                  <Text style={styles.avisoVendedor}>O Cliente está aguardando o envio do pedido </Text>
                 </View>
-                </>
-
-
+              </>
             )}
-            
           </View>
           <Divider style={{ borderWidth: 0.35, marginBottom: 5 }} />
-          
         </View>
-        
       );
     } else if (value == 1) {
       return (
@@ -228,28 +213,24 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-viewAvisoVendedor:{
-  justifyContent: "center",
-  alignSelf: "center",
-  flexDirection: "row",
-  marginLeft:-40
-
-},
-
-  avisoVendedor:{
-  padding:7,
+  viewAvisoVendedor: {
+    justifyContent: "center",
+    alignSelf: "center",
+    flexDirection: "row",
+    marginLeft: -40
+  },
+  avisoVendedor: {
+    padding: 7,
     marginBottom: 26,
-    fontSize:16,
-    letterSpacing:0.7,
+    fontSize: 16,
+    letterSpacing: 0.5,
     borderRadius: 12,
     backgroundColor: "#EDD251",
-    fontStyle:"italic",
-    fontWeight:"bold",
+    fontWeight: "bold",
     height: 60,
     width: 250,
-    
-
-
+    textAlignVertical: 'center',
+    textAlign: 'center',
   },
 
   // Menu Superior - Segmented

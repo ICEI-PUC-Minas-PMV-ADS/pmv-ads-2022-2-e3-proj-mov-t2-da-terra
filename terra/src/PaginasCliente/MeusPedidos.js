@@ -57,11 +57,10 @@ const MeusPedidos = () => {
                       ? styles.esperandoAprovacao
                       : styles.aprovado
                   }
-                >{`${
-                  item.status == "Pedido Enviado"
+                >{`${item.status == "Pedido Enviado"
                     ? "Aguardando aprovação"
                     : "Aprovado"
-                }`}</Text>
+                  }`}</Text>
               </View>
 
               <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -81,13 +80,13 @@ const MeusPedidos = () => {
             <View style={styles.viewClienteAviso}>
               <List.Icon icon="truck-check" />
               <Text style={styles.avisoCliente}>
-                O Vendedor Enviou o seu produto(s)
+                Pedido Enviado
               </Text>
             </View>
           </>
         )}
 
-        <Divider />
+        <Divider style={{ borderWidth: 0.35, marginBottom: 5 }} />
       </View>
     );
   };
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
   },
   viewClienteAviso: {
     justifyContent: "center",
-    alignSelf: "center",
+    alignSelf: "flex-end",
     flexDirection: "row",
     flexWrap: "wrap",
   },
@@ -175,13 +174,13 @@ const styles = StyleSheet.create({
     padding: 6,
     marginBottom: 3,
     fontSize: 16,
-    letterSpacing: 1.4,
+    letterSpacing: 1,
     borderRadius: 16,
     backgroundColor: "#FF6B1A",
-    fontStyle: "italic",
     fontWeight: "bold",
-    height: 50,
-    maxWidth: 250,
+    height: 40,
+    maxWidth: 200,
+    textAlignVertical: 'center',
   },
   esperandoAprovacao: {
     fontSize: 16,

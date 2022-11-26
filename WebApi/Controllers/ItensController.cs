@@ -25,7 +25,8 @@ namespace WebApi.Controllers
         var item = new Item()
         {
           ProdutoId = model.ProdutoId,
-          PedidoId = model.PedidoId
+          PedidoId = model.PedidoId,
+          QuantidadeProduto = model.QuantidadeProduto
         };
 
         await context.AddAsync(item);

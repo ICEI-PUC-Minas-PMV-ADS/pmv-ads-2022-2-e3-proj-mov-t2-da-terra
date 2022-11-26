@@ -144,11 +144,10 @@ namespace WebApi.Controllers
       }
     }
 
-    [HttpPut(template: "produtores/pedido/{id}")]
+    [HttpGet(template: "produtores/pedido/{id}")]
     //[Authorize]
     public async Task<IActionResult> AceitarPedido(
-          [FromServices] AppDbContext context,
-          [FromBody] CreateIdentificadorPedidoProdutorViewModel model,
+          [FromServices] AppDbContext context,        
           [FromRoute] int id)
     {
       if (!ModelState.IsValid)
@@ -156,54 +155,43 @@ namespace WebApi.Controllers
         return BadRequest(new { message = "Model Invalid" });
       }
 
+      // 1 - ID PEDIDO
       var pedido = await context.Pedidos
-        .FirstOrDefaultAsync(x => x.Id == id);     
-
-      // SOLUÇÃO?? percorrer itens, pegar os id produto, ir no context do produto e alterar prod a prod
-      var produto = await context.Produtos.ToListAsync();
-
-      // Teste
-      // var queryItens = from query in context.Itens
-      //                  select query;
-
-      // Instância de Objeto para salvar a qtd baixada do estoque
-      var produtoBaixaEstoque = new Produto();
-
-      foreach (var prod in produto)
-      {
-        // Acho que o erro está aqui
-        var item = await context.Itens
-          .FirstOrDefaultAsync(x => x.ProdutoId == prod.Id);
-
-        if (item != null)
-        {
-          var produtoTabelaItem = await context.Produtos
-         .FirstOrDefaultAsync(x => x.Id == item.ProdutoId);
-         
-          produtoBaixaEstoque = prod; // Seta o objeto prod (percorrido no produto(tolistasync))
-          produtoBaixaEstoque.RemoverProdutoEstoque(model.QuantidadeProduto);  // Baixa estoque de acordo com o pedido
-          context.Produtos.Update(produtoBaixaEstoque); // Salva
-          await context.SaveChangesAsync(); // Atualiza banco
-        }
-      }
+        .FirstOrDefaultAsync(x => x.Id == id);
 
       if (pedido == null)
-      {
         return NotFound(new { message = "Pedido não encontrado" });
-      }
+
       try
       {
-        
+        // 2 - Itens do pedido
+        var queryItens = from query in context.Itens
+                         select query;
 
-        pedido.AtualizarStatus("Pedido Aceito"); // Funcionando OK  
+        queryItens = queryItens.Where(item => item.PedidoId == pedido.Id);
 
-        // Baixar a qtd lá no for each e não a parte
-        //  produto.RemoverProdutoEstoque(quantidadeProduto);//Tira a quantidade do estoque
+        // 3 - Percorre os itens do pedido
+        foreach (var itemPedido in queryItens)
+        {
+          // Recupera produtos que estão na tabela 'itens', referente ao pedido
+          var produtoTabelaItem = await context.Produtos
+             .FirstOrDefaultAsync(x => x.Id == itemPedido.ProdutoId);
 
-   
-        //Atualiza a tabela pedidos e produtos
-         context.Pedidos.Update(pedido);
-        //context.Produtos.Update(produto);
+          if (produtoTabelaItem == null) // Para evitar erros
+            return NotFound(new { message = "Produto não encontrado" });
+
+          var produtoBaixaEstoque = new Produto();
+          produtoBaixaEstoque = produtoTabelaItem;
+          produtoBaixaEstoque.Estoque -= itemPedido.QuantidadeProduto; // Desconta Estoque
+
+          // Não consegui fazer via método
+          //produtoBaixaEstoque.RemoverProdutoEstoque(Convert.ToInt32(produtoBaixaEstoque.Estoque));
+          context.Produtos.Update(produtoBaixaEstoque);
+          await context.SaveChangesAsync();
+        }
+
+        pedido.AtualizarStatus("Pedido Aceito");
+        context.Pedidos.Update(pedido);
         await context.SaveChangesAsync();
 
         return Ok(pedido);

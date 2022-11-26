@@ -184,7 +184,7 @@ const BuscarProdutos = () => {
    //     style={styles.img}
    //     source={require("../assets/maracuja.jpg")} />}
    right={() =>
-     <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)} Reais/{item.embalagem}</Text>
+     <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)} / {item.embalagem}</Text>
    }
    description={`Estoque: ${item.estoque} ${item.embalagem}`}
  />

@@ -21,5 +21,7 @@ namespace WebApi.ViewModel
     public int PedidoId { get; set; }
     [ForeignKey("PedidoId")]
     public Pedido Pedido;
+    [Required]
+    public float QuantidadeProduto { get; set; }
   }
 }

@@ -17,7 +17,6 @@ namespace WebApi.Models
     public int PedidoId { get; set; }
     [ForeignKey("PedidoId")]
     public Pedido Pedido;
-
-
+    public float QuantidadeProduto { get; set; }
   }
 }
