@@ -12,6 +12,7 @@ const Database = {
       //   "CREATE TABLE IF NOT EXISTS Usuarios" +
       //   "(id INTEGER PRIMARY KEY," +
       //   "nome TEXT NOT NULL," +
+      // "photo BLOB NOT NULL," + 
       //   "dtNascimento TEXT NOT NULL," +
       //   "cpf TEXT NOT NULL," +
       //   "telefone TEXT NOT NULL," +

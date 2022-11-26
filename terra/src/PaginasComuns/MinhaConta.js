@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import { Avatar } from 'react-native-paper';
+import { Avatar, BottomNavigation, Button  } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ToastAndroid, Alert } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
+
+import MeusPedidos from "./../PaginasCliente/MeusPedidos";
+import BuscarProdutos from "./../PaginasCliente/BuscarProdutos";
+import Carrinho from "../PaginasCliente/Carrinho"
 
 import Botao from "../Componentes/Botao";
 import Body from "../Componentes/Body";
@@ -25,6 +29,12 @@ const MinhaConta = () => {
     );
   };
 
+  const renderScene = BottomNavigation.SceneMap({
+    buscarProdutos: BuscarProdutos,
+    meusPedidos: MeusPedidos,
+    minhaConta: MinhaConta,
+    carrinho: Carrinho
+  });
     const removeImage = () => {
       setImagem(' ')
       setToastMsg('Imagem removida');
@@ -51,9 +61,17 @@ const MinhaConta = () => {
         }
     };
 
+  const [index, setIndex] = useState(0);
   const { user } = useContext(AuthContext);
   const [idUser, setIdUser] = useState();
   const [userLogado, setUserLogado] = useState();
+
+  const [routes] = useState([
+    { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
+    { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },    
+    { key: "carrinho", title: "Carrinho", focusedIcon: "cart" },
+    { key: "minhaConta", title: "Minha Conta", focusedIcon: "account" },
+  ]);
 
   // useEffect(() => {
   //   for (let i in user) {
@@ -85,7 +103,7 @@ const MinhaConta = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
-      <View style={styles.photoButtonContainer}>       
+      <View style={styles.photoContainer}>       
       <TouchableOpacity 
       onPress={() => uploadImage()}
       underlayColor='rgba(0,0,0,0)'>
@@ -105,21 +123,26 @@ const MinhaConta = () => {
 
           </Text>
 
-        <View style={[styles.photoButtonContainer, {marginTop:25, flexDirection: 'row'}]}>
-            <Botao
+        <View style={[styles.photoButtonContainer, {marginTop: 10, flexDirection: 'row'}]}>
+            <Button
               onPress={() => uploadImage()}
-              style={styles.textoBotao}
+              style={styles.buttonM}
               buttonColor={"#3d9d74"}
-              textoBotao="Upload da Imagem"
-              mode="contained"
-              />
-            <Botao
+              mode="contained">
+              <Text>
+              Upload
+              </Text>
+              </Button>
+
+            <Button
               onPress={() => removeImage()}
-              style={[styles.textoBotao, {marginLeft: 20}]}
+              style={[styles.buttonM]}
               buttonColor={"#3d9d74"}
-              textoBotao="Remover imagem"
-              mode="contained"
-              />
+              mode="contained">
+              <Text>
+              Remover
+              </Text>
+            </Button>
         </View>
           <TouchableOpacity onPress={() => navigation.navigate("CadastroUsuario")} style={styles.buttonContainer}>
             <Botao
@@ -138,6 +161,12 @@ const MinhaConta = () => {
               mode="contained"
             />
           </TouchableOpacity>
+          <BottomNavigation
+              barStyle={{ backgroundColor: '#50ac5d' }}
+              navigationState={{ index, routes }}
+              onIndexChange={setIndex}
+              renderScene={renderScene}
+             />
         </View>
       </View>
     </View>
@@ -193,14 +222,24 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   photoButtonContainer: {
-    marginTop: 100,
-    flexDirection: "row",
+    borderRadius:15 ,
+    marginBottom: 15,
+    marginTop: 50,
     alignItems: 'center',
-    justifyContent: 'center'
+  },
+  photoContainer: {
+    marginTop: 50,
+    marginBottom: 5,
+    alignItems: 'center',
   },
   textoBotao: {
     textAlign: "center",
     fontSize: 18,
   },
+  buttonM: {
+    width: 135,
+    marginBottom: 15,
+    margin: 5
+  }
 });
 export default MinhaConta;
