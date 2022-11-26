@@ -142,6 +142,71 @@ namespace WebApi.Controllers
       {
         return BadRequest(new { message = "System Exception" });
       }
+    } 
+    
+    [HttpPut(template: "produtores/pedido/{id}")]
+    [Authorize]
+    public async Task<IActionResult> AceitarPedido(
+          [FromServices] AppDbContext context,
+          [FromRoute] int idPedido,int quantidadeProduto)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(new { message = "Model Invalid" });
+
+      }
+        
+      var pedido = await context.Pedidos
+        .FirstOrDefaultAsync(x => x.Id == idPedido);
+      var item = await context.Itens
+        .FirstOrDefaultAsync(x => x.Id == pedido.Id);
+      var produto = await context.Produtos
+        .FirstOrDefaultAsync(x => x.Id == item.ProdutoId);
+     
+
+
+      if (pedido == null)
+      {
+        return NotFound(new { message = "Pedido não encontrado" });
+
+      }
+
+      try
+      {
+        
+        //Como somente vai realizar a atualização dos status/altera-se somente  ele,os demais ficam iguais
+        /*pedido.ProdutorId = pedido.ProdutorId;
+        pedido.ClienteId = pedido.ClienteId;
+        pedido.PrecoTotalPedido = pedido.PrecoTotalPedido;
+        pedido.DataPedido = pedido.DataPedido;*/
+        pedido.AtualizarStatus("Pedido Aceito");//PELO VENDEDOR
+        
+        produto.RemoverProdutoEstoque(quantidadeProduto);//Tira a quantidade do estoque
+
+        /*
+        produto.Nome = produto.Nome;
+        produto.Preco = produto.Preco;
+        produto.Embalagem = produto.Embalagem;
+        produto.Estoque = produto.Estoque;//Como o a quantidade foi removida ,atualiza o estoque
+        produto.Categoria = produto.Categoria;
+        produto.Descricao = produto.Descricao;
+        */
+
+        
+        
+        
+        
+        //Atualiza a tabela pedidos e produtos
+        context.Pedidos.Update(pedido);
+        context.Produtos.Update(produto);
+        await context.SaveChangesAsync();
+
+        return Ok(pedido);
+      }
+      catch (System.Exception)
+      {
+        return BadRequest(new { message = "System Exception" });
+      }
     }
 
     // DELETE    
