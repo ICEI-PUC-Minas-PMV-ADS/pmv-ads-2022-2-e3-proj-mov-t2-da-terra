@@ -86,7 +86,7 @@ const CadastroUsuario = ({ navigation, route }) => {
   }, [cep]);
 
   
-  // CRUD OK - Falta testar o PUT
+  // CRUD OK - Falta implementar o PUT
   const handleCadastrar = () => {
     // Verifica se tem algo incompleto no formulário
     if (!nome ||
