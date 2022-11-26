@@ -144,7 +144,7 @@ namespace WebApi.Controllers
       }
     } 
     
-    [HttpPut(template: "produtores/pedido/{id}")]
+    [HttpPut(template: "produtores/pedido")]
     [Authorize]
     public async Task<IActionResult> AceitarPedido(
           [FromServices] AppDbContext context,
