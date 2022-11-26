@@ -126,7 +126,7 @@ const MinhaConta = () => {
         <View style={[styles.photoButtonContainer, {marginTop: 10, flexDirection: 'row'}]}>
             <Button
               onPress={() => uploadImage()}
-              style={styles.buttonM}
+              style={styles.smallButton}
               buttonColor={"#3d9d74"}
               mode="contained">
               <Text>
@@ -136,7 +136,7 @@ const MinhaConta = () => {
 
             <Button
               onPress={() => removeImage()}
-              style={[styles.buttonM]}
+              style={[styles.smallButton]}
               buttonColor={"#3d9d74"}
               mode="contained">
               <Text>
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
   },
-  buttonM: {
+  smallButton: {
     width: 135,
     marginBottom: 15,
     margin: 5
