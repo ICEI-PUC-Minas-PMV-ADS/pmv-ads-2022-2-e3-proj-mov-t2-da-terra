@@ -75,6 +75,7 @@ const Carrinho = () => {
         }
       })
   }, [visible]);
+  
   useEffect(() => {
     if (route.name==="Carrinho") {
       const backAction = () => {

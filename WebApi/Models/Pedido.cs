@@ -14,6 +14,8 @@ public class Pedido
   [ForeignKey("ProdutorId")]
   public Produtor Produtor;
 
+  //public string NomeCliente { get; set; }
+
   public decimal PrecoTotalPedido { get; set; }
   // Enviado, Pendente, Finalizado
   public string Status { get; set; }
@@ -25,7 +27,6 @@ public class Pedido
   public void AtualizarStatus(string mensagem)
   {
     Status = mensagem;
-
   }
 
 }

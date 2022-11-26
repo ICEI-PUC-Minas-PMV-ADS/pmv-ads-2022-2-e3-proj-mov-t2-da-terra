@@ -24,7 +24,7 @@ namespace WebApi.Controllers
 
       return Ok(produtor);
     }
-    
+
 
     // GET: Por ID
     // Colocar Authorize 
@@ -142,46 +142,67 @@ namespace WebApi.Controllers
       {
         return BadRequest(new { message = "System Exception" });
       }
-    } 
-    
-    [HttpPut(template: "produtores/pedido")]
-    [Authorize]
+    }
+
+    [HttpPut(template: "produtores/pedido/{id}")]
+    //[Authorize]
     public async Task<IActionResult> AceitarPedido(
           [FromServices] AppDbContext context,
-          [FromRoute] int idPedido,int quantidadeProduto)
+          [FromBody] CreateIdentificadorPedidoProdutorViewModel model,
+          [FromRoute] int id)
     {
       if (!ModelState.IsValid)
       {
         return BadRequest(new { message = "Model Invalid" });
-
       }
-        
-      var pedido = await context.Pedidos
-        .FirstOrDefaultAsync(x => x.Id == idPedido);
-      var item = await context.Itens
-        .FirstOrDefaultAsync(x => x.Id == pedido.Id);
-      var produto = await context.Produtos
-        .FirstOrDefaultAsync(x => x.Id == item.ProdutoId);
-     
 
+      var pedido = await context.Pedidos
+        .FirstOrDefaultAsync(x => x.Id == id);     
+
+      // SOLUÇÃO?? percorrer itens, pegar os id produto, ir no context do produto e alterar prod a prod
+      var produto = await context.Produtos.ToListAsync();
+
+      // Teste
+      // var queryItens = from query in context.Itens
+      //                  select query;
+
+      // Instância de Objeto para salvar a qtd baixada do estoque
+      var produtoBaixaEstoque = new Produto();
+
+      foreach (var prod in produto)
+      {
+        // Acho que o erro está aqui
+        var item = await context.Itens
+          .FirstOrDefaultAsync(x => x.ProdutoId == prod.Id);
+
+        if (item != null)
+        {
+          var produtoTabelaItem = await context.Produtos
+         .FirstOrDefaultAsync(x => x.Id == item.ProdutoId);
+         
+          produtoBaixaEstoque = prod; // Seta o objeto prod (percorrido no produto(tolistasync))
+          produtoBaixaEstoque.Estoque -= model.QuantidadeProduto; // Baixa estoque
+          context.Produtos.Update(produtoBaixaEstoque); // Salva
+          await context.SaveChangesAsync(); // Atualiza banco
+        }
+      }
 
       if (pedido == null)
       {
         return NotFound(new { message = "Pedido não encontrado" });
-
       }
-
       try
       {
-        
         //Como somente vai realizar a atualização dos status/altera-se somente  ele,os demais ficam iguais
-        /*pedido.ProdutorId = pedido.ProdutorId;
-        pedido.ClienteId = pedido.ClienteId;
-        pedido.PrecoTotalPedido = pedido.PrecoTotalPedido;
-        pedido.DataPedido = pedido.DataPedido;*/
-        pedido.AtualizarStatus("Pedido Aceito");//PELO VENDEDOR
-        
-        produto.RemoverProdutoEstoque(quantidadeProduto);//Tira a quantidade do estoque
+        // pedido.ProdutorId = pedido.ProdutorId;
+        // pedido.ClienteId = pedido.ClienteId;
+        // pedido.PrecoTotalPedido = pedido.PrecoTotalPedido;
+        // pedido.DataPedido = pedido.DataPedido;
+
+        pedido.AtualizarStatus("Pedido Aceito"); // Funcionando OK  
+
+        // Baixar a qtd lá no for each e não a parte
+        //  produto.RemoverProdutoEstoque(quantidadeProduto);//Tira a quantidade do estoque
 
         /*
         produto.Nome = produto.Nome;
@@ -192,14 +213,10 @@ namespace WebApi.Controllers
         produto.Descricao = produto.Descricao;
         */
 
-        
-        
-        
-        
         //Atualiza a tabela pedidos e produtos
-        context.Pedidos.Update(pedido);
-        context.Produtos.Update(produto);
-        await context.SaveChangesAsync();
+        // context.Pedidos.Update(pedido);
+        //context.Produtos.Update(produto);
+        //await context.SaveChangesAsync();
 
         return Ok(pedido);
       }

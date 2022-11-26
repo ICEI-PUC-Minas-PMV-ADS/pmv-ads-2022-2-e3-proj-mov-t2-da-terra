@@ -17,27 +17,34 @@ const MinhasVendas = () => {
   const [resultados, setResultados] = useState([]); // Pedidos
   const [nomeCliente, setNomeCliente] = useState([]);
 
-  const { getPedidoProdutor,aceitePedido } = useContext(PedidoContext);
+  const { getPedidoProdutor, aceitePedido } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
   const { getCliente } = useContext(UsuarioContext);
-  
 
 
-  const aceitarPedido=(idPedido,quantidadeProduto)=>{
+
+  const aceitarPedido = (idPedido, quantidadeProduto) => {
+    console.log('aqui', idPedido)
+    console.log('aqui', quantidadeProduto)
     //PEGAR A QUANTIDADE DO PRODUTO ATRAVES DE ITENS
-    aceitePedido(idPedido,quantidadeProduto)
-    .then(response=>console.log(response)).
-    catch(e=>console.log(e))
+    aceitePedido({
+      idPedido: 215,
+      quantidadeProduto: 50,
+    })
+      .then(response => console.log(response))
+      .catch(e => console.log(e))
 
   }
 
-  const recusarPedido=()=>{
-  //implementar
+
+  const recusarPedido = () => {
+    //implementar
 
 
   }
 
   // Funcionando - EM TESTES
+  // Ajustar a view - exibindo sempre o nome do mesmo usuario
   useEffect(() => {
     let id = 0
     getPedidoProdutor(user.produtor.id)
@@ -46,7 +53,7 @@ const MinhasVendas = () => {
         //console.log(id[0].clienteId)
         setResultados(res)
 
-        if (id != null) {          
+        if (id != null) {
           getCliente(id[0].clienteId)
             .then(res => {
               let resNomeCliente = Object.values(res);
@@ -54,7 +61,9 @@ const MinhasVendas = () => {
               setNomeCliente(resNomeCliente[1])
             });
         }
+
       })
+
   }, [])
 
   const renderItem = ({ item }) => {
@@ -109,7 +118,7 @@ const MinhasVendas = () => {
               style={styles.botao}
               mode="contained"
               buttonColor={'#3d9d74'}
-              onPress={() => aceitarPedido(item.id,10)}>
+              onPress={() => aceitarPedido()}>
               <Text style={styles.textoBotao}>Aceitar</Text>
             </Button>
           </View>

@@ -6,7 +6,7 @@ export const PedidoContext = createContext({});
 const PedidoProvider = ({ children }) => {
   const [resultados, setResultados] = useState([]);
   const [pedido, setPedido] = useState();
-  
+
 
   const getPedido = async (id) => {
     return await fetch(`${url}/pedidos/cliente/${id}`,
@@ -39,8 +39,8 @@ const PedidoProvider = ({ children }) => {
         //   idClientePedido = Object.values(json);
         //   console.log("ID Cliente", idClientePedido[0].clienteId);
 
-          return json;
-       // }
+        return json;
+        // }
       })
       .catch(error => console.error(error));
   }
@@ -104,24 +104,22 @@ const PedidoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-//Aceite no ponto de vista do vendedor,na API o método esta no      ProdutoresController
-  const aceitePedido=async(param={})=>{
-    return await fetch(`${url}/produtores/pedido`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(param)
-    })
-    .then(response => response.json())
-    .then(json => console.log(json))
-    .catch(error => console.error(error)
-
-    )
-
-
+  //Aceite no ponto de vista do vendedor,na API o método esta no      ProdutoresController
+  const aceitePedido = async (param) => {
+    console.log(`${url}/produtores/pedido/${param.idPedido}`);
+    return await fetch(`${url}/produtores/pedido/${param.idPedido}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(param)
+      })
+      .then(response => response.json())
+      .then(json => console.log(json))
+      .catch(error => console.error(error))
   }
+
   return (
     <PedidoContext.Provider
       value={{

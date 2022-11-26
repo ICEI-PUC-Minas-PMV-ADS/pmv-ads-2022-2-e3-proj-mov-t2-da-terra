@@ -19,6 +19,8 @@ public class CreatePedidoViewModel
   [ForeignKey("ProdutorId")]
   public Produtor Produtor;
 
+  //public string NomeCliente { get; set; }
+ 
   [Required]
   public decimal PrecoTotalPedido { get; set; }
   public string Status { get; set; }

@@ -18,8 +18,12 @@ namespace WebApi.Controllers
 
       try
       {
+       // var cliente = context.Clientes
+       // .FirstOrDefaultAsync(x => x.Id == model.ClienteId);
+
         var pedido = new Pedido()
         {
+         // NomeCliente = cliente.Nome,
           ClienteId = model.ClienteId,
           ProdutorId = model.ProdutorId,
           PrecoTotalPedido = model.PrecoTotalPedido,
