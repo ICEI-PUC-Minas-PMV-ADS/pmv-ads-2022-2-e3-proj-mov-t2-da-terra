@@ -173,21 +173,24 @@ const BuscarProdutos = () => {
 
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
-      <TouchableOpacity
-        onPress={() => passProdutoRota(item)}
-      >
-        <List.Item
-          title={`${item.nome}`}
-          // left={() =>
-          //   <Image
-          //     style={styles.img}
-          //     source={require("../assets/maracuja.jpg")} />}
-          right={() =>
-            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)}</Text>
-          }
-          description={`Estoque: ${item.estoque} ${item.embalagem}`}
-        />
-      </TouchableOpacity >
+      
+  <TouchableOpacity
+ onPress={() => passProdutoRota(item)}
+>
+ <List.Item
+   title={`${item.nome}`}
+   // left={() =>
+   //   <Image
+   //     style={styles.img}
+   //     source={require("../assets/maracuja.jpg")} />}
+   right={() =>
+     <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)} Reais/{item.embalagem}</Text>
+   }
+   description={`Estoque: ${item.estoque} ${item.embalagem}`}
+ />
+</TouchableOpacity >
+  
+     
 
     </View>
   );

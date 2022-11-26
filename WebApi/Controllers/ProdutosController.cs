@@ -60,11 +60,11 @@ namespace WebApi.Controllers
         {
           queryProduto = queryProduto.Where(
           x => x.Nome.Contains(nomeProduto)
-          && x.Categoria.Contains(categoria));
+          && x.Categoria.Contains(categoria) && x.Estoque>0);
         }
         else                                        // categoria false
         {
-          queryProduto = queryProduto.Where(x => x.Nome.Contains(nomeProduto));
+          queryProduto = queryProduto.Where(x => x.Nome.Contains(nomeProduto) && x.Estoque>0);
         }
         return queryProduto != null
                ? Ok(await queryProduto.ToListAsync())

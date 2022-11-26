@@ -181,7 +181,7 @@ namespace WebApi.Controllers
          .FirstOrDefaultAsync(x => x.Id == item.ProdutoId);
          
           produtoBaixaEstoque = prod; // Seta o objeto prod (percorrido no produto(tolistasync))
-          produtoBaixaEstoque.Estoque -= model.QuantidadeProduto; // Baixa estoque
+          produtoBaixaEstoque.RemoverProdutoEstoque(model.QuantidadeProduto);  // Baixa estoque de acordo com o pedido
           context.Produtos.Update(produtoBaixaEstoque); // Salva
           await context.SaveChangesAsync(); // Atualiza banco
         }
@@ -193,30 +193,18 @@ namespace WebApi.Controllers
       }
       try
       {
-        //Como somente vai realizar a atualização dos status/altera-se somente  ele,os demais ficam iguais
-        // pedido.ProdutorId = pedido.ProdutorId;
-        // pedido.ClienteId = pedido.ClienteId;
-        // pedido.PrecoTotalPedido = pedido.PrecoTotalPedido;
-        // pedido.DataPedido = pedido.DataPedido;
+        
 
         pedido.AtualizarStatus("Pedido Aceito"); // Funcionando OK  
 
         // Baixar a qtd lá no for each e não a parte
         //  produto.RemoverProdutoEstoque(quantidadeProduto);//Tira a quantidade do estoque
 
-        /*
-        produto.Nome = produto.Nome;
-        produto.Preco = produto.Preco;
-        produto.Embalagem = produto.Embalagem;
-        produto.Estoque = produto.Estoque;//Como o a quantidade foi removida ,atualiza o estoque
-        produto.Categoria = produto.Categoria;
-        produto.Descricao = produto.Descricao;
-        */
-
+   
         //Atualiza a tabela pedidos e produtos
-        // context.Pedidos.Update(pedido);
+         context.Pedidos.Update(pedido);
         //context.Produtos.Update(produto);
-        //await context.SaveChangesAsync();
+        await context.SaveChangesAsync();
 
         return Ok(pedido);
       }

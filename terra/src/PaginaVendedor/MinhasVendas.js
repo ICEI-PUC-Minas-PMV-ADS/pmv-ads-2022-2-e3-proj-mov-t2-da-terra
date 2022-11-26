@@ -29,10 +29,11 @@ const MinhasVendas = () => {
     //PEGAR A QUANTIDADE DO PRODUTO ATRAVES DE ITENS
     aceitePedido({
       idPedido: 215,
-      quantidadeProduto: 50,
+      quantidadeProduto: 99,
     })
       .then(response => console.log(response))
       .catch(e => console.log(e))
+      
 
   }
 
@@ -82,7 +83,7 @@ const MinhasVendas = () => {
             right={() =>
               <Text
                 style={{ textAlignVertical: 'center', fontWeight: 'bold', marginRight: 10, fontSize: 18 }}>
-                R$ {item.precoTotalPedido}
+                R$ {item.precoTotalPedido.toFixed(2)} Reais
               </Text>
             }
             description={
@@ -106,7 +107,10 @@ const MinhasVendas = () => {
           </List.Accordion>
 
           {/* Botão Recusar / Aceitar */}
+          
           <View style={styles.viewBotao}>
+            {item.status=="Pedido Enviado"&&(
+            <>
             <Button
               style={styles.botao}
               mode="contained"
@@ -121,9 +125,26 @@ const MinhasVendas = () => {
               onPress={() => aceitarPedido()}>
               <Text style={styles.textoBotao}>Aceitar</Text>
             </Button>
+            </>)}
+            {item.status=="Pedido Aceito" &&(
+              <>
+              <List.Icon icon={"clock-outline"}   />
+              
+                <View style={styles.viewAvisoVendedor}>
+
+                  <Text style={styles.avisoVendedor}>O Cliente esta aguardando você realizar o envio do pedido </Text>
+  
+                </View>
+                </>
+
+
+            )}
+            
           </View>
           <Divider style={{ borderWidth: 0.35, marginBottom: 5 }} />
+          
         </View>
+        
       );
     } else if (value == 1) {
       return (
@@ -206,6 +227,29 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     fontWeight: 'bold',
+  },
+viewAvisoVendedor:{
+  justifyContent: "center",
+  alignSelf: "center",
+  flexDirection: "row",
+  marginLeft:-40
+
+},
+
+  avisoVendedor:{
+  padding:7,
+    marginBottom: 26,
+    fontSize:16,
+    letterSpacing:0.7,
+    borderRadius: 12,
+    backgroundColor: "#EDD251",
+    fontStyle:"italic",
+    fontWeight:"bold",
+    height: 60,
+    width: 250,
+    
+
+
   },
 
   // Menu Superior - Segmented

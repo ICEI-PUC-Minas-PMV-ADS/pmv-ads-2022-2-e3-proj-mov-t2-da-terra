@@ -1,16 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 
+import { View, Text, FlatList, StyleSheet, Image } from "react-native";
 
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  Image
-} from "react-native";
-
-
-import { PedidoContext } from "../contexts/webapi.PedidoProvider"
+import { PedidoContext } from "../contexts/webapi.PedidoProvider";
 import { List, Appbar, Divider } from "react-native-paper";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -20,20 +12,19 @@ import { AuthContext } from "../contexts/AuthProvider";
 import { useNavigation } from "@react-navigation/native";
 
 const MeusPedidos = () => {
-  const navigation = useNavigation()
-  const { pedido, putPedido, getPedido, setPedido } = useContext(PedidoContext)
-  const { user } = useContext(AuthContext)
+  const navigation = useNavigation();
+  const { pedido, putPedido, getPedido, setPedido } = useContext(PedidoContext);
+  const { user } = useContext(AuthContext);
 
   const [resultados, setResultados] = useState([]);
 
   useEffect(() => {
-    getPedido(user.cliente.id).then(res => {
-      setResultados(res)
-      console.log(res)
-    })
-    //setTimeout(() => console.log(resultados[0]), 1000)  
-  }, [])
-
+    getPedido(user.cliente.id).then((res) => {
+      setResultados(res);
+      console.log(res);
+    });
+    //setTimeout(() => console.log(resultados[0]), 1000)
+  }, []);
 
   const renderItem = ({ item }) => {
     return (
@@ -48,26 +39,32 @@ const MeusPedidos = () => {
           }}
           right={() => (
             <>
-              <View style={{ flexDirection: "column", marginTop: 40, }}>
-                <Text
-                  style={styles.textPrecoTotal}
-                >
+              <View style={{ flexDirection: "column", marginTop: 40 }}>
+                <Text style={styles.textPrecoTotal}>
                   R${item.precoTotalPedido.toFixed(2)}
                 </Text>
                 <Text style={styles.textDataPedido}>{item.dataPedido}</Text>
               </View>
-
             </>
           )}
-
           description={
             <>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <List.Icon icon={item.aprovado ? "check" : "clock-outline"} />
-                <Text style={item.status == "Pedido Enviado" ? styles.esperandoAprovacao : styles.aprovado}>{`${item.status == "Pedido Enviado" ? "Aguardando aprovação" : "Aprovado"}`}</Text>
+                <Text
+                  style={
+                    item.status == "Pedido Enviado"
+                      ? styles.esperandoAprovacao
+                      : styles.aprovado
+                  }
+                >{`${
+                  item.status == "Pedido Enviado"
+                    ? "Aguardando aprovação"
+                    : "Aprovado"
+                }`}</Text>
               </View>
 
-              <View style={{ flexDirection: "row", alignItems: "center"}}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <List.Icon icon="store" />
                 <Text style={{ fontSize: 16 }}>{item.loja}</Text>
               </View>
@@ -76,10 +73,20 @@ const MeusPedidos = () => {
                 <List.Icon icon="calendar-check-outline" />
                 <Text style={{ fontSize: 16 }}>{item.dataPedido}</Text>
               </View>
-
             </>
           }
         />
+        {item.status == "Pedido Aceito" && (
+          <>
+            <View style={styles.viewClienteAviso}>
+              <List.Icon icon="truck-check" />
+              <Text style={styles.avisoCliente}>
+                O Vendedor Enviou o seu produto(s)
+              </Text>
+            </View>
+          </>
+        )}
+
         <Divider />
       </View>
     );
@@ -87,15 +94,16 @@ const MeusPedidos = () => {
 
   return (
     <Container>
-      <Header title={"Meus pedidos"} >
+      <Header title={"Meus pedidos"}>
         <Appbar.Action
           style={{ marginRight: 10 }}
-          icon="cart" onPress={() => navigation.navigate("Carrinho")} />
-
+          icon="cart"
+          onPress={() => navigation.navigate("Carrinho")}
+        />
       </Header>
       <Body>
-        {/* ESTÁ DANDO ERRO QUANDO ESTÁ VAZIO */ }
-      {/* {resultados.length == 0 && (
+        {/* ESTÁ DANDO ERRO QUANDO ESTÁ VAZIO */}
+        {/* {resultados.length == 0 && (
           <View style={styles.viewPedidosVazio}>
             <Image
               style={styles.imgPedidos}
@@ -119,38 +127,36 @@ const MeusPedidos = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
   /* FlatList */
   textDataPedido: {
     fontWeight: "bold",
     marginTop: 15,
     fontSize: 16,
-
   },
   viewPedidosVazio: {
     alignSelf: "center",
     marginTop: 110,
-
   },
   textAvisoPedidosVazio: {
     fontSize: 20,
     textAlign: "center",
     letterSpacing: 0.9,
-    paddingLeft:4,
-    paddingRight:4
+    paddingLeft: 4,
+    paddingRight: 4,
   },
+
   imgPedidos: {
     width: 120,
     height: 120,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   textPrecoTotal: {
     textAlignVertical: "center",
     fontWeight: "bold",
     fontSize: 16,
     marginTop: 35,
-    marginLeft: 55
+    marginLeft: 55,
   },
   aprovado: {
     fontSize: 16,
@@ -158,6 +164,24 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#6cc438",
     padding: 7,
+  },
+  viewClienteAviso: {
+    justifyContent: "center",
+    alignSelf: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  avisoCliente: {
+    padding: 6,
+    marginBottom: 3,
+    fontSize: 16,
+    letterSpacing: 1.4,
+    borderRadius: 16,
+    backgroundColor: "#FF6B1A",
+    fontStyle: "italic",
+    fontWeight: "bold",
+    height: 50,
+    maxWidth: 250,
   },
   esperandoAprovacao: {
     fontSize: 16,

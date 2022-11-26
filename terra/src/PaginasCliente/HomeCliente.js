@@ -46,12 +46,12 @@ const HomeCliente = () => {
   // }, []);
 
   // Renderizar na tela busca
-  useEffect(() => {
-    getBuscaTodosProdutos()  // Todos Produtos
-      .then((res) => {
-        setResultados(produto)
-      });
-  }, [])
+  // useEffect(() => {
+  //   getBuscaTodosProdutos()  // Todos Produtos
+  //     .then((res) => {
+  //       setResultados(produto)
+  //     });
+  // }, [])
 
   const [routes] = useState([
     { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
