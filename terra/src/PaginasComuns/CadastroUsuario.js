@@ -85,8 +85,34 @@ const CadastroUsuario = ({ navigation, route }) => {
     DataBase.getConnection();
   }, [cep]);
 
-  
+
+  // IMPLEMENTAR PUT
+  // else if (userLogado) {
+  // console.log('else if user logado')
+  // if (senha != confirmarSenha) {
+  //   Alert.alert("Confirmação de senha incorreta, verifique")
+  // }
+  // putUsuario({
+  //   nome: userLogado[0].nome,
+  //   cpf: userLogado[0].cpf,
+  //   dataNascimento: userLogado[0].data,
+  //   tipoUsuario: userLogado[0].tipoUsuario,
+  //   email: email.trim(),
+  //   senha: senha.trim(),
+  //   telefone: telefone.trim(),
+  //   cep: cep.trim(),
+  //   rua: rua.trim(),
+  //   numeroCasa: numeroCasa.trim(),
+  //   bairro: bairro.trim(),
+  //   complemento: complemento.trim(),
+  //   cidade: cidade.trim(),
+  //   uf: uf.trim(),
+  //   nomeLoja: userLogado[0].nomeLoja,
+  //   id: userLogado[0].id
+  // }).then();    
+  // navigation.goBack();
   // CRUD OK - Falta implementar o PUT
+  
   const handleCadastrar = () => {
     // Verifica se tem algo incompleto no formulário
     if (!nome ||
@@ -105,6 +131,7 @@ const CadastroUsuario = ({ navigation, route }) => {
       !confirmarSenha
     ) {
       setMissInfo(true);  // Falta Informação      
+      // console.log('primeiro if', nome, cpf, email, telefone, rua, bairro, numeroCasa, cidade, uf, cep, senha, confirmarSenha, nomeLoja, tipoUsuario)
       //console.log("missinfo: ", missInfo)
     } else {
       if (senha != confirmarSenha) {
@@ -160,28 +187,11 @@ const CadastroUsuario = ({ navigation, route }) => {
               Alert.alert("Esse email já está cadastrado");
             }
           }
-        )
+          )
       }
     }
   }
 
-  /*  putUsuario({    // Aqui foi incluído
-        nome: userLogado[0].nome,
-        cpf: userLogado[0].cpf,
-        dataNascimento: userLogado[0].data,
-        email: email.trim(),
-        senha: senha.trim(),
-        telefone: telefone.trim(),
-        cep: cep.trim(),
-        rua: rua.trim(),
-        numeroCasa: numeroCasa.trim(),
-        bairro: bairro.trim(),
-        complemento: complemento.trim(),
-        cidade: cidade.trim(),
-        uf: uf.trim(),
-        id: id
-      }).then();
-       */
 
   // API: Buscar o Cep
   const buscarEndereco = async () => {
@@ -450,26 +460,26 @@ const CadastroUsuario = ({ navigation, route }) => {
           />
 
           {/* Confirmar Senha */}
-          {!userLogado && (
-            <Input
-              label="Confirmar Senha"
-              value={confirmarSenha}
-              secureTextEntry={escondeConfirmarSenha}
-              error={missInfo && !confirmarSenha ? true : false}
-              activeOutlineColor={"#3d9d74"}
-              right={
-                <TextInput.Icon
-                  onPress={() =>
-                    escondeConfirmarSenha
-                      ? setEscondeConfirmarSenha(false)
-                      : setEscondeConfirmarSenha(true)
-                  }
-                  icon={escondeConfirmarSenha ? 'eye-off' : 'eye'}
-                />
-              }
-              onChangeText={setConfirmarSenha}
-            />
-          )}
+
+          <Input
+            label="Confirmar Senha"
+            value={confirmarSenha}
+            secureTextEntry={escondeConfirmarSenha}
+            error={missInfo && !confirmarSenha ? true : false}
+            activeOutlineColor={"#3d9d74"}
+            right={
+              <TextInput.Icon
+                onPress={() =>
+                  escondeConfirmarSenha
+                    ? setEscondeConfirmarSenha(false)
+                    : setEscondeConfirmarSenha(true)
+                }
+                icon={escondeConfirmarSenha ? 'eye-off' : 'eye'}
+              />
+            }
+            onChangeText={setConfirmarSenha}
+          />
+
 
           {!userLogado && userAlredyRegister && (
             <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>
