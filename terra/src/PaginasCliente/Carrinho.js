@@ -16,6 +16,8 @@ import { AuthContext } from "../contexts/AuthProvider";
 import {
   deleteCarrinho,
   getCarrinho,
+  deleteCarrinhoCliente,
+
 } from "../DBService/DBCarrinho";
 
 import Database from "../DBService/DBService";
@@ -58,6 +60,9 @@ const Carrinho = () => {
     }).then(res => console.log(res));
     // Itens rodando no webapi.PedidosProvider
 
+    deleteCarrinhoCliente(resultados[0].idCliente)
+    .then(response=>console.log(response))
+    .catch(e=>console.log(e))
     navigation.navigate("PedidoEnviado");
   };
 
@@ -70,11 +75,11 @@ const Carrinho = () => {
         setResultados(res);
         let soma = 0
         for (let i in res) {
-          soma += res[i].preco;
+          soma += res[i].precoTotal;
           setPrecoTotal(soma);
         }
       })
-  }, [visible]);
+  }, [visible],enviarPedido);
   
   useEffect(() => {
     if (route.name==="Carrinho") {
@@ -112,6 +117,7 @@ const Carrinho = () => {
       >
         <View style={{ width: 500 }}>
           <List.Item
+          style={{textAlign:"center"}}
             title={`${item.nome != undefined ? item.nome : ""} (${item.embalagem ? item.embalagem : ""
               })`}
             left={() => (
@@ -134,8 +140,10 @@ const Carrinho = () => {
               </>
             )}
             description={`R$ ${item.preco != undefined ? item.preco : 0} / ${item.embalagem != undefined ? item.embalagem : ""
-              }
+              }      Total: R$${(item.preco*item.quantidadeProduto).toFixed(2)}
+              
             `}
+          
           />
         </View>
       </TouchableOpacity>
@@ -194,7 +202,7 @@ const Carrinho = () => {
           <TouchableOpacity onPress={() => { }}>
             <Snackbar
               visible={visible}
-              duration={2000}
+              duration={1500}
               elevation={4}
               onDismiss={onDismissSnackBar}
               action={{

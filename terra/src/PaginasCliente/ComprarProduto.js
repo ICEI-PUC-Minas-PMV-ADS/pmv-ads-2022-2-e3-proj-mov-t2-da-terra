@@ -103,6 +103,8 @@ const ComprarProduto = () => {
         precoTotal: precoTotal
       }
     ).then().catch()
+    onToggleSnackBar()
+    setAvisoSnack("Produto adicionado ao seu carrinho")
   }
 
   const renderItem = ({ item }) => (
@@ -239,6 +241,7 @@ const ComprarProduto = () => {
             label: "Ok",
           }}
         >
+
           {avisoSnack}
         </Snackbar>
       </Body>
