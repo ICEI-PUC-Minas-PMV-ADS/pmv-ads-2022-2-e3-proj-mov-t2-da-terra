@@ -35,14 +35,14 @@ const ComprarProduto = () => {
   const [avisoSnack, setAvisoSnack] = useState();
   // Alterar Rota para provider
   // const { item } = route.params ? route.params : {};
-  const { produto } = useContext(ProdutoContext);
+  const { produto,getBuscaTodosProdutos } = useContext(ProdutoContext);
   const { user } = useContext(AuthContext)
   const [resultado, setResultado] = useState([]);
 
   const [quantidade, setQuantidade] = useState(1);
   let contador = quantidade;
   let precoTotal = quantidade * produto[0].preco
-
+  
   useEffect(() => {
     if (route.name === "ComprarProduto") {
       const backAction = () => {
@@ -61,6 +61,12 @@ const ComprarProduto = () => {
 
 
   }, []);
+
+
+  useEffect(() => {
+    getBuscaTodosProdutos().then();
+  }, [isFocused])
+
   const upQtd = () => {
     if (contador < produto[0].estoque) {
       setQuantidade(contador += 1);
@@ -162,20 +168,24 @@ const ComprarProduto = () => {
         </Button>
       </View>
 
-      {/*Descrição e 'Mais Produtos do Usário'*/}
-      <Divider style={{ marginVertical: 5 }} />
+    <View style={styles.viewEstoque}>
+      <Text style={styles.textoEstoque}>Quantidade disponível: {item.estoque}{item.embalagem}</Text>
+      
+    </View>
+      {/*Descrição e 'Mais Produtos do Usuário'*/}
+      <Divider style={{ marginVertical: 2 }} />
       <View style={styles.textEntreDivider}>
-        <Text style={styles.textDescricao}>{item.descricao}</Text>
+        <Text style={styles.textDescricao}>Descrição do produto: {item.descricao}</Text>
 
       </View>
-      <Divider style={{ marginVertical: 5 }} />
+      {/* <Divider style={{ marginVertical: 5 }} />
       <View style={styles.textEntreDivider}>
         <Text style={styles.textMaisProdutos}>
           Mais produto de NOME_DA_LOJA
         </Text>
-      </View>
+      </View> */}
 
-      <View style={styles.viewVerMaisProdutos}>
+      {/* <View style={styles.viewVerMaisProdutos}>
         <View style={styles.cards}>
           <TouchableOpacity>
             <Image
@@ -214,7 +224,7 @@ const ComprarProduto = () => {
             </Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 
@@ -366,11 +376,18 @@ const styles = StyleSheet.create({
     lineHeight: 17,
     color: "#919191",
   },
-
+  viewEstoque:{
+    marginTop:10,
+  },
+  textoEstoque:{
+    marginLeft:6,
+    fontSize:18,
+    fontWeight:"bold"
+  },
   // Na parte da descrição e 'mais produtos'
   textEntreDivider: {
     marginHorizontal: 5,
-    marginVertical: 2,
+    marginVertical: 20,
   },
   viewBotaoSeletorQtd: {
     flexDirection: 'row',
