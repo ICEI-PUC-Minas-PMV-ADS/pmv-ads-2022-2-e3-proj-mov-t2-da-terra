@@ -32,6 +32,10 @@ import { AuthContext } from '../contexts/AuthProvider';
 
 const CadastroUsuario = ({ navigation, route }) => {
 
+  // Usuário logado: Para usar em Atualizar Meus Dados
+  const { user } = useContext(AuthContext);
+  const userLogado = (user ? Object.values(user) : undefined);
+
   // Esconde Senha, Avisos e Falta Info
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [escondeConfirmarSenha, setEscondeConfirmarSenha] = useState(true);
@@ -39,32 +43,33 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [userAlredyRegister, setUserAlredyRegister] = useState(false);
 
   // Configurar DATE
-  const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
+  const [data, setData] = useState(userLogado ? moment(new Date(userLogado[0].dataNascimento)).format("DD/MM/YYYY") : moment(new Date()).format("DD/MM/YYYY")
+  );
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date());
 
   // Dados Pessoais dos Usuário
-  const [nome, setNome] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [telefone, setTelefone] = useState("");
+  const [nome, setNome] = useState(userLogado ? userLogado[0].nome : "");
+  const [cpf, setCpf] = useState(userLogado ? userLogado[0].cpf : "12345678945");
+  const [telefone, setTelefone] = useState("12312313212");
 
   // Endereço do Usuário
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
-  const [numeroCasa, setNumeroCasa] = useState("");
-  const [cep, setCep] = useState("");
+  const [numeroCasa, setNumeroCasa] = useState("33");
+  const [cep, setCep] = useState("29703500");
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
   const [complemento, setComplemento] = useState("");
 
   // Tipo de Usuário
-  const [tipoUsuario, setTipoUsuario] = useState("cliente"); // Cliente Default
-  const [nomeLoja, setNomeLoja] = useState("");
+  const [tipoUsuario, setTipoUsuario] = useState(userLogado ? userLogado[0].tipoUsuario : "cliente"); // Cliente Default
+  const [nomeLoja, setNomeLoja] = useState(userLogado ? userLogado[0].nomeLoja : "");
 
   // Email e Senha
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [email, setEmail] = useState("k@gmail.com");
+  const [senha, setSenha] = useState("123456");
+  const [confirmarSenha, setConfirmarSenha] = useState("123456");
 
   const {
     postUsuario,
@@ -76,9 +81,7 @@ const CadastroUsuario = ({ navigation, route }) => {
   // Validação Email Usuário
   const { getValidarCadastro } = useContext(ValidarCadastroContext);
 
-  // Usuário logado: Para usar em Meus Dados
-  const { user } = useContext(AuthContext);
-  const userLogado = (user ? Object.values(user) : undefined);
+
 
   useEffect(() => {
     buscarEndereco(); // Busca CEP
@@ -86,33 +89,6 @@ const CadastroUsuario = ({ navigation, route }) => {
   }, [cep]);
 
 
-  // IMPLEMENTAR PUT
-  // else if (userLogado) {
-  // console.log('else if user logado')
-  // if (senha != confirmarSenha) {
-  //   Alert.alert("Confirmação de senha incorreta, verifique")
-  // }
-  // putUsuario({
-  //   nome: userLogado[0].nome,
-  //   cpf: userLogado[0].cpf,
-  //   dataNascimento: userLogado[0].data,
-  //   tipoUsuario: userLogado[0].tipoUsuario,
-  //   email: email.trim(),
-  //   senha: senha.trim(),
-  //   telefone: telefone.trim(),
-  //   cep: cep.trim(),
-  //   rua: rua.trim(),
-  //   numeroCasa: numeroCasa.trim(),
-  //   bairro: bairro.trim(),
-  //   complemento: complemento.trim(),
-  //   cidade: cidade.trim(),
-  //   uf: uf.trim(),
-  //   nomeLoja: userLogado[0].nomeLoja,
-  //   id: userLogado[0].id
-  // }).then();    
-  // navigation.goBack();
-  // CRUD OK - Falta implementar o PUT
-  
   const handleCadastrar = () => {
     // Verifica se tem algo incompleto no formulário
     if (!nome ||
@@ -130,9 +106,54 @@ const CadastroUsuario = ({ navigation, route }) => {
       !senha ||
       !confirmarSenha
     ) {
-      setMissInfo(true);  // Falta Informação      
-      // console.log('primeiro if', nome, cpf, email, telefone, rua, bairro, numeroCasa, cidade, uf, cep, senha, confirmarSenha, nomeLoja, tipoUsuario)
-      //console.log("missinfo: ", missInfo)
+      setMissInfo(true);  // Falta Informação           
+    } else if (userLogado) {
+      if (senha != confirmarSenha) {
+        Alert.alert("Confirmação de senha incorreta, verifique")
+      } else {
+        console.log(userLogado[0].tipoUsuario)
+        // No PUT não foi tratado a questão do email repetido
+        if (userLogado[0].tipoUsuario == 'produtor') {
+          putUsuario({          // PUT PRODUTOR
+            id: userLogado[0].id,
+            nome: userLogado[0].nome,
+            cpf: userLogado[0].cpf,
+            dataNascimento: userLogado[0].dataNascimento,
+            tipoUsuario: userLogado[0].tipoUsuario,
+            nomeLoja: userLogado[0].nomeLoja,
+            email: email.trim(),
+            senha: senha.trim(),
+            telefone: telefone.trim(),
+            cep: cep.trim(),
+            rua: rua.trim(),
+            numeroCasa: numeroCasa.trim(),
+            bairro: bairro.trim(),
+            complemento: complemento.trim(),
+            cidade: cidade.trim(),
+            uf: uf.trim()
+          }).then();
+          navigation.goBack();
+        } else if(userLogado[0].tipoUsuario == 'cliente') {
+          putUsuario({          // PUT CLIENTE
+            id: userLogado[0].id,
+            nome: userLogado[0].nome,
+            cpf: userLogado[0].cpf,
+            dataNascimento: userLogado[0].dataNascimento,
+            tipoUsuario: userLogado[0].tipoUsuario,         
+            email: email.trim(),
+            senha: senha.trim(),
+            telefone: telefone.trim(),
+            cep: cep.trim(),
+            rua: rua.trim(),
+            numeroCasa: numeroCasa.trim(),
+            bairro: bairro.trim(),
+            complemento: complemento.trim(),
+            cidade: cidade.trim(),
+            uf: uf.trim()
+          }).then();
+          navigation.goBack();
+        }
+      }
     } else {
       if (senha != confirmarSenha) {
         Alert.alert("Confirmação de senha incorreta, verifique")
@@ -140,7 +161,6 @@ const CadastroUsuario = ({ navigation, route }) => {
         //  Verifica se o user já possui cadastro    
         getValidarCadastro(email)
           .then(res => {
-            //console.log(res[0]);
             if (typeof (res[0]) != "number") {  // Se for number, então retornou ID
               if (tipoUsuario == 'produtor') {
                 // PRODUTOR
@@ -238,37 +258,38 @@ const CadastroUsuario = ({ navigation, route }) => {
           />
 
           {/* RadioButton Cliente ou Produtor */}
-          {
-            !userLogado && (
-              < View style={styles.radioContainer}>
-                <View style={styles.radioItem}>
-                  <RadioButton
-                    color={'#3d9d74'}
-                    value="cliente"
-                    status={tipoUsuario === "cliente" ? "checked" : "unchecked"}
-                    onPress={() => setTipoUsuario("cliente")}
-                  />
-                  <Text style={{ fontSize: 18 }}>Cliente</Text>
-                </View>
-                <View style={styles.radioItem}>
-                  <RadioButton
-                    color={'#3d9d74'}
-                    value="produtor"
-                    status={tipoUsuario === "produtor" ? "checked" : "unchecked"}
-                    onPress={() => setTipoUsuario("produtor")}
-                  />
-                  <Text style={{ fontSize: 18 }}>Produtor</Text>
-                </View>
-              </View>
-            )}
+          < View style={styles.radioContainer}>
+            <View style={styles.radioItem}>
+              <RadioButton
+                disabled={userLogado ? true : false}
+                color={'#3d9d74'}
+                value={userLogado ? userLogado[0].tipoUsuario : "cliente"}
+                status={tipoUsuario === "cliente" ? "checked" : "unchecked"}
+                onPress={() => setTipoUsuario("cliente")}
+              />
+              <Text style={{ fontSize: 18 }}>Cliente</Text>
+            </View>
+            <View style={styles.radioItem}>
+              <RadioButton
+                disabled={userLogado ? true : false}
+                color={'#3d9d74'}
+                value={userLogado ? userLogado[0].tipoUsuario : "produtor"}
+                status={tipoUsuario === "produtor" ? "checked" : "unchecked"}
+                onPress={() => setTipoUsuario("produtor")}
+              />
+              <Text style={{ fontSize: 18 }}>Produtor</Text>
+            </View>
+          </View>
+
 
           {/* Nome da Loja (Somente para Produtor) */}
           {
-            !userLogado && tipoUsuario == "produtor" && (
+            tipoUsuario == "produtor" && (
               <Input
+                disabled={userLogado ? true : false}
                 label="Nome da Loja"
                 onChangeText={setNomeLoja}
-                value={nomeLoja}
+                value={userLogado ? userLogado[0].nomeLoja : nomeLoja}
                 error={missInfo && !nomeLoja ? true : false}
                 activeOutlineColor={"#3d9d74"}
               />
@@ -279,7 +300,7 @@ const CadastroUsuario = ({ navigation, route }) => {
           <Input
             label="Nome"
             onChangeText={setNome}
-            value={userLogado ? userLogado[0].nome : nome}
+            value={nome}
             disabled={userLogado ? true : false}
             error={!userLogado && (missInfo && !nome) ? true : false}
             activeOutlineColor={"#3d9d74"}
@@ -295,7 +316,7 @@ const CadastroUsuario = ({ navigation, route }) => {
               maxLength={11}
               onChangeText={setCpf}
               keyboardType="decimal-pad"
-              value={userLogado ? userLogado[0].cpf : cpf}
+              value={cpf}
               disabled={userLogado ? true : false}
               error={!userLogado && (missInfo && !cpf) ? true : false}
               activeOutlineColor={"#3d9d74"}

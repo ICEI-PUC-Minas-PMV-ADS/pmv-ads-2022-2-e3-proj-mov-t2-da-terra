@@ -38,7 +38,7 @@ const UsuarioProvider = ({ children }) => {
       .then(response => response.json())
       //.then(json => setUsuario(json))
       .then(json => {
-       // console.log(json)
+        // console.log(json)
         return json
       })
       .catch(error => console.error(error));
@@ -64,6 +64,24 @@ const UsuarioProvider = ({ children }) => {
 
   // PUT (Cliente e Produtor)
   const putUsuario = async (param) => {
+    console.log(`${url}/produtores/${param.id}`);
+    console.log(`${url}/clientes/${param.id}`);
+    // console.log(`${param.id}`);
+    // console.log(`${param.nome}`);
+    // console.log(`${param.cpf}`);    
+    // console.log(`${param.dataNascimento}`);
+     console.log(`${param.tipoUsuario}`);
+    // console.log(`Só produtor: ${param.nomeLoja}`);
+    // console.log(`${param.email}`);
+    // console.log(`${param.senha}`);
+    // console.log(`${param.telefone}`);
+    // console.log(`${param.cep}`);
+    // console.log(`${param.rua}`);
+    // console.log(`${param.numeroCasa}`);
+    // console.log(`${param.bairro}`);
+    // console.log(`${param.complemento}`);
+    // console.log(`${param.cidade}`);
+    // console.log(`${param.uf}`);
     return await fetch(
       param.tipoUsuario == 'produtor'
         ? `${url}/produtores/${param.id}`
@@ -79,6 +97,7 @@ const UsuarioProvider = ({ children }) => {
       .then(json => console.log(json))
       .catch(error => console.error(error));
   }
+  
 
   // DELETE (Produtor)
   const deleteProdutor = async (id) => {

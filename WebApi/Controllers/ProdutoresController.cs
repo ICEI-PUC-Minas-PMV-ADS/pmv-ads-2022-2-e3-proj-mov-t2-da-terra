@@ -97,7 +97,7 @@ namespace WebApi.Controllers
 
     // PUT    
     [HttpPut(template: "produtores/{id}")]
-    [Authorize]
+   // [Authorize]
     public async Task<IActionResult> PutProdutores(
           [FromServices] AppDbContext context,
           [FromBody] CreateProdutorViewModel model,
@@ -128,8 +128,7 @@ namespace WebApi.Controllers
         produtor.Email = model.Email;
         produtor.Senha = BCrypt.Net.BCrypt.HashPassword(model.Senha);
         produtor.TipoUsuario = model.TipoUsuario;
-        produtor.NomeLoja = model.NomeLoja;
-        produtor.DataCadastro = model.DataCadastro;
+        produtor.NomeLoja = model.NomeLoja;       
 
         context.Produtores.Update(produtor);
         await context.SaveChangesAsync();

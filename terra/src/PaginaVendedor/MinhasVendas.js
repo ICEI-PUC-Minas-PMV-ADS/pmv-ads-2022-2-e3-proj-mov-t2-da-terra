@@ -40,15 +40,15 @@ const MinhasVendas = () => {
   // Funcionando - EM TESTES
   // Ajustar a view - exibindo sempre o nome do mesmo usuario
   useEffect(() => {
-    let id = 0
     let idPedido = [];
+    let id = 0
     getPedidoProdutor(user.produtor.id)
       .then(res => {
         id = Object.values(res);
         idPedido.push(Object.values(res)); // EM TESTES
         // idPedido.push(Object.values(res));
         //console.log(id[0].clienteId)
-        //console.log(res);
+        //    console.log(idPedido);
         setResultados(res)
 
         if (id != null) {
@@ -59,78 +59,66 @@ const MinhasVendas = () => {
               setNomeCliente(resNomeCliente[1])
             });
         }
-
-        
-        // EM TESTES
-        // for (let i = 0; i < idPedido.length - 1; i++) {
-        //   const element = idPedido[i];
-        //   console.log(element);
-        // }
-        // for (let i in idPedido) {
-        //    console.log("IDPEDIDO: ", idPedido[i][0]); // Retorna ID
-        //    cont++;
-        //    console.log(idPedido[0][1])          
-        //    console.log(idPedido[0].length);  
-        // getItensPedido(idPedido[i][0])
-        //   .then(res => {
-        //    // console.log(res);
-        //     setItemResultado(res);
-        //   });
+        // if (idPedido) {
+        //   let cont = 0
+        //   for (let i in idPedido[0]) {
+        //     console.log(`idPedido[0][${cont}] `, idPedido[0][cont]);
+        //     let x = Object.values(idPedido[0][cont]);
+        //     //  console.log("x[0]: ", x[0]); // id pedido
+        //     cont++;
+        //     //console.log("x[0]: ", x[0]);
+        //     getItensPedido(x[0])
+        //       .then(res => {
+        //        // console.log("RES: ", res);
+        //         setItemResultado(res);
+        //       });
         //   }
+        // }
       })
 
-  // EM TESTES
-    // O problema é que está renderizando várias vezes
-    // for (let i in idPedido) {
-    //   console.log(idPedido[i][0]); // Retorna ID
-    //   // listaItens(idPedido[i][0])
-
-    //   getItensPedido(idPedido[i][0])
-    //     .then(res => {
-    //       console.log(res);
-    //       setItemResultado(res);
-    //     });
+    // console.log(idPedido);
+    // if (idPedido) {
+    //   let cont = 0
+    //   for (let i in idPedido[0]) {
+    //     console.log(`idPedido[0][${cont}] `, idPedido[0][cont]);
+    //     let x = Object.values(idPedido[0][cont]);
+    //     //  console.log("x[0]: ", x[0]); // id pedido
+    //     cont++;
+    //     //console.log("x[0]: ", x[0]);
+    //     getItensPedido(x[0])
+    //       .then(res => {
+    //         console.log("RES: ", res);
+    //         setItemResultado(res);
+    //       });
+    //   }
     // }
-
-    // getItensPedido(231)
-    //   .then(res => {
-    //     //  console.log(res);
-    //     setItemResultado(res);
-    //   });
-
 
   }, [])
 
-// EM TESTES
-  // const listaItens = (idPedido) => {
-  //   getItensPedido(idPedido)
-  //     .then(res => {
-  //       //  console.log(res);
-  //       setItemResultado(res);
-  //     });
+  //EM TESTES
+  // const listaItens = () => {
+  //   let cont = 0
+  //   for (let i in idPedido[0]) {
+  //     console.log(`idPedido[0][${cont}] `, idPedido[0][cont]);
+  //     let x = Object.values(idPedido[0][cont]);
+  //     //  console.log("x[0]: ", x[0]); // id pedido
+  //     cont++;
+  //     //console.log("x[0]: ", x[0]);
+  //     getItensPedido(x[0])
+  //       .then(res => {
+  //         console.log("RES: ", res);
+  //         setItemResultado(res);
+  //       });
+  //   }
   // }
 
   // EM TESTES
   // Está renderizando os mesmo produtos para todos os pedidos
   const renderAccordion = ({ item }) => {
-    // Aqui encontra o ID, falta implementar
-    //let idPedido = [];
-    //let arrIdPedido = []
-    // for (let i in resultados) {
-    //   idPedido.push(Object.values(resultados[i]));
-    //   //arrIdPedido = idPedido.concat();
-    //   //   console.log(idPedido[0]);      
-    // }
-    // // O problema é que está renderizando várias vezes
-    // for (let i in idPedido) {
-    //   console.log(idPedido[i][0]); // Retorna ID
-    //   // listaItens(idPedido[i][0])
-    // }
+    for (let i in itemResultado) {
+      console.log(itemResultado[i]);
+    }
 
-
-
-    //console.log(resultados);
-    //console.log("AQUI:", item);// undefined 
     return (
       <List.Item title={`${item.nome}`} />
     );

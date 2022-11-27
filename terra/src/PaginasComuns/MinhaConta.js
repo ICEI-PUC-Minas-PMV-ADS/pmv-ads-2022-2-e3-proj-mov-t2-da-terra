@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import { Avatar, BottomNavigation, Button  } from 'react-native-paper';
+import { Avatar, BottomNavigation, Button } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ToastAndroid, Alert,BackHandler, } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ToastAndroid, Alert, BackHandler, } from "react-native";
 
-import { useNavigation,useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import MeusPedidos from "./../PaginasCliente/MeusPedidos";
 import BuscarProdutos from "./../PaginasCliente/BuscarProdutos";
@@ -21,7 +21,7 @@ const MinhaConta = () => {
   const navigation = useNavigation();
   const [imagem, setImagem] = useState(null);
   const rota = useRoute();
-  const setToastMsg = msg=> {
+  const setToastMsg = msg => {
     ToastAndroid.showWithGravity(
       msg,
       ToastAndroid.SHORT,
@@ -35,31 +35,31 @@ const MinhaConta = () => {
     minhaConta: MinhaConta,
     carrinho: Carrinho
   });
-    const removeImage = () => {
-      setImagem(' ')
-      setToastMsg('Imagem removida');
-    };
-    
-    const uploadImage = async () => {
+  const removeImage = () => {
+    setImagem(' ')
+    setToastMsg('Imagem removida');
+  };
 
-  
+  const uploadImage = async () => {
+
+
     //TESTE GABRIEL - OK PARA ABRIR SELETOR DE IMAGEM,TRATAR A IMAGEM 
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-        }).then(a=>{
-          return a
-        }).catch(e=>console.log(e));
-    
-        console.log(result);
-        console.log(result);
-    
-        if (!result.cancelled) {
-          setImagem(result.uri);
-        }
-    };
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    }).then(a => {
+      return a
+    }).catch(e => console.log(e));
+
+    console.log(result);
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImagem(result.uri);
+    }
+  };
 
   const [index, setIndex] = useState(0);
   const { user } = useContext(AuthContext);
@@ -68,7 +68,7 @@ const MinhaConta = () => {
 
   const [routes] = useState([
     { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
-    { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },    
+    { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },
     { key: "carrinho", title: "Carrinho", focusedIcon: "cart" },
     { key: "minhaConta", title: "Minha Conta", focusedIcon: "account" },
   ]);
@@ -99,38 +99,38 @@ const MinhaConta = () => {
   //   //  console.log(novoUser[0].id);
   // }, [])
   useEffect(() => {
-    if (rota.name==="MinhaConta") {
+    if (rota.name === "MinhaConta") {
       const backAction = () => {
-       BackHandler.exitApp()
+        BackHandler.exitApp()
         return true;
       };
-  
+
       const backHandler = BackHandler.addEventListener(
         "hardwareBackPress",
         backAction
       );
-  
-      return () => backHandler.remove();
-  
-  }
 
-    
+      return () => backHandler.remove();
+
+    }
+
+
   }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
-      <View style={styles.photoContainer}>       
-      <TouchableOpacity 
-      onPress={() => uploadImage()}
-      underlayColor='rgba(0,0,0,0)'>
+      <View style={styles.photoContainer}>
+        <TouchableOpacity
+          onPress={() => uploadImage()}
+          underlayColor='rgba(0,0,0,0)'>
 
-        <Avatar.Image
-        size={250}
-        source={{uri:imagem}}
-        />
-      </TouchableOpacity>
-        </View>
+          <Avatar.Image
+            size={250}
+            source={{ uri: imagem }}
+          />
+        </TouchableOpacity>
+      </View>
       {/* <Text>aqui: {userLogado.nome}</Text> */}
       <View style={styles.body}>
         <View style={styles.bodyContent}>
@@ -140,16 +140,16 @@ const MinhaConta = () => {
 
           </Text>
 
-        <View style={[styles.photoButtonContainer, {marginTop: 5, flexDirection: 'row'}]}>
+          <View style={[styles.photoButtonContainer, { marginTop: 5, flexDirection: 'row' }]}>
             <Button
               onPress={() => uploadImage()}
               style={styles.smallButton}
               buttonColor={"#3d9d74"}
               mode="contained">
               <Text>
-              Upload
+                Upload
               </Text>
-              </Button>
+            </Button>
 
             <Button
               onPress={() => removeImage()}
@@ -157,10 +157,10 @@ const MinhaConta = () => {
               buttonColor={"#3d9d74"}
               mode="contained">
               <Text>
-              Remover
+                Remover
               </Text>
             </Button>
-        </View>
+          </View>
           <TouchableOpacity onPress={() => navigation.navigate("CadastroUsuario")} style={styles.buttonContainer}>
             <Botao
               style={styles.textoBotao}
@@ -169,7 +169,7 @@ const MinhaConta = () => {
               mode="contained"
             />
           </TouchableOpacity>
-          
+
           <TouchableOpacity style={styles.buttonContainer}>
             <Botao
               style={styles.textoBotao}
@@ -179,11 +179,11 @@ const MinhaConta = () => {
             />
           </TouchableOpacity>
           <BottomNavigation
-              barStyle={{ backgroundColor: '#50ac5d' }}
-              navigationState={{ index, routes }}
-              onIndexChange={setIndex}
-              renderScene={renderScene}
-             />
+            barStyle={{ backgroundColor: '#50ac5d' }}
+            navigationState={{ index, routes }}
+            onIndexChange={setIndex}
+            renderScene={renderScene}
+          />
         </View>
       </View>
     </View>
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   photoButtonContainer: {
-    borderRadius:15 ,
+    borderRadius: 15,
     marginBottom: 15,
     marginTop: 50,
     alignItems: 'center',

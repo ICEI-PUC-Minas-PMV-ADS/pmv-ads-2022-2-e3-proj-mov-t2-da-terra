@@ -95,7 +95,7 @@ namespace WebApi.Controllers
 
     // PUT
     [HttpPut(template: "clientes/{id}")]
-    [Authorize]
+   // [Authorize]
     public async Task<IActionResult> PutCliente(
             [FromServices] AppDbContext context,
             [FromBody] CreateClienteViewModel model,
@@ -105,13 +105,17 @@ namespace WebApi.Controllers
         return BadRequest(new { message = "Model Invalid" });
 
       var cliente = await context.Clientes
-          .FirstOrDefaultAsync(x => x.Id == id && x.Nome == User.Identity.Name);
+          .FirstOrDefaultAsync(x => x.Id == id);
 
       if (cliente == null)
         return NotFound(new { message = "Cliente não encontrado" });
 
       try
       {
+        cliente.Nome = model.Nome;
+        cliente.Cpf = model.Cpf;
+        cliente.DataNascimento = model.DataNascimento;
+        cliente.TipoUsuario = model.TipoUsuario;
         cliente.Email = model.Email;
         cliente.Senha = BCrypt.Net.BCrypt.HashPassword(model.Senha);
         cliente.Telefone = model.Telefone;
@@ -125,7 +129,7 @@ namespace WebApi.Controllers
 
         context.Clientes.Update(cliente);
         await context.SaveChangesAsync();
-
+  
         cliente.Senha = "";
 
         return Ok(cliente);
