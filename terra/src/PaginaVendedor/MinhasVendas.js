@@ -17,7 +17,9 @@ const MinhasVendas = () => {
   const [resultados, setResultados] = useState([]); // Pedidos
   const [nomeCliente, setNomeCliente] = useState([]); // Exibir nome tela
   const [itemResultado, setItemResultado] = useState([]);
-
+  //Um "Contador" para poder ser o "arrayWatch" do useEffect do getPedidos
+  //Para sempre que o vendedor aceitar,dar outro getPedidos e atualizar automaticamente a tela
+  const[hasChange,setHasChange]=useState(0)
   const { getPedidoProdutor, aceitePedido, getItensPedido } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
   const { getCliente } = useContext(UsuarioContext);
@@ -28,6 +30,7 @@ const MinhasVendas = () => {
     aceitePedido(id)
       .then(response => console.log(response))
       .catch(e => console.log(e))
+      setHasChange(hasChange+1)
   }
 
 
@@ -36,7 +39,32 @@ const MinhasVendas = () => {
 
 
   }
+  useEffect(()=>{
+    let idPedido = [];
+    let id = 0
+    getPedidoProdutor(user.produtor.id)
+    .then(res => {
+      id = Object.values(res);
+      idPedido.push(Object.values(res)); // EM TESTES
+      // idPedido.push(Object.values(res));
+      //console.log(id[0].clienteId)
+      //    console.log(idPedido);
+      setResultados(res)
 
+      if (id != null) {
+        getCliente(id[0].clienteId)
+          .then(res => {
+            let resNomeCliente = Object.values(res);
+            //console.log(resNomeCliente[1])
+            setNomeCliente(resNomeCliente[1])
+          });
+      }
+     
+    })
+
+
+
+  },[hasChange])
   // Funcionando - EM TESTES
   // Ajustar a view - exibindo sempre o nome do mesmo usuario
   useEffect(() => {
