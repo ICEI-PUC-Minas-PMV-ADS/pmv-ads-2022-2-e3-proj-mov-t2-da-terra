@@ -31,7 +31,10 @@ const ProdutoProvider = ({ children }) => {
             }
           }
           setProduto(res);
-        } else {
+        }
+        
+        
+        else {
           setProdutoQuery(json);
         }
       })

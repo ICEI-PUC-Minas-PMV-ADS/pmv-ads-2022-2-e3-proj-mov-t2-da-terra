@@ -1,11 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image
-} from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { TextInput, Snackbar } from "react-native-paper";
 
 import { useNavigation } from "@react-navigation/native";
@@ -23,7 +17,7 @@ export default function Login() {
 
   // SnackBar e falta informação
   const [missInfo, setMissInfo] = useState(false);
-  const [aviso, setAviso] = useState("")
+  const [aviso, setAviso] = useState("");
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
@@ -38,20 +32,20 @@ export default function Login() {
     if (!email || !senha) {
       setMissInfo(true); // Falta info no form
       onToggleSnackBar();
-      setAviso("Por favor, insira o email e a senha")
+      setAviso("Por favor, insira o email e a senha");
     } else {
       postLogin({
         email: email,
         senha: senha,
       })
-        .then(response => {
+        .then((response) => {
           if (response.message == "Usuário não cadastrado") {
             setMissInfo(true); // Infica que o usuário não esta cadastrado
-            setAviso("Email ou senha incorretos")
+            setAviso("Email ou senha incorretos");
           }
         })
         .catch((e) => console.log(e));
-    } 
+    } // Implementar quando o usuário não for cadastrado
   };
 
   return (
@@ -69,9 +63,8 @@ export default function Login() {
           value={email}
           onChangeText={(text) => setEmail(text)}
           activeOutlineColor={"#3d9d74"}
-          error={missInfo || missInfo && !email ? true : false}
-          right={<TextInput.Icon icon="email-outline" />
-          }
+          error={missInfo || (missInfo && !email) ? true : false}
+          right={<TextInput.Icon icon="email-outline" />}
         />
 
         {/* Senha */}
@@ -80,7 +73,7 @@ export default function Login() {
           value={senha}
           onChangeText={(text) => setSenha(text)}
           secureTextEntry={escondeSenha}
-          error={missInfo || missInfo && !senha ? true : false}
+          error={missInfo || (missInfo && !senha) ? true : false}
           activeOutlineColor={"#3d9d74"}
           right={
             <TextInput.Icon
@@ -91,9 +84,7 @@ export default function Login() {
             />
           }
         />
-        {missInfo && (
-          <Text style={styles.aviso}>{aviso}</Text>
-        )}
+        {missInfo && <Text style={styles.aviso}>{aviso}</Text>}
 
         {/* Botão Entrar */}
         <View style={styles.viewBotao}>
@@ -190,7 +181,6 @@ const styles = StyleSheet.create({
     color: "#D32F2F",
     fontStyle: "italic",
     fontWeight: "bold",
-    textAlign: 'center'
+    textAlign: "center",
   },
-
 });
