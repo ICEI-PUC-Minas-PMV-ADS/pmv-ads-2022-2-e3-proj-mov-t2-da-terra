@@ -2,7 +2,7 @@ import * as SQLite from "expo-sqlite";
 
 const Database = {
   getConnection: () => {
-    const db = SQLite.openDatabase("DaTerraSqLite.db",
+    const db = SQLite.openDatabase("DaTerraSql.db",
       (error) => {
         if (error) return console.log(error);
       });
@@ -42,6 +42,9 @@ const Database = {
         "idCliente INTEGER NOT NULL," +
         "idProdutor INTEGER NOT NULL," +
         "idProduto INTEGER NOT NULL," +
+        "nome TEXT NOT NULL," +
+        "embalagem TEXT NOT NULL," +
+        "preco REAL NOT NULL," +
         "quantidadeProduto INTEGER NOT NULL," +
         "precoTotal REAL NOT NULL);"
 

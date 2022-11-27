@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 
-import { RadioButton, Appbar, TextInput, List, Divider } from "react-native-paper";
+import { RadioButton, Appbar, TextInput, } from "react-native-paper";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
@@ -25,10 +25,10 @@ import Header from "../Componentes/Header";
 //import { inserirPessoa } from "../DBService/DBQuery";
 // import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
 
-import { AuthContext } from "../contexts/AuthProvider";
 import { register, login } from '../JsonServer/webapi.usuarios'
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 import { ValidarCadastroContext } from "../contexts/webapi.ValidarCadastro";
+import { AuthContext } from '../contexts/AuthProvider';
 
 const CadastroUsuario = ({ navigation, route }) => {
 
@@ -67,38 +67,52 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [confirmarSenha, setConfirmarSenha] = useState("");
 
   const {
-    getProdutor,
-    getCliente,
     postUsuario,
     putUsuario,
     deleteProdutor,
     deleteCliente,
   } = useContext(UsuarioContext);
 
-  const {
-    idCadastrado,
-    postValidarCadastro
-  } = useContext(ValidarCadastroContext);
-
+  // Validação Email Usuário
+  const { getValidarCadastro } = useContext(ValidarCadastroContext);
 
   // Usuário logado: Para usar em Meus Dados
   const { user } = useContext(AuthContext);
   const userLogado = (user ? Object.values(user) : undefined);
-  console.log(userLogado);
 
   useEffect(() => {
-    // deleteProdutor(7); // OK
-    // deleteCliente(7); // OK
-    // getCliente(3); // OK
-    // getProdutor(2); // OK
     buscarEndereco(); // Busca CEP
     DataBase.getConnection();
   }, [cep]);
 
 
-  // REVER ESSA FUNÇÃO = handleCadastrar
-  // Cadastrar Usuário, Validação de Dados e senha
-  // CRUD OK - Falta testar o PUT
+  // IMPLEMENTAR PUT
+  // else if (userLogado) {
+  // console.log('else if user logado')
+  // if (senha != confirmarSenha) {
+  //   Alert.alert("Confirmação de senha incorreta, verifique")
+  // }
+  // putUsuario({
+  //   nome: userLogado[0].nome,
+  //   cpf: userLogado[0].cpf,
+  //   dataNascimento: userLogado[0].data,
+  //   tipoUsuario: userLogado[0].tipoUsuario,
+  //   email: email.trim(),
+  //   senha: senha.trim(),
+  //   telefone: telefone.trim(),
+  //   cep: cep.trim(),
+  //   rua: rua.trim(),
+  //   numeroCasa: numeroCasa.trim(),
+  //   bairro: bairro.trim(),
+  //   complemento: complemento.trim(),
+  //   cidade: cidade.trim(),
+  //   uf: uf.trim(),
+  //   nomeLoja: userLogado[0].nomeLoja,
+  //   id: userLogado[0].id
+  // }).then();    
+  // navigation.goBack();
+  // CRUD OK - Falta implementar o PUT
+  
   const handleCadastrar = () => {
     // Verifica se tem algo incompleto no formulário
     if (!nome ||
@@ -117,79 +131,67 @@ const CadastroUsuario = ({ navigation, route }) => {
       !confirmarSenha
     ) {
       setMissInfo(true);  // Falta Informação      
+      // console.log('primeiro if', nome, cpf, email, telefone, rua, bairro, numeroCasa, cidade, uf, cep, senha, confirmarSenha, nomeLoja, tipoUsuario)
+      //console.log("missinfo: ", missInfo)
+    } else {
       if (senha != confirmarSenha) {
         Alert.alert("Confirmação de senha incorreta, verifique")
-      }
-    }
-    if (!userLogado) {    // Aqui foi alterado
-      // Verifica se o user já possui cadastro
-      postValidarCadastro({
-        email: email,
-      }).then();
-
-      // Se retornar number, então retornou ID, pois o error é objeto
-      if (typeof (idCadastrado) === "number") {
-        Alert.alert("Esse email já está cadastrado");
-
-      } else if (tipoUsuario == 'produtor') {
-        // PRODUTOR
-        postUsuario({
-          nome: nome.trim(),
-          dataNascimento: data.trim(),
-          cpf: cpf.trim(),
-          telefone: telefone.trim(),
-          rua: rua.trim(),
-          bairro: bairro.trim(),
-          numeroCasa: numeroCasa.trim(),
-          cep: cep.trim(),
-          cidade: cidade.trim(),
-          uf: uf.trim(),
-          complemento: complemento.trim(),
-          tipoUsuario: tipoUsuario.trim(),
-          nomeLoja: nomeLoja.trim(),   // Somente produtor
-          email: email.trim(),
-          senha: senha.trim()
-        }).then();
       } else {
-        // CLIENTE
-        postUsuario({
-          nome: nome.trim(),
-          dataNascimento: data.trim(),
-          cpf: cpf.trim(),
-          telefone: telefone.trim(),
-          rua: rua.trim(),
-          bairro: bairro.trim(),
-          numeroCasa: numeroCasa.trim(),
-          cep: cep.trim(),
-          cidade: cidade.trim(),
-          uf: uf.trim(),
-          complemento: complemento.trim(),
-          tipoUsuario: tipoUsuario.trim(),
-          email: email.trim(),
-          senha: senha.trim()
-        }).then();
+        //  Verifica se o user já possui cadastro    
+        getValidarCadastro(email)
+          .then(res => {
+            //console.log(res[0]);
+            if (typeof (res[0]) != "number") {  // Se for number, então retornou ID
+              if (tipoUsuario == 'produtor') {
+                // PRODUTOR
+                console.log('entrou produtor')
+                postUsuario({
+                  nome: nome.trim(),
+                  dataNascimento: data.trim(),
+                  cpf: cpf.trim(),
+                  telefone: telefone.trim(),
+                  rua: rua.trim(),
+                  bairro: bairro.trim(),
+                  numeroCasa: numeroCasa.trim(),
+                  cep: cep.trim(),
+                  cidade: cidade.trim(),
+                  uf: uf.trim(),
+                  complemento: complemento.trim(),
+                  tipoUsuario: tipoUsuario.trim(),
+                  nomeLoja: nomeLoja.trim(),   // Somente produtor
+                  email: email.trim(),
+                  senha: senha.trim()
+                }).then();
+                navigation.goBack();
+              } else {
+                // CLIENTE                
+                postUsuario({
+                  nome: nome.trim(),
+                  dataNascimento: data.trim(),
+                  cpf: cpf.trim(),
+                  telefone: telefone.trim(),
+                  rua: rua.trim(),
+                  bairro: bairro.trim(),
+                  numeroCasa: numeroCasa.trim(),
+                  cep: cep.trim(),
+                  cidade: cidade.trim(),
+                  uf: uf.trim(),
+                  complemento: complemento.trim(),
+                  tipoUsuario: tipoUsuario.trim(),
+                  email: email.trim(),
+                  senha: senha.trim()
+                }).then();
+                navigation.goBack();
+              }
+            } else {
+              Alert.alert("Esse email já está cadastrado");
+            }
+          }
+          )
       }
-      navigation.goBack();
-    } else {        // Tem usuário logado
-      putUsuario({    // Aqui foi incluído
-        nome: userLogado[0].nome,
-        cpf: userLogado[0].cpf,
-        dataNascimento: userLogado[0].data,
-        email: email.trim(),
-        senha: senha.trim(),
-        telefone: telefone.trim(),
-        cep: cep.trim(),
-        rua: rua.trim(),
-        numeroCasa: numeroCasa.trim(),
-        bairro: bairro.trim(),
-        complemento: complemento.trim(),
-        cidade: cidade.trim(),
-        uf: uf.trim(),
-        id: id
-      }).then();
     }
-
   }
+
 
   // API: Buscar o Cep
   const buscarEndereco = async () => {
@@ -279,7 +281,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             onChangeText={setNome}
             value={userLogado ? userLogado[0].nome : nome}
             disabled={userLogado ? true : false}
-            error={!userLogado && (missInfo && !nome)  ? true : false}
+            error={!userLogado && (missInfo && !nome) ? true : false}
             activeOutlineColor={"#3d9d74"}
           />
 
@@ -458,27 +460,27 @@ const CadastroUsuario = ({ navigation, route }) => {
           />
 
           {/* Confirmar Senha */}
-          {!userLogado && (
-            <Input
-              label="Confirmar Senha"
-              value={confirmarSenha}
-              secureTextEntry={escondeConfirmarSenha}
-              error={missInfo && !confirmarSenha ? true : false}
-              activeOutlineColor={"#3d9d74"}
-              right={
-                <TextInput.Icon
-                  onPress={() =>
-                    escondeConfirmarSenha
-                      ? setEscondeConfirmarSenha(false)
-                      : setEscondeConfirmarSenha(true)
-                  }
-                  icon={escondeConfirmarSenha ? 'eye-off' : 'eye'}
-                />
-              }
-              onChangeText={setConfirmarSenha}
-            />
-          )}
-          
+
+          <Input
+            label="Confirmar Senha"
+            value={confirmarSenha}
+            secureTextEntry={escondeConfirmarSenha}
+            error={missInfo && !confirmarSenha ? true : false}
+            activeOutlineColor={"#3d9d74"}
+            right={
+              <TextInput.Icon
+                onPress={() =>
+                  escondeConfirmarSenha
+                    ? setEscondeConfirmarSenha(false)
+                    : setEscondeConfirmarSenha(true)
+                }
+                icon={escondeConfirmarSenha ? 'eye-off' : 'eye'}
+              />
+            }
+            onChangeText={setConfirmarSenha}
+          />
+
+
           {!userLogado && userAlredyRegister && (
             <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>
           )}

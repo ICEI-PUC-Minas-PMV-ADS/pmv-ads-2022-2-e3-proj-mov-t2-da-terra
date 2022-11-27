@@ -1,15 +1,19 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
+import { AuthContext } from "./AuthProvider";
 import { url } from "./webapi.url";
 
 export const ProdutoContext = createContext({});
 
 const ProdutoProvider = ({ children }) => {
-
+  const [resultados, setResultados] = useState([]); // Usado para o carrinho
   const [produto, setProduto] = useState([]);
+  const [produtoQuery, setProdutoQuery] = useState([]);
 
-  //GET ALL - OK
-  const getBuscaProdutoCliente = async () => {
-    console.log(`${url}/produtos/todos`)
+  const { user } = useContext(AuthContext);
+
+  // PRODUTOR E CLIENTE
+  // GET: Tela Loja (Produtor) e Busca Produto (Cliente)
+  const getBuscaTodosProdutos = async () => {
     return await fetch(`${url}/produtos/todos`, {
       method: 'GET',
       headers: {
@@ -18,17 +22,29 @@ const ProdutoProvider = ({ children }) => {
     })
       .then(response => response.json())
       .then(json => {
-         //console.log(json)
-        setProduto(json)
+        if (user.produtor) {
+          let res = []
+          for (let p in json) {
+            if (json[p].produtorId == user.produtor.id) {
+             // console.log([json[p]]);
+              res.push(json[p]);
+            }
+          }
+          setProduto(res);
+        }
+        
+        
+        else {
+          setProdutoQuery(json);
+        }
       })
       .catch(error => console.error(error));
   }
 
-  //GET ALL - ok
-  const BuscaProdutos = async (param = {}) => {
-    console.log(`${url}/produtos/busca?nomeProduto=${param}`)
-    return await fetch(
-      `${url}/produtos/busca?nomeProduto=${param}`,
+  // CLIENTE ------------------------------------------------------
+  //GET Tela Busca: Produto por nome - OK
+  const buscaProdutos = async (param = {}) => {
+    return await fetch(`${url}/produtos/busca?nomeProduto=${param}`,
       {
         method: 'GET',
         headers: {
@@ -36,14 +52,13 @@ const ProdutoProvider = ({ children }) => {
         }
       })
       .then(response => response.json())
-      .then(json => setProduto(json))
-      //.then(json => console.log(json))
+      .then(json => setProdutoQuery(json))
+      .then(json => console.log(json))
       .catch(error => console.error(error));
   }
 
-  // GET - OK
-  const getProduto = async (id) => {
-    console.log(id)
+  // GET Carrinho - OK
+  const getProdutoCarrinho = async (id) => {
     return await fetch(`${url}/produtos/carrinho/${id}`,
       {
         method: 'GET',
@@ -52,13 +67,13 @@ const ProdutoProvider = ({ children }) => {
         }
       })
       .then(response => response.json())
-      .then(json => {
-       return json
-      })
+      .then(json => console.log("json", json))
       .catch(error => console.error(error));
   }
+  // FIM CLIENTE ---------------------------------------------------
 
-  // POST - OK
+  // PRODUTOR ------------------------------------------------------
+  // POST: Tela Cadastro de Produto
   const postProduto = async (param) => {
     console.log(param);
     return await fetch(`${url}/produtos/`,
@@ -70,12 +85,12 @@ const ProdutoProvider = ({ children }) => {
         body: JSON.stringify(param)
       })
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => console.log(json)) // setar para produto
       .catch(error => console.error(error));
   }
 
-  // PUT - OK
-  const putProduto = async (param = {}) => {
+  // PUT: Tela Editar em Cadastro de Produto
+  const putProduto = async (param) => {
     return await fetch(`${url}/produtos/${param.id}`,
       {
         method: 'PUT',
@@ -85,11 +100,10 @@ const ProdutoProvider = ({ children }) => {
         body: JSON.stringify(param)
       })
       .then(response => response.json())
-      .then(json => setProduto(json))
       .catch(error => console.error(error));
   }
 
-  // DELETE - OK 
+  // DELETE: Tela Deletar em Cadastro de Produto
   const deleteProduto = async (id) => {
     return await fetch(`${url}/produtos/${id}`,
       {
@@ -104,12 +118,15 @@ const ProdutoProvider = ({ children }) => {
       value={{
         produto,
         setProduto,
-        getProduto,
+        getProdutoCarrinho,
         postProduto,
         putProduto,
         deleteProduto,
-        getBuscaProdutoCliente,
-        BuscaProdutos,
+        buscaProdutos,
+        setResultados,
+        getBuscaTodosProdutos,
+        produtoQuery,
+        setProdutoQuery
       }}
     >
       {children}

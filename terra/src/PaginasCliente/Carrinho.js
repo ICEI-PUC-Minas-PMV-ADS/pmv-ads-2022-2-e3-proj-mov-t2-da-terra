@@ -7,141 +7,119 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  BackHandler
 } from "react-native";
 
-import { List, Button,Snackbar } from "react-native-paper";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { List, Snackbar } from "react-native-paper";
 import { AuthContext } from "../contexts/AuthProvider";
-import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
+
 import {
   deleteCarrinho,
   getCarrinho,
-  insertCarrinho,
+  deleteCarrinhoCliente,
+
 } from "../DBService/DBCarrinho";
+
 import Database from "../DBService/DBService";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import Botao from "../Componentes/Botao";
+import { useNavigation,useRoute } from "@react-navigation/native";
+
+import { PedidoContext } from "../contexts/webapi.PedidoProvider";
 
 const Carrinho = () => {
   const navigation = useNavigation();
   const { user } = useContext(AuthContext);
-  const { produto, getAllProduto, getProduto } = useContext(ProdutoContext);
+  const route = useRoute();
+
+  // Snack
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
-  //Produtos do carrinho
-  const [cartProdutos, setCartProdutos] = useState([]);
+
+  // Produtos do carrinho
   const [valorTotal, setPrecoTotal] = useState(0);
-  const DATA = [
-    {
-      id: 1,
-      nome: "Laranja Capeta",
-      preco: 6.0,
-      embalagem: "Kg",
-    },
-    {
-      id: 2,
-      nome: "Pera",
-      preco: 12.0,
-      embalagem: "Kg",
-    },
-    {
-      id: 3,
-      nome: "Abacate RUIM",
-      preco: 12.0,
-      embalagem: "Unidade",
-    },
-    {
-      id: 4,
-      nome: "Manga de fios",
-      preco: 12.0,
-      embalagem: "Unidade",
-    },
-    {
-      id: 5,
-      nome: "Abobora moranga",
-      preco: 7.0,
-      embalagem: "Kg",
-    },
-    {
-      id: 6,
-      nome: "Jáca",
-      preco: 13.0,
-      embalagem: "Kg",
-    },
-  ];
+  const [removed, setRemoved] = useState(false);
 
-  const precoTotal = () => {
-    let soma = 0;
-    if (cartProdutos != undefined) {
-      for (let item of cartProdutos) {
-        soma += item.preco;
-      }
+  // Context do pedido
+  const {
+    postPedido,
+    resultados,
+    setResultados
+  } = useContext(PedidoContext);
 
-      setPrecoTotal(soma.toFixed(2));
-    }
+  // Tabela Pedidos  
+  const enviarPedido = () => {
+    postPedido({
+      clienteId: resultados[0].idCliente,
+      produtorId: resultados[0].idProdutor,
+      precoTotalPedido: valorTotal,
+      status: "Pedido Enviado",
+    }).then(res => console.log(res));
+    // Itens rodando no webapi.PedidosProvider
+
+    deleteCarrinhoCliente(resultados[0].idCliente)
+    .then(response=>console.log(response))
+    .catch(e=>console.log(e))
+    navigation.navigate("PedidoEnviado");
   };
 
   useEffect(() => {
-    //Abre conexão com banco sqlite do app
     Database.getConnection();
-    //Vai iterar sobre o resultados da get do carrinho e buscar o produto ,mas essa merd não vai
-    //de primeira
+
     getCarrinho(user.cliente.id)
       .then((res) => {
-        //Pega o id de cada produto de cada item do carrinho e busca na api
-        let b = [];
-
-        for (let i of res) {
-          getProduto(i.idProduto)
-            .then((produto) => {
-              b.push(produto);
-              // console.log(b)
-            })
-            .catch((e) => console.log(e));
+        console.log(res);
+        setResultados(res);
+        let soma = 0
+        for (let i in res) {
+          soma += res[i].precoTotal;
+          setPrecoTotal(soma);
         }
-        setCartProdutos(b);
-
-        console.log(cartProdutos);
-        // console.log(cartProdutos)
       })
-      .catch((e) => console.log(e));
+  }, [visible],enviarPedido);
+  
+  useEffect(() => {
+    if (route.name==="Carrinho") {
+      const backAction = () => {
+       navigation.goBack()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
 
-    precoTotal();
+    
   }, []);
 
-  const add = () => {
-    insertCarrinho({
-      idCliente: 1,
-      idProdutor: 1,
-      idProduto: 5,
-      quantidadeProduto: 1,
-      precoTotal: 7.98,
-    })
-      .then()
-      .catch((e) => console.log(e));
-  };
   const deleteItemCarrinho = (idProduto) => {
-    
     onToggleSnackBar();
-    
-    // deleteCarrinho(idProduto)
-    //   .then((resposta) => console.log(resposta))
-    //   .catch((e) => console.log(e));
+
+    deleteCarrinho(idProduto)
+      .then((resposta) => {
+        setRemoved(true);
+      })
+      .catch((e) => console.log(e));
   };
 
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("CadastrarProduto", { item })}
+      // onPress={() => navigation.navigate("CadastrarProduto", { item })}
       >
         <View style={{ width: 500 }}>
           <List.Item
-            title={`${item.nome != undefined ? item.nome : ""} (${
-              item.embalagem ? item.embalagem : ""
-            })`}
+          style={{textAlign:"center"}}
+            title={`${item.nome != undefined ? item.nome : ""} (${item.embalagem ? item.embalagem : ""
+              })`}
             left={() => (
               <Image
                 style={styles.img}
@@ -152,87 +130,87 @@ const Carrinho = () => {
               <>
                 <View style={styles.viewRemover}>
                   <Text>
-                    <TouchableOpacity onPress={deleteItemCarrinho}>
+                    <TouchableOpacity
+                      onPress={() => deleteItemCarrinho(item.id)}
+                    >
                       <Text style={styles.removerCarrinho}>Remover</Text>
                     </TouchableOpacity>
                   </Text>
                 </View>
               </>
             )}
-            description={`R$ ${item.preco != undefined ? item.preco : 0} / ${
-              item.embalagem != undefined ? item.embalagem : ""
-            }
+            description={`R$ ${item.preco != undefined ? item.preco : 0} / ${item.embalagem != undefined ? item.embalagem : ""
+              }      Total: R$${(item.preco*item.quantidadeProduto).toFixed(2)}
+              
             `}
+          
           />
         </View>
-        {/* <Text style={styles.removerCarrinho}>asdasda</Text> */}
       </TouchableOpacity>
     </View>
   );
 
   return (
     <Container>
-        
       <Header
         title={"Carrinho"}
         // Só se houver tela empilhada
         goBack={() => navigation.goBack()}
       />
-      
       <Body>
+        {resultados.length == 0 && (
+          <View style={styles.viewCarrinhoVazio}>
+            <Image
+              style={styles.imgCarrinho}
+              source={require("../assets/Carrinho_vazio.png")}
+            />
+            <Text style={styles.textAvisoCarrinhoVazio}>
+              Ops...Carrinho Vazio
+            </Text>
+            <Text style={styles.textAvisoCarrinhoVazio}>
+              Adicione alguns produtos para aparecer aqui
+            </Text>
+          </View>
+        )}
         <FlatList
-          data={DATA}
+          data={resultados}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
-          
         />
-        
-        
-        <View style={styles.containerResultado}>
-          <Text style={styles.textoResultado}>
-            {produto != undefined ? produto.length : 0} Itens
-          </Text>
-          <Text style={styles.textoResultado}>Total: R$ {valorTotal}</Text>
-        </View>
-      
+        {resultados.length != 0 && (
+          <View style={styles.containerResultado}>
+            <Text style={styles.textoResultado}>
+              {resultados != undefined ? resultados.length : 0} Itens
+            </Text>
+
+            <Text style={styles.textoResultado}>
+              Total: R$ {valorTotal ? valorTotal.toFixed(2) : 0}
+            </Text>
+          </View>
+        )}
         <View style={styles.viewBotao}>
-          
-          <TouchableOpacity
-            onPress={() => navigation.navigate("PedidoEnviado")}
-          >
-            
-            <Botao
-              style={styles.textoBotao}
-              textoBotao="Enviar Pedido"
-              mode="contained"
-              buttonColor="#3d9d74"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={add}>
-          <Snackbar
-          visible={visible}
-          duration={2000}
-          elevation={4}
-          onDismiss={onDismissSnackBar}
-          action={{
-            label: "Ok",
-          }}
-        >
-          Produto removido do seu carrinho
-        </Snackbar>
-
-            {visible==false &&(
-
-            
-            <View style={{ marginTop: 20 }}>
+          {resultados.length > 0 && (
+            <TouchableOpacity onPress={() => enviarPedido()}>
               <Botao
                 style={styles.textoBotao}
-                textoBotao="Adicionar produto ao carrinho"
+                textoBotao="Enviar Pedido"
                 mode="contained"
                 buttonColor="#3d9d74"
               />
-            </View>
-            )}
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity onPress={() => { }}>
+            <Snackbar
+              visible={visible}
+              duration={1500}
+              elevation={4}
+              onDismiss={onDismissSnackBar}
+              action={{
+                label: "Ok",
+              }}
+            >
+              Produto removido do seu carrinho
+            </Snackbar>
           </TouchableOpacity>
         </View>
       </Body>
@@ -247,6 +225,21 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: "#fff",
     elevation: 5,
+  },
+  imgCarrinho: {
+    width: 90,
+    height: 90,
+    alignSelf: "center"
+  },
+  viewCarrinhoVazio: {
+    alignSelf: "center",
+    marginTop: 180,
+
+  },
+  textAvisoCarrinhoVazio: {
+    fontSize: 22,
+    textAlign: "center",
+    letterSpacing: 1.7,
   },
   viewBotao: {
     marginBottom: 20,
@@ -272,7 +265,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
   },
-
   textoResultado: {
     fontSize: 18,
     fontWeight: "bold",
@@ -293,15 +285,15 @@ const styles = StyleSheet.create({
   },
   removerCarrinho: {
     marginRight: 180,
-    fontSize: 17,
-    letterSpacing:1.7
+    fontSize: 16,
+    letterSpacing: 1.7,
   },
-  viewRemover:{
+  viewRemover: {
     flexDirection: "row",
-    marginTop:70,
-    marginRight:50,
-    width:200 
-  }
+    marginTop: 70,
+    marginRight: 50,
+    width: 200,
+  },
 });
 
 export default Carrinho;

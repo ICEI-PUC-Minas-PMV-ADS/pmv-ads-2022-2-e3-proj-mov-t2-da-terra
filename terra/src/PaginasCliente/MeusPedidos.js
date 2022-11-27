@@ -1,75 +1,36 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet, Image } from "react-native";
 
-import { List, Button, Appbar, Divider } from "react-native-paper";
-
+import { PedidoContext } from "../contexts/webapi.PedidoProvider";
+import { List, Appbar, Divider } from "react-native-paper";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
-import Seletor from "../Componentes/Seletor";
+import { AuthContext } from "../contexts/AuthProvider";
 
-import { useNavigation, useIsFocused } from "@react-navigation/native";
-
-data = [
-  {
-    id: 1,
-    loja: "Shop Deutsch Brothers",
-    produto: "Banana",
-    aprovado: false,
-    dataPedido: "20/02/2023",
-    preco: "20.40",
-  },
-  {
-    id: 2,
-    loja: "Fruits Paradise",
-    produto: "Maça",
-
-    aprovado: true,
-    dataPedido: "12/05/2022",
-    preco: "55.60",
-  },
-  {
-    id: 3,
-    loja: "Loja do tião",
-    produto: "Brócolis",
-
-    aprovado: false,
-    dataPedido: "25/07/2021",
-    preco: "202.20",
-  },
-  {
-    id: 4,
-    loja: "Loja do Calvo",
-    produto: "Alface",
-    aprovado: true,
-    dataPedido: "10/07/2020",
-    preco: "102.01",
-  },
-  {
-    id: 5,
-    loja: "Loja dos irmãos Deustch",
-    produto: "pera",
-    aprovado: false,
-    dataPedido: "02/03/2019",
-    preco: "67.40",
-  },
-];
+import { useNavigation,useIsFocused } from "@react-navigation/native";
 
 const MeusPedidos = () => {
-  // const {user} = useContext(AuthContext)
+  const navigation = useNavigation();
+  const { pedido, putPedido, getPedido, setPedido } = useContext(PedidoContext);
+  const { user } = useContext(AuthContext);
+  const isFocused=useIsFocused()
+  const [resultados, setResultados] = useState([]);
+
+  useEffect(() => {
+    getPedido(user.cliente.id).then((res) => {
+      setResultados(res);
+      console.log(res);
+    });
+    //setTimeout(() => console.log(resultados[0]), 1000)
+  }, [],[isFocused]);
+
   const renderItem = ({ item }) => {
     return (
       <View style={{ marginTop: 20 }}>
         <List.Item
-          title={`${item.produto}`}
+          title={`Pedido #${item.id}`}
           titleStyle={{
             fontSize: 20,
             fontWeight: "bold",
@@ -78,28 +39,28 @@ const MeusPedidos = () => {
           }}
           right={() => (
             <>
-              <View style={{ flexDirection: "column", marginTop: 40, }}>
-                <Text
-                  style={{
-                    textAlignVertical: "center",
-                    fontWeight: "bold",
-                    fontSize: 16,
-                    marginTop: 25,
-                  }}
-                >
-                  R${item.preco}
+              <View style={{ flexDirection: "column", marginTop: 40 }}>
+                <Text style={styles.textPrecoTotal}>
+                  R${item.precoTotalPedido.toFixed(2)}
                 </Text>
                 <Text style={styles.textDataPedido}>{item.dataPedido}</Text>
               </View>
-
             </>
           )}
-
           description={
             <>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <List.Icon icon={item.aprovado ? "check" : "clock-outline"} />
-                <Text style={item.aprovado ? styles.aprovado : styles.esperandoAprovacao}>{`${item.aprovado ? "Aprovado" : "Aguardando aprovação"}`}</Text>
+                <Text
+                  style={
+                    item.status == "Pedido Enviado"
+                      ? styles.esperandoAprovacao
+                      : styles.aprovado
+                  }
+                >{`${item.status == "Pedido Enviado"
+                    ? "Aguardando aprovação"
+                    : "Aprovado"
+                  }`}</Text>
               </View>
 
               <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -111,21 +72,52 @@ const MeusPedidos = () => {
                 <List.Icon icon="calendar-check-outline" />
                 <Text style={{ fontSize: 16 }}>{item.dataPedido}</Text>
               </View>
-
             </>
           }
         />
-        <Divider />
+        {item.status == "Pedido Aceito" && (
+          <>
+            <View style={styles.viewClienteAviso}>
+              <List.Icon icon="truck-check" />
+              <Text style={styles.avisoCliente}>
+                Pedido Enviado
+              </Text>
+            </View>
+          </>
+        )}
+
+        <Divider style={{ borderWidth: 0.35, marginBottom: 5 }} />
       </View>
     );
   };
 
   return (
     <Container>
-      <Header title={"Meus Pedidos"} />
+      <Header title={"Meus pedidos"}>
+        <Appbar.Action
+          style={{ marginRight: 10 }}
+          icon="cart"
+          onPress={() => navigation.navigate("Carrinho")}
+        />
+      </Header>
       <Body>
+        {/* ESTÁ DANDO ERRO QUANDO ESTÁ VAZIO */}
+        {resultados.length == 0 && (
+          <View style={styles.viewPedidosVazio}>
+            <Image
+              style={styles.imgPedidos}
+              source={require("../assets/Pedido_vazio.png")}
+            />
+            <Text style={styles.textAvisoPedidosVazio}>
+              Parece que você não tem nenhum pedido no momento
+            </Text>
+            <Text style={styles.textAvisoPedidosVazio}>
+              Quando você comprar algum produto,ele aparecerá bem aqui
+            </Text>
+          </View>
+        )}
         <FlatList
-          data={data}
+          data={resultados}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
@@ -134,12 +126,36 @@ const MeusPedidos = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
   /* FlatList */
   textDataPedido: {
     fontWeight: "bold",
-    marginTop: 8,
+    marginTop: 15,
+    fontSize: 16,
+  },
+  viewPedidosVazio: {
+    alignSelf: "center",
+    marginTop: 110,
+  },
+  textAvisoPedidosVazio: {
+    fontSize: 20,
+    textAlign: "center",
+    letterSpacing: 0.9,
+    paddingLeft: 4,
+    paddingRight: 4,
+  },
+
+  imgPedidos: {
+    width: 120,
+    height: 120,
+    alignSelf: "center",
+  },
+  textPrecoTotal: {
+    textAlignVertical: "center",
+    fontWeight: "bold",
+    fontSize: 16,
+    marginTop: 35,
+    marginLeft: 55,
   },
   aprovado: {
     fontSize: 16,
@@ -147,6 +163,24 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#6cc438",
     padding: 7,
+  },
+  viewClienteAviso: {
+    justifyContent: "center",
+    alignSelf: "flex-end",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  avisoCliente: {
+    padding: 6,
+    marginBottom: 3,
+    fontSize: 16,
+    letterSpacing: 1,
+    borderRadius: 16,
+    backgroundColor: "#FF6B1A",
+    fontWeight: "bold",
+    height: 40,
+    maxWidth: 200,
+    textAlignVertical: 'center',
   },
   esperandoAprovacao: {
     fontSize: 16,
@@ -158,5 +192,3 @@ const styles = StyleSheet.create({
 });
 
 export default MeusPedidos;
-
-

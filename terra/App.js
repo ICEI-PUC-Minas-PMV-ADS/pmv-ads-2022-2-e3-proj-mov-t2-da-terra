@@ -6,6 +6,7 @@ import { AuthProvider } from "./src/contexts/AuthProvider";
 import ProdutoProvider from "./src/contexts/webapi.ProdutoProvider";
 import UsuarioProvider from "./src/contexts/webapi.CadastroUsuario";
 import ValidarCadastroProvider from "./src/contexts/webapi.ValidarCadastro";
+import PedidoProvider from "./src/contexts/webapi.PedidoProvider";
 
 export default function App() {
   return (
@@ -14,7 +15,9 @@ export default function App() {
         <ValidarCadastroProvider>
           <UsuarioProvider>
             <ProdutoProvider>
-              <Main />
+              <PedidoProvider>
+                <Main />
+              </PedidoProvider>
             </ProdutoProvider>
           </UsuarioProvider>
         </ValidarCadastroProvider>

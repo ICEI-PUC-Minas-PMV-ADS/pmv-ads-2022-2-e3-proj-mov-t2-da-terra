@@ -2,9 +2,21 @@ import React, { useState, useEffect, useContext } from "react";
 
 import { Avatar, BottomNavigation, Button  } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ToastAndroid, Alert } from "react-native";
+import { Avatar, BottomNavigation, Button  } from 'react-native-paper';
+import * as ImagePicker from 'expo-image-picker';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ToastAndroid, Alert, TouchableHighlight, ToastAndroid, Alert,BackHandler, } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation,useRoute } from "@react-navigation/native";
+
+
+
+import MeusPedidos from "./../PaginasCliente/MeusPedidos";
+import BuscarProdutos from "./../PaginasCliente/BuscarProdutos";
+import Carrinho from "../PaginasCliente/Carrinho"
+
+import MeusPedidos from "./../PaginasCliente/MeusPedidos";
+import BuscarProdutos from "./../PaginasCliente/BuscarProdutos";
+import Carrinho from "../PaginasCliente/Carrinho"
 
 import MeusPedidos from "./../PaginasCliente/MeusPedidos";
 import BuscarProdutos from "./../PaginasCliente/BuscarProdutos";
@@ -55,7 +67,49 @@ const MinhaConta = () => {
     
         console.log(result);
         console.log(result);
+      const [imagem, setImagem] = useState(null);
+  const rota = useRoute();
+  const setToastMsg = msg=> {
+    ToastAndroid.showWithGravity(
+      msg,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
+  };
+
+  const renderScene = BottomNavigation.SceneMap({
+    buscarProdutos: BuscarProdutos,
+    meusPedidos: MeusPedidos,
+    minhaConta: MinhaConta,
+    carrinho: Carrinho
+  });
+    const removeImage = () => {
+      setImagem(' ')
+      setToastMsg('Imagem removida');
+    };
     
+    const uploadImage = async () => {
+
+  
+    //TESTE GABRIEL - OK PARA ABRIR SELETOR DE IMAGEM,TRATAR A IMAGEM 
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        }).then(a=>{
+          return a
+        }).catch(e=>console.log(e));
+    
+        console.log(result);
+        console.log(result);
+    
+        if (!result.cancelled) {
+          setImagem(result.uri);
+        }
+    };
+
+  const [index, setIndex] = useState(0);
         if (!result.cancelled) {
           setImagem(result.uri);
         }
@@ -98,11 +152,39 @@ const MinhaConta = () => {
   //   //const novoUser = Object.values(user);
   //   //  console.log(novoUser[0].id);
   // }, [])
+  useEffect(() => {
+    if (rota.name==="MinhaConta") {
+      const backAction = () => {
+       BackHandler.exitApp()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
 
+    
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
+      <View style={styles.photoContainer}>       
+      <TouchableOpacity 
+      onPress={() => uploadImage()}
+      underlayColor='rgba(0,0,0,0)'>
+
+        <Avatar.Image
+        size={250}
+        source={{uri:imagem}}
+        />
+      </TouchableOpacity>
+        </View>
       <View style={styles.photoContainer}>       
       <TouchableOpacity 
       onPress={() => uploadImage()}
@@ -123,6 +205,27 @@ const MinhaConta = () => {
 
           </Text>
 
+        <View style={[styles.photoButtonContainer, {marginTop: 5, flexDirection: 'row'}]}>
+            <Button
+              onPress={() => uploadImage()}
+              style={styles.smallButton}
+              buttonColor={"#3d9d74"}
+              mode="contained">
+              <Text>
+              Upload
+              </Text>
+              </Button>
+
+            <Button
+              onPress={() => removeImage()}
+              style={[styles.smallButton]}
+              buttonColor={"#3d9d74"}
+              mode="contained">
+              <Text>
+              Remover
+              </Text>
+            </Button>
+        </View>
         <View style={[styles.photoButtonContainer, {marginTop: 10, flexDirection: 'row'}]}>
             <Button
               onPress={() => uploadImage()}
@@ -167,6 +270,12 @@ const MinhaConta = () => {
               onIndexChange={setIndex}
               renderScene={renderScene}
              />
+          <BottomNavigation
+              barStyle={{ backgroundColor: '#50ac5d' }}
+              navigationState={{ index, routes }}
+              onIndexChange={setIndex}
+              renderScene={renderScene}
+             />
         </View>
       </View>
     </View>
@@ -176,7 +285,7 @@ const MinhaConta = () => {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#3d9d74",
-    height: 90,
+    height: 70,
   },
   avatar: {
     width: 110,
@@ -184,7 +293,7 @@ const styles = StyleSheet.create({
     borderRadius: 63,
     borderWidth: 4,
     borderColor: "white",
-    marginTop: -60,
+    marginTop: -40,
     alignSelf: "center",
   },
   name: {
@@ -193,7 +302,7 @@ const styles = StyleSheet.create({
 
   },
   body: {
-    marginTop: 20,
+    marginTop: 10,
   },
   bodyContent: {
     alignItems: "center",
@@ -211,12 +320,12 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     color: "#696969",
-    marginTop: 10,
+    marginTop: 5,
     textAlign: "center",
   },
   buttonContainer: {
     marginTop: 5,
-    height: 60,
+    height: 50,
     flexDirection: "row",
     marginBottom: 20,
     borderRadius: 30,
@@ -232,14 +341,20 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     alignItems: 'center',
   },
+  photoButtonContainer: {
+    borderRadius:15 ,
+    marginBottom: 15,
+    marginTop: 50,
+    alignItems: 'center',
+  },
+  photoContainer: {
+    marginTop: 40,
+    marginBottom: 5,
+    alignItems: 'center',
+  },
   textoBotao: {
     textAlign: "center",
     fontSize: 18,
   },
-  smallButton: {
-    width: 135,
-    marginBottom: 15,
-    margin: 5
-  }
 });
 export default MinhaConta;

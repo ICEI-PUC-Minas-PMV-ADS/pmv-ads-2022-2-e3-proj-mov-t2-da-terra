@@ -69,7 +69,27 @@ namespace WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clientes", (string)null);
+                    b.ToTable("Clientes");
+                });
+
+            modelBuilder.Entity("WebApi.Models.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("QuantidadeProduto")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Itens");
                 });
 
             modelBuilder.Entity("WebApi.Models.Pedido", b =>
@@ -78,27 +98,24 @@ namespace WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("DataPedido")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("PrecoProduto")
+                    b.Property<decimal>("PrecoTotalPedido")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("QuantidadeProduto")
+                    b.Property<int>("ProdutorId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("TipoUsuarioFK")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Pedidos", (string)null);
+                    b.ToTable("Pedidos");
                 });
 
             modelBuilder.Entity("WebApi.Models.Produto", b =>
@@ -135,7 +152,7 @@ namespace WebApi.Migrations
 
                     b.HasIndex("ProdutorId");
 
-                    b.ToTable("Produtos", (string)null);
+                    b.ToTable("Produtos");
                 });
 
             modelBuilder.Entity("WebApi.Models.Produtor", b =>
@@ -194,66 +211,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Produtores", (string)null);
-                });
-
-            modelBuilder.Entity("WebApi.Models.Usuario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Bairro")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Cep")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Cidade")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Complemento")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Cpf")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DataCadastro")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DataNascimento")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NomeLoja")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("NumeroCasa")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Rua")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Senha")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Telefone")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TipoUsuario")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Uf")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Usuarios", (string)null);
+                    b.ToTable("Produtores");
                 });
 
             modelBuilder.Entity("WebApi.Models.Produto", b =>

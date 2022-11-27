@@ -24,7 +24,7 @@ namespace WebApi.Controllers
 
       return Ok(produtor);
     }
-    
+
 
     // GET: Por ID
     // Colocar Authorize 
@@ -137,6 +137,64 @@ namespace WebApi.Controllers
         produtor.Senha = "";
 
         return Ok(produtor);
+      }
+      catch (System.Exception)
+      {
+        return BadRequest(new { message = "System Exception" });
+      }
+    }
+
+    [HttpGet(template: "produtores/pedido/{id}")]
+    //[Authorize]
+    public async Task<IActionResult> AceitarPedido(
+          [FromServices] AppDbContext context,        
+          [FromRoute] int id)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(new { message = "Model Invalid" });
+      }
+
+      // 1 - ID PEDIDO
+      var pedido = await context.Pedidos
+        .FirstOrDefaultAsync(x => x.Id == id);
+
+      if (pedido == null)
+        return NotFound(new { message = "Pedido não encontrado" });
+
+      try
+      {
+        // 2 - Itens do pedido
+        var queryItens = from query in context.Itens
+                         select query;
+
+        queryItens = queryItens.Where(item => item.PedidoId == pedido.Id);
+
+        // 3 - Percorre os itens do pedido
+        foreach (var itemPedido in queryItens)
+        {
+          // Recupera produtos que estão na tabela 'itens', referente ao pedido
+          var produtoTabelaItem = await context.Produtos
+             .FirstOrDefaultAsync(x => x.Id == itemPedido.ProdutoId);
+
+          if (produtoTabelaItem == null) // Para evitar erros
+            return NotFound(new { message = "Produto não encontrado" });
+
+          var produtoBaixaEstoque = new Produto();
+          produtoBaixaEstoque = produtoTabelaItem;
+          produtoBaixaEstoque.Estoque -= itemPedido.QuantidadeProduto; // Desconta Estoque
+
+          // Não consegui fazer via método
+          //produtoBaixaEstoque.RemoverProdutoEstoque(Convert.ToInt32(produtoBaixaEstoque.Estoque));
+          context.Produtos.Update(produtoBaixaEstoque);
+          await context.SaveChangesAsync();
+        }
+
+        pedido.AtualizarStatus("Pedido Aceito");
+        context.Pedidos.Update(pedido);
+        await context.SaveChangesAsync();
+
+        return Ok(pedido);
       }
       catch (System.Exception)
       {

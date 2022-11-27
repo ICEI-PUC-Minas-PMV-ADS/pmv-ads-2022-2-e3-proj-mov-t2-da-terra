@@ -1,4 +1,7 @@
-import React, {useState,useContext} from 'react';
+import React, { useState, useContext,useEffect } from 'react';
+import {
+  BackHandler
+} from "react-native";
 import { BottomNavigation } from 'react-native-paper';
 import {StyleSheet} from "react-native";
 
@@ -7,11 +10,17 @@ import MinhasVendas from "./MinhasVendas";
 import MinhaConta from "../PaginasComuns/MinhaConta"
 
 import { AuthContext } from '../contexts/AuthProvider';
+import { useNavigation,useRoute } from "@react-navigation/native";
 
 const HomeVendedor = () => {   
     const {} = useContext(AuthContext);
     const [index, setIndex] = useState(0);
+   
 
+
+
+
+ 
     const [routes] = useState([
         {key: 'loja', title: 'Loja', focusedIcon: 'store'},
         {key: 'minhasVendas', title: 'Minhas Vendas', focusedIcon: 'currency-usd'},
