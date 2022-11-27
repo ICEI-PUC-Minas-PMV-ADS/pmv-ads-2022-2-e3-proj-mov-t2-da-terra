@@ -140,7 +140,7 @@ const MinhaConta = () => {
 
           </Text>
 
-        <View style={[styles.photoButtonContainer, {marginTop: 10, flexDirection: 'row'}]}>
+        <View style={[styles.photoButtonContainer, {marginTop: 5, flexDirection: 'row'}]}>
             <Button
               onPress={() => uploadImage()}
               style={styles.smallButton}
@@ -193,7 +193,7 @@ const MinhaConta = () => {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#3d9d74",
-    height: 90,
+    height: 70,
   },
   avatar: {
     width: 110,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     borderRadius: 63,
     borderWidth: 4,
     borderColor: "white",
-    marginTop: -60,
+    marginTop: -40,
     alignSelf: "center",
   },
   name: {
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
 
   },
   body: {
-    marginTop: 20,
+    marginTop: 10,
   },
   bodyContent: {
     alignItems: "center",
@@ -228,12 +228,12 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     color: "#696969",
-    marginTop: 10,
+    marginTop: 5,
     textAlign: "center",
   },
   buttonContainer: {
     marginTop: 5,
-    height: 60,
+    height: 50,
     flexDirection: "row",
     marginBottom: 20,
     borderRadius: 30,
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   photoContainer: {
-    marginTop: 50,
+    marginTop: 40,
     marginBottom: 5,
     alignItems: 'center',
   },

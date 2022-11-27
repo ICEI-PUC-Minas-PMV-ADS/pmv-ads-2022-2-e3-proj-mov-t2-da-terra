@@ -234,7 +234,7 @@ const ComprarProduto = () => {
         />
         <Snackbar
           visible={visible}
-          duration={2000}
+          duration={1500}
           elevation={4}
           onDismiss={onDismissSnackBar}
           action={{
