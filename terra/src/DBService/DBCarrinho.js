@@ -36,4 +36,9 @@ export const deleteCarrinho = async (id) => {
 
   return results.rowsAffected;
 }
+//Vai deleter todos itens do carrinho após o usuário enviar pedido
+export const deleteCarrinhoCliente = async (id) => {
+  let results = await DB_EXEC('DELETE FROM Carrinho WHERE idCliente=?;', [id]);
 
+  return results.rowsAffected;
+}

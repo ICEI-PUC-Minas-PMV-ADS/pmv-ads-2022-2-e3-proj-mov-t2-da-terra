@@ -34,19 +34,24 @@ export default function Login() {
   const [escondeSenha, setEscondeSenha] = useState(true);
 
   // Validação login
-  const validarLogin = () => {
-    // userEffect(() => {
+  const validarLogin = () => {   
     if (!email || !senha) {
       setMissInfo(true); // Falta info no form
       onToggleSnackBar();
+      setAviso("Por favor, insira o email e a senha")
     } else {
       postLogin({
         email: email,
         senha: senha,
       })
-        .then()
+        .then(response => {
+          if (response.message == "Usuário não cadastrado") {
+            setMissInfo(true); // Infica que o usuário não esta cadastrado
+            setAviso("Email ou senha incorretos")
+          }
+        })
         .catch((e) => console.log(e));
-    } // Implementar quando o usuário não for cadastrado
+    } 
   };
 
   return (
@@ -64,7 +69,7 @@ export default function Login() {
           value={email}
           onChangeText={(text) => setEmail(text)}
           activeOutlineColor={"#3d9d74"}
-          error={missInfo && !email ? true : false}
+          error={missInfo || missInfo && !email ? true : false}
           right={<TextInput.Icon icon="email-outline" />
           }
         />
@@ -75,7 +80,7 @@ export default function Login() {
           value={senha}
           onChangeText={(text) => setSenha(text)}
           secureTextEntry={escondeSenha}
-          error={missInfo && !senha ? true : false}
+          error={missInfo || missInfo && !senha ? true : false}
           activeOutlineColor={"#3d9d74"}
           right={
             <TextInput.Icon
@@ -181,6 +186,7 @@ const styles = StyleSheet.create({
   aviso: {
     marginTop: 10,
     marginLeft: 10,
+    fontSize: 18,
     color: "#D32F2F",
     fontStyle: "italic",
     fontWeight: "bold",

@@ -9,13 +9,13 @@ import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import { AuthContext } from "../contexts/AuthProvider";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation,useIsFocused } from "@react-navigation/native";
 
 const MeusPedidos = () => {
   const navigation = useNavigation();
   const { pedido, putPedido, getPedido, setPedido } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
-
+  const isFocused=useIsFocused()
   const [resultados, setResultados] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const MeusPedidos = () => {
       console.log(res);
     });
     //setTimeout(() => console.log(resultados[0]), 1000)
-  }, []);
+  }, [],[isFocused]);
 
   const renderItem = ({ item }) => {
     return (
@@ -102,7 +102,7 @@ const MeusPedidos = () => {
       </Header>
       <Body>
         {/* ESTÁ DANDO ERRO QUANDO ESTÁ VAZIO */}
-        {/* {resultados.length == 0 && (
+        {resultados.length == 0 && (
           <View style={styles.viewPedidosVazio}>
             <Image
               style={styles.imgPedidos}
@@ -115,7 +115,7 @@ const MeusPedidos = () => {
               Quando você comprar algum produto,ele aparecerá bem aqui
             </Text>
           </View>
-        )} */}
+        )}
         <FlatList
           data={resultados}
           renderItem={renderItem}
