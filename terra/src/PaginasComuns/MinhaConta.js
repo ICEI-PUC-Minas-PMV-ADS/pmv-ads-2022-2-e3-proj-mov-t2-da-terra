@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 
+
 import { Avatar, BottomNavigation, Button  } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ToastAndroid, Alert } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, Text, View, Image, TouchableOpacity,BackHandler } from "react-native";
+
+
+import { useNavigation,useRoute } from "@react-navigation/native";
 
 import MeusPedidos from "./../PaginasCliente/MeusPedidos";
 import BuscarProdutos from "./../PaginasCliente/BuscarProdutos";
@@ -19,6 +23,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 const MinhaConta = () => {
   const navigation = useNavigation();
+
   const [imagem, setImagem] = useState(null);
 
   const setToastMsg = msg=> {
@@ -62,9 +67,13 @@ const MinhaConta = () => {
     };
 
   const [index, setIndex] = useState(0);
+
+  const rota=useRoute();
+
   const { user } = useContext(AuthContext);
   const [idUser, setIdUser] = useState();
   const [userLogado, setUserLogado] = useState();
+
 
   const [routes] = useState([
     { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
@@ -98,6 +107,50 @@ const MinhaConta = () => {
   //   //const novoUser = Object.values(user);
   //   //  console.log(novoUser[0].id);
   // }, [])
+
+  useEffect(() => {
+    if (rota.name==="MinhaConta") {
+      const backAction = () => {
+       BackHandler.exitApp()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
+
+    
+  }, []);
+  useEffect(() => {
+    for (let i in user) {
+      //setTipoUser(user[i].tipoUsuario)
+      const tipoUser = user[i].tipoUsuario;
+     // setTipoUserLogado(tipoUser);
+
+      if (tipoUser != undefined)
+        console.log(tipoUser);
+    }
+    //console.log(user);
+  }, [])
+
+  useEffect(() => {
+    for (let i in user) {
+      const tipoUser = user[i].tipoUsuario;
+
+      if (tipoUser != undefined) {
+        console.log(tipoUser);      
+        const novoUser = Object.values(user);
+        console.log(novoUser[0].id);
+      }
+    }
+    //const novoUser = Object.values(user);
+    //  console.log(novoUser[0].id);
+  }, [])
 
 
   return (

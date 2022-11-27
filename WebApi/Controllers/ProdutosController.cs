@@ -12,49 +12,40 @@ namespace WebApi.Controllers
   [Route(template: "v1")]
   public class ProdutosController : ControllerBase
   {
-
-    // GET 
-    // TERMINAR ESSE GET
-    // Implementar o get para pegar somente do usuário logado  para exibir na LOJA do produtor
-    // [HttpGet(template: "produtos")]
-    // public async Task<IActionResult> GetProdutoAsync(
-    //     [FromServices] AppDbContext context
-    //     )
-    // {
-    //   var produto = await context.Produtos.ToListAsync();
-
-    //   // var produtor = await context.Produtores
-    //   // .FirstOrDefaultAsync(x => x.Nome == User.Identity.Name);
-
-    //   // // Produtos associados aos seus respectivos produtores
-    //   // var queryProduto = from query in
-    //   //      context.Produtos.Include(a => a.Produtor)
-    //   //                    select query;
-
-    //   return produto == null
-    //   ? NotFound(new { message = "Produto não encontrado" })
-    //   : Ok(produto);
-    // }
-
-    // GET: Para todos os produtos: Tela Busca do Cliente, foi mantido separado por questão de erros
+    // GET: Carrinho - OK
     [HttpGet(template: "produtos/carrinho/{id}")]
-
     public async Task<IActionResult> BuscaProduto(
         [FromServices] AppDbContext context,
-        [FromRoute]int id
+        [FromRoute] int id
         )
     {
       var produto = await context.Produtos
         .FirstOrDefaultAsync(x => x.Id == id);
+
+      produto.Descricao = "";
+      produto.Categoria = "";
+      produto.DataCadastro = "";
 
       return produto == null
       ? NotFound(new { message = "Produto não encontrado" })
       : Ok(produto);
     }
 
-    // GET BUSCA DE PRODUTOS: CLIENTE    
+    // GET: Para todos os produtos: Tela Busca do Cliente e Loja do Produtor
+    [HttpGet(template: "produtos/todos")]
+    public async Task<IActionResult> GetBuscaTodosProdutos(
+       [FromServices] AppDbContext context)
+    {
+      var produto = await context.Produtos.ToListAsync();
+
+      return produto == null
+      ? NotFound(new { message = "Produto não encontrado" })
+      : Ok(produto);
+    }
+
+    // GET: Busca de produtos por nome/categoria do Cliente
     [HttpGet(template: "produtos/busca/")]
-     public async Task<IActionResult> BuscaAsync(
+    public async Task<IActionResult> BuscaAsync(
       [FromServices] AppDbContext context,
       [FromQuery] string nomeProduto, string categoria)
     {
@@ -62,18 +53,18 @@ namespace WebApi.Controllers
       var queryProduto = from query in context.Produtos
                            //.Include(x => x.Produtor)
                          select query;
-  
+
       if (!String.IsNullOrEmpty(nomeProduto))  // nomeProduto true
       {
         if (!String.IsNullOrEmpty(categoria))       // categoria true
         {
           queryProduto = queryProduto.Where(
           x => x.Nome.Contains(nomeProduto)
-          && x.Categoria.Contains(categoria));
+          && x.Categoria.Contains(categoria) && x.Estoque>0);
         }
         else                                        // categoria false
         {
-          queryProduto = queryProduto.Where(x => x.Nome.Contains(nomeProduto));
+          queryProduto = queryProduto.Where(x => x.Nome.Contains(nomeProduto) && x.Estoque>0);
         }
         return queryProduto != null
                ? Ok(await queryProduto.ToListAsync())
@@ -88,7 +79,7 @@ namespace WebApi.Controllers
       }
     }
 
-    // POST OK
+    // POST: Cadastro de produto do Produtor 
     [HttpPost(template: "produtos")]
     //[Authorize] // Authorize no react dar Json Error EOF
     public async Task<IActionResult> PostProdutoAsync(
@@ -98,8 +89,8 @@ namespace WebApi.Controllers
       if (!ModelState.IsValid)
         return BadRequest(new { message = "Model Invalid" });
 
-      var produtor = context.Produtores
-      .FirstOrDefaultAsync(x => x.Nome == User.Identity.Name);
+      // var produtor = context.Produtores
+      // .FirstOrDefaultAsync(x => x.Nome == User.Identity.Name);
 
       var produto = new Produto()
       {
@@ -109,7 +100,7 @@ namespace WebApi.Controllers
         Estoque = model.Estoque,
         Categoria = model.Categoria,
         Descricao = model.Descricao,
-        ProdutorId = produtor.Id,
+        ProdutorId = model.ProdutorId,
         DataCadastro = model.DataCadastro
       };
 

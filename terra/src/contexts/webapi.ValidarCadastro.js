@@ -4,27 +4,23 @@ import { url } from "./webapi.url";
 export const ValidarCadastroContext = createContext({});
 
 export const ValidarCadastroProvider = ({ children }) => {
-  const [idCadastrado, setIdCadastrado] = useState([]);
 
-  const postValidarCadastro = async (param) => {
-   console.log(param);
-    return await fetch(`${url}/validarcadastro/`, {
-      method: 'POST',
+  const getValidarCadastro = async (param) => {
+    console.log(param);
+    return await fetch(`${url}/validarcadastro/${param}`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(param)
     })
       .then(response => response.json())
-      //.then(json => console.log(json))
-      .then(json => setIdCadastrado(json))
+      .then(json => [json])
       .catch(error => console.error(error));
   }
 
   return (
     <ValidarCadastroContext.Provider value={{
-      idCadastrado,
-      postValidarCadastro
+      getValidarCadastro
     }}>
       {children}
     </ValidarCadastroContext.Provider>

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  BackHandler
 
 } from "react-native";
 
@@ -17,20 +18,21 @@ import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import Seletor from "../Componentes/Seletor";
 import { insertCarrinho } from "../DBService/DBCarrinho";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 import Database from "../DBService/DBService";
 import { AuthContext } from "../contexts/AuthProvider";
-// import { getProdutos, getProdutosCompras } from "../DBService/DBProduto";
+import { useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
 
-const ComprarProduto = ({ route }) => {
+
+const ComprarProduto = () => {
+  const route = useRoute();
 
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
-  const [avisoSnack,setAvisoSnack]= useState();
+  const [avisoSnack, setAvisoSnack] = useState();
   // Alterar Rota para provider
   // const { item } = route.params ? route.params : {};
   const { produto } = useContext(ProdutoContext);
@@ -41,40 +43,52 @@ const ComprarProduto = ({ route }) => {
   let contador = quantidade;
   let precoTotal = quantidade * produto[0].preco
 
+  useEffect(() => {
+    if (route.name === "ComprarProduto") {
+      const backAction = () => {
+        navigation.goBack()
+        return true;
+      };
 
-  const upQtd = () => {
-    if(contador<produto[0].estoque){
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
 
-      setQuantidade(contador += 1);
+      return () => backHandler.remove();
 
     }
-   else if(quantidade+1>produto[0].estoque){ 
-    setAvisoSnack(" Você não poder pedir mais do que o estoque do Vendedor")
-     onToggleSnackBar()
-      contador--
-   }
-    
 
+
+  }, []);
+  const upQtd = () => {
+    if (contador < produto[0].estoque) {
+      setQuantidade(contador += 1);
+    }
+    else if (quantidade + 1 > produto[0].estoque) {
+      setAvisoSnack(" Você não poder pedir mais do que o estoque do Vendedor")
+      onToggleSnackBar()
+      contador--
+    }
   };
 
   const downQtd = () => {
     if (contador == 1) {
-       onToggleSnackBar()
+      onToggleSnackBar()
       setAvisoSnack(`Peça pelo menos 1 ${produto[0].embalagem} do Produto`)
       setQuantidade(contador = 1);
     }
     else {
-     
-
       setQuantidade(contador -= 1);
     }
   };
 
   useEffect(() => {
-    console.log(produto.estoque)
+    //console.log(produto.estoque)
     Database.getConnection();
   }, []);
 
+  // Dessa forma está criando um carrinho para cada produto inserido
   const addProdutoCarrinho = () => {
     // onToggleSnackBar();
     insertCarrinho(
@@ -82,19 +96,27 @@ const ComprarProduto = ({ route }) => {
         idCliente: user.cliente.id,
         idProdutor: produto[0].produtorId,
         idProduto: produto[0].id,
+        nome: produto[0].nome,
+        embalagem: produto[0].embalagem,
+        preco: produto[0].preco,
         quantidadeProduto: quantidade,
         precoTotal: precoTotal
       }
     ).then().catch()
+    onToggleSnackBar()
+    setAvisoSnack("Produto adicionado ao seu carrinho")
   }
 
   const renderItem = ({ item }) => (
     <View>
-      <View style={{ marginVertical: 10 }}>
+      <View style={{ marginVertical: 5 }}>
         <Text style={styles.textNomeProduto}>
-          {item.nome} {item.embalagem}
+          {item.nome} ({item.embalagem})
         </Text>
-        <Text style={styles.textPreco}>R$ {item.preco.toFixed(2)}, TOTAL R$ {precoTotal.toFixed(2)}</Text>
+        <Text
+          style={styles.textPreco}>
+          R$ {item.preco.toFixed(2)} - Total R$ {precoTotal.toFixed(2)}
+        </Text>
       </View>
 
       {/*Imagem*/}
@@ -201,8 +223,7 @@ const ComprarProduto = ({ route }) => {
       <Header title={"Anúncio"} goBack={() => navigation.goBack()}>
         <Appbar.Action
           style={{ marginRight: 10 }}
-          icon="cart" onPress={addProdutoCarrinho} />
-   
+          icon="cart" onPress={() => navigation.navigate("Carrinho")} />
       </Header>
 
       <Body>
@@ -220,6 +241,7 @@ const ComprarProduto = ({ route }) => {
             label: "Ok",
           }}
         >
+
           {avisoSnack}
         </Snackbar>
       </Body>
@@ -259,19 +281,18 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 7,
   },
   img: {
-    maxWidth: 228,
-    maxHeight: 175,
+    maxWidth: 218,
+    maxHeight: 155,
     flexGrow: 1,
     flexShrink: 1,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderRadius: 12,
     marginRight: 10,
     alignSelf: "center",
   },
 
   // Botão Adicionar ao Carrinho
   viewBotaoComprar: {
-    marginVertical: 5,
+    marginVertical: 2,
     alignSelf: 'center',
   },
   labelBotao: {
@@ -295,9 +316,10 @@ const styles = StyleSheet.create({
   textPreco: {
     marginTop: 10,
     marginLeft: 20,
-    fontSize: 21,
+    fontSize: 18,
     lineHeight: 26,
     alignSelf: "flex-start",
+    fontStyle: "italic"
   },
   textDescricao: {
     fontSize: 18,

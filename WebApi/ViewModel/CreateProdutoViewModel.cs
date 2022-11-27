@@ -23,5 +23,9 @@ namespace WebApi.ViewModel
     public string Descricao { get; set; }
 
     public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+    
+    
+ 
+    
   }
 }

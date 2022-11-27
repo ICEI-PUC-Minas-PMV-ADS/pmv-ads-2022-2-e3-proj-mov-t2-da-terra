@@ -1,29 +1,71 @@
-import React, { useState  } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import {
+  BackHandler, Alert
+} from "react-native";
 import { BottomNavigation } from "react-native-paper";
-import { StyleSheet } from "react-native";
-
 import MeusPedidos from "./MeusPedidos";
 import BuscarProdutos from "./BuscarProdutos";
 import MinhaConta from "../PaginasComuns/MinhaConta";
-import Carrinho from "../PaginasCliente/Carrinho"
+import { useNavigation, useRoute } from "@react-navigation/native";
+
 import { AuthContext } from "../contexts/AuthProvider";
+import { PedidoContext } from "../contexts/webapi.PedidoProvider";
+import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 
 const HomeCliente = () => {
-  //  const {} = useContext(AuthContext);
   const [index, setIndex] = useState(0);
+  const { user } = useContext(AuthContext)
+  const { setPedido, getPedido } = useContext(PedidoContext)
+  const navigation = useNavigation();
+  const route = useRoute();
+  const {
+    getBuscaTodosProdutos,
+    produto,
+    setResultados
+  } = useContext(ProdutoContext);
+
+  // useEffect(() => {
+  //   if (route.name==="HomeCliente") {
+  //      console.log("Oiiii")
+  //     const backAction = () => {
+  //      BackHandler.exitApp() 
+
+  //       return true;
+  //     };
+
+  //     const backHandler = BackHandler.addEventListener(
+  //       "hardwareBackPress",
+  //       backAction
+  //     );
+
+  //     return () => backHandler.remove();
+
+  // }
+
+
+  // }, []);
+
+  // Renderizar na tela busca
+  useEffect(() => {
+    getBuscaTodosProdutos()  // Todos Produtos
+      .then((res) => {
+        setResultados(produto)
+      });
+  }, [])
 
   const [routes] = useState([
     { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
-    { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },    
-    { key: "carrinho", title: "Carrinho", focusedIcon: "cart" },
+    { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },
     { key: "minhaConta", title: "Minha Conta", focusedIcon: "account" },
+
   ]);
+
+
 
   const renderScene = BottomNavigation.SceneMap({
     buscarProdutos: BuscarProdutos,
     meusPedidos: MeusPedidos,
     minhaConta: MinhaConta,
-    carrinho: Carrinho
   });
 
   return (
@@ -35,6 +77,5 @@ const HomeCliente = () => {
     />
   );
 };
-const styles = StyleSheet.create({});
 
 export default HomeCliente;

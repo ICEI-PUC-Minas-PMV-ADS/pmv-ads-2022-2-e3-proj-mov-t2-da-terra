@@ -9,21 +9,23 @@ namespace WebApi.Controllers
   [Route(template: "v1")]
   public class ValidaCadastroController : ControllerBase
   {
-    [HttpPost(template: "validarcadastro")]
+    [HttpGet(template: "validarcadastro/{email}")]
     public async Task<IActionResult> ValidarCadastro(
    [FromServices] AppDbContext context,
-   [FromBody] CreateValidarCadastroViewModel model)
+   [FromRoute] string email)
     {
-      if (!ModelState.IsValid)
+      // if (!ModelState.IsValid)
+      //   return BadRequest(new { message = "Model Invalid" });
+      if (email == null)
         return BadRequest(new { message = "Model Invalid" });
 
       var produtor = await context.Produtores
-      .FirstOrDefaultAsync(x => x.Email == model.Email);
+      .FirstOrDefaultAsync(x => x.Email == email);
 
       var cliente = await context.Clientes
-      .FirstOrDefaultAsync(x => x.Email == model.Email);
+      .FirstOrDefaultAsync(x => x.Email == email);
 
-              try
+      try
       {
         if (produtor != null)
         {

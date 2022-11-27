@@ -33,7 +33,7 @@ namespace WebApi.Controllers
     {
       // Usuário tem acesso somente aos próprios dados
       var cliente = await context.Clientes
-        .FirstOrDefaultAsync(x => x.Id == id && x.Nome == User.Identity.Name);
+        .FirstOrDefaultAsync(x => x.Id == id);
 
       if (cliente == null)
         return NotFound(new { message = "Cliente não encontrado" });
@@ -122,7 +122,7 @@ namespace WebApi.Controllers
         cliente.Complemento = model.Complemento;
         cliente.Cidade = model.Cidade;
         cliente.Uf = model.Uf;
-        
+
         context.Clientes.Update(cliente);
         await context.SaveChangesAsync();
 
@@ -138,7 +138,7 @@ namespace WebApi.Controllers
 
     // DELETE: api/Usuarios/5    
     [HttpDelete(template: "clientes/{id}")]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> DeleteCliente(
         [FromServices] AppDbContext context,
         [FromRoute] int id)

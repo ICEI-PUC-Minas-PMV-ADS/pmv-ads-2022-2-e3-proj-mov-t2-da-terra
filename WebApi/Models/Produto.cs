@@ -5,6 +5,7 @@ namespace WebApi.Models;
 
 public class Produto
 {
+
   [Key]
   public int Id { get; set; }
   public int ProdutorId { get; set; }
@@ -19,5 +20,14 @@ public class Produto
   public string Descricao { get; set; }
   public string DataCadastro { get; set; }
   public ICollection<Produto> Produtos;
+
+
+  public void RemoverProdutoEstoque(float quantidade)
+  {
+    if (quantidade <= Estoque && Estoque > 0)
+    {
+      this.Estoque -= quantidade;
+    }
+  }
 
 }

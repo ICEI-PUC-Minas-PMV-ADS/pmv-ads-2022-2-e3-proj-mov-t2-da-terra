@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
       .then(json => {
         if (json) {
           setUser(json)   // Para usar em outras telas
-          console.log(json)
+          // console.log(json)
           for (let i in json) {
             const tipoUser = json[i].tipoUsuario;
 
@@ -34,6 +34,8 @@ export const AuthProvider = ({ children }) => {
                 navigation.navigate("HomeVendedor");
               }
             }
+          return json
+
           }
         }
       })

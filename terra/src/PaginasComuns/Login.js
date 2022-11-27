@@ -17,7 +17,6 @@ import Botao from "../Componentes/Botao";
 
 import { AuthContext } from "../contexts/AuthProvider";
 
-
 export default function Login() {
   const navigation = useNavigation();
   const { postLogin, user } = useContext(AuthContext);
@@ -30,7 +29,7 @@ export default function Login() {
   const onDismissSnackBar = () => setVisible(false);
 
   // Email / Senha / Ícone Senha
-  const [email, setEmail] = useState("m@gmail.com");
+  const [email, setEmail] = useState("joaozinhodomigue@gmail.com");
   const [senha, setSenha] = useState("123456");
   const [escondeSenha, setEscondeSenha] = useState(true);
 
@@ -40,13 +39,26 @@ export default function Login() {
     if (!email || !senha) {
       setMissInfo(true); // Falta info no form
       onToggleSnackBar();
+      setAviso("Por favor, insira o email e a senha")
     } else {
       postLogin({
         email: email,
         senha: senha,
       })
-        .then()
+        .then(response=>{
+          if(response.message=="Usuário não cadastrado"){
+          setMissInfo(true); // Infica que o usuário não esta cadastrado
+          setAviso("Email ou senha incorretos")
+
+
+          }
+
+        })
         .catch((e) => console.log(e));
+        
+
+
+
     } // Implementar quando o usuário não for cadastrado
   };
 
@@ -65,7 +77,7 @@ export default function Login() {
           value={email}
           onChangeText={(text) => setEmail(text)}
           activeOutlineColor={"#3d9d74"}
-          error={missInfo && !email ? true : false}
+          error={missInfo ||missInfo && !email ? true : false}
           right={<TextInput.Icon icon="email-outline" />
           }
         />
@@ -76,7 +88,7 @@ export default function Login() {
           value={senha}
           onChangeText={(text) => setSenha(text)}
           secureTextEntry={escondeSenha}
-          error={missInfo && !senha ? true : false}
+          error={missInfo || missInfo && !senha ? true : false}
           activeOutlineColor={"#3d9d74"}
           right={
             <TextInput.Icon
@@ -182,6 +194,7 @@ const styles = StyleSheet.create({
   aviso: {
     marginTop: 10,
     marginLeft: 10,
+    fontSize:18,
     color: "#D32F2F",
     fontStyle: "italic",
     fontWeight: "bold",
