@@ -170,6 +170,32 @@ const MinhaConta = () => {
 
     
   }, []);
+  useEffect(() => {
+    for (let i in user) {
+      //setTipoUser(user[i].tipoUsuario)
+      const tipoUser = user[i].tipoUsuario;
+     // setTipoUserLogado(tipoUser);
+
+      if (tipoUser != undefined)
+        console.log(tipoUser);
+    }
+    //console.log(user);
+  }, [])
+
+  useEffect(() => {
+    for (let i in user) {
+      const tipoUser = user[i].tipoUsuario;
+
+      if (tipoUser != undefined) {
+        console.log(tipoUser);      
+        const novoUser = Object.values(user);
+        console.log(novoUser[0].id);
+      }
+    }
+    //const novoUser = Object.values(user);
+    //  console.log(novoUser[0].id);
+  }, [])
+
 
   return (
     <View style={styles.container}>
