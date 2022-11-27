@@ -23,9 +23,16 @@ const MeusPedidos = () => {
       setResultados(res);
       console.log(res);
     });
+    console.log(isFocused)
     //setTimeout(() => console.log(resultados[0]), 1000)
-  }, [],[isFocused]);
-
+  }, []);
+  useEffect(() => {
+    getPedido(user.cliente.id).then((res) => {
+      setResultados(res);
+      console.log(res);
+    });
+    //setTimeout(() => console.log(resultados[0]), 1000)
+  }, [isFocused]);
   const renderItem = ({ item }) => {
     return (
       <View style={{ marginTop: 20 }}>

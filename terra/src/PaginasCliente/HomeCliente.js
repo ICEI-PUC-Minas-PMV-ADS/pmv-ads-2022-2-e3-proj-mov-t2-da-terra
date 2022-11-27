@@ -6,7 +6,7 @@ import { BottomNavigation } from "react-native-paper";
 import MeusPedidos from "./MeusPedidos";
 import BuscarProdutos from "./BuscarProdutos";
 import MinhaConta from "../PaginasComuns/MinhaConta";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useIsFocused, useNavigation, useRoute } from "@react-navigation/native";
 
 import { AuthContext } from "../contexts/AuthProvider";
 import { PedidoContext } from "../contexts/webapi.PedidoProvider";
@@ -16,6 +16,7 @@ const HomeCliente = () => {
   const [index, setIndex] = useState(0);
   const { user } = useContext(AuthContext)
   const { setPedido, getPedido } = useContext(PedidoContext)
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
   const route = useRoute();
   const {
@@ -53,6 +54,13 @@ const HomeCliente = () => {
       });
   }, [])
 
+  useEffect(() => {
+    getPedido(user.cliente.id).then((res) => {
+      setResultados(res);
+      console.log(res);
+    });
+    //setTimeout(() => console.log(resultados[0]), 1000)
+  }, [isFocused]);
   const [routes] = useState([
     { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
     { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },
