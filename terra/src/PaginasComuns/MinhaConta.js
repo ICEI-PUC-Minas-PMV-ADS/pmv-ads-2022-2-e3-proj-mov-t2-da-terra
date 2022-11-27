@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 
 import { Avatar, BottomNavigation, Button  } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ToastAndroid, Alert } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ToastAndroid, Alert,BackHandler, } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation,useRoute } from "@react-navigation/native";
 
 import MeusPedidos from "./../PaginasCliente/MeusPedidos";
 import BuscarProdutos from "./../PaginasCliente/BuscarProdutos";
@@ -20,7 +20,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 const MinhaConta = () => {
   const navigation = useNavigation();
   const [imagem, setImagem] = useState(null);
-
+  const rota = useRoute();
   const setToastMsg = msg=> {
     ToastAndroid.showWithGravity(
       msg,
@@ -98,7 +98,24 @@ const MinhaConta = () => {
   //   //const novoUser = Object.values(user);
   //   //  console.log(novoUser[0].id);
   // }, [])
+  useEffect(() => {
+    if (rota.name==="MinhaConta") {
+      const backAction = () => {
+       BackHandler.exitApp()
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+  
+  }
 
+    
+  }, []);
 
   return (
     <View style={styles.container}>
