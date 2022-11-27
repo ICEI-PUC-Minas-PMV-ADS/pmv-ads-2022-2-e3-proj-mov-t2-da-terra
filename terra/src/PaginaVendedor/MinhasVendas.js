@@ -15,9 +15,10 @@ const MinhasVendas = () => {
 
   const [value, setValue] = useState(0);
   const [resultados, setResultados] = useState([]); // Pedidos
-  const [nomeCliente, setNomeCliente] = useState([]);
+  const [nomeCliente, setNomeCliente] = useState([]); // Exibir nome tela
+  const [itemResultado, setItemResultado] = useState([]);
 
-  const { getPedidoProdutor, aceitePedido, getItens } = useContext(PedidoContext);
+  const { getPedidoProdutor, aceitePedido, getItensPedido } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
   const { getCliente } = useContext(UsuarioContext);
 
@@ -44,6 +45,7 @@ const MinhasVendas = () => {
       .then(res => {
         id = Object.values(res);
         //console.log(id[0].clienteId)
+        //console.log(res);
         setResultados(res)
 
         if (id != null) {
@@ -55,10 +57,39 @@ const MinhasVendas = () => {
             });
         }
       })
-    getItens(231);
+
+    getItensPedido(231)
+      .then(res => {
+        //  console.log(res);
+        setItemResultado(res);
+      });
+    //let idPedido = 0;
+    // for (let i in resultados) {
+    //   idPedido = Object.values(resultados[i]);
+    //   console.log(idPedido[0]);
+    // }
+
   }, [])
 
+  // Está renderizando os mesmo produtos para todos os pedidos
+  const renderAccordion = ({ item }) => {
+    // Aqui encontra o ID, falta implementar
+    let idPedido = [];
+    // for (let i in resultados) {
+    //   idPedido = Object.values(resultados[i]);
+    //   //console.log(idPedido[0]);      
+    // }
+    //resultados.map()
+      console.log(idPedido);      
+    //console.log(resultados);
+    //console.log("AQUI:", item);// undefined 
+    return (
+      <List.Item title={`${item.nome}`} />
+    );
+  }
+
   const renderItem = ({ item }) => {
+    //console.log(item);
     if (value == 0) {
       return (
         <View>
@@ -91,9 +122,11 @@ const MinhasVendas = () => {
             titleStyle={{ fontSize: 16 }}
             left={() => <List.Icon icon="fruit-cherries" />}>
             <View>
-              {/* <List.Item title={item.produtos.prod1 + `     R$ ${item.produtos.valor1}`} />
-              <List.Item title={item.produtos.prod2 + `     R$ ${item.produtos.valor1}`} />
-              <List.Item title={item.produtos.prod3 + `     R$ ${item.produtos.valor1}`} /> */}
+              <FlatList
+                data={itemResultado}
+                renderItem={renderAccordion}
+                keyExtractor={item => item.id}
+              />
             </View>
           </List.Accordion>
 

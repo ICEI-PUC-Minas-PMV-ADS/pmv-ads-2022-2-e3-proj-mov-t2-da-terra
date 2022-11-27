@@ -118,10 +118,10 @@ const PedidoProvider = ({ children }) => {
   }
 
   // Tela Minhas Vendas: Produtor
-  const getItens = async (idPedido) => {
+  const getItensPedido = async (idPedido) => {
     console.log(`${url}/produtor/pedidos/itens/${idPedido}`)
     return await fetch(
-      `${url}produtor/pedidos/itens/${idPedido}`,
+      `${url}/produtor/pedidos/itens/${idPedido}`,
       {
         method: 'GET',
         headers: {
@@ -129,7 +129,10 @@ const PedidoProvider = ({ children }) => {
         }
       })
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => {
+      //  console.log(json);
+        return json;
+      })
       .catch(e => console.error(e))
   }
 
@@ -145,7 +148,7 @@ const PedidoProvider = ({ children }) => {
         setResultados,
         getPedidoProdutor,
         aceitePedido,
-        getItens
+        getItensPedido
       }}
     >
       {children}
