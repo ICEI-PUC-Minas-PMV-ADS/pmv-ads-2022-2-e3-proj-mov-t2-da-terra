@@ -59,21 +59,21 @@ const MinhasVendas = () => {
               setNomeCliente(resNomeCliente[1])
             });
         }
-        // if (idPedido) {
-        //   let cont = 0
-        //   for (let i in idPedido[0]) {
-        //     console.log(`idPedido[0][${cont}] `, idPedido[0][cont]);
-        //     let x = Object.values(idPedido[0][cont]);
-        //     //  console.log("x[0]: ", x[0]); // id pedido
-        //     cont++;
-        //     //console.log("x[0]: ", x[0]);
-        //     getItensPedido(x[0])
-        //       .then(res => {
-        //        // console.log("RES: ", res);
-        //         setItemResultado(res);
-        //       });
-        //   }
-        // }
+        if (idPedido) {
+          let cont = 0
+          for (let i in idPedido[0]) {
+            // console.log(`idPedido[0][${cont}] `, idPedido[0][cont]);
+            let x = Object.values(idPedido[0][cont]);
+            //  console.log("x[0]: ", x[0]); // id pedido
+            cont++;
+            //console.log("x[0]: ", x[0]);
+            getItensPedido(x[0])
+              .then(res => {
+              //  console.log("RES: ", res); // RES Está correta. Renderizando errado. Renderiza sempre o último
+                setItemResultado(res);
+              });
+          }
+        }
       })
 
     // console.log(idPedido);
@@ -115,99 +115,85 @@ const MinhasVendas = () => {
   // EM TESTES
   // Está renderizando os mesmo produtos para todos os pedidos
   const renderAccordion = ({ item }) => {
-    for (let i in itemResultado) {
-      console.log(itemResultado[i]);
-    }
-
+    console.log("ItemResultado: ", item);
     return (
       <List.Item title={`${item.nome}`} />
-    );
+    ); 
   }
 
   const renderItem = ({ item }) => {
-    //console.log(item);
-    if (value == 0) {
-      return (
-        <View>
-          {/* Número do Pedido / Preço / Usuário */}
-          <List.Item
-            title={`# ${item.id}`}
-            titleStyle={{
-              fontSize: 20,
-              fontWeight: 'bold',
-              lineHeight: 22,
-              marginBottom: 8
-            }}
-            right={() =>
-              <Text
-                style={{ textAlignVertical: 'center', fontWeight: 'bold', marginRight: 10, fontSize: 18 }}>
-                R$ {item.precoTotalPedido.toFixed(2)}
-              </Text>
-            }
-            description={
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <List.Icon icon="account" />
-                <Text style={{ fontSize: 16 }}>{nomeCliente}</Text>
-              </View>
-            }
-          />
-          {/* Itens */}
-          <List.Accordion
-            style={{ height: 70, marginTop: -25, textAlignVertical: 'center' }}
-            title="Itens"
-            titleStyle={{ fontSize: 16 }}
-            left={() => <List.Icon icon="fruit-cherries" />}>
-            <View>
-              <FlatList
-                data={itemResultado}
-                renderItem={renderAccordion}
-                keyExtractor={item => item.id}
-              />
+    return (
+      <View>
+        {/* Número do Pedido / Preço / Usuário */}
+        <List.Item
+          title={`# ${item.id}`}
+          titleStyle={{
+            fontSize: 20,
+            fontWeight: 'bold',
+            lineHeight: 22,
+            marginBottom: 8
+          }}
+          right={() =>
+            <Text
+              style={{ textAlignVertical: 'center', fontWeight: 'bold', marginRight: 10, fontSize: 18 }}>
+              R$ {item.precoTotalPedido.toFixed(2)}
+            </Text>
+          }
+          description={
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <List.Icon icon="account" />
+              <Text style={{ fontSize: 16 }}>{nomeCliente}</Text>
             </View>
-          </List.Accordion>
-
-          {/* Botão Recusar / Aceitar */}
-
-          <View style={styles.viewBotao}>
-            {item.status == "Pedido Enviado" && (
-              <>
-                <Button
-                  style={styles.botao}
-                  mode="contained"
-                  buttonColor={'#D32F2F'}
-                  onPress={() => recusarPedido}>
-                  <Text style={styles.textoBotao}>Recusar</Text>
-                </Button>
-                <Button
-                  style={styles.botao}
-                  mode="contained"
-                  buttonColor={'#3d9d74'}
-                  onPress={() => aceitarPedido(item.id)}>
-                  <Text style={styles.textoBotao}>Aceitar</Text>
-                </Button>
-              </>)}
-            {item.status == "Pedido Aceito" && (
-              <>
-                <List.Icon icon={"clock-outline"} />
-
-                <View style={styles.viewAvisoVendedor}>
-                  <Text style={styles.avisoVendedor}>O Cliente está aguardando o envio do pedido </Text>
-                </View>
-              </>
-            )}
+          }
+        />
+        {/* Itens */}
+        <List.Accordion
+          style={{ height: 70, marginTop: -25, textAlignVertical: 'center' }}
+          title="Itens"
+          titleStyle={{ fontSize: 16 }}
+          left={() => <List.Icon icon="fruit-cherries" />}>
+          <View>
+            <FlatList
+              data={itemResultado}
+              renderItem={renderAccordion}
+              keyExtractor={item => item.id}
+            />
           </View>
-          <Divider style={{ borderWidth: 0.35, marginBottom: 5 }} />
+        </List.Accordion>
+
+        {/* Botão Recusar / Aceitar */}
+
+        <View style={styles.viewBotao}>
+          {item.status == "Pedido Enviado" && (
+            <>
+              <Button
+                style={styles.botao}
+                mode="contained"
+                buttonColor={'#D32F2F'}
+                onPress={() => recusarPedido}>
+                <Text style={styles.textoBotao}>Recusar</Text>
+              </Button>
+              <Button
+                style={styles.botao}
+                mode="contained"
+                buttonColor={'#3d9d74'}
+                onPress={() => aceitarPedido(item.id)}>
+                <Text style={styles.textoBotao}>Aceitar</Text>
+              </Button>
+            </>)}
+          {item.status == "Pedido Aceito" && (
+            <>
+              <List.Icon icon={"clock-outline"} />
+
+              <View style={styles.viewAvisoVendedor}>
+                <Text style={styles.avisoVendedor}>O Cliente está aguardando o envio do pedido </Text>
+              </View>
+            </>
+          )}
         </View>
-      );
-    } else if (value == 1) {
-      return (
-        <Text>EM ANDAMENTO</Text>
-      );
-    } else {
-      return (
-        <Text>FINALIZADOS</Text>
-      );
-    }
+        <Divider style={{ borderWidth: 0.35, marginBottom: 5 }} />
+      </View>
+    );
   }
 
   return (
@@ -215,35 +201,6 @@ const MinhasVendas = () => {
       <Header
         title={'Minhas Vendas'}
       />
-      {/* Menu Superior - Segmented */}
-      <View style={styles.viewBotaoSegmented}>
-        <Button
-          style={styles.botaoSegmented}
-          mode='elevated'
-          onPress={() => { setValue(0) }}
-          buttonColor={value == 0 ? '#c8e5cc' : '#fff'}
-        >
-          <Text style={styles.textoBotaoSegmented}>Solicitado</Text>
-        </Button>
-
-        <Button
-          style={styles.botaoSegmented}
-          mode='elevated'
-          onPress={() => { setValue(1) }}
-          buttonColor={value == 1 ? '#c8e5cc' : '#fff'}
-        >
-          <Text style={styles.textoBotaoSegmented}>Andamento</Text>
-        </Button>
-
-        <Button
-          style={styles.botaoSegmented}
-          mode='elevated'
-          onPress={() => { setValue(2) }}
-          buttonColor={value == 2 ? '#c8e5cc' : '#fff'}
-        >
-          <Text style={styles.textoBotaoSegmented}>Finalizado</Text>
-        </Button>
-      </View>
       <Body>
 
         <View style={styles.viewFlatList}>
