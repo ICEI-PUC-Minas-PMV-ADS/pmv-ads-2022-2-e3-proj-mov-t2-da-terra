@@ -26,7 +26,7 @@ const UsuarioProvider = ({ children }) => {
 
   // GET (Cliente)
   const getCliente = async (id) => {
-    console.log(`${url}/clientes/${id}`)  
+    //console.log(`${url}/clientes/${id}`)  
     return await fetch(`${url}/clientes/${id}`,
       {
         method: 'GET',
@@ -38,7 +38,7 @@ const UsuarioProvider = ({ children }) => {
       .then(response => response.json())
       //.then(json => setUsuario(json))
       .then(json => {
-        console.log(json)
+       // console.log(json)
         return json
       })
       .catch(error => console.error(error));

@@ -17,7 +17,7 @@ const MinhasVendas = () => {
   const [resultados, setResultados] = useState([]); // Pedidos
   const [nomeCliente, setNomeCliente] = useState([]);
 
-  const { getPedidoProdutor, aceitePedido } = useContext(PedidoContext);
+  const { getPedidoProdutor, aceitePedido, getItens } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
   const { getCliente } = useContext(UsuarioContext);
 
@@ -54,9 +54,8 @@ const MinhasVendas = () => {
               setNomeCliente(resNomeCliente[1])
             });
         }
-
       })
-
+    getItens(231);
   }, [])
 
   const renderItem = ({ item }) => {

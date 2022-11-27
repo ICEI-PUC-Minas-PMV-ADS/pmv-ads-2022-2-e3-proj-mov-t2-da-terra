@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApi.Data;
 using WebApi.Models;
 using WebApi.ViewModel;
@@ -40,15 +42,40 @@ namespace WebApi.Controllers
       }
     }
 
-    // [HttpGet(template: "pedidos/itens/{id}")]
-    // public async Task<IActionResult> GetPedido(
-    //   [FromServices] AppDbContext context,
-    //   [FromRoute] int id)
-    // {
-    //   var pedido = await context.Pedidos
-    //     .FirstOrDefaultAsync(x => x.Id == id);
+    [HttpGet(template: "produtor/pedidos/itens/{id}")]
+    public async Task<IActionResult> GetProdutoPedido(
+         [FromServices] AppDbContext context,
+         [FromRoute] int id)
+    {
+      List<Produto> produto = new List<Produto>();
 
-    //   return pedido == null ? BadRequest("Model Inválido") : Ok(pedido);
-    // }
+      var queryItens = from query in context.Itens
+                       select query;
+
+      queryItens = queryItens.Where(item => item.PedidoId == id);
+
+      try
+      {
+        foreach (var item in queryItens)
+        {
+          if (item != null)
+          {
+            var produtoBusca = await context.Produtos
+            .FirstOrDefaultAsync(x => x.Id == item.ProdutoId);
+
+            produto.Add(produtoBusca);
+          }
+        }
+      }
+      catch (System.Exception)
+      {
+        NotFound(new { message = "System.Exception" });
+      }
+      //string jsonString = JsonSerializer.Serialize(produto);     
+
+      return produto == null
+        ? NotFound(new { message = "Produto não encontrado" })
+        : Ok(produto);
+    }
   }
 }
