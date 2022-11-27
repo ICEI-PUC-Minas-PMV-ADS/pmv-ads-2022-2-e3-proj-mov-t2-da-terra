@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+
 import {
   FlatList,
   Image,
@@ -6,19 +7,12 @@ import {
   View,
   TouchableOpacity,
   BackHandler,
-  Alert,
   Text,
 } from "react-native";
 
 import {
-  TextInput,
   List,
   Searchbar,
-  Portal,
-  Dialog,
-  Button,
-  RadioButton,
-  Provider,
   FAB
 } from "react-native-paper";
 
@@ -29,7 +23,6 @@ import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
-import { AuthContext } from "../contexts/AuthProvider";
 
 const BuscarProdutos = () => {
   const navigation = useNavigation();
@@ -43,7 +36,7 @@ const BuscarProdutos = () => {
   const hideDialog = () => setVisible(false);
   const [categoria, setCategoria] = useState('Verduras');
   const route = useRoute();
-  
+
   useEffect(() => {
     if (route.name === "HomeCliente") {
       console.log("Oiiii")
@@ -57,21 +50,15 @@ const BuscarProdutos = () => {
         "hardwareBackPress",
         backAction
       );
-
       return () => backHandler.remove();
-
     }
-
-
   }, []);
 
   const {
     buscaProdutos,
-    produto,
     setProduto,
     setResultados,
     produtoQuery,
-    setProdutoQuery,
   } = useContext(ProdutoContext);
 
   // Retornando OK
@@ -170,28 +157,24 @@ const BuscarProdutos = () => {
   //   );
   // }
 
-
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
-      
-  <TouchableOpacity
- onPress={() => passProdutoRota(item)}
->
- <List.Item
-   title={`${item.nome}`}
-   // left={() =>
-   //   <Image
-   //     style={styles.img}
-   //     source={require("../assets/maracuja.jpg")} />}
-   right={() =>
-     <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)} / {item.embalagem}</Text>
-   }
-   description={`Estoque: ${item.estoque} ${item.embalagem}`}
- />
-</TouchableOpacity >
-  
-     
 
+      <TouchableOpacity
+        onPress={() => passProdutoRota(item)}
+      >
+        <List.Item
+          title={`${item.nome}`}
+          // left={() =>
+          //   <Image
+          //     style={styles.img}
+          //     source={require("../assets/maracuja.jpg")} />}
+          right={() =>
+            <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)} / {item.embalagem}</Text>
+          }
+          description={`Estoque: ${item.estoque} ${item.embalagem}`}
+        />
+      </TouchableOpacity >
     </View>
   );
 
@@ -221,9 +204,7 @@ const BuscarProdutos = () => {
           onPress={() => navigation.navigate("Carrinho")}
         />
       </Body>
-
     </Container>
-
     //   </Provider>
   );
 };

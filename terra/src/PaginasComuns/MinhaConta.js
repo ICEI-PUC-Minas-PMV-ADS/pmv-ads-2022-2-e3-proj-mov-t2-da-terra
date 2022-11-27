@@ -1,26 +1,36 @@
 import React, { useState, useEffect, useContext } from "react";
+import * as ImagePicker from 'expo-image-picker';
 
 import { Avatar, BottomNavigation, Button } from 'react-native-paper';
-import * as ImagePicker from 'expo-image-picker';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ToastAndroid, Alert, BackHandler, } from "react-native";
+
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ToastAndroid,
+  BackHandler
+} from "react-native";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import MeusPedidos from "./../PaginasCliente/MeusPedidos";
 import BuscarProdutos from "./../PaginasCliente/BuscarProdutos";
 import Carrinho from "../PaginasCliente/Carrinho"
-
 import Botao from "../Componentes/Botao";
-import Body from "../Componentes/Body";
-import Container from "../Componentes/Container";
-import CadastroUsuario from "./CadastroUsuario";
+import Header from "../Componentes/Header";
 
 import { AuthContext } from "../contexts/AuthProvider";
+import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 
 const MinhaConta = () => {
   const navigation = useNavigation();
+  const { user, setUser } = useContext(AuthContext);
+  const { deleteProdutor, deleteCliente } = useContext(UsuarioContext)
   const [imagem, setImagem] = useState(null);
   const rota = useRoute();
+  const [index, setIndex] = useState(0);
+
   const setToastMsg = msg => {
     ToastAndroid.showWithGravity(
       msg,
@@ -35,15 +45,21 @@ const MinhaConta = () => {
     minhaConta: MinhaConta,
     carrinho: Carrinho
   });
+
+  const [routes] = useState([
+    { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
+    { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },
+    { key: "carrinho", title: "Carrinho", focusedIcon: "cart" },
+    { key: "minhaConta", title: "Minha Conta", focusedIcon: "account" },
+  ]);
+
   const removeImage = () => {
     setImagem(' ')
     setToastMsg('Imagem removida');
   };
 
   const uploadImage = async () => {
-
-
-    //TESTE GABRIEL - OK PARA ABRIR SELETOR DE IMAGEM,TRATAR A IMAGEM 
+    //TESTE GABRIEL - OK PARA ABRIR SELETOR DE IMAGEM, TRATAR A IMAGEM 
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -61,70 +77,41 @@ const MinhaConta = () => {
     }
   };
 
-  const [index, setIndex] = useState(0);
-  const { user } = useContext(AuthContext);
-  const [idUser, setIdUser] = useState();
-  const [userLogado, setUserLogado] = useState();
-
-  const [routes] = useState([
-    { key: "buscarProdutos", title: "Buscar", focusedIcon: "magnify" },
-    { key: "meusPedidos", title: "Meus pedidos", focusedIcon: "truck-fast" },
-    { key: "carrinho", title: "Carrinho", focusedIcon: "cart" },
-    { key: "minhaConta", title: "Minha Conta", focusedIcon: "account" },
-  ]);
-
-  // useEffect(() => {
-  //   for (let i in user) {
-  //     //setTipoUser(user[i].tipoUsuario)
-  //     const tipoUser = user[i].tipoUsuario;
-  //     setTipoUserLogado(tipoUser);
-
-  //     if (tipoUser != undefined)
-  //       console.log(tipoUser);
-  //   }
-  //   //console.log(user);
-  // }, [])
-
-  // useEffect(() => {
-  //   for (let i in user) {
-  //     const tipoUser = user[i].tipoUsuario;
-
-  //     if (tipoUser != undefined) {
-  //       console.log(tipoUser);      
-  //       const novoUser = Object.values(user);
-  //       console.log(novoUser[0].id);
-  //     }
-  //   }
-  //   //const novoUser = Object.values(user);
-  //   //  console.log(novoUser[0].id);
-  // }, [])
   useEffect(() => {
     if (rota.name === "MinhaConta") {
       const backAction = () => {
         BackHandler.exitApp()
         return true;
       };
-
       const backHandler = BackHandler.addEventListener(
         "hardwareBackPress",
         backAction
       );
-
       return () => backHandler.remove();
-
     }
-
-
   }, []);
+
+  const excluirConta = () => {
+    const userX = Object.values(user);
+    console.log(userX[0].id);
+    if (userX[0].tipoUsuario == 'produtor') {
+      deleteProdutor(userX[0].id).then();
+      setUser(undefined);
+      navigation.navigate("Login");
+    } else {
+      deleteCliente(userX[0].id).then();
+      setUser(undefined);
+      navigation.navigate("Login");
+    }
+  }
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}></View>
+      <Header title={"Minha Conta"} />
       <View style={styles.photoContainer}>
         <TouchableOpacity
           onPress={() => uploadImage()}
           underlayColor='rgba(0,0,0,0)'>
-
           <Avatar.Image
             size={250}
             source={{ uri: imagem }}
@@ -140,7 +127,7 @@ const MinhaConta = () => {
 
           </Text>
 
-          <View style={[styles.photoButtonContainer, { marginTop: 5, flexDirection: 'row' }]}>
+          <View style={[styles.photoButtonContainer, { marginTop: -30, flexDirection: 'row' }]}>
             <Button
               onPress={() => uploadImage()}
               style={styles.smallButton}
@@ -171,13 +158,26 @@ const MinhaConta = () => {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.buttonContainer}>
+            <Button
+              style={styles.buttonExcluir}
+              mode='outlined'
+              onPress={() => excluirConta()}
+              textColor='#D32F2F'
+            ><Text style={{
+              textAlign: "center",
+              fontSize: 16,
+              textAlignVertical: 'center',
+              lineHeight: 18,
+            }}>Excluir Conta</Text></Button>
+          </TouchableOpacity>
+          {/* <TouchableOpacity style={styles.buttonContainer}>
             <Botao
               style={styles.textoBotao}
               buttonColor={"#3d9d74"}
               textoBotao="Notificações"
               mode="contained"
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <BottomNavigation
             barStyle={{ backgroundColor: '#50ac5d' }}
             navigationState={{ index, routes }}
@@ -207,7 +207,6 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 22,
     color: "#9fd09d",
-
   },
   body: {
     marginTop: 10,
@@ -237,6 +236,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 20,
     borderRadius: 30,
+  },
+  buttonExcluir: {
+    width: 180,
+    height: 40,
+    alignSelf: 'center',
+    borderRadius: 20,
   },
   photoButtonContainer: {
     borderRadius: 15,

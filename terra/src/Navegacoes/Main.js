@@ -1,9 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Loja from "../PaginaVendedor/Loja";
-import MinhasVendas from "../PaginaVendedor/MinhasVendas";
-import BuscarProdutos from "../PaginasCliente/BuscarProdutos";
 import HomeVendedor from "../PaginaVendedor/HomeVendedor";
 import HomeCliente from "../PaginasCliente/HomeCliente";
 import MinhaConta from "../PaginasComuns/MinhaConta";
@@ -14,7 +11,6 @@ import ComprarProduto from "../PaginasCliente/ComprarProduto";
 import PedidoEnviado from "../PaginasCliente/PedidoEnviado";
 import MeusPedidos from "../PaginasCliente/MeusPedidos";
 import Carrinho from "../PaginasCliente/Carrinho"
-import { AuthProvider } from "../contexts/AuthProvider";
 
 const Stack = createNativeStackNavigator();
 

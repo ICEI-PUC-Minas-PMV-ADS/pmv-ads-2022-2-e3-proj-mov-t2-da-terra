@@ -16,7 +16,6 @@ import { Divider, Button, Appbar, Snackbar } from "react-native-paper";
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
-import Seletor from "../Componentes/Seletor";
 import { insertCarrinho } from "../DBService/DBCarrinho";
 import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 import Database from "../DBService/DBService";
@@ -35,14 +34,14 @@ const ComprarProduto = () => {
   const [avisoSnack, setAvisoSnack] = useState();
   // Alterar Rota para provider
   // const { item } = route.params ? route.params : {};
-  const { produto,getBuscaTodosProdutos } = useContext(ProdutoContext);
+  const { produto, getBuscaTodosProdutos } = useContext(ProdutoContext);
   const { user } = useContext(AuthContext)
   const [resultado, setResultado] = useState([]);
 
   const [quantidade, setQuantidade] = useState(1);
   let contador = quantidade;
   let precoTotal = quantidade * produto[0].preco
-  
+
   useEffect(() => {
     if (route.name === "ComprarProduto") {
       const backAction = () => {
@@ -54,12 +53,8 @@ const ComprarProduto = () => {
         "hardwareBackPress",
         backAction
       );
-
       return () => backHandler.remove();
-
     }
-
-
   }, []);
 
 
@@ -168,10 +163,10 @@ const ComprarProduto = () => {
         </Button>
       </View>
 
-    <View style={styles.viewEstoque}>
-      <Text style={styles.textoEstoque}>Quantidade disponível: {item.estoque}{item.embalagem}</Text>
-      
-    </View>
+      <View style={styles.viewEstoque}>
+        <Text style={styles.textoEstoque}>Quantidade disponível: {item.estoque}{item.embalagem}</Text>
+
+      </View>
       {/*Descrição e 'Mais Produtos do Usuário'*/}
       <Divider style={{ marginVertical: 2 }} />
       <View style={styles.textEntreDivider}>
@@ -376,13 +371,13 @@ const styles = StyleSheet.create({
     lineHeight: 17,
     color: "#919191",
   },
-  viewEstoque:{
-    marginTop:10,
+  viewEstoque: {
+    marginTop: 10,
   },
-  textoEstoque:{
-    marginLeft:6,
-    fontSize:18,
-    fontWeight:"bold"
+  textoEstoque: {
+    marginLeft: 6,
+    fontSize: 18,
+    fontWeight: "bold"
   },
   // Na parte da descrição e 'mais produtos'
   textEntreDivider: {

@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const navigation = useNavigation();
   const [user, setUser] = useState();
 
+  // Logar
   const postLogin = async (param) => {
     return await fetch(`${url}/login/`,
       {
@@ -58,7 +59,8 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{
       user,
-      postLogin
+      postLogin,
+      setUser
     }}>
       {children}
     </AuthContext.Provider>

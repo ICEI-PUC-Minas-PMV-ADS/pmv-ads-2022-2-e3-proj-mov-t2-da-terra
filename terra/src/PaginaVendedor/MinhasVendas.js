@@ -13,11 +13,12 @@ import { UsuarioContext } from '../contexts/webapi.CadastroUsuario';
 
 const MinhasVendas = () => {
 
-  const [value, setValue] = useState(0);
   const [resultados, setResultados] = useState([]); // Pedidos
   const [nomeCliente, setNomeCliente] = useState([]); // Exibir nome tela
   const [itemResultado, setItemResultado] = useState([]);
-
+  //Um "Contador" para poder ser o "arrayWatch" do useEffect do getPedidos
+  //Para sempre que o vendedor aceitar, dar outro getPedidos e atualizar automaticamente a tela
+  const [hasChange, setHasChange] = useState(0)
   const { getPedidoProdutor, aceitePedido, getItensPedido } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
   const { getCliente } = useContext(UsuarioContext);
@@ -28,17 +29,16 @@ const MinhasVendas = () => {
     aceitePedido(id)
       .then(response => console.log(response))
       .catch(e => console.log(e))
+    setHasChange(hasChange + 1)
   }
 
 
   const recusarPedido = () => {
     //implementar
 
-
   }
 
-  // Funcionando - EM TESTES
-  // Ajustar a view - exibindo sempre o nome do mesmo usuario
+  // EM TESTES
   useEffect(() => {
     let idPedido = [];
     let id = 0
@@ -69,31 +69,14 @@ const MinhasVendas = () => {
             //console.log("x[0]: ", x[0]);
             getItensPedido(x[0])
               .then(res => {
-              //  console.log("RES: ", res); // RES Está correta. Renderizando errado. Renderiza sempre o último
+                //  console.log("RES: ", res); // RES Está correta. Renderizando errado. Renderiza sempre os itens do último pedido
                 setItemResultado(res);
               });
           }
         }
       })
+  }, [hasChange])
 
-    // console.log(idPedido);
-    // if (idPedido) {
-    //   let cont = 0
-    //   for (let i in idPedido[0]) {
-    //     console.log(`idPedido[0][${cont}] `, idPedido[0][cont]);
-    //     let x = Object.values(idPedido[0][cont]);
-    //     //  console.log("x[0]: ", x[0]); // id pedido
-    //     cont++;
-    //     //console.log("x[0]: ", x[0]);
-    //     getItensPedido(x[0])
-    //       .then(res => {
-    //         console.log("RES: ", res);
-    //         setItemResultado(res);
-    //       });
-    //   }
-    // }
-
-  }, [])
 
   //EM TESTES
   // const listaItens = () => {
@@ -118,7 +101,7 @@ const MinhasVendas = () => {
     console.log("ItemResultado: ", item);
     return (
       <List.Item title={`${item.nome}`} />
-    ); 
+    );
   }
 
   const renderItem = ({ item }) => {

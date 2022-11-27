@@ -203,7 +203,7 @@ namespace WebApi.Controllers
 
     // DELETE    
     [HttpDelete(template: "produtores/{id}")]
-    [Authorize]
+    //[Authorize]
     public async Task<IActionResult> DeleteProdutores(
       [FromServices] AppDbContext context,
       [FromRoute] int id)

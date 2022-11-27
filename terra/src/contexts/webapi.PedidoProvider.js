@@ -44,7 +44,6 @@ const PedidoProvider = ({ children }) => {
       .catch(error => console.error(error));
   }
 
-
   const postPedido = async (param) => {
     return await fetch(`${url}/pedidos/`,
       {

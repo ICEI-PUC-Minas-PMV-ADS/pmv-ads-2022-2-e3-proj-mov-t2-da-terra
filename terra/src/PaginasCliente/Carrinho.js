@@ -25,7 +25,7 @@ import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
 import Botao from "../Componentes/Botao";
-import { useNavigation,useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { PedidoContext } from "../contexts/webapi.PedidoProvider";
 
@@ -61,8 +61,8 @@ const Carrinho = () => {
     // Itens rodando no webapi.PedidosProvider
 
     deleteCarrinhoCliente(resultados[0].idCliente)
-    .then(response=>console.log(response))
-    .catch(e=>console.log(e))
+      .then(response => console.log(response))
+      .catch(e => console.log(e))
     navigation.navigate("PedidoEnviado");
   };
 
@@ -79,25 +79,21 @@ const Carrinho = () => {
           setPrecoTotal(soma);
         }
       })
-  }, [visible],enviarPedido);
-  
+  }, [visible], enviarPedido);
+
   useEffect(() => {
-    if (route.name==="Carrinho") {
+    if (route.name === "Carrinho") {
       const backAction = () => {
-       navigation.goBack()
+        navigation.goBack()
         return true;
       };
-  
+
       const backHandler = BackHandler.addEventListener(
         "hardwareBackPress",
         backAction
       );
-  
       return () => backHandler.remove();
-  
-  }
-
-    
+    }
   }, []);
 
   const deleteItemCarrinho = (idProduto) => {
@@ -117,7 +113,7 @@ const Carrinho = () => {
       >
         <View style={{ width: 500 }}>
           <List.Item
-          style={{textAlign:"center"}}
+            style={{ textAlign: "center" }}
             title={`${item.nome != undefined ? item.nome : ""} (${item.embalagem ? item.embalagem : ""
               })`}
             left={() => (
@@ -140,10 +136,8 @@ const Carrinho = () => {
               </>
             )}
             description={`R$ ${item.preco != undefined ? item.preco : 0} / ${item.embalagem != undefined ? item.embalagem : ""
-              }      Total: R$${(item.preco*item.quantidadeProduto).toFixed(2)}
-              
+              }      Total: R$${(item.preco * item.quantidadeProduto).toFixed(2)}              
             `}
-          
           />
         </View>
       </TouchableOpacity>

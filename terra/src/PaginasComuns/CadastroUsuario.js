@@ -9,7 +9,6 @@ import {
   Alert,
 } from "react-native";
 
-
 import { RadioButton, Appbar, TextInput, } from "react-native-paper";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -22,10 +21,7 @@ import DataBase from "../DBService/DBService";
 import Input from "../Componentes/Input";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
-//import { inserirPessoa } from "../DBService/DBQuery";
-// import { getCadastrado, getLogin, insertUsuario } from "../DBService/DBUsuario";
 
-import { register, login } from '../JsonServer/webapi.usuarios'
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 import { ValidarCadastroContext } from "../contexts/webapi.ValidarCadastro";
 import { AuthContext } from '../contexts/AuthProvider';
@@ -35,6 +31,15 @@ const CadastroUsuario = ({ navigation, route }) => {
   // Usuário logado: Para usar em Atualizar Meus Dados
   const { user } = useContext(AuthContext);
   const userLogado = (user ? Object.values(user) : undefined);
+
+  // Cadastrar e Atualizar dados
+  const {
+    postUsuario,
+    putUsuario,
+  } = useContext(UsuarioContext);
+
+  // Validação Email Usuário
+  const { getValidarCadastro } = useContext(ValidarCadastroContext);
 
   // Esconde Senha, Avisos e Falta Info
   const [escondeSenha, setEscondeSenha] = useState(true);
@@ -50,14 +55,14 @@ const CadastroUsuario = ({ navigation, route }) => {
 
   // Dados Pessoais dos Usuário
   const [nome, setNome] = useState(userLogado ? userLogado[0].nome : "");
-  const [cpf, setCpf] = useState(userLogado ? userLogado[0].cpf : "12345678945");
-  const [telefone, setTelefone] = useState("12312313212");
+  const [cpf, setCpf] = useState(userLogado ? userLogado[0].cpf : "");
+  const [telefone, setTelefone] = useState("");
 
   // Endereço do Usuário
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
-  const [numeroCasa, setNumeroCasa] = useState("33");
-  const [cep, setCep] = useState("29703500");
+  const [numeroCasa, setNumeroCasa] = useState("");
+  const [cep, setCep] = useState("");
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
   const [complemento, setComplemento] = useState("");
@@ -67,28 +72,35 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [nomeLoja, setNomeLoja] = useState(userLogado ? userLogado[0].nomeLoja : "");
 
   // Email e Senha
-  const [email, setEmail] = useState("k@gmail.com");
-  const [senha, setSenha] = useState("123456");
-  const [confirmarSenha, setConfirmarSenha] = useState("123456");
-
-  const {
-    postUsuario,
-    putUsuario,
-    deleteProdutor,
-    deleteCliente,
-  } = useContext(UsuarioContext);
-
-  // Validação Email Usuário
-  const { getValidarCadastro } = useContext(ValidarCadastroContext);
-
-
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
 
   useEffect(() => {
     buscarEndereco(); // Busca CEP
     DataBase.getConnection();
   }, [cep]);
 
+  // API: Buscar o Cep
+  const buscarEndereco = async () => {
+    if (String(cep).length == 8) {
+      const meuCep = String(cep);
 
+      const value = meuCep.replace(/[^0-9]+/, meuCep);
+      const url = `https://viacep.com.br/ws/${value}/json/`;
+
+      await fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+          setBairro(json.bairro);
+          setCidade(json.localidade);
+          setRua(json.logradouro);
+          setUf(json.uf)
+        });
+    }
+  };
+
+  // Cadastrar e Editar Usuário
   const handleCadastrar = () => {
     // Verifica se tem algo incompleto no formulário
     if (!nome ||
@@ -133,13 +145,13 @@ const CadastroUsuario = ({ navigation, route }) => {
             uf: uf.trim()
           }).then();
           navigation.goBack();
-        } else if(userLogado[0].tipoUsuario == 'cliente') {
+        } else if (userLogado[0].tipoUsuario == 'cliente') {
           putUsuario({          // PUT CLIENTE
             id: userLogado[0].id,
             nome: userLogado[0].nome,
             cpf: userLogado[0].cpf,
             dataNascimento: userLogado[0].dataNascimento,
-            tipoUsuario: userLogado[0].tipoUsuario,         
+            tipoUsuario: userLogado[0].tipoUsuario,
             email: email.trim(),
             senha: senha.trim(),
             telefone: telefone.trim(),
@@ -211,26 +223,6 @@ const CadastroUsuario = ({ navigation, route }) => {
       }
     }
   }
-
-
-  // API: Buscar o Cep
-  const buscarEndereco = async () => {
-    if (String(cep).length == 8) {
-      const meuCep = String(cep);
-
-      const value = meuCep.replace(/[^0-9]+/, meuCep);
-      const url = `https://viacep.com.br/ws/${value}/json/`;
-
-      await fetch(url)
-        .then((response) => response.json())
-        .then((json) => {
-          setBairro(json.bairro);
-          setCidade(json.localidade);
-          setRua(json.logradouro);
-          setUf(json.uf)
-        });
-    }
-  };
 
   return (
     <Container>
