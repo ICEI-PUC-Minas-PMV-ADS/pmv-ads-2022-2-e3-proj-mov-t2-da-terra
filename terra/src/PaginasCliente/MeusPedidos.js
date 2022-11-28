@@ -46,7 +46,7 @@ const MeusPedidos = () => {
           }}
           right={() => (
             <>
-              <View style={{ flexDirection: "column", marginTop: 40 }}>
+              <View style={{ flexDirection: "column", marginTop: 48 }}>
                 <Text style={styles.textPrecoTotal}>
                   R${item.precoTotalPedido.toFixed(2)}
                 </Text>
@@ -57,16 +57,19 @@ const MeusPedidos = () => {
           description={
             <>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <List.Icon icon={item.aprovado ? "check" : "clock-outline"} />
-                <Text
+                <List.Icon icon={item.status=="Pedido Enviado" ? "clock-outline" : item.status=="Pedido Aceito"?"check":"account-remove" } />
+                <Text 
                   style={
                     item.status == "Pedido Enviado"
                       ? styles.esperandoAprovacao
-                      : styles.aprovado
+                      :item.status=="Pedido Aceito"? 
+                      styles.aprovado:styles.recusado
                   }
                 >{`${item.status == "Pedido Enviado"
                     ? "Aguardando aprovação"
-                    : "Aprovado"
+                    : item.status=="Pedido Aceito"?
+                    "Aprovado":
+                    "Vendedor recusou seu pedido"
                   }`}</Text>
               </View>
 
@@ -88,6 +91,16 @@ const MeusPedidos = () => {
               <List.Icon icon="truck-check" />
               <Text style={styles.avisoCliente}>
                 Pedido Enviado
+              </Text>
+            </View>
+          </>
+        )}
+        {item.status == "Pedido Recusado" && (
+          <>
+            <View style={styles.viewClienteAviso}>
+              <List.Icon icon="cart-remove" />
+              <Text style={styles.avisoClienteRecusado}>
+                Pedido Cancelado
               </Text>
             </View>
           </>
@@ -137,7 +150,7 @@ const styles = StyleSheet.create({
   /* FlatList */
   textDataPedido: {
     fontWeight: "bold",
-    marginTop: 15,
+    marginTop: 12,
     fontSize: 16,
   },
   viewPedidosVazio: {
@@ -171,6 +184,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#6cc438",
     padding: 7,
   },
+  recusado: {
+    fontSize: 15,
+    fontWeight:"bold",
+    borderRadius: 10,
+    backgroundColor: "#FF6B1A",
+    padding: 7,
+    textAlign:"center"
+  },
   viewClienteAviso: {
     justifyContent: "center",
     alignSelf: "flex-end",
@@ -188,6 +209,20 @@ const styles = StyleSheet.create({
     height: 40,
     maxWidth: 200,
     textAlignVertical: 'center',
+  },
+  avisoClienteRecusado: {
+    padding: 6,
+    marginBottom: 3,
+    fontSize: 16,
+    letterSpacing: 1,
+    color:"white",
+    borderRadius: 16,
+    backgroundColor: "#D32F2F",
+    fontWeight: "bold",
+    height: 40,
+    maxWidth: 200,
+    textAlignVertical: 'center',
+    fontStyle:"italic",
   },
   esperandoAprovacao: {
     fontSize: 16,
