@@ -23,8 +23,8 @@ export default function Login() {
   const onDismissSnackBar = () => setVisible(false);
 
   // Email / Senha / Ícone Senha
-  const [email, setEmail] = useState("m@gmail.com");
-  const [senha, setSenha] = useState("123456");
+  const [email, setEmail] = useState("mario@gmail.com");
+  const [senha, setSenha] = useState("1234");
   const [escondeSenha, setEscondeSenha] = useState(true);
 
   // Validação login

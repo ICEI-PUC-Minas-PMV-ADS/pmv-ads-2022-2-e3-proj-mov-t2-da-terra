@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  BackHandler,
 } from "react-native";
 
-import { RadioButton, Appbar, TextInput, } from "react-native-paper";
+import { RadioButton, Appbar, TextInput } from "react-native-paper";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
@@ -21,22 +22,19 @@ import DataBase from "../DBService/DBService";
 import Input from "../Componentes/Input";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
+import { useNavigation,useRoute } from "@react-navigation/native";
 
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 import { ValidarCadastroContext } from "../contexts/webapi.ValidarCadastro";
-import { AuthContext } from '../contexts/AuthProvider';
+import { AuthContext } from "../contexts/AuthProvider";
 
 const CadastroUsuario = ({ navigation, route }) => {
-
   // Usuário logado: Para usar em Atualizar Meus Dados
   const { user } = useContext(AuthContext);
-  const userLogado = (user ? Object.values(user) : undefined);
-
+  const userLogado = user ? Object.values(user) : undefined;
+  const rota = useRoute()
   // Cadastrar e Atualizar dados
-  const {
-    postUsuario,
-    putUsuario,
-  } = useContext(UsuarioContext);
+  const { postUsuario, putUsuario } = useContext(UsuarioContext);
 
   // Validação Email Usuário
   const { getValidarCadastro } = useContext(ValidarCadastroContext);
@@ -48,31 +46,37 @@ const CadastroUsuario = ({ navigation, route }) => {
   const [userAlredyRegister, setUserAlredyRegister] = useState(false);
 
   // Configurar DATE
-  const [data, setData] = useState(userLogado ? moment(new Date(userLogado[0].dataNascimento)).format("DD/MM/YYYY") : moment(new Date()).format("DD/MM/YYYY")
+  const [data, setData] = useState(
+    userLogado
+      ? moment(new Date(userLogado[0].dataNascimento)).format("DD/MM/YYYY")
+      : moment(new Date()).format("DD/MM/YYYY")
   );
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date());
-
   // Dados Pessoais dos Usuário
   const [nome, setNome] = useState(userLogado ? userLogado[0].nome : "");
   const [cpf, setCpf] = useState(userLogado ? userLogado[0].cpf : "");
-  const [telefone, setTelefone] = useState("");
+  const [telefone, setTelefone] = useState(userLogado?userLogado[0].telefone:"");
 
   // Endereço do Usuário
-  const [rua, setRua] = useState("");
-  const [bairro, setBairro] = useState("");
-  const [numeroCasa, setNumeroCasa] = useState("");
-  const [cep, setCep] = useState("");
-  const [cidade, setCidade] = useState("");
-  const [uf, setUf] = useState("");
-  const [complemento, setComplemento] = useState("");
+  const [rua, setRua] = useState(userLogado?userLogado[0].rua:"");
+  const [bairro, setBairro] = useState(userLogado?userLogado[0].bairro:"");
+  const [numeroCasa, setNumeroCasa] = useState(userLogado?userLogado[0].cep:"");
+  const [cep, setCep] = useState(userLogado?userLogado[0].cep:"");
+  const [cidade, setCidade] = useState(userLogado?userLogado[0].cidade:"");
+  const [uf, setUf] = useState(userLogado?userLogado[0].uf:"");
+  const [complemento, setComplemento] = useState(userLogado?userLogado[0].complemento:"");
 
   // Tipo de Usuário
-  const [tipoUsuario, setTipoUsuario] = useState(userLogado ? userLogado[0].tipoUsuario : "cliente"); // Cliente Default
-  const [nomeLoja, setNomeLoja] = useState(userLogado ? userLogado[0].nomeLoja : "");
+  const [tipoUsuario, setTipoUsuario] = useState(
+    userLogado ? userLogado[0].tipoUsuario : "cliente"
+  ); // Cliente Default
+  const [nomeLoja, setNomeLoja] = useState(
+    userLogado ? userLogado[0].nomeLoja : ""
+  );
 
   // Email e Senha
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(userLogado?userLogado[0].email:"");
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
 
@@ -81,6 +85,19 @@ const CadastroUsuario = ({ navigation, route }) => {
     DataBase.getConnection();
   }, [cep]);
 
+  useEffect(() => {
+    if (rota.name === "CadastroUsuario" && userLogado) {
+      const backAction = () => {
+        navigation.goBack()
+        return true;
+      };
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+      return () => backHandler.remove();
+    }
+  }, []);
   // API: Buscar o Cep
   const buscarEndereco = async () => {
     if (String(cep).length == 8) {
@@ -95,15 +112,18 @@ const CadastroUsuario = ({ navigation, route }) => {
           setBairro(json.bairro);
           setCidade(json.localidade);
           setRua(json.logradouro);
-          setUf(json.uf)
+          setUf(json.uf);
         });
     }
   };
 
   // Cadastrar e Editar Usuário
   const handleCadastrar = () => {
+    
+   
     // Verifica se tem algo incompleto no formulário
-    if (!nome ||
+    if (
+      !nome ||
       !cpf ||
       cpf.length < 11 ||
       !email ||
@@ -117,112 +137,127 @@ const CadastroUsuario = ({ navigation, route }) => {
       cep.length < 8 ||
       !senha ||
       !confirmarSenha
-    ) {
-      setMissInfo(true);  // Falta Informação           
-    } else if (userLogado) {
+    ) 
+    {
+      setMissInfo(true); // Falta Informação
+    } 
+    else if (userLogado) {
       if (senha != confirmarSenha) {
-        Alert.alert("Confirmação de senha incorreta, verifique")
+        Alert.alert("Confirmação de senha incorreta, verifique");
       } else {
-        console.log(userLogado[0].tipoUsuario)
+        console.log(userLogado[0].tipoUsuario);
         // No PUT não foi tratado a questão do email repetido
-        if (userLogado[0].tipoUsuario == 'produtor') {
-          putUsuario({          // PUT PRODUTOR
-            id: userLogado[0].id,
-            nome: userLogado[0].nome,
-            cpf: userLogado[0].cpf,
-            dataNascimento: userLogado[0].dataNascimento,
-            tipoUsuario: userLogado[0].tipoUsuario,
-            nomeLoja: userLogado[0].nomeLoja,
-            email: email.trim(),
-            senha: senha.trim(),
-            telefone: telefone.trim(),
-            cep: cep.trim(),
-            rua: rua.trim(),
-            numeroCasa: numeroCasa.trim(),
-            bairro: bairro.trim(),
-            complemento: complemento.trim(),
-            cidade: cidade.trim(),
-            uf: uf.trim()
-          }).then();
-          navigation.goBack();
-        } else if (userLogado[0].tipoUsuario == 'cliente') {
-          putUsuario({          // PUT CLIENTE
-            id: userLogado[0].id,
-            nome: userLogado[0].nome,
-            cpf: userLogado[0].cpf,
-            dataNascimento: userLogado[0].dataNascimento,
-            tipoUsuario: userLogado[0].tipoUsuario,
-            email: email.trim(),
-            senha: senha.trim(),
-            telefone: telefone.trim(),
-            cep: cep.trim(),
-            rua: rua.trim(),
-            numeroCasa: numeroCasa.trim(),
-            bairro: bairro.trim(),
-            complemento: complemento.trim(),
-            cidade: cidade.trim(),
-            uf: uf.trim()
-          }).then();
-          navigation.goBack();
-        }
-      }
-    } else {
-      if (senha != confirmarSenha) {
-        Alert.alert("Confirmação de senha incorreta, verifique")
-      } else {
-        //  Verifica se o user já possui cadastro    
-        getValidarCadastro(email)
-          .then(res => {
-            if (typeof (res[0]) != "number") {  // Se for number, então retornou ID
-              if (tipoUsuario == 'produtor') {
-                // PRODUTOR
-                console.log('entrou produtor')
-                postUsuario({
-                  nome: nome.trim(),
-                  dataNascimento: data.trim(),
-                  cpf: cpf.trim(),
-                  telefone: telefone.trim(),
-                  rua: rua.trim(),
-                  bairro: bairro.trim(),
-                  numeroCasa: numeroCasa.trim(),
-                  cep: cep.trim(),
-                  cidade: cidade.trim(),
-                  uf: uf.trim(),
-                  complemento: complemento.trim(),
-                  tipoUsuario: tipoUsuario.trim(),
-                  nomeLoja: nomeLoja.trim(),   // Somente produtor
-                  email: email.trim(),
-                  senha: senha.trim()
-                }).then();
-                navigation.goBack();
-              } else {
-                // CLIENTE                
-                postUsuario({
-                  nome: nome.trim(),
-                  dataNascimento: data.trim(),
-                  cpf: cpf.trim(),
-                  telefone: telefone.trim(),
-                  rua: rua.trim(),
-                  bairro: bairro.trim(),
-                  numeroCasa: numeroCasa.trim(),
-                  cep: cep.trim(),
-                  cidade: cidade.trim(),
-                  uf: uf.trim(),
-                  complemento: complemento.trim(),
-                  tipoUsuario: tipoUsuario.trim(),
-                  email: email.trim(),
-                  senha: senha.trim()
-                }).then();
-                navigation.goBack();
-              }
-            } else {
-              Alert.alert("Esse email já está cadastrado");
-            }
+
+       getValidarCadastro(email).then(resposta=>{
+        //Vai buscar no banco,para ver se o email do input ja possui no banco
+        //ou seja,NÃO vai atualizar pois ja possui o email 
+        if(resposta[0].message=="Novo Usuário"){
+          if (userLogado[0].tipoUsuario == "produtor") {
+            putUsuario({
+              // PUT PRODUTOR
+              id: userLogado[0].id,
+              nome: userLogado[0].nome,
+              cpf: userLogado[0].cpf,
+              dataNascimento: userLogado[0].dataNascimento,
+              tipoUsuario: userLogado[0].tipoUsuario,
+              nomeLoja: userLogado[0].nomeLoja,
+              email: email.trim(),
+              senha: senha.trim(),
+              telefone: telefone.trim(),
+              cep: cep.trim(),
+              rua: rua.trim(),
+              numeroCasa: numeroCasa.trim(),
+              bairro: bairro.trim(),
+              complemento: complemento.trim(),
+              cidade: cidade.trim(),
+              uf: uf.trim(),
+            }).then();
+            navigation.goBack();
+          } else if (userLogado[0].tipoUsuario == "cliente") {
+            putUsuario({
+              // PUT CLIENTE
+              id: userLogado[0].id,
+              nome: userLogado[0].nome,
+              cpf: userLogado[0].cpf,
+              dataNascimento: userLogado[0].dataNascimento,
+              tipoUsuario: userLogado[0].tipoUsuario,
+              email: email.trim(),
+              senha: senha.trim(),
+              telefone: telefone.trim(),
+              cep: cep.trim(),
+              rua: rua.trim(),
+              numeroCasa: numeroCasa.trim(),
+              bairro: bairro.trim(),
+              complemento: complemento.trim(),
+              cidade: cidade.trim(),
+              uf: uf.trim(),
+            }).then();
+            navigation.goBack();
           }
-          )
+        }
+        setUserAlredyRegister(true) 
+       }).catch()
+       
       }
     }
-  }
+   
+    
+    else {
+      if (senha != confirmarSenha) {
+        Alert.alert("Confirmação de senha incorreta, verifique");
+      } else {
+        //  Verifica se o user já possui cadastro
+        getValidarCadastro(email).then((res) => {
+          if (typeof res[0] != "number") {
+            // Se for number, então retornou ID
+            if (tipoUsuario == "produtor") {
+              // PRODUTOR
+              console.log("entrou produtor");
+              postUsuario({
+                nome: nome.trim(),
+                dataNascimento: data.trim(),
+                cpf: cpf.trim(),
+                telefone: telefone.trim(),
+                rua: rua.trim(),
+                bairro: bairro.trim(),
+                numeroCasa: numeroCasa.trim(),
+                cep: cep.trim(),
+                cidade: cidade.trim(),
+                uf: uf.trim(),
+                complemento: complemento.trim(),
+                tipoUsuario: tipoUsuario.trim(),
+                nomeLoja: nomeLoja.trim(), // Somente produtor
+                email: email.trim(),
+                senha: senha.trim(),
+              }).then();
+              navigation.goBack();
+            } else {
+              // CLIENTE
+              postUsuario({
+                nome: nome.trim(),
+                dataNascimento: data.trim(),
+                cpf: cpf.trim(),
+                telefone: telefone.trim(),
+                rua: rua.trim(),
+                bairro: bairro.trim(),
+                numeroCasa: numeroCasa.trim(),
+                cep: cep.trim(),
+                cidade: cidade.trim(),
+                uf: uf.trim(),
+                complemento: complemento.trim(),
+                tipoUsuario: tipoUsuario.trim(),
+                email: email.trim(),
+                senha: senha.trim(),
+              }).then();
+              navigation.goBack();
+            }
+          } else {
+            Alert.alert("Esse email já está cadastrado");
+          }
+        });
+      }
+    }
+  };
 
   return (
     <Container>
@@ -238,8 +273,9 @@ const CadastroUsuario = ({ navigation, route }) => {
           //     source={require('../assets/DATERRA-NOME-800X162.png')}
           //     style={{ width: 20, height: 20, tintColor: 'white' }}
           //   />
-          // )}        
-          onPress={() => handleCadastrar()} />
+          // )}
+          onPress={() => handleCadastrar()}
+        />
       </Header>
       <Body>
         <ScrollView>
@@ -250,11 +286,11 @@ const CadastroUsuario = ({ navigation, route }) => {
           />
 
           {/* RadioButton Cliente ou Produtor */}
-          < View style={styles.radioContainer}>
+          <View style={styles.radioContainer}>
             <View style={styles.radioItem}>
               <RadioButton
                 disabled={userLogado ? true : false}
-                color={'#3d9d74'}
+                color={"#3d9d74"}
                 value={userLogado ? userLogado[0].tipoUsuario : "cliente"}
                 status={tipoUsuario === "cliente" ? "checked" : "unchecked"}
                 onPress={() => setTipoUsuario("cliente")}
@@ -264,7 +300,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             <View style={styles.radioItem}>
               <RadioButton
                 disabled={userLogado ? true : false}
-                color={'#3d9d74'}
+                color={"#3d9d74"}
                 value={userLogado ? userLogado[0].tipoUsuario : "produtor"}
                 status={tipoUsuario === "produtor" ? "checked" : "unchecked"}
                 onPress={() => setTipoUsuario("produtor")}
@@ -273,20 +309,17 @@ const CadastroUsuario = ({ navigation, route }) => {
             </View>
           </View>
 
-
           {/* Nome da Loja (Somente para Produtor) */}
-          {
-            tipoUsuario == "produtor" && (
-              <Input
-                disabled={userLogado ? true : false}
-                label="Nome da Loja"
-                onChangeText={setNomeLoja}
-                value={userLogado ? userLogado[0].nomeLoja : nomeLoja}
-                error={missInfo && !nomeLoja ? true : false}
-                activeOutlineColor={"#3d9d74"}
-              />
-            )
-          }
+          {tipoUsuario == "produtor" && (
+            <Input
+              disabled={userLogado ? true : false}
+              label="Nome da Loja"
+              onChangeText={setNomeLoja}
+              value={userLogado ? userLogado[0].nomeLoja : nomeLoja}
+              error={missInfo && !nomeLoja ? true : false}
+              activeOutlineColor={"#3d9d74"}
+            />
+          )}
 
           {/* Nome */}
           <Input
@@ -294,46 +327,45 @@ const CadastroUsuario = ({ navigation, route }) => {
             onChangeText={setNome}
             value={nome}
             disabled={userLogado ? true : false}
-            error={!userLogado && (missInfo && !nome) ? true : false}
+            error={!userLogado && missInfo && !nome ? true : false}
             activeOutlineColor={"#3d9d74"}
           />
 
           {/* CPF / Data */}
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: "row" }}>
             {/* CPF */}
             <TextInput
               style={styles.textInput}
               label="CPF"
-              mode='outlined'
+              mode="outlined"
               maxLength={11}
               onChangeText={setCpf}
               keyboardType="decimal-pad"
               value={cpf}
               disabled={userLogado ? true : false}
-              error={!userLogado && (missInfo && !cpf) ? true : false}
+              error={!userLogado && missInfo && !cpf ? true : false}
               activeOutlineColor={"#3d9d74"}
             />
 
             {/* Data: Início Configuração DATE*/}
-            {
-              show && (
-                <DateTimePicker
-                  testID="dateTimePicker"
-                  value={date}
-                  mode={"date"}
-                  is24Hour={true}
-                  display="default"
-                  onTouchCancel={() => setShow(false)} // Para fechar
-                  onChange={(event, date) => {
-                    setShow(false);
-                    setData(moment(date).format("DD/MM/YYYY"));
-                  }}
-                />
-              )
-            }
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode={"date"}
+                is24Hour={true}
+                display="default"
+                onTouchCancel={() => setShow(false)} // Para fechar
+                onChange={(event, date) => {
+                  setShow(false);
+                  setData(moment(date).format("DD/MM/YYYY"));
+                }}
+              />
+            )}
             <TouchableOpacity
               disabled={userLogado ? true : false}
-              onPress={() => setShow(true)}>
+              onPress={() => setShow(true)}
+            >
               <TextInput
                 style={styles.textInput}
                 label="Data Nascimento"
@@ -352,16 +384,16 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="Email"
             onChangeText={setEmail}
             value={email}
-            error={missInfo && !email ? true : false}
-            activeOutlineColor={"#3d9d74"}
+            error={(missInfo && !email||userAlredyRegister)  ? true : false}
+            activeOutlineColor={"red"}
           />
 
           {/* Telefone / CEP */}
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: "row" }}>
             {/* Telefone */}
             <TextInput
               style={styles.textInput}
-              mode='outlined'
+              mode="outlined"
               label="Telefone"
               keyboardType="decimal-pad"
               onChangeText={setTelefone}
@@ -372,7 +404,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             {/* CEP */}
             <TextInput
               style={styles.textInput}
-              mode='outlined'
+              mode="outlined"
               label="CEP"
               keyboardType="decimal-pad"
               onChangeText={setCep}
@@ -383,21 +415,22 @@ const CadastroUsuario = ({ navigation, route }) => {
           </View>
 
           {/* Rua / Número Casa */}
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: "row" }}>
             {/* Rua */}
             <TextInput
               style={styleCompose}
-              mode='outlined'
+              mode="outlined"
               label="Rua"
               error={missInfo && !rua ? true : false}
               activeOutlineColor={"#3d9d74"}
               onChangeText={setRua}
-              value={rua} />
+              value={rua}
+            />
 
             {/* Número Casa */}
             <TextInput
               style={styles.textInput}
-              mode='outlined'
+              mode="outlined"
               label="Nº"
               keyboardType="decimal-pad"
               error={missInfo && !numeroCasa ? true : false}
@@ -408,22 +441,23 @@ const CadastroUsuario = ({ navigation, route }) => {
           </View>
 
           {/* Bairro / Complemento */}
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: "row" }}>
             {/* Bairro */}
             <TextInput
               style={styleCompose}
-              mode='outlined'
+              mode="outlined"
               label="Bairro"
               error={missInfo && !bairro ? true : false}
               activeOutlineColor={"#3d9d74"}
               onChangeText={setBairro}
-              value={bairro} />
+              value={bairro}
+            />
 
             {/* Complemento */}
             <TextInput
               style={styles.textInput}
-              label={'Apt'}
-              mode='outlined'
+              label={"Apt"}
+              mode="outlined"
               activeOutlineColor={"#3d9d74"}
               onChangeText={setComplemento}
               value={complemento}
@@ -431,25 +465,28 @@ const CadastroUsuario = ({ navigation, route }) => {
           </View>
 
           {/* Cidade / UF */}
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: "row" }}>
             {/* Cidade */}
             <TextInput
               style={styleCompose}
-              mode='outlined'
-              label={'Cidade'}
+              mode="outlined"
+              label={"Cidade"}
               error={missInfo && !cidade ? true : false}
               activeOutlineColor={"#3d9d74"}
-              onChangeText={setCidade} value={cidade} />
+              onChangeText={setCidade}
+              value={cidade}
+            />
 
             {/* UF */}
             <TextInput
               style={styles.textInput}
-              mode='outlined'
+              mode="outlined"
               label="UF"
               value={uf}
               error={missInfo && !uf ? true : false}
               activeOutlineColor={"#3d9d74"}
-              onChangeText={setUf} />
+              onChangeText={setUf}
+            />
           </View>
 
           {/* Senha */}
@@ -462,11 +499,9 @@ const CadastroUsuario = ({ navigation, route }) => {
             right={
               <TextInput.Icon
                 onPress={() =>
-                  escondeSenha
-                    ? setEscondeSenha(false)
-                    : setEscondeSenha(true)
+                  escondeSenha ? setEscondeSenha(false) : setEscondeSenha(true)
                 }
-                icon={escondeSenha ? 'eye-off' : 'eye'}
+                icon={escondeSenha ? "eye-off" : "eye"}
               />
             }
             onChangeText={setSenha}
@@ -487,15 +522,16 @@ const CadastroUsuario = ({ navigation, route }) => {
                     ? setEscondeConfirmarSenha(false)
                     : setEscondeConfirmarSenha(true)
                 }
-                icon={escondeConfirmarSenha ? 'eye-off' : 'eye'}
+                icon={escondeConfirmarSenha ? "eye-off" : "eye"}
               />
             }
             onChangeText={setConfirmarSenha}
           />
 
-
-          {!userLogado && userAlredyRegister && (
-            <Text style={styles.avisoUserAlredyRegister}>Email já cadastrado</Text>
+          {userAlredyRegister && (
+            <Text style={styles.avisoUserAlredyRegister}>
+              Email já cadastrado
+            </Text>
           )}
 
           {/* Botão Cadastrar */}
@@ -503,13 +539,13 @@ const CadastroUsuario = ({ navigation, route }) => {
             <Botao
               style={styles.textoBotao}
               textoBotao={userLogado ? "Atualizar" : "Cadastrar"}
-              buttonColor='#3d9d74'
+              buttonColor="#3d9d74"
               onPress={handleCadastrar}
             />
           </View>
         </ScrollView>
       </Body>
-    </Container >
+    </Container>
   );
 };
 
@@ -561,8 +597,8 @@ const styles = StyleSheet.create({
   textoBotao: {
     textAlign: "center",
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FFF',
+    fontWeight: "bold",
+    color: "#FFF",
   },
 
   // Text Aviso de info incompletas
@@ -574,12 +610,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   avisoUserAlredyRegister: {
-    marginTop: 12,
+    marginTop: 6,
     marginLeft: 8,
-    marginBottom: 10,
     color: "red",
     fontStyle: "italic",
     fontWeight: "bold",
+    fontSize:18,
   },
 });
 
@@ -587,9 +623,12 @@ const styles = StyleSheet.create({
 const styles2 = StyleSheet.create({
   textInputEspecial: {
     flexBasis: 240,
-  }
+  },
 });
 
-const styleCompose = StyleSheet.compose(styles.textInput, styles2.textInputEspecial)
+const styleCompose = StyleSheet.compose(
+  styles.textInput,
+  styles2.textInputEspecial
+);
 
 export default CadastroUsuario;

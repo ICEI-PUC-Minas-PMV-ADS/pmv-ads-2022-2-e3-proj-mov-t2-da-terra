@@ -77,19 +77,7 @@ const MinhaConta = () => {
     }
   };
 
-  useEffect(() => {
-    if (rota.name === "MinhaConta") {
-      const backAction = () => {
-        BackHandler.exitApp()
-        return true;
-      };
-      const backHandler = BackHandler.addEventListener(
-        "hardwareBackPress",
-        backAction
-      );
-      return () => backHandler.remove();
-    }
-  }, []);
+  
 
   const excluirConta = () => {
     const userX = Object.values(user);
