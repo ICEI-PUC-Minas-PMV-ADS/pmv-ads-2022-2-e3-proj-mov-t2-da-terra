@@ -69,6 +69,18 @@ namespace WebApi.Controllers
     }
 
 
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
     // Remover token para o LOGOUT - Em estudo
     // [HttpPost("logout")]
     // public async Task<IActionResult> Logout()

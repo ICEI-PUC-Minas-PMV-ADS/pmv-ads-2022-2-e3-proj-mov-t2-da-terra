@@ -104,7 +104,20 @@ const PedidoProvider = ({ children }) => {
   //Aceite no ponto de vista do vendedor, na API o método esta no      ProdutoresController - HttpGet
   const aceitePedido = async (id) => {
     //console.log(`${url}/produtores/pedido/${id}`);
-    return await fetch(`${url}/produtores/pedido/${id}`,
+    return await fetch(`${url}/produtores/pedido/aceitar/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      .then(response => response.json())
+      .then(json => console.log(json))
+      .catch(error => console.error(error))
+  }
+  const recusaPedido = async (id) => {
+    //console.log(`${url}/produtores/pedido/${id}`);
+    return await fetch(`${url}/produtores/pedido/recusar/${id}`,
       {
         method: 'GET',
         headers: {
@@ -147,6 +160,7 @@ const PedidoProvider = ({ children }) => {
         setResultados,
         getPedidoProdutor,
         aceitePedido,
+        recusaPedido,
         getItensPedido
       }}
     >

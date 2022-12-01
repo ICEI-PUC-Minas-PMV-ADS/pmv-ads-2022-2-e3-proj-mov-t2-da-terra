@@ -143,7 +143,7 @@ namespace WebApi.Controllers
       }
     }
 
-    [HttpGet(template: "produtores/pedido/{id}")]
+    [HttpGet(template: "produtores/pedido/aceitar/{id}")]
     //[Authorize]
     public async Task<IActionResult> AceitarPedido(
           [FromServices] AppDbContext context,        
@@ -199,8 +199,40 @@ namespace WebApi.Controllers
       {
         return BadRequest(new { message = "System Exception" });
       }
-    }
+    } 
+    
+    [HttpGet(template: "produtores/pedido/recusar/{id}")]
+    //[Authorize]
+    public async Task<IActionResult> RecusarPedido(
+          [FromServices] AppDbContext context,        
+          [FromRoute] int id)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(new { message = "Model Invalid" });
+      }
 
+      // 1 - ID PEDIDO
+      var pedido = await context.Pedidos
+        .FirstOrDefaultAsync(x => x.Id == id);
+
+      if (pedido == null)
+        return NotFound(new { message = "Pedido não encontrado" });
+      try
+      {
+        
+        pedido.AtualizarStatus("Pedido Recusado");
+        context.Pedidos.Update(pedido);
+        await context.SaveChangesAsync();
+
+        return Ok(pedido);
+      }
+      catch (System.Exception)
+      {
+        return BadRequest(new { message = "System Exception" });
+      }
+    }
+  
     // DELETE    
     [HttpDelete(template: "produtores/{id}")]
     //[Authorize]
