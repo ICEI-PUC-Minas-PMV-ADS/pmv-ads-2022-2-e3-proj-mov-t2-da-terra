@@ -1,7 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 
-import { StyleSheet, Text, FlatList, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  FlatList,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { Button, List, Divider } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 import Body from "../Componentes/Body";
 import Container from "../Componentes/Container";
@@ -12,14 +19,21 @@ import { AuthContext } from "../contexts/AuthProvider";
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 
 const MinhasVendas = () => {
+  const navigation = useNavigation();
   const [resultados, setResultados] = useState([]); // Pedidos
   const [nomeCliente, setNomeCliente] = useState([]); // Exibir nome tela
   const [itemResultado, setItemResultado] = useState([]);
   //Um "Contador" para poder ser o "arrayWatch" do useEffect do getPedidos
   //Para sempre que o vendedor aceitar, dar outro getPedidos e atualizar automaticamente a tela
   const [hasChange, setHasChange] = useState(0);
-  const { getPedidoProdutor, aceitePedido,recusaPedido, getItensPedido } =
-    useContext(PedidoContext);
+  const {
+    getPedidoProdutor,
+    aceitePedido,
+    recusaPedido,
+    getItensPedido,
+    itensPedido,
+    setItensPedido,
+  } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
   const { getCliente } = useContext(UsuarioContext);
 
@@ -35,11 +49,17 @@ const MinhasVendas = () => {
     recusaPedido(id)
       .then((response) => console.log(response))
       .catch((e) => console.log(e));
-      setHasChange(hasChange + 1);
+    setHasChange(hasChange + 1);
   };
+  const passPedidoRota = (pedido) => {
+    setItensPedido(pedido);
+    navigation.navigate("ItensPedido")
 
+
+  };
   // EM TESTES
   useEffect(() => {
+    let produtos = [];
     let idPedido = [];
     let id = 0;
     getPedidoProdutor(user.produtor.id).then((res) => {
@@ -66,44 +86,25 @@ const MinhasVendas = () => {
           cont++;
           //console.log("x[0]: ", x[0]);
           getItensPedido(x[0]).then((res) => {
-            //  console.log("RES: ", res); // RES Está correta. Renderizando errado. Renderiza sempre os itens do último pedido
-            setItemResultado(res);
+            // console.log("RES: ", res.ItemResultado); // RES Está correta. Renderizando errado. Renderiza sempre os itens do último pedido
+            // produtos.push(res.ItemProduto)
+            console.log(res[0].id);
+            produtos.push(res[0]);
           });
         }
+        console.log("oiiii");
+
+        // console.log(produtos[0])
       }
     });
   }, [hasChange]);
-
-  //EM TESTES
-  // const listaItens = () => {
-  //   let cont = 0
-  //   for (let i in idPedido[0]) {
-  //     console.log(`idPedido[0][${cont}] `, idPedido[0][cont]);
-  //     let x = Object.values(idPedido[0][cont]);
-  //     //  console.log("x[0]: ", x[0]); // id pedido
-  //     cont++;
-  //     //console.log("x[0]: ", x[0]);
-  //     getItensPedido(x[0])
-  //       .then(res => {
-  //         console.log("RES: ", res);
-  //         setItemResultado(res);
-  //       });
-  //   }
-  // }
-
-  // EM TESTES
-  // Está renderizando os mesmo produtos para todos os pedidos
-  const renderAccordion = ({ item }) => {
-    console.log("ItemResultado: ", item);
-    return <List.Item title={`${item.nome}`} />;
-  };
 
   const renderItem = ({ item }) => {
     return (
       <View>
         {/* Número do Pedido / Preço / Usuário */}
         <List.Item
-          title={`# ${item.id}`}
+          title={`Pedido Nº ${item.id}`}
           titleStyle={{
             fontSize: 20,
             fontWeight: "bold",
@@ -119,7 +120,7 @@ const MinhasVendas = () => {
                 fontSize: 18,
               }}
             >
-              R$ {item.precoTotalPedido.toFixed(2)}
+               Total :R$ {item.precoTotalPedido.toFixed(2)}
             </Text>
           )}
           description={
@@ -130,20 +131,23 @@ const MinhasVendas = () => {
           }
         />
         {/* Itens */}
-        <List.Accordion
-          style={{ height: 70, marginTop: -25, textAlignVertical: "center" }}
-          title="Itens"
-          titleStyle={{ fontSize: 16 }}
-          left={() => <List.Icon icon="fruit-cherries" />}
+        <TouchableOpacity
+        onPress={()=>passPedidoRota(item)}
         >
-          <View>
-            <FlatList
-              data={itemResultado}
-              renderItem={renderAccordion}
-              keyExtractor={(item) => item.id}
-            />
+          <View style={{ flexDirection: "row", marginLeft: 15 }}>
+            <List.Icon styles={{ marginBottom: -20 }} icon="basket" />
+            <Text
+              style={{
+                height: 70,
+                marginTop: -10,
+                textAlignVertical: "center",
+                fontSize: 20,
+              }}
+            >
+              Itens
+            </Text>
           </View>
-        </List.Accordion>
+        </TouchableOpacity>
 
         {/* Botão Recusar / Aceitar */}
 
@@ -151,7 +155,6 @@ const MinhasVendas = () => {
           {item.status == "Pedido Enviado" && (
             <>
               <Button
-              
                 style={styles.botao}
                 mode="contained"
                 buttonColor={"#D32F2F"}
@@ -175,7 +178,7 @@ const MinhasVendas = () => {
 
               <View style={styles.viewAvisoVendedor}>
                 <Text style={styles.avisoVendedor}>
-                  O Cliente está aguardando o envio do pedido{" "}
+                  O Cliente está aguardando o envio do Pedido{" "}
                 </Text>
               </View>
             </>
@@ -186,12 +189,11 @@ const MinhasVendas = () => {
 
               <View style={styles.viewAvisoVendedor}>
                 <Text style={styles.avisoVendedorRecusado}>
-                  Você recusou o pedido de Nº{item.id}  
+                  Você recusou o pedido de Nº{item.id}
                 </Text>
               </View>
             </>
           )}
-         
         </View>
         <Divider style={{ borderWidth: 0.35, marginBottom: 5 }} />
       </View>
@@ -265,7 +267,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     height: 60,
     width: 250,
-    color:"white",
+    color: "white",
     textAlignVertical: "center",
     textAlign: "center",
   },

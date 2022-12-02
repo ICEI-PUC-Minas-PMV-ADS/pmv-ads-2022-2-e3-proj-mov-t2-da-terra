@@ -6,7 +6,7 @@ export const PedidoContext = createContext({});
 const PedidoProvider = ({ children }) => {
   const [resultados, setResultados] = useState([]);
   const [pedido, setPedido] = useState();
-
+  const[itensPedido,setItensPedido]=useState([])
 
   const getPedido = async (id) => {
     return await fetch(`${url}/pedidos/cliente/${id}`,
@@ -161,7 +161,9 @@ const PedidoProvider = ({ children }) => {
         getPedidoProdutor,
         aceitePedido,
         recusaPedido,
-        getItensPedido
+        getItensPedido,
+        itensPedido,
+        setItensPedido
       }}
     >
       {children}

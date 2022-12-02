@@ -11,7 +11,7 @@ import ComprarProduto from "../PaginasCliente/ComprarProduto";
 import PedidoEnviado from "../PaginasCliente/PedidoEnviado";
 import MeusPedidos from "../PaginasCliente/MeusPedidos";
 import Carrinho from "../PaginasCliente/Carrinho"
-
+import ItensPedido from "../PaginaVendedor/ItensPedido";
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
@@ -85,6 +85,13 @@ const Main = () => {
       <Stack.Screen
         name="MinhaConta"
         component={MinhaConta}
+        options={{
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="ItensPedido"
+        component={ItensPedido}
         options={{
           header: () => null,
         }}
