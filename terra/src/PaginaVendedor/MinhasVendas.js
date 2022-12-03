@@ -21,7 +21,7 @@ import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 const MinhasVendas = () => {
   const navigation = useNavigation();
   const [resultados, setResultados] = useState([]); // Pedidos
-  const [nomeCliente, setNomeCliente] = useState([]); // Exibir nome tela
+  const [nomeCliente,setNomeCliente] = useState(); // Exibir nome tela
   const [itemResultado, setItemResultado] = useState([]);
   //Um "Contador" para poder ser o "arrayWatch" do useEffect do getPedidos
   //Para sempre que o vendedor aceitar, dar outro getPedidos e atualizar automaticamente a tela
@@ -54,9 +54,8 @@ const MinhasVendas = () => {
   const passPedidoRota = (pedido) => {
     setItensPedido(pedido);
     navigation.navigate("ItensPedido")
-
-
   };
+
   // EM TESTES
   useEffect(() => {
     let produtos = [];
@@ -73,8 +72,10 @@ const MinhasVendas = () => {
       if (id != null) {
         getCliente(id[0].clienteId).then((res) => {
           let resNomeCliente = Object.values(res);
-          //console.log(resNomeCliente[1])
           setNomeCliente(resNomeCliente[1]);
+          // console.log(res)
+          resultados.push(resNomeCliente)
+          // console.log(nomeCliente)
         });
       }
       if (idPedido) {
@@ -90,16 +91,18 @@ const MinhasVendas = () => {
             // produtos.push(res.ItemProduto)
             console.log(res[0].id);
             produtos.push(res[0]);
+          
           });
         }
         console.log("oiiii");
-
+        console.log(resultados)
         // console.log(produtos[0])
       }
     });
+    console.log(resultados)
   }, [hasChange]);
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item}) => {
     return (
       <View>
         {/* Número do Pedido / Preço / Usuário */}
