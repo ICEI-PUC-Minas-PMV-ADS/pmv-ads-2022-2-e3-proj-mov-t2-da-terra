@@ -80,7 +80,7 @@ const Loja = () => {
         <FlatList
           data={produto}
           renderItem={renderItem}
-          keyExtractor={item => item.id}
+         keyExtractor={item => item.id}
         />
         <FAB
           style={styles.fab}
