@@ -20,8 +20,8 @@ import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 
 const MinhasVendas = () => {
   const navigation = useNavigation();
-  const [resultados, setResultados] = useState([]); // Pedidos
-  const [nomeCliente,setNomeCliente] = useState(); // Exibir nome tela
+   const [resultados, setResultados] = useState([]); // Pedidos
+  const [nomeCliente,setNomeCliente] =useState([]) // Exibir nome tela
   const [itemResultado, setItemResultado] = useState([]);
   //Um "Contador" para poder ser o "arrayWatch" do useEffect do getPedidos
   //Para sempre que o vendedor aceitar, dar outro getPedidos e atualizar automaticamente a tela
@@ -36,6 +36,7 @@ const MinhasVendas = () => {
   } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
   const { getCliente } = useContext(UsuarioContext);
+  let nome= []
 
   // Id do pedido (é um GET)
   const aceitarPedido = (id) => {
@@ -58,49 +59,31 @@ const MinhasVendas = () => {
 
   // EM TESTES
   useEffect(() => {
-    let produtos = [];
+    
     let idPedido = [];
     let id = 0;
+
     getPedidoProdutor(user.produtor.id).then((res) => {
       id = Object.values(res);
       idPedido.push(Object.values(res)); // EM TESTES
-      // idPedido.push(Object.values(res));
-      //console.log(id[0].clienteId)
-      //    console.log(idPedido);
-      setResultados(res);
+   
+       setResultados(res);
+      
 
-      if (id != null) {
-        getCliente(id[0].clienteId).then((res) => {
-          let resNomeCliente = Object.values(res);
-          setNomeCliente(resNomeCliente[1]);
-          // console.log(res)
-          resultados.push(resNomeCliente)
-          // console.log(nomeCliente)
-        });
-      }
-      if (idPedido) {
-        let cont = 0;
-        for (let i in idPedido[0]) {
-          // console.log(`idPedido[0][${cont}] `, idPedido[0][cont]);
-          let x = Object.values(idPedido[0][cont]);
-          //  console.log("x[0]: ", x[0]); // id pedido
-          cont++;
-          //console.log("x[0]: ", x[0]);
-          getItensPedido(x[0]).then((res) => {
-            // console.log("RES: ", res.ItemResultado); // RES Está correta. Renderizando errado. Renderiza sempre os itens do último pedido
-            // produtos.push(res.ItemProduto)
-            console.log(res[0].id);
-            produtos.push(res[0]);
-          
-          });
-        }
-        console.log("oiiii");
-        console.log(resultados)
-        // console.log(produtos[0])
-      }
-    });
-    console.log(resultados)
-  }, [hasChange]);
+    })
+    for(let a of resultados){
+      getCliente(a.clienteId)
+      .then(b=>{
+        console.log(b.nome)
+        nome.push(b.nome)
+
+      })
+    }
+    setNomeCliente(nome);
+
+    
+   console.log(nomeCliente)
+  }, [hasChange] ,[nomeCliente]);
 
   const renderItem = ({ item}) => {
     return (
@@ -123,13 +106,13 @@ const MinhasVendas = () => {
                 fontSize: 18,
               }}
             >
-               Total :R$ {item.precoTotalPedido.toFixed(2)}
+               Total: R$ {item.precoTotalPedido.toFixed(2)}
             </Text>
           )}
           description={
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <List.Icon icon="account" />
-              <Text style={{ fontSize: 16 }}>{nomeCliente}</Text>
+              <Text style={{ fontSize: 16 }}>{nomeCliente[3]}</Text>
             </View>
           }
         />

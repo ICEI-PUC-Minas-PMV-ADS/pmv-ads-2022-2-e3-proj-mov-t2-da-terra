@@ -6,7 +6,14 @@ using WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+  var jsonInputFormatter = options.InputFormatters
+         .OfType<Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter>()
+         .Single();
+  jsonInputFormatter.SupportedMediaTypes.Add("multipart/form-data");
+});
+
 builder.Services.AddDbContext<AppDbContext>();
 
 // Validação TOKEN
@@ -41,10 +48,11 @@ if (builder.Environment.IsDevelopment())
 
 app.MapControllerRoute(
   name: "default",
-  pattern: "{controller=Home}/{action=Index}/{id?}"  
+  pattern: "{controller=Home}/{action=Index}/{id?}"
 );
 
-app.UseAuthentication();  
+app.UseAuthentication();
 app.UseAuthorization();
+//app.UseStaticFiles();
 
 app.Run();

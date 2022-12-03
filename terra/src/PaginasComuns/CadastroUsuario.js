@@ -385,7 +385,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             onChangeText={setEmail}
             value={email}
             error={(missInfo && !email||userAlredyRegister)  ? true : false}
-            activeOutlineColor={"red"}
+            activeOutlineColor={"#3d9d74"}
           />
 
           {/* Telefone / CEP */}
