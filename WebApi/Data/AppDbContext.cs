@@ -1,8 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi.Models;
-using System;
-using System.Linq;
-// using System.Data.Entity;
 
 namespace WebApi.Data
 {
@@ -13,6 +10,7 @@ namespace WebApi.Data
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Produtor> Produtores { get; set; }
     public DbSet<Item> Itens { get; set; }
+    public DbSet<Image> Image { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
