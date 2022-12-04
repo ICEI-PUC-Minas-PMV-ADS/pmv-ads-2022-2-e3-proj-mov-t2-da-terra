@@ -27,7 +27,7 @@ const ItensPedido = () => {
   const navigation = useNavigation();
   const route = useRoute();
   // Provider com as informações do usuário logado
-  const { itensPedido, getItensPedido} =
+  const { itensPedido, getItensPedido } =
     useContext(PedidoContext);
   //Pegando dados do contexto
 
@@ -77,7 +77,8 @@ const ItensPedido = () => {
 
   return (
     <Container>
-      <Header title={"Produtos do Pedido Nº"+itensPedido.id}/>
+      <Header title={"Pedido Nº" + itensPedido.id}
+        goBack={() => navigation.goBack()} />
       <Body>
         <FlatList
           data={produtos}

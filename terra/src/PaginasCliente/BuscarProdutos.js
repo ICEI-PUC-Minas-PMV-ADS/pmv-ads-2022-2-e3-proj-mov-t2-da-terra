@@ -165,10 +165,10 @@ const BuscarProdutos = () => {
       >
         <List.Item
           title={`${item.nome}`}
-          // left={() =>
-          //   <Image
-          //     style={styles.img}
-          //     source={require("../assets/maracuja.jpg")} />}
+          left={() =>
+            <Image
+              style={styles.img}
+              source={require("../assets/foto-produto.png")} />}
           right={() =>
             <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)} / {item.embalagem}</Text>
           }

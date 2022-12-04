@@ -23,14 +23,12 @@ import { ProdutoContext } from "../contexts/webapi.ProdutoProvider";
 const Loja = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  // Provider com as informações do usuário logado  
+  const isFocused = useIsFocused();   
+
   const { user } = useContext(AuthContext)
-  const isFocused = useIsFocused();
-
-  //Pegando dados do contexto
   const { produto, getBuscaTodosProdutos } = useContext(ProdutoContext);
-
-  // Pega os produtos do produtor logado
+  
+  // Produtos do produtor logado
   useEffect(() => {
     getBuscaTodosProdutos().then();
   }, [isFocused])
@@ -50,6 +48,7 @@ const Loja = () => {
       return () => backHandler.remove();
     }
   }, []);
+
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>
       <TouchableOpacity
@@ -59,7 +58,7 @@ const Loja = () => {
           left={() =>
             <Image
               style={styles.img}
-              source={require("../assets/maracuja.jpg")} />}
+              source={require("../assets/foto-produto.png")} />}
           right={() =>
             <Text style={{ textAlignVertical: 'center' }}>R$ {item.preco.toFixed(2)}</Text>
           }

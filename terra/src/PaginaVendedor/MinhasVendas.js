@@ -20,8 +20,8 @@ import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 
 const MinhasVendas = () => {
   const navigation = useNavigation();
-   const [resultados, setResultados] = useState([]); // Pedidos
-  const [nomeCliente,setNomeCliente] =useState([]) // Exibir nome tela
+  const [resultados, setResultados] = useState([]); // Pedidos
+  const [nomeCliente, setNomeCliente] = useState([]) // Exibir nome tela
   const [itemResultado, setItemResultado] = useState([]);
   //Um "Contador" para poder ser o "arrayWatch" do useEffect do getPedidos
   //Para sempre que o vendedor aceitar, dar outro getPedidos e atualizar automaticamente a tela
@@ -36,7 +36,7 @@ const MinhasVendas = () => {
   } = useContext(PedidoContext);
   const { user } = useContext(AuthContext);
   const { getCliente } = useContext(UsuarioContext);
-  let nome= []
+  let nome = []
 
   // Id do pedido (é um GET)
   const aceitarPedido = (id) => {
@@ -59,33 +59,33 @@ const MinhasVendas = () => {
 
   // EM TESTES
   useEffect(() => {
-    
+
     let idPedido = [];
     let id = 0;
 
     getPedidoProdutor(user.produtor.id).then((res) => {
       id = Object.values(res);
       idPedido.push(Object.values(res)); // EM TESTES
-   
-       setResultados(res);
-      
+
+      setResultados(res);
+
 
     })
-    for(let a of resultados){
+    for (let a of resultados) {
       getCliente(a.clienteId)
-      .then(b=>{
-        console.log(b.nome)
-        nome.push(b.nome)
+        .then(b => {
+          console.log(b.nome)
+          nome.push(b.nome)
 
-      })
+        })
     }
     setNomeCliente(nome);
 
-    
-   console.log(nomeCliente)
-  }, [hasChange] ,[nomeCliente]);
 
-  const renderItem = ({ item}) => {
+    console.log(nomeCliente)
+  }, [hasChange], [nomeCliente]);
+
+  const renderItem = ({ item }) => {
     return (
       <View>
         {/* Número do Pedido / Preço / Usuário */}
@@ -106,19 +106,18 @@ const MinhasVendas = () => {
                 fontSize: 18,
               }}
             >
-               Total: R$ {item.precoTotalPedido.toFixed(2)}
+              Total: R$ {item.precoTotalPedido.toFixed(2)}
             </Text>
           )}
           description={
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <List.Icon icon="account" />
               <Text style={{ fontSize: 16 }}>{nomeCliente[3]}</Text>
             </View>
           }
         />
         {/* Itens */}
         <TouchableOpacity
-        onPress={()=>passPedidoRota(item)}
+          onPress={() => passPedidoRota(item)}
         >
           <View style={{ flexDirection: "row", marginLeft: 15 }}>
             <List.Icon styles={{ marginBottom: -20 }} icon="basket" />
