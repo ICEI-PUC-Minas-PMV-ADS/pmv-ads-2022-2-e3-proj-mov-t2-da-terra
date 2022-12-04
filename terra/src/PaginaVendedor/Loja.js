@@ -47,12 +47,8 @@ const Loja = () => {
         "hardwareBackPress",
         backAction
       );
-
       return () => backHandler.remove();
-
     }
-
-
   }, []);
   const renderItem = ({ item }) => (
     <View style={styles.containerProdutos}>

@@ -22,7 +22,7 @@ import DataBase from "../DBService/DBService";
 import Input from "../Componentes/Input";
 import Container from "../Componentes/Container";
 import Header from "../Componentes/Header";
-import { useNavigation,useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { UsuarioContext } from "../contexts/webapi.CadastroUsuario";
 import { ValidarCadastroContext } from "../contexts/webapi.ValidarCadastro";
@@ -56,16 +56,16 @@ const CadastroUsuario = ({ navigation, route }) => {
   // Dados Pessoais dos Usuário
   const [nome, setNome] = useState(userLogado ? userLogado[0].nome : "");
   const [cpf, setCpf] = useState(userLogado ? userLogado[0].cpf : "");
-  const [telefone, setTelefone] = useState(userLogado?userLogado[0].telefone:"");
+  const [telefone, setTelefone] = useState(userLogado ? userLogado[0].telefone : "");
 
   // Endereço do Usuário
-  const [rua, setRua] = useState(userLogado?userLogado[0].rua:"");
-  const [bairro, setBairro] = useState(userLogado?userLogado[0].bairro:"");
-  const [numeroCasa, setNumeroCasa] = useState(userLogado?userLogado[0].cep:"");
-  const [cep, setCep] = useState(userLogado?userLogado[0].cep:"");
-  const [cidade, setCidade] = useState(userLogado?userLogado[0].cidade:"");
-  const [uf, setUf] = useState(userLogado?userLogado[0].uf:"");
-  const [complemento, setComplemento] = useState(userLogado?userLogado[0].complemento:"");
+  const [rua, setRua] = useState(userLogado ? userLogado[0].rua : "");
+  const [bairro, setBairro] = useState(userLogado ? userLogado[0].bairro : "");
+  const [numeroCasa, setNumeroCasa] = useState(userLogado ? userLogado[0].cep : "");
+  const [cep, setCep] = useState(userLogado ? userLogado[0].cep : "");
+  const [cidade, setCidade] = useState(userLogado ? userLogado[0].cidade : "");
+  const [uf, setUf] = useState(userLogado ? userLogado[0].uf : "");
+  const [complemento, setComplemento] = useState(userLogado ? userLogado[0].complemento : "");
 
   // Tipo de Usuário
   const [tipoUsuario, setTipoUsuario] = useState(
@@ -76,7 +76,7 @@ const CadastroUsuario = ({ navigation, route }) => {
   );
 
   // Email e Senha
-  const [email, setEmail] = useState(userLogado?userLogado[0].email:"");
+  const [email, setEmail] = useState(userLogado ? userLogado[0].email : "");
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
 
@@ -119,8 +119,7 @@ const CadastroUsuario = ({ navigation, route }) => {
 
   // Cadastrar e Editar Usuário
   const handleCadastrar = () => {
-    
-   
+    console.log("entrou")
     // Verifica se tem algo incompleto no formulário
     if (
       !nome ||
@@ -137,10 +136,10 @@ const CadastroUsuario = ({ navigation, route }) => {
       cep.length < 8 ||
       !senha ||
       !confirmarSenha
-    ) 
-    {
+    ) {
+      console.log("miss")
       setMissInfo(true); // Falta Informação
-    } 
+    }
     else if (userLogado) {
       if (senha != confirmarSenha) {
         Alert.alert("Confirmação de senha incorreta, verifique");
@@ -148,60 +147,58 @@ const CadastroUsuario = ({ navigation, route }) => {
         console.log(userLogado[0].tipoUsuario);
         // No PUT não foi tratado a questão do email repetido
 
-       getValidarCadastro(email).then(resposta=>{
-        //Vai buscar no banco,para ver se o email do input ja possui no banco
-        //ou seja,NÃO vai atualizar pois ja possui o email 
-        if(resposta[0].message=="Novo Usuário"){
-          if (userLogado[0].tipoUsuario == "produtor") {
-            putUsuario({
-              // PUT PRODUTOR
-              id: userLogado[0].id,
-              nome: userLogado[0].nome,
-              cpf: userLogado[0].cpf,
-              dataNascimento: userLogado[0].dataNascimento,
-              tipoUsuario: userLogado[0].tipoUsuario,
-              nomeLoja: userLogado[0].nomeLoja,
-              email: email.trim(),
-              senha: senha.trim(),
-              telefone: telefone.trim(),
-              cep: cep.trim(),
-              rua: rua.trim(),
-              numeroCasa: numeroCasa.trim(),
-              bairro: bairro.trim(),
-              complemento: complemento.trim(),
-              cidade: cidade.trim(),
-              uf: uf.trim(),
-            }).then();
-            navigation.goBack();
-          } else if (userLogado[0].tipoUsuario == "cliente") {
-            putUsuario({
-              // PUT CLIENTE
-              id: userLogado[0].id,
-              nome: userLogado[0].nome,
-              cpf: userLogado[0].cpf,
-              dataNascimento: userLogado[0].dataNascimento,
-              tipoUsuario: userLogado[0].tipoUsuario,
-              email: email.trim(),
-              senha: senha.trim(),
-              telefone: telefone.trim(),
-              cep: cep.trim(),
-              rua: rua.trim(),
-              numeroCasa: numeroCasa.trim(),
-              bairro: bairro.trim(),
-              complemento: complemento.trim(),
-              cidade: cidade.trim(),
-              uf: uf.trim(),
-            }).then();
-            navigation.goBack();
+        getValidarCadastro(email).then(resposta => {
+          //Vai buscar no banco,para ver se o email do input ja possui no banco
+          //ou seja,NÃO vai atualizar pois ja possui o email 
+          if (resposta[0].message == "Novo Usuário") {
+            if (userLogado[0].tipoUsuario == "produtor") {
+              putUsuario({
+                // PUT PRODUTOR
+                id: userLogado[0].id,
+                nome: userLogado[0].nome,
+                cpf: userLogado[0].cpf,
+                dataNascimento: userLogado[0].dataNascimento,
+                tipoUsuario: userLogado[0].tipoUsuario,
+                nomeLoja: userLogado[0].nomeLoja,
+                email: email.trim(),
+                senha: senha.trim(),
+                telefone: telefone.trim(),
+                cep: cep.trim(),
+                rua: rua.trim(),
+                numeroCasa: numeroCasa.trim(),
+                bairro: bairro.trim(),
+                complemento: complemento.trim(),
+                cidade: cidade.trim(),
+                uf: uf.trim(),
+              }).then();
+              navigation.goBack();
+            } else if (userLogado[0].tipoUsuario == "cliente") {
+              putUsuario({
+                // PUT CLIENTE
+                id: userLogado[0].id,
+                nome: userLogado[0].nome,
+                cpf: userLogado[0].cpf,
+                dataNascimento: userLogado[0].dataNascimento,
+                tipoUsuario: userLogado[0].tipoUsuario,
+                email: email.trim(),
+                senha: senha.trim(),
+                telefone: telefone.trim(),
+                cep: cep.trim(),
+                rua: rua.trim(),
+                numeroCasa: numeroCasa.trim(),
+                bairro: bairro.trim(),
+                complemento: complemento.trim(),
+                cidade: cidade.trim(),
+                uf: uf.trim(),
+              }).then();
+              navigation.goBack();
+            }
           }
-        }
-        setUserAlredyRegister(true) 
-       }).catch()
-       
+          setUserAlredyRegister(true)
+        }).catch()
+
       }
     }
-   
-    
     else {
       if (senha != confirmarSenha) {
         Alert.alert("Confirmação de senha incorreta, verifique");
@@ -384,7 +381,7 @@ const CadastroUsuario = ({ navigation, route }) => {
             label="Email"
             onChangeText={setEmail}
             value={email}
-            error={(missInfo && !email||userAlredyRegister)  ? true : false}
+            error={(missInfo && !email || userAlredyRegister) ? true : false}
             activeOutlineColor={"#3d9d74"}
           />
 
@@ -615,7 +612,7 @@ const styles = StyleSheet.create({
     color: "red",
     fontStyle: "italic",
     fontWeight: "bold",
-    fontSize:18,
+    fontSize: 18,
   },
 });
 
